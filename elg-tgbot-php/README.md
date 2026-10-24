@@ -1,28 +1,38 @@
-# 環境
-Laravel 11
-Mysql 5.7
-PHP 8.3
+# elg-tgbot-php
 
-# 設定
-### Webhook
-`https://example.invalid/bot{telegram_bot_id}/setWebhook?url={api_url}`
+原始路径：`elg-tgbot-php`　|　收录文件：**146**
 
-# Notes
-## 訊息傳送流程
+## 语言构成
 
-### Controller
-1. Telegram server 打 Webhook，我方 parse 請求確認 chatId
-2. **Lock key concurrent_locker_:botId_:chatId** (prevent spam, will be unlocked in job)
-3. **If can't lock, response 200 to TG server** (drop it)
-4. Add new handler job to job queue, and send lock key to job
-5. Response 200 to TG server
+- PHP — 129 个文件（90%）
+- JSON — 4 个文件（2%）
+- JavaScript — 4 个文件（2%）
+- Markdown — 1 个文件（0%）
+- Shell — 1 个文件（0%）
+- XML — 1 个文件（0%）
 
-### Job
-1. Regist singletons
-2. Cll **WebHookHandlService**
-3. Unlock key concurrent_locker...
+## 目录结构
 
-### WebHookHandlService
-1. Verify actions
-2. call ActionServices by action
-3. return
+```
+app/  (78 个文件)
+config/  (14 个文件)
+lang/  (14 个文件)
+./  (10 个文件)
+tests/  (9 个文件)
+database/  (6 个文件)
+public/  (6 个文件)
+resources/  (4 个文件)
+routes/  (3 个文件)
+bootstrap/  (2 个文件)
+```
+
+## 关键文件
+
+- 依赖清单：`package.json`、`composer.json`
+- 构建脚本：`.gitlab-ci.yml`
+- 前端入口：`resources/js/app.js`、`public/vendor/log-viewer/app.js`
+
+## 说明
+
+文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+

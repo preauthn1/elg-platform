@@ -1,37 +1,28 @@
-# Docker-Compose 開發環境
+# docker-compose
 
-供本機開發使用的多版本 PHP / MySQL / Redis 容器編排，主要服務對象為 Laravel 框架的應用。
+原始路径：`docker-compose`　|　收录文件：**29**
 
-## 服務一覽
+## 语言构成
 
-| 服務 | 內容 | 對外埠 |
-|------|------|--------|
-| `web` | Nginx（`NGINX_VERSION`，預設 alpine） | 80 / 443 |
-| `php-fpm` | PHP-FPM 7.3 | — |
-| `php-fpm8` | PHP-FPM 8.4 | — |
-| `mysql8` | MySQL 8.0 | 3306 |
-| `redis` | Redis（`REDIS_VERSION`，預設 latest） | 6379 |
-| `horizon` | Laravel Horizon queue worker（APIs） | — |
+- Markdown — 3 个文件（42%）
+- Shell — 3 个文件（42%）
+- YAML — 1 个文件（14%）
 
-## 快速啟動
+## 目录结构
 
-```bash
-# 1. 複製環境變數範本，依個人需求調整 .env
-cp .env.example .env
-
-# 2. 啟動核心服務
-docker compose up -d web php-fpm php-fpm8 mysql8 redis
-
-# 3. 進容器執行命令（範例）
-docker compose exec php-fpm8 bash
+```
+nginx/  (12 个文件)
+php-fpm8/  (6 个文件)
+./  (5 个文件)
+php-fpm/  (5 个文件)
+mysql8/  (1 个文件)
 ```
 
-## APIs 專案啟動
+## 关键文件
 
-`~/Workspace/APIs` 使用 PHP 8.4，由 `apis.local` 經 nginx 路由到 `php-fpm8`：
+- 构建脚本：`docker-compose.yml`、`php-fpm/Dockerfile`、`php-fpm8/Dockerfile`、`mysql8/Dockerfile`
 
-```bash
-docker compose up -d web php-fpm8 mysql8 redis
-```
+## 说明
 
-DB 預設連遠端；要改用本機 MySQL 8.0，調整 APIs `.env` 內 `LOCAL_DB_HOST_*` 即可。
+文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+

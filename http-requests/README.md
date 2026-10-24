@@ -1,48 +1,27 @@
-# 測試專用 Http 請求
-## 套件
-[vscode REST Client](https://example.invalid/items?itemName=humao.rest-client)
+# http-requests
 
-## 使用
-`Send Request` 點下去就對了
+原始路径：`http-requests`　|　收录文件：**4**
 
-![Send Request](image.png)
+## 语言构成
 
-## 修改
-用 ### 分隔
-```http
-### local decrypt
-POST http://0.0.0.0:8000/api/sw/megawin/decrypt 
-method: AuthenticateToken
-mwCode: v6GrP1zZ
+- Markdown — 1 个文件（25%）
+- PHP — 1 个文件（25%）
+- JavaScript — 1 个文件（25%）
+- HTML — 1 个文件（25%）
 
-{
-    "key": "BBBBB",
-    "data": "AAAAAA"
-}
+## 目录结构
+
+```
+EncryptServer/  (2 个文件)
+./  (1 个文件)
+Requests/  (1 个文件)
 ```
 
-# Encrypt Server
-各 project 的 API params 加密，算是 `/api/debug/AES/encrypt` 這隻 API 的替代方案
+## 关键文件
 
-因涉及資料複製與傳輸，為確保資料安全與防止中間人攻擊，必須使用 HTTPS 運行，請確保 SSL 憑證正確無誤。
+- 前端入口：`EncryptServer/index.html`
 
-## 準備 SSL 憑證
+## 说明
 
-1. 請將 `server.crt` 和 `server.key` 檔案放置於目錄：
-   
-   ```
-   /EncryptServer/certs
-   ```
+文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
 
-2. 檔案結構如下：
-
-   ```
-   /EncryptServer
-   └── certs
-       ├── server.crt
-       └── server.key
-   ```
-## 運行專案
-   ```bash
-   node ./EncryptServer/server.js
-   ```
