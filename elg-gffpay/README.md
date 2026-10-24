@@ -1,11 +1,12 @@
 # elg-gffpay
 
-原始路径：`elg-gffpay`　|　文件：**176**　|　主语言：PHP 154, JSON 5, YAML 2
+原始路径：`elg-gffpay`　|　文件：**175**　|　主语言：PHP 154, JSON 5, YAML 2
 
 ## 目录构成
 
 ```
 app/Filament/  — 27
+config/  — 22
 app/Http/  — 18
 app/Enums/  — 15
 app/Console/  — 14
@@ -13,12 +14,11 @@ database/migrations/  — 7
 app/Models/  — 7
 app/Helpers/  — 6
 resources/lang/  — 6
+docs/  — 4
 tests/Feature/  — 4
+.devcontainer/  — 4
 app/Services/  — 4
 app/Providers/  — 4
-resources/views/  — 4
-app/Custom/  — 3
-tests/Unit/  — 2
 ```
 
 ## 关键文件

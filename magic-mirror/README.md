@@ -1,24 +1,14 @@
 # magic-mirror
 
-原始路径：`magic-mirror`　|　文件：**27**　|　主语言：JavaScript 12, JSON 3, YAML 1
+原始路径：`magic-mirror`　|　文件：**26**　|　主语言：JavaScript 12, JSON 3, YAML 1
 
 ## 目录构成
 
 ```
+src/  — 7
 docs/superpowers/  — 5
-package.json/  — 1
-ARCHITECTURE.md/  — 1
-.env.example/  — 1
-README.md/  — 1
-CONTRIBUTING.md/  — 1
-docker-compose.yml/  — 1
-Dockerfile/  — 1
-USAGE.md/  — 1
-package-lock.json/  — 1
-src/memoryClient.js/  — 1
-src/requestLog.js/  — 1
-src/index.js/  — 1
-src/users.js/  — 1
+test/  — 5
+data/  — 1
 ```
 
 ## 关键文件

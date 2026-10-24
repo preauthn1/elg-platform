@@ -1,19 +1,17 @@
 # bruno-apis
 
-原始路径：`bruno-apis`　|　文件：**4**　|　主语言：JSON 2, JavaScript 1
+原始路径：`bruno-apis`　|　文件：**3**　|　主语言：JSON 2, JavaScript 1
 
 ## 目录构成
 
 ```
 Rory/gff-api-frontend/  — 2
-README.md/  — 1
-Helo/bruno.json/  — 1
+Helo/  — 1
 ```
 
 ## 主要文件
 
 - `Rory/gff-api-frontend/scripts/utils.js`
-- `README.md`
 - `Rory/gff-api-frontend/bruno.json`
 - `Helo/bruno.json`
 

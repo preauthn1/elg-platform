@@ -1,6 +1,6 @@
 # gffv3-web-frontend
 
-原始路径：`gffv3-web-frontend`　|　文件：**676**　|　主语言：Vue 332, TypeScript 289, JSON 42
+原始路径：`gffv3-web-frontend`　|　文件：**675**　|　主语言：Vue 332, TypeScript 289, JSON 42
 
 ## 目录构成
 

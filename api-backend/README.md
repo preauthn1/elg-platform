@@ -1,6 +1,6 @@
 # api-backend
 
-原始路径：`api-backend`　|　文件：**7321**　|　主语言：PHP 6406, JSON 205, XML 152
+原始路径：`api-backend`　|　文件：**7320**　|　主语言：PHP 6406, JSON 205, XML 152
 
 ## 目录构成
 
@@ -8,7 +8,10 @@
 _release/vendor/  — 7097
 _release/app/  — 114
 _release/resources/  — 22
+_release/  — 13
 _release/config/  — 12
+server-build-online/  — 10
+server-build/  — 9
 helm/templates/  — 6
 server-build/fluentd/  — 5
 _release/database/  — 5
@@ -16,9 +19,6 @@ _release/public/  — 5
 server-build-online/fluentd/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
-server-build/nginx/  — 2
-server-build-online/nginx/  — 2
-README.md/  — 1
 ```
 
 ## 关键文件

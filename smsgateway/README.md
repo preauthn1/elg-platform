@@ -1,24 +1,20 @@
 # smsgateway
 
-原始路径：`smsgateway`　|　文件：**27**　|　主语言：Go 20, YAML 4, JSON 1
+原始路径：`smsgateway`　|　文件：**26**　|　主语言：Go 20, YAML 4, JSON 1
 
 ## 目录构成
 
 ```
+controller/  — 5
+gateway/  — 3
+docs/  — 3
 pkg/httputil/  — 3
+config/  — 2
+model/  — 2
 db/mysql/  — 2
-README.md/  — 1
-docker-compose.yml/  — 1
-Dockerfile/  — 1
-main.go/  — 1
-gateway/nexmo.go/  — 1
-gateway/gateway_handler.go/  — 1
-gateway/tata.go/  — 1
-docs/swagger.json/  — 1
-docs/swagger.yaml/  — 1
-docs/docs.go/  — 1
-config/config.yaml/  — 1
-config/internal_config.yaml/  — 1
+pkg/uid/  — 1
+pkg/middleware/  — 1
+db/model/  — 1
 ```
 
 ## 关键文件

@@ -1,14 +1,12 @@
 # http-requests
 
-原始路径：`http-requests`　|　文件：**4**　|　主语言：PHP 1, JavaScript 1, HTML 1
+原始路径：`http-requests`　|　文件：**3**　|　主语言：PHP 1, JavaScript 1, HTML 1
 
 ## 目录构成
 
 ```
-README.md/  — 1
+EncryptServer/  — 2
 Requests/Vendor_APIs/  — 1
-EncryptServer/server.js/  — 1
-EncryptServer/index.html/  — 1
 ```
 
 ## 关键文件
@@ -19,7 +17,6 @@ EncryptServer/index.html/  — 1
 
 - `EncryptServer/index.html`
 - `EncryptServer/server.js`
-- `README.md`
 - `Requests/Vendor_APIs/SingleWallets/scripts/BoracayFish.php`
 
 ## 说明

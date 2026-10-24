@@ -1,24 +1,21 @@
 # docker-compose
 
-原始路径：`docker-compose`　|　文件：**29**　|　主语言：Shell 3, YAML 1
+原始路径：`docker-compose`　|　文件：**28**　|　主语言：Shell 3, YAML 1
 
 ## 目录构成
 
 ```
 nginx/sites/  — 9
+nginx/  — 3
+php-fpm/  — 2
+php-fpm8/  — 2
 php-fpm8/conf.d/  — 2
-CLAUDE.md/  — 1
-.env.example/  — 1
-README.md/  — 1
-docker-compose.yml/  — 1
-AGENTS.md/  — 1
-nginx/nginx-reload.sh/  — 1
-nginx/upstream.conf/  — 1
-nginx/nginx.conf/  — 1
-php-fpm/Dockerfile/  — 1
-php-fpm/aliases.sh/  — 1
 php-fpm/ini/  — 1
 php-fpm/conf.d/  — 1
+php-fpm/php-fpm.d/  — 1
+php-fpm8/ini/  — 1
+php-fpm8/php-fpm.d/  — 1
+mysql8/  — 1
 ```
 
 ## 关键文件

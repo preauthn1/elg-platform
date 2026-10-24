@@ -1,6 +1,6 @@
 # api_external
 
-原始路径：`api_external`　|　文件：**7226**　|　主语言：PHP 6329, JSON 200, XML 158
+原始路径：`api_external`　|　文件：**7225**　|　主语言：PHP 6329, JSON 200, XML 158
 
 ## 目录构成
 
@@ -10,15 +10,12 @@ _release/app/  — 57
 _release/public/  — 27
 _release/resources/  — 16
 _release/config/  — 12
+_release/  — 11
+.idea/  — 6
 _release/database/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
-README.md/  — 1
-.idea/modules.xml/  — 1
-.idea/php.xml/  — 1
-.idea/vcs.xml/  — 1
-.idea/misc.xml/  — 1
-.idea/workspace.xml/  — 1
+_release/bootstrap/  — 1
 ```
 
 ## 关键文件

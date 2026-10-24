@@ -1,6 +1,6 @@
 # api-cs-socket
 
-原始路径：`api-cs-socket`　|　文件：**7292**　|　主语言：PHP 6382, JSON 187, XML 158
+原始路径：`api-cs-socket`　|　文件：**7291**　|　主语言：PHP 6382, JSON 187, XML 158
 
 ## 目录构成
 
@@ -9,16 +9,16 @@ _release/vendor/  — 7067
 _release/app/  — 68
 _release/database/  — 49
 _release/resources/  — 20
+_release/  — 14
+server-build-online/  — 14
+server-build/  — 13
 _release/config/  — 12
 helm/templates/  — 6
+.idea/  — 5
 _release/public/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
 server-build/nginx/  — 2
-server-build-online/nginx/  — 2
-README.md/  — 1
-tp-wz3-rd-gcr-rw.json/  — 1
-run_php_start.bat/  — 1
 ```
 
 ## 关键文件

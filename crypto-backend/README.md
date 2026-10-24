@@ -1,6 +1,6 @@
 # crypto-backend
 
-原始路径：`crypto-backend`　|　文件：**277**　|　主语言：PHP 96, JavaScript 85, CSS 83
+原始路径：`crypto-backend`　|　文件：**276**　|　主语言：PHP 96, JavaScript 85, CSS 83
 
 ## 目录构成
 
@@ -10,15 +10,10 @@ _release/app/  — 34
 _release/resources/  — 31
 _release/config/  — 14
 _release/database/  — 9
+_release/  — 8
 _release/routes/  — 4
 _release/tests/  — 4
-README.md/  — 1
-_release/.styleci.yml/  — 1
-_release/package.json/  — 1
-_release/webpack.mix.js/  — 1
-_release/.env.example/  — 1
-_release/README.md/  — 1
-_release/composer.json/  — 1
+_release/bootstrap/  — 1
 ```
 
 ## 关键文件

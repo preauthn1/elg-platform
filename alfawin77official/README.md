@@ -1,6 +1,6 @@
 # alfawin77official
 
-原始路径：`alfawin77official`　|　文件：**40**　|　主语言：CSS 18, JavaScript 12, HTML 5
+原始路径：`alfawin77official`　|　文件：**39**　|　主语言：CSS 18, JavaScript 12, HTML 5
 
 ## 目录构成
 
@@ -11,14 +11,10 @@ en/css/  — 6
 cn/js/  — 4
 id/js/  — 4
 en/js/  — 4
-robots.txt/  — 1
-google2df55a9795b93750.html/  — 1
-README.md/  — 1
-sitemap.xml/  — 1
-index.html/  — 1
-.gitlab-ci.yml/  — 1
-cn/index.html/  — 1
-id/index.html/  — 1
+cn/  — 1
+id/  — 1
+git-ftp/  — 1
+en/  — 1
 ```
 
 ## 关键文件

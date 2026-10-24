@@ -1,6 +1,6 @@
 # gamedatacenter
 
-原始路径：`gamedatacenter`　|　文件：**31**　|　主语言：Go 20, YAML 6, XML 3
+原始路径：`gamedatacenter`　|　文件：**30**　|　主语言：Go 20, YAML 6, XML 3
 
 ## 目录构成
 
@@ -8,14 +8,9 @@
 internal/functions/  — 13
 internal/vpower/  — 4
 internal/mega888/  — 4
+getBetRecords/  — 3
 getBetRecords/cmd/  — 3
-README.md/  — 1
-getBetRecords/getBetRecords.yaml/  — 1
-getBetRecords/build.sh/  — 1
-getBetRecords/main.go/  — 1
-.idea/modules.xml/  — 1
-.idea/misc.xml/  — 1
-.idea/workspace.xml/  — 1
+.idea/  — 3
 ```
 
 ## 关键文件

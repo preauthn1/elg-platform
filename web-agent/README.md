@@ -1,6 +1,6 @@
 # web-agent
 
-原始路径：`web-agent`　|　文件：**550**　|　主语言：PHP 362, JavaScript 77, CSS 31
+原始路径：`web-agent`　|　文件：**549**　|　主语言：PHP 362, JavaScript 77, CSS 31
 
 ## 目录构成
 
@@ -11,14 +11,14 @@ _release/assets/  — 71
 _maintenance/js/  — 27
 _release/report/  — 15
 _maintenance/img/  — 14
+_release/  — 13
 _release/member/  — 11
+server-build-online/  — 10
+server-build/  — 9
 _maintenance/css/  — 8
 _release/agent/  — 8
 helm/templates/  — 6
 _release/unlimit/  — 5
-_release/event/  — 4
-_maintenance/bootstrap/  — 3
-_release/statistics/  — 3
 ```
 
 ## 关键文件

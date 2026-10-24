@@ -1,6 +1,6 @@
 # app
 
-原始路径：`app`　|　文件：**450**　|　主语言：Java 86, XML 15, JSON 6
+原始路径：`app`　|　文件：**449**　|　主语言：Java 86, XML 15, JSON 6
 
 ## 目录构成
 
@@ -14,11 +14,11 @@ android/app/  — 8
 lib/utils/  — 6
 ios/Runner/  — 5
 lib/controller/  — 4
+android/  — 4
 lib/theme/  — 3
-README.md/  — 1
-pubspec.yaml/  — 1
-.gitlab-ci.yml/  — 1
-lib/main.dart/  — 1
+web/  — 2
+lib/  — 1
+android/gradle/  — 1
 ```
 
 ## 关键文件

@@ -1,6 +1,6 @@
 # gffv2-components-support
 
-原始路径：`gffv2-components-support`　|　文件：**41**　|　主语言：PHP 36, JSON 1, XML 1
+原始路径：`gffv2-components-support`　|　文件：**40**　|　主语言：PHP 36, JSON 1, XML 1
 
 ## 目录构成
 
@@ -10,11 +10,6 @@ src/Helpers/  — 11
 src/Enums/  — 5
 tests/Unit/  — 3
 src/Services/  — 2
-linter.bat/  — 1
-README.md/  — 1
-composer.json/  — 1
-phpunit.xml/  — 1
-.gitlab-ci.yml/  — 1
 ```
 
 ## 关键文件

@@ -1,20 +1,12 @@
 # gitlab-tools
 
-原始路径：`gitlab-tools`　|　文件：**10**　|　主语言：Python 7, YAML 1
+原始路径：`gitlab-tools`　|　文件：**9**　|　主语言：Python 7, YAML 1
 
 ## 目录构成
 
 ```
-generate_board.py/  — 1
-README.md/  — 1
-tw_holidays.py/  — 1
-generate_op.py/  — 1
-gitlab_api.py/  — 1
-.gitlab-ci.yml/  — 1
-docs/PROJECT_INTRODUCTION.md/  — 1
-tests/test_holidays.py/  — 1
-tests/test_gitlab_api.py/  — 1
-tests/test_generators.py/  — 1
+tests/  — 3
+docs/  — 1
 ```
 
 ## 关键文件

@@ -1,17 +1,12 @@
 # elg-onegate
 
-原始路径：`elg-onegate`　|　文件：**7**　|　主语言：JSON 2, Shell 1
+原始路径：`elg-onegate`　|　文件：**6**　|　主语言：JSON 2, Shell 1
 
 ## 目录构成
 
 ```
-CLAUDE.md/  — 1
-README.md/  — 1
-.claude/settings.local.json/  — 1
-.devcontainer/README.md/  — 1
-.devcontainer/devcontainer.json/  — 1
-.devcontainer/init-mysql.sh/  — 1
-.devcontainer/Dockerfile/  — 1
+.devcontainer/  — 4
+.claude/  — 1
 ```
 
 ## 关键文件
@@ -25,7 +20,6 @@ README.md/  — 1
 - `.devcontainer/Dockerfile`
 - `.devcontainer/devcontainer.json`
 - `.devcontainer/init-mysql.sh`
-- `README.md`
 - `.claude/settings.local.json`
 
 ## 说明

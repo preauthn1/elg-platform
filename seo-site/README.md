@@ -1,24 +1,18 @@
 # seo-site
 
-原始路径：`seo-site`　|　文件：**35**　|　主语言：Vue 15, JavaScript 8, JSON 3
+原始路径：`seo-site`　|　文件：**34**　|　主语言：Vue 15, JavaScript 8, JSON 3
 
 ## 目录构成
 
 ```
 src/components/  — 10
+build-scripts/  — 5
 src/views/  — 4
-package.json/  — 1
-jsconfig.json/  — 1
-README.md/  — 1
-.eslintrc.js/  — 1
-babel.config.js/  — 1
-package-lock.json/  — 1
-vue.config.js/  — 1
-.gitlab-ci.yml/  — 1
-src/App.vue/  — 1
-src/registerServiceWorker.js/  — 1
-src/main.js/  — 1
+src/  — 3
+public/  — 2
 src/mixins/  — 1
+src/store/  — 1
+src/router/  — 1
 ```
 
 ## 关键文件

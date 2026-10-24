@@ -1,6 +1,6 @@
 # tpower-official
 
-原始路径：`tpower-official`　|　文件：**91**　|　主语言：JavaScript 61, CSS 13, JSON 4
+原始路径：`tpower-official`　|　文件：**90**　|　主语言：JavaScript 61, CSS 13, JSON 4
 
 ## 目录构成
 
@@ -9,16 +9,16 @@ admin/js/  — 21
 assets/yes2win/  — 19
 server/lib/  — 11
 assets/tpower/  — 8
+deploy/  — 6
 server/routes/  — 6
+admin/  — 4
 server/sites/  — 3
-package.json/  — 1
-.env.example/  — 1
-README.md/  — 1
-Dockerfile/  — 1
-package-lock.json/  — 1
-.gitlab-ci.yml/  — 1
-deploy/nginx-proxy.example.conf/  — 1
-deploy/deploy-tpower-host.sh/  — 1
+scripts/  — 2
+seed/tpower/  — 1
+seed/yes2win/  — 1
+server/  — 1
+server/middleware/  — 1
+server/schema/  — 1
 ```
 
 ## 关键文件

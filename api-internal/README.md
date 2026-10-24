@@ -1,6 +1,6 @@
 # api-internal
 
-原始路径：`api-internal`　|　文件：**7508**　|　主语言：PHP 6049, JSON 325, CSS 101
+原始路径：`api-internal`　|　文件：**7507**　|　主语言：PHP 6049, JSON 325, CSS 101
 
 ## 目录构成
 
@@ -8,7 +8,10 @@
 _release/vendor/  — 7387
 _release/app/  — 30
 _release/config/  — 14
+_release/  — 11
+server-build/  — 8
 _release/resources/  — 8
+server-build-online/  — 8
 helm/templates/  — 6
 server-build/fluentd/  — 5
 _release/database/  — 5
@@ -16,9 +19,6 @@ server-build-online/fluentd/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
 server-build/nginx/  — 2
-_release/public/  — 2
-server-build-online/nginx/  — 2
-README.md/  — 1
 ```
 
 ## 关键文件

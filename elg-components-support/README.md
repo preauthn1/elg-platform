@@ -1,6 +1,6 @@
 # elg-components-support
 
-原始路径：`elg-components-support`　|　文件：**64**　|　主语言：PHP 57, JSON 1, XML 1
+原始路径：`elg-components-support`　|　文件：**63**　|　主语言：PHP 57, JSON 1, XML 1
 
 ## 目录构成
 
@@ -10,13 +10,6 @@ src/Models/  — 15
 src/Enums/  — 6
 tests/Unit/  — 3
 src/Services/  — 2
-linter.bat/  — 1
-readme.md/  — 1
-README.md/  — 1
-composer.json/  — 1
-phpunit.xml/  — 1
-AGENTS.md/  — 1
-.gitlab-ci.yml/  — 1
 ```
 
 ## 关键文件

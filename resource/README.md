@@ -1,15 +1,13 @@
 # resource
 
-原始路径：`resource`　|　文件：**7**　|　主语言：PHP 5, JSON 1
+原始路径：`resource`　|　文件：**6**　|　主语言：PHP 5, JSON 1
 
 ## 目录构成
 
 ```
 src/Clients/  — 2
 src/Exceptions/  — 2
-README.md/  — 1
-composer.json/  — 1
-config/endpoints.php/  — 1
+config/  — 1
 ```
 
 ## 关键文件
@@ -21,7 +19,6 @@ config/endpoints.php/  — 1
 - `src/Clients/Client.php`
 - `src/Clients/InternalClient.php`
 - `composer.json`
-- `README.md`
 - `config/endpoints.php`
 - `src/Exceptions/InvalidArgumentException.php`
 - `src/Exceptions/BadResponseException.php`

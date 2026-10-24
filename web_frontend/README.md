@@ -1,23 +1,15 @@
 # web_frontend
 
-原始路径：`web_frontend`　|　文件：**14**　|　主语言：JavaScript 6, JSON 3, Vue 3
+原始路径：`web_frontend`　|　文件：**13**　|　主语言：JavaScript 6, JSON 3, Vue 3
 
 ## 目录构成
 
 ```
+src/  — 2
 src/views/  — 2
-package.json/  — 1
-jsconfig.json/  — 1
-README.md/  — 1
-.eslintrc.js/  — 1
-babel.config.js/  — 1
-package-lock.json/  — 1
-vue.config.js/  — 1
-src/App.vue/  — 1
-src/main.js/  — 1
 src/store/  — 1
 src/router/  — 1
-public/index.html/  — 1
+public/  — 1
 ```
 
 ## 关键文件
@@ -30,11 +22,11 @@ public/index.html/  — 1
 - `package-lock.json`
 - `package.json`
 - `src/router/index.js`
-- `README.md`
 - `public/index.html`
 - `src/App.vue`
 - `.eslintrc.js`
 - `jsconfig.json`
+- `src/main.js`
 
 ## 说明
 

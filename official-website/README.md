@@ -1,6 +1,6 @@
 # official-website
 
-原始路径：`official-website`　|　文件：**384**　|　主语言：HTML 164, JavaScript 110, CSS 103
+原始路径：`official-website`　|　文件：**383**　|　主语言：HTML 164, JavaScript 110, CSS 103
 
 ## 目录构成
 
@@ -17,8 +17,8 @@ pgs/js/  — 16
 GFF/js/  — 15
 pgs2/src/  — 9
 OG Credies/wp-includes/  — 4
-README.md/  — 1
-pgs2/package.json/  — 1
+pgs2/  — 3
+pgs/  — 2
 ```
 
 ## 关键文件

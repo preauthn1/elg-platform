@@ -1,6 +1,6 @@
 # docker-base
 
-原始路径：`docker-base`　|　文件：**22**　|　主语言：YAML 3, JSON 1, Shell 1
+原始路径：`docker-base`　|　文件：**21**　|　主语言：YAML 3, JSON 1, Shell 1
 
 ## 目录构成
 
@@ -10,15 +10,12 @@ phpbase/7.3/  — 2
 phpbase/8/  — 2
 phpbase/8-minimal/  — 2
 logstash/config/  — 2
-README.md/  — 1
-tp-wz3-rd-gcr-rw.json/  — 1
-.gitlab-ci.yml/  — 1
-phpbase/Dockerfile/  — 1
+fluentd-es/  — 2
+phpbase/  — 1
 nodebase/24/  — 1
-logstash/Dockerfile/  — 1
+logstash/  — 1
 logstash/pipeline/  — 1
-fluentd-es/Dockerfile/  — 1
-fluentd-es/entrypoint.sh/  — 1
+phpsocket/  — 1
 ```
 
 ## 关键文件

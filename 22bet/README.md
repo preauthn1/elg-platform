@@ -1,21 +1,14 @@
 # 22bet
 
-原始路径：`22bet`　|　文件：**14**　|　主语言：Vue 6, JSON 3, JavaScript 3
+原始路径：`22bet`　|　文件：**13**　|　主语言：Vue 6, JSON 3, JavaScript 3
 
 ## 目录构成
 
 ```
 src/components/  — 4
-package.json/  — 1
-jsconfig.json/  — 1
-README.md/  — 1
-babel.config.js/  — 1
-package-lock.json/  — 1
-vue.config.js/  — 1
-src/App.vue/  — 1
-src/main.js/  — 1
+src/  — 2
 src/pages/  — 1
-public/index.html/  — 1
+public/  — 1
 ```
 
 ## 关键文件
@@ -32,7 +25,7 @@ public/index.html/  — 1
 - `package.json`
 - `public/index.html`
 - `src/components/Bonus.vue`
-- `README.md`
+- `src/components/Navbar.vue`
 
 ## 说明
 

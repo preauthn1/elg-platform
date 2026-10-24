@@ -1,19 +1,12 @@
 # 7shwe
 
-原始路径：`7shwe`　|　文件：**9**　|　主语言：CSS 4, HTML 3, YAML 1
+原始路径：`7shwe`　|　文件：**8**　|　主语言：CSS 4, HTML 3, YAML 1
 
 ## 目录构成
 
 ```
-style2.css/  — 1
-README.md/  — 1
-index.html/  — 1
-style.css/  — 1
-.gitlab-ci.yml/  — 1
-cn/index.html/  — 1
-mm/style2.css/  — 1
-mm/index.html/  — 1
-mm/style.css/  — 1
+mm/  — 3
+cn/  — 1
 ```
 
 ## 关键文件
@@ -30,7 +23,7 @@ mm/style.css/  — 1
 - `mm/style2.css`
 - `mm/style.css`
 - `.gitlab-ci.yml`
-- `README.md`
+- `cn/index.html`
 
 ## 说明
 

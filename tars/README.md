@@ -1,6 +1,6 @@
 # tars
 
-原始路径：`tars`　|　文件：**42**　|　主语言：TypeScript 30, JSON 7
+原始路径：`tars`　|　文件：**41**　|　主语言：TypeScript 30, JSON 7
 
 ## 目录构成
 
@@ -8,17 +8,17 @@
 pages/frontend/  — 7
 pages/backend/  — 5
 tests/dangerous/  — 4
+utils/  — 3
 tests/guest/  — 2
 tests/logged/  — 2
-package.json/  — 1
-CLAUDE.md/  — 1
-.env.example/  — 1
-README.md/  — 1
-tsconfig.json/  — 1
-playwright-mcp.config.json/  — 1
-ONBOARDING.md/  — 1
-playwright.config.ts/  — 1
-package-lock.json/  — 1
+config/  — 2
+.claude/  — 1
+.claude/skills/  — 1
+tests/setup/  — 1
+tests/shared/  — 1
+fixtures/  — 1
+scripts/  — 1
+.vscode/  — 1
 ```
 
 ## 关键文件

@@ -1,6 +1,6 @@
 # gff-marketplace
 
-原始路径：`gff-marketplace`　|　文件：**307**　|　主语言：JSON 22, Shell 15, PHP 13
+原始路径：`gff-marketplace`　|　文件：**306**　|　主语言：JSON 22, Shell 15, PHP 13
 
 ## 目录构成
 
@@ -12,13 +12,13 @@ plugins/legend-toolkit/  — 16
 plugins/gitlab-mcp/  — 9
 plugins/qa-toolkit/  — 8
 plugins/wiki-toolkit/  — 8
+scripts/  — 7
 plugins/codegraph-mcp/  — 6
+docs/  — 5
 plugins/memory-mcp/  — 5
 evals/repair-rebuild-sbr/  — 4
 evals/release-cleanup-merged/  — 4
 evals/tamper-guard-new-write-api/  — 4
-evals/reconcile-find-gap/  — 4
-evals/sync-develop-align/  — 4
 ```
 
 ## 关键文件

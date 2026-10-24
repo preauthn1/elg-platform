@@ -1,24 +1,19 @@
 # rd-studio
 
-原始路径：`rd-studio`　|　文件：**521**　|　主语言：PHP 418, JavaScript 48, CSS 13
+原始路径：`rd-studio`　|　文件：**520**　|　主语言：PHP 418, JavaScript 48, CSS 13
 
 ## 目录构成
 
 ```
 _release/app/  — 381
 _release/public/  — 93
+_release/  — 13
 _release/config/  — 12
 _release/resources/  — 7
 _release/database/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
-README.md/  — 1
-_release/package.json/  — 1
-_release/webpack.mix.js/  — 1
-_release/readme.md/  — 1
-_release/.env.example/  — 1
-_release/readme.txt/  — 1
-_release/.env.pro/  — 1
+_release/bootstrap/  — 1
 ```
 
 ## 关键文件

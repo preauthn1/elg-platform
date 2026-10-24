@@ -1,6 +1,6 @@
 # api_frontend
 
-原始路径：`api_frontend`　|　文件：**8980**　|　主语言：PHP 8029, JSON 227, XML 160
+原始路径：`api_frontend`　|　文件：**8979**　|　主语言：PHP 8029, JSON 227, XML 160
 
 ## 目录构成
 
@@ -10,15 +10,12 @@ _release/database/  — 592
 _release/app/  — 317
 _release/resources/  — 31
 _release/public/  — 28
+_release/  — 12
 _release/config/  — 12
 _release/tests/  — 7
+.idea/  — 6
 _release/routes/  — 4
-README.md/  — 1
-.idea/modules.xml/  — 1
-.idea/php.xml/  — 1
-.idea/vcs.xml/  — 1
-.idea/misc.xml/  — 1
-.idea/workspace.xml/  — 1
+_release/bootstrap/  — 1
 ```
 
 ## 关键文件

@@ -1,6 +1,6 @@
 # elg-web-frontend
 
-原始路径：`elg-web-frontend`　|　文件：**24763**　|　主语言：JavaScript 17197, JSON 2991, TypeScript 375
+原始路径：`elg-web-frontend`　|　文件：**24762**　|　主语言：JavaScript 17197, JSON 2991, TypeScript 375
 
 ## 目录构成
 
@@ -13,12 +13,12 @@ _source/src/  — 30
 _maintenance/js/  — 27
 _source2/static/  — 19
 _maintenance/img/  — 14
+server-build/  — 12
+server-build-online/  — 10
+_source2/  — 8
 _maintenance/css/  — 8
 _source/build/  — 7
 _source2/build/  — 7
-_source2/test/  — 7
-helm/templates/  — 6
-_source/config/  — 3
 ```
 
 ## 关键文件

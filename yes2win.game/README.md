@@ -1,6 +1,6 @@
 # yes2win.game
 
-原始路径：`yes2win.game`　|　文件：**39**　|　主语言：CSS 18, JavaScript 12, HTML 5
+原始路径：`yes2win.game`　|　文件：**38**　|　主语言：CSS 18, JavaScript 12, HTML 5
 
 ## 目录构成
 
@@ -11,14 +11,9 @@ ms/css/  — 6
 cn/js/  — 4
 en/js/  — 4
 ms/js/  — 4
-robots.txt/  — 1
-google2df55a9795b93750.html/  — 1
-README.md/  — 1
-sitemap.xml/  — 1
-index.html/  — 1
-.gitlab-ci.yml/  — 1
-cn/index.html/  — 1
-en/index.html/  — 1
+cn/  — 1
+en/  — 1
+ms/  — 1
 ```
 
 ## 关键文件

@@ -1,6 +1,6 @@
 # elg-tgbot
 
-原始路径：`elg-tgbot`　|　文件：**85**　|　主语言：C# 60, YAML 11, JSON 9
+原始路径：`elg-tgbot`　|　文件：**84**　|　主语言：C# 60, YAML 11, JSON 9
 
 ## 目录构成
 
@@ -8,17 +8,14 @@
 TG_Hook_API/Helper/  — 33
 TG_Hook_API/Models/  — 13
 helm-charts/tgbot/  — 12
+TG_Hook_API/  — 7
 TG_Hook_API/Controllers/  — 5
 TG_Hook_API/Service/  — 5
 TG_Hook_API/Filter/  — 2
 TG_Hook_API/Asset/  — 2
-README.md/  — 1
-TG_Hook_API.sln/  — 1
-.gitlab-ci.yml/  — 1
-TG_Hook_API/appsettings.json/  — 1
-TG_Hook_API/appsettings.Dev.json/  — 1
-TG_Hook_API/appsettings.Europe.json/  — 1
-TG_Hook_API/Program.cs/  — 1
+TG_Hook_API/Properties/  — 1
+.vscode/  — 1
+DockerFiles/  — 1
 ```
 
 ## 关键文件

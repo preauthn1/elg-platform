@@ -1,6 +1,6 @@
 # api_agent
 
-原始路径：`api_agent`　|　文件：**7389**　|　主语言：PHP 6516, JSON 200, XML 152
+原始路径：`api_agent`　|　文件：**7388**　|　主语言：PHP 6516, JSON 200, XML 152
 
 ## 目录构成
 
@@ -8,17 +8,13 @@
 _release/vendor/  — 7082
 _release/app/  — 236
 _release/resources/  — 24
+_release/  — 14
 _release/config/  — 13
 _release/database/  — 5
 _release/public/  — 5
 _release/routes/  — 4
 _release/tests/  — 4
-README.md/  — 1
-_release/.env.demo/  — 1
-_release/package.json/  — 1
-_release/webpack.mix.js/  — 1
-_release/readme.md/  — 1
-_release/.env.example/  — 1
+_release/bootstrap/  — 1
 ```
 
 ## 关键文件

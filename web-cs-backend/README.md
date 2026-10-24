@@ -1,6 +1,6 @@
 # web-cs-backend
 
-原始路径：`web-cs-backend`　|　文件：**24897**　|　主语言：JavaScript 17835, JSON 3135, TypeScript 347
+原始路径：`web-cs-backend`　|　文件：**24896**　|　主语言：JavaScript 17835, JSON 3135, TypeScript 347
 
 ## 目录构成
 
@@ -12,13 +12,13 @@ _maintenance/img/  — 14
 _production/static/  — 12
 _release/static/  — 12
 _source/dist/  — 10
+_source/  — 9
+server-build-online/  — 9
+server-build/  — 8
 _source/static/  — 8
 _source/mock/  — 8
 _maintenance/css/  — 8
 _source/build/  — 7
-_source/test/  — 7
-_maintenance/bootstrap/  — 3
-server-build/nginx/  — 2
 ```
 
 ## 关键文件

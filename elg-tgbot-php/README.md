@@ -1,12 +1,13 @@
 # elg-tgbot-php
 
-原始路径：`elg-tgbot-php`　|　文件：**146**　|　主语言：PHP 129, JSON 4, JavaScript 4
+原始路径：`elg-tgbot-php`　|　文件：**145**　|　主语言：PHP 129, JSON 4, JavaScript 4
 
 ## 目录构成
 
 ```
 app/Services/  — 24
 app/Enums/  — 15
+config/  — 14
 app/DTOs/  — 9
 app/Http/  — 8
 app/Helpers/  — 8
@@ -15,10 +16,9 @@ lang/mm-my/  — 5
 lang/en-us/  — 5
 database/migrations/  — 4
 public/vendor/  — 4
+routes/  — 3
 app/Models/  — 3
 app/Console/  — 3
-app/Singletons/  — 2
-app/Loggers/  — 2
 ```
 
 ## 关键文件

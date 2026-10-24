@@ -1,6 +1,6 @@
 # elg-api-frontend
 
-原始路径：`elg-api-frontend`　|　文件：**8516**　|　主语言：PHP 7528, JSON 221, XML 154
+原始路径：`elg-api-frontend`　|　文件：**8515**　|　主语言：PHP 7528, JSON 221, XML 154
 
 ## 目录构成
 
@@ -10,15 +10,15 @@ _release/database/  — 624
 _release/app/  — 262
 _release/resources/  — 31
 _release/public/  — 28
+_release/  — 15
+server-build/  — 13
+server-build-online/  — 13
+server-build-dsg/  — 12
 _release/config/  — 12
 _release/tests/  — 7
 helm/templates/  — 6
 server-build/fluentd/  — 5
 server-build-online/fluentd/  — 5
-_release/routes/  — 4
-server-build/nginx/  — 2
-server-build-online/nginx/  — 2
-README.md/  — 1
 ```
 
 ## 关键文件

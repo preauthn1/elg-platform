@@ -1,20 +1,15 @@
 # toolkit
 
-原始路径：`toolkit`　|　文件：**18**　|　主语言：Shell 8, YAML 2
+原始路径：`toolkit`　|　文件：**17**　|　主语言：Shell 8, YAML 2
 
 ## 目录构成
 
 ```
 php73/svcs/  — 6
+php73/  — 3
+php83/  — 3
 php73/scripts/  — 2
 php83/scripts/  — 2
-README.md/  — 1
-php73/restart.sh/  — 1
-php73/docker-compose.yaml/  — 1
-php73/stop.sh/  — 1
-php83/restart.sh/  — 1
-php83/docker-compose.yaml/  — 1
-php83/stop.sh/  — 1
 php83/svcs/  — 1
 ```
 
