@@ -1,31 +1,43 @@
 # yes2win.game
 
-原始路径：`yes2win.game`　|　收录文件：**39**
+原始路径：`yes2win.game`　|　文件：**39**　|　主语言：CSS 18, JavaScript 12, HTML 5
 
-## 语言构成
-
-- CSS — 18 个文件（47%）
-- JavaScript — 12 个文件（31%）
-- HTML — 5 个文件（13%）
-- Markdown — 1 个文件（2%）
-- XML — 1 个文件（2%）
-- YAML — 1 个文件（2%）
-
-## 目录结构
+## 目录构成
 
 ```
-cn/  (11 个文件)
-en/  (11 个文件)
-ms/  (11 个文件)
-./  (6 个文件)
+cn/css/  — 6
+en/css/  — 6
+ms/css/  — 6
+cn/js/  — 4
+en/js/  — 4
+ms/js/  — 4
+robots.txt/  — 1
+google2df55a9795b93750.html/  — 1
+README.md/  — 1
+sitemap.xml/  — 1
+index.html/  — 1
+.gitlab-ci.yml/  — 1
+cn/index.html/  — 1
+en/index.html/  — 1
 ```
 
 ## 关键文件
 
-- 前端入口：`index.html`、`cn/index.html`、`en/index.html`、`ms/index.html`
-- 构建脚本：`.gitlab-ci.yml`
+- 前端入口：`index.html`、`cn/index.html`、`en/index.html`
+- CI/构建：`.gitlab-ci.yml`
+
+## 主要文件
+
+- `cn/js/jquery-3.5.1.min.js`
+- `en/js/jquery-3.5.1.min.js`
+- `ms/js/jquery-3.5.1.min.js`
+- `cn/js/slick.min.js`
+- `en/js/slick.min.js`
+- `ms/js/slick.min.js`
+- `ms/index.html`
+- `cn/index.html`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

@@ -1,27 +1,28 @@
 # http-requests
 
-原始路径：`http-requests`　|　收录文件：**4**
+原始路径：`http-requests`　|　文件：**4**　|　主语言：PHP 1, JavaScript 1, HTML 1
 
-## 语言构成
-
-- Markdown — 1 个文件（25%）
-- PHP — 1 个文件（25%）
-- JavaScript — 1 个文件（25%）
-- HTML — 1 个文件（25%）
-
-## 目录结构
+## 目录构成
 
 ```
-EncryptServer/  (2 个文件)
-./  (1 个文件)
-Requests/  (1 个文件)
+README.md/  — 1
+Requests/Vendor_APIs/  — 1
+EncryptServer/server.js/  — 1
+EncryptServer/index.html/  — 1
 ```
 
 ## 关键文件
 
 - 前端入口：`EncryptServer/index.html`
 
+## 主要文件
+
+- `EncryptServer/index.html`
+- `EncryptServer/server.js`
+- `README.md`
+- `Requests/Vendor_APIs/SingleWallets/scripts/BoracayFish.php`
+
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

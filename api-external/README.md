@@ -1,34 +1,45 @@
 # api-external
 
-原始路径：`api-external`　|　收录文件：**7234**
+原始路径：`api-external`　|　文件：**7235**　|　主语言：PHP 6304, JSON 203, XML 152
 
-## 语言构成
-
-- PHP — 6304 个文件（88%）
-- Markdown — 228 个文件（3%）
-- JSON — 203 个文件（2%）
-- XML — 152 个文件（2%）
-- YAML — 124 个文件（1%）
-- JavaScript — 44 个文件（0%）
-
-## 目录结构
+## 目录构成
 
 ```
-_release/  (7191 个文件)
-server-build-online/  (17 个文件)
-server-build/  (16 个文件)
-helm/  (8 个文件)
-./  (2 个文件)
+_release/vendor/  — 7082
+_release/app/  — 30
+_release/public/  — 27
+_release/resources/  — 16
+_release/config/  — 12
+helm/templates/  — 6
+server-build/fluentd/  — 5
+_release/database/  — 5
+server-build-online/fluentd/  — 5
+_release/routes/  — 4
+_release/tests/  — 4
+server-build/nginx/  — 2
+server-build-online/nginx/  — 2
+README.md/  — 1
 ```
 
 ## 关键文件
 
-- 构建脚本：`.gitlab-ci.yml`、`_release/vendor/mockery/mockery/Makefile`、`_release/vendor/mockery/mockery/docs/Makefile`、`_release/vendor/mockery/mockery/docker/php56/Dockerfile`
-- 前端入口：`server-build/nginx/index.html`、`_release/resources/assets/js/app.js`、`_release/vendor/phpunit/php-code-coverage/tests/_files/Report/HTML/CoverageForBankAccount/index.html`、`_release/vendor/phpunit/php-code-coverage/tests/_files/Report/HTML/CoverageForFileWithIgnoredLines/index.html`
-- 依赖清单：`_release/package.json`、`_release/composer.json`、`_release/vendor/firebase/php-jwt/composer.json`、`_release/vendor/mockery/mockery/composer.json`
-- 主程序：`_release/vendor/laravel/framework/src/Illuminate/Support/Facades/App.php`
+- CI/构建：`.gitlab-ci.yml`、`_release/vendor/mockery/mockery/Makefile`、`_release/vendor/mockery/mockery/docs/Makefile`
+- 前端入口：`server-build/nginx/index.html`、`_release/resources/assets/js/app.js`、`_release/vendor/phpunit/php-code-coverage/tests/_files/Report/HTML/CoverageForBankAccount/index.html`
+- 依赖清单：`_release/package.json`、`_release/composer.json`、`_release/vendor/firebase/php-jwt/composer.json`
+- 服务端主程序：`_release/vendor/laravel/framework/src/Illuminate/Support/Facades/App.php`
+
+## 主要文件
+
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/nl_BE/Text.php`
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/fr_FR/Text.php`
+- `_release/vendor/composer/autoload_static.php`
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/el_GR/Text.php`
+- `_release/vendor/composer/autoload_classmap.php`
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/cs_CZ/Text.php`
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/ru_RU/Text.php`
+- `_release/vendor/fzaninotto/faker/src/Faker/Provider/ka_GE/Text.php`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

@@ -1,25 +1,32 @@
 # resource
 
-原始路径：`resource`　|　收录文件：**6**
+原始路径：`resource`　|　文件：**7**　|　主语言：PHP 5, JSON 1
 
-## 语言构成
-
-- PHP — 5 个文件（83%）
-- JSON — 1 个文件（16%）
-
-## 目录结构
+## 目录构成
 
 ```
-src/  (4 个文件)
-./  (1 个文件)
-config/  (1 个文件)
+src/Clients/  — 2
+src/Exceptions/  — 2
+README.md/  — 1
+composer.json/  — 1
+config/endpoints.php/  — 1
 ```
 
 ## 关键文件
 
 - 依赖清单：`composer.json`
 
+## 主要文件
+
+- `src/Clients/Client.php`
+- `src/Clients/InternalClient.php`
+- `composer.json`
+- `README.md`
+- `config/endpoints.php`
+- `src/Exceptions/InvalidArgumentException.php`
+- `src/Exceptions/BadResponseException.php`
+
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

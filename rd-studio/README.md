@@ -1,28 +1,43 @@
 # rd-studio
 
-原始路径：`rd-studio`　|　收录文件：**520**
+原始路径：`rd-studio`　|　文件：**521**　|　主语言：PHP 418, JavaScript 48, CSS 13
 
-## 语言构成
-
-- PHP — 418 个文件（81%）
-- JavaScript — 48 个文件（9%）
-- Markdown — 17 个文件（3%）
-- CSS — 13 个文件（2%）
-- JSON — 10 个文件（1%）
-- HTML — 4 个文件（0%）
-
-## 目录结构
+## 目录构成
 
 ```
-_release/  (520 个文件)
+_release/app/  — 381
+_release/public/  — 93
+_release/config/  — 12
+_release/resources/  — 7
+_release/database/  — 5
+_release/routes/  — 4
+_release/tests/  — 4
+README.md/  — 1
+_release/package.json/  — 1
+_release/webpack.mix.js/  — 1
+_release/readme.md/  — 1
+_release/.env.example/  — 1
+_release/readme.txt/  — 1
+_release/.env.pro/  — 1
 ```
 
 ## 关键文件
 
-- 依赖清单：`_release/package.json`、`_release/composer.json`、`_release/public/docs/Agent/source/package.json`、`_release/public/docs/Backend/source/package.json`
-- 前端入口：`_release/resources/assets/js/app.js`、`_release/public/docs/Agent/index.html`、`_release/public/docs/Backend/index.html`、`_release/public/docs/Frontend/index.html`
+- 依赖清单：`_release/package.json`、`_release/composer.json`、`_release/public/docs/Agent/source/package.json`
+- 前端入口：`_release/resources/assets/js/app.js`、`_release/public/docs/Agent/index.html`、`_release/public/docs/Backend/index.html`
+
+## 主要文件
+
+- `_release/_ide_helper.php`
+- `_release/public/js/app.js`
+- `_release/public/docs/Backend/index.html`
+- `_release/public/docs/Agent/js/all.js`
+- `_release/public/docs/Backend/js/all.js`
+- `_release/public/docs/Frontend/js/all.js`
+- `_release/public/docs/CustomerServcie/js/all.js`
+- `_release/public/docs/Backend/source/.compare.md`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

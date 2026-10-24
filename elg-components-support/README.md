@@ -1,29 +1,41 @@
 # elg-components-support
 
-原始路径：`elg-components-support`　|　收录文件：**63**
+原始路径：`elg-components-support`　|　文件：**64**　|　主语言：PHP 57, JSON 1, XML 1
 
-## 语言构成
-
-- PHP — 57 个文件（91%）
-- Markdown — 2 个文件（3%）
-- JSON — 1 个文件（1%）
-- XML — 1 个文件（1%）
-- YAML — 1 个文件（1%）
-
-## 目录结构
+## 目录构成
 
 ```
-src/  (54 个文件)
-./  (6 个文件)
-tests/  (3 个文件)
+src/Helpers/  — 31
+src/Models/  — 15
+src/Enums/  — 6
+tests/Unit/  — 3
+src/Services/  — 2
+linter.bat/  — 1
+readme.md/  — 1
+README.md/  — 1
+composer.json/  — 1
+phpunit.xml/  — 1
+AGENTS.md/  — 1
+.gitlab-ci.yml/  — 1
 ```
 
 ## 关键文件
 
 - 依赖清单：`composer.json`
-- 构建脚本：`.gitlab-ci.yml`
+- CI/构建：`.gitlab-ci.yml`
+
+## 主要文件
+
+- `src/Services/CashFlowService.php`
+- `src/Helpers/CashFlows/TngpinPay.php`
+- `src/Helpers/CashFlows/DGPay.php`
+- `src/Helpers/CashFlows/TelcoPay.php`
+- `src/Helpers/CashFlows/AsiaLifePay.php`
+- `src/Helpers/CashFlows/VGPay.php`
+- `src/Helpers/CashFlows/MTPay.php`
+- `src/Helpers/CashFlows/TouchngoPay.php`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

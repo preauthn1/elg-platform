@@ -1,35 +1,44 @@
 # web-backend
 
-原始路径：`web-backend`　|　收录文件：**319**
+原始路径：`web-backend`　|　文件：**320**　|　主语言：JavaScript 156, PHP 47, CSS 45
 
-## 语言构成
-
-- JavaScript — 156 个文件（50%）
-- PHP — 47 个文件（15%）
-- CSS — 45 个文件（14%）
-- Vue — 29 个文件（9%）
-- YAML — 17 个文件（5%）
-- JSON — 8 个文件（2%）
-
-## 目录结构
+## 目录构成
 
 ```
-_source/  (144 个文件)
-_release/  (118 个文件)
-_rd/  (26 个文件)
-server-build-online/  (11 个文件)
-server-build/  (10 个文件)
-helm/  (8 个文件)
-./  (2 个文件)
+_source/src/  — 127
+_release/assets/  — 71
+_rd/static/  — 25
+_source/build/  — 7
+_release/agent/  — 7
+helm/templates/  — 6
+_source/config/  — 3
+_release/statistics/  — 3
+_release/user/  — 3
+server-build/nginx/  — 2
+_release/game_type/  — 2
+_release/game/  — 2
+_release/event/  — 2
+_release/lang/  — 2
 ```
 
 ## 关键文件
 
-- 构建脚本：`.gitlab-ci.yml`
-- 前端入口：`server-build/nginx/index.html`、`_rd/index.html`、`_source/index.html`、`_source/src/main.js`
+- CI/构建：`.gitlab-ci.yml`
+- 前端入口：`server-build/nginx/index.html`、`_rd/index.html`、`_source/index.html`
 - 依赖清单：`_source/package.json`
+
+## 主要文件
+
+- `_rd/static/js/app.dff14e7955ab1fcbbe80.js`
+- `_rd/static/css/app.a155e2ba5d39ec10914c2b3a5164bbca.css`
+- `_source/package-lock.json`
+- `_source/src/assets/vendors/datatables/media/js/jquery.dataTables.js`
+- `_release/assets/vendors/datatables/media/js/jquery.dataTables.js`
+- `_source/src/assets/vendors/nvd3/build/nv.d3.min.js`
+- `_release/assets/vendors/nvd3/build/nv.d3.min.js`
+- `_rd/static/js/jquery-3.4.1.min.js`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

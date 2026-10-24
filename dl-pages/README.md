@@ -1,39 +1,43 @@
 # dl-pages
 
-原始路径：`dl-pages`　|　收录文件：**189**
+原始路径：`dl-pages`　|　文件：**189**　|　主语言：JavaScript 112, HTML 32, CSS 30
 
-## 语言构成
-
-- JavaScript — 112 个文件（59%）
-- HTML — 32 个文件（16%）
-- CSS — 30 个文件（15%）
-- PHP — 9 个文件（4%）
-- Markdown — 3 个文件（1%）
-- SQL — 2 个文件（1%）
-
-## 目录结构
+## 目录构成
 
 ```
-speedtest-master/  (25 个文件)
-amldrqp/  (17 个文件)
-1000/  (17 个文件)
-1002/  (17 个文件)
-8000/  (17 个文件)
-1001/  (17 个文件)
-9000/  (15 个文件)
-002/  (15 个文件)
-003/  (15 个文件)
-001/  (15 个文件)
-wgp/  (15 个文件)
-./  (4 个文件)
+9000/js/  — 10
+amldrqp/js/  — 10
+002/js/  — 10
+003/js/  — 10
+001/js/  — 10
+1000/js/  — 10
+wgp/js/  — 10
+1002/js/  — 10
+8000/js/  — 10
+1001/js/  — 10
+speedtest-master/results/  — 7
+speedtest-master/backend/  — 4
+9000/css/  — 3
+amldrqp/css/  — 3
 ```
 
 ## 关键文件
 
-- 前端入口：`index.html`、`9000/index.html`、`9000/js/main.js`、`amldrqp/index.html`
-- 构建脚本：`.gitlab-ci.yml`
+- 前端入口：`index.html`、`9000/index.html`、`9000/js/main.js`
+- CI/构建：`.gitlab-ci.yml`
+
+## 主要文件
+
+- `9000/js/main.js`
+- `amldrqp/js/main.js`
+- `002/js/main.js`
+- `003/js/main.js`
+- `001/js/main.js`
+- `1000/js/main.js`
+- `wgp/js/main.js`
+- `1002/js/main.js`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 

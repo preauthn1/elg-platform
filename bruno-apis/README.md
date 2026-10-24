@@ -1,20 +1,23 @@
 # bruno-apis
 
-原始路径：`bruno-apis`　|　收录文件：**3**
+原始路径：`bruno-apis`　|　文件：**4**　|　主语言：JSON 2, JavaScript 1
 
-## 语言构成
-
-- JSON — 2 个文件（66%）
-- JavaScript — 1 个文件（33%）
-
-## 目录结构
+## 目录构成
 
 ```
-Rory/  (2 个文件)
-Helo/  (1 个文件)
+Rory/gff-api-frontend/  — 2
+README.md/  — 1
+Helo/bruno.json/  — 1
 ```
+
+## 主要文件
+
+- `Rory/gff-api-frontend/scripts/utils.js`
+- `README.md`
+- `Rory/gff-api-frontend/bruno.json`
+- `Helo/bruno.json`
 
 ## 说明
 
-文本源码与配置的静态快照；二进制资源未收录。发布前已按本目录实际内容替换凭据、密钥、内网地址与域名。
+该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
 
