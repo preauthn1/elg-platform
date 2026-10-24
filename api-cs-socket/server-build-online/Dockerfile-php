@@ -1,0 +1,37 @@
+from centos:centos7.6.1810
+
+FROM example.invalid/tp-wz3-rd/php-base:100ab2fb01b7e7b1c17714ced9d58bfc7592a0eb
+
+RUN mkdir /app
+COPY _release /app
+COPY _release/.env.pro /app/.env
+#COPY _release/laravel-echo-server.json.pro /app/laravel-echo-server.json
+WORKDIR /app
+RUN composer install
+
+RUN yum -y install libselinux-utils
+RUN yum -y install crontabs.noarch
+COPY server-build-online/crontabfile /etc/cron.d/
+COPY server-build-online/socket.sh /tmp/socket.sh
+
+RUN yum -y install php-gd
+RUN sed -i "s/upload_max_filesize = 2M/upload_max_filesize = 20M/g" /etc/php.ini
+RUN sed -i "s/post_max_size = 8M/post_max_size = 21M/g" /etc/php.ini
+
+#WORKDIR /bin
+#RUN setenforce 0
+#RUN crontab > /etc/cron.d/crontabfile
+#RUN echo "* * * * * php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN echo "* * * * * sleep 10; php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN echo "* * * * * sleep 20; php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN echo "* * * * * sleep 30; php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN echo "* * * * * sleep 40; php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN echo "* * * * * sleep 50; php /var/www/html/artisan schedule:run >> /var/log/schedule_$(date +"\%Y-\%m-\%d").log 2>&1" >> /etc/cron.d/crontabfile
+#RUN crontab /etc/cron.d/crontabfile
+#RUN crond
+
+#CMD ["php-fpm", "--nodaemonize"]
+
+RUN chmod 777 /tmp/socket.sh
+CMD ["/bin/sh", "-c" ,"/tmp/socket.sh"]
+ENTRYPOINT ["/bin/sh", "-c" ,"/tmp/socket.sh"]

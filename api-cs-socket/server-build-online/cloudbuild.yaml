@@ -1,0 +1,31 @@
+steps:
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build-online/Dockerfile-php', '-t', 'example.invalid/tp-wz3-online/cs-socket-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/tp-wz3-online/cs-socket-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - cs-socket-deployment
+  - cs-socket-container=example.invalid/tp-wz3-online/cs-socket-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_CORE_PROJECT=tp-wz3-online'
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build-online/Dockerfile-nginx', '-t', 'example.invalid/tp-wz3-online/cs-socket-nginx-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/tp-wz3-online/cs-socket-nginx-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - cs-socket-deployment
+  - cs-nginx-container=example.invalid/tp-wz3-online/cs-socket-nginx-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_CORE_PROJECT=tp-wz3-online'
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'

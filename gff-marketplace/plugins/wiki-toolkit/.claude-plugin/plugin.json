@@ -1,0 +1,7 @@
+{
+  "name": "wiki-toolkit",
+  "description": "寫 APIS 知識庫 wiki（Outline）：功能說明頁、操作手冊，以及發頁後在魔鏡建 pointer。自帶 Outline MCP，依賴 memory-mcp。當使用者說「寫 wiki」「補功能頁」「寫操作手冊」「把這個功能寫進 wiki」「幫這頁建 pointer」「審 wiki 頁」時使用。",
+  "author": { "name": "Rhys" },
+  "keywords": ["wiki", "outline", "知識庫", "功能說明", "操作手冊", "SSOT", "驗收條件", "pointer", "魔鏡"],
+  "dependencies": ["memory-mcp"]
+}

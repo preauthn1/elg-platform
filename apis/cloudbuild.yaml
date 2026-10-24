@@ -1,0 +1,442 @@
+# Cloud Build pipeline（災備用途）
+#
+# 此 pipeline 作為 GitLab CI 的災備備援，於 on-prem GitLab 停電期間
+# 由 CSR (Cloud Source Repositories) trigger 啟動。
+#
+# Trigger 條件：
+#   - push 到 develop 分支
+#   - push 符合 ^release_\d+$ 格式的 tag
+#
+# 產出：
+#   - $_IMAGE:$SHORT_SHA
+#   - $_IMAGE:latest
+#
+# 注意事項：
+#   - Cloud Build 的 default network 為 `cloudbuild`，同一 build 內所有
+#     step 共享此 network；使用 `docker run --network=cloudbuild` 啟動
+#     的 sidecar 可透過 container name 作為 hostname 被其他 step 連線。
+#   - 所有 PHP / composer / artisan / vendor 工具一律使用與 GitLab CI
+#     一致的 phpbase image 以確保 PHP 擴充一致。
+
+substitutions:
+  _PHP_IMAGE: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8-minimal:ae4fd248
+  _MYSQL_IMAGE: mysql:8.0.29
+  _REDIS_IMAGE: redis:6.2.12-alpine
+
+options:
+  machineType: E2_HIGHCPU_8
+  logging: CLOUD_LOGGING_ONLY
+
+timeout: 1800s
+
+steps:
+  # ───────────────────────────────────────────────────────────────
+  # 併發起始：MySQL sidecar
+  # ───────────────────────────────────────────────────────────────
+  - id: start-mysql
+    name: example.invalid/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      - run
+      - -d
+      - --network=cloudbuild
+      - --name=mysql
+      - -e
+      - MYSQL_ROOT_PASSWORD=[REDACTED]
+      - -e
+      - MYSQL_DATABASE=xsgcasino_testing
+      - ${_MYSQL_IMAGE}
+      - mysqld
+      - --port=3307
+      - --default-authentication-plugin=mysql_native_password
+
+  # ───────────────────────────────────────────────────────────────
+  # 併發起始：Redis sidecar
+  # ───────────────────────────────────────────────────────────────
+  - id: start-redis
+    name: example.invalid/cloud-builders/docker
+    waitFor: ['-']
+    args:
+      - run
+      - -d
+      - --network=cloudbuild
+      - --name=redis
+      - ${_REDIS_IMAGE}
+
+  # ───────────────────────────────────────────────────────────────
+  # 併發起始：composer install（與 sidecar 啟動並行以節省時間）
+  # ───────────────────────────────────────────────────────────────
+  - id: composer-install
+    name: ${_PHP_IMAGE}
+    waitFor: ['-']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        composer config --global process-timeout 2000
+        export COMPOSER_MEMORY_LIMIT=2G
+        php -d memory_limit=2G "$(which composer)" install --no-progress --no-interaction --prefer-dist
+
+  # ───────────────────────────────────────────────────────────────
+  # 準備 .env 與 APP_KEY
+  # ───────────────────────────────────────────────────────────────
+  - id: prepare-env
+    name: ${_PHP_IMAGE}
+    waitFor: ['composer-install']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        cp .env.testing-ci .env
+        cp .env.testing-ci .env.testing
+        php artisan key:generate
+
+  # ───────────────────────────────────────────────────────────────
+  # 等待 MySQL sidecar 就緒
+  # ───────────────────────────────────────────────────────────────
+  - id: wait-mysql
+    name: ${_MYSQL_IMAGE}
+    waitFor: ['start-mysql']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        until mysql --ssl-mode=DISABLED -h mysql -P 3307 -uroot -proot -e "SELECT 1"; do
+          echo "等待 MySQL 就緒..."
+          sleep 1
+        done
+        echo "MySQL 已就緒"
+
+  # ───────────────────────────────────────────────────────────────
+  # 建立主資料庫與日誌資料庫
+  # ───────────────────────────────────────────────────────────────
+  - id: create-db
+    name: ${_MYSQL_IMAGE}
+    waitFor: ['wait-mysql']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        mysql --ssl-mode=DISABLED -h mysql -P 3307 -uroot -proot -e "
+          CREATE DATABASE IF NOT EXISTS \`xsgcasino_testing\`
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+          CREATE DATABASE IF NOT EXISTS \`xsgcasino_testing_log\`
+            CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+        "
+
+  # ───────────────────────────────────────────────────────────────
+  # 執行 migrate:fresh
+  # ───────────────────────────────────────────────────────────────
+  - id: migrate
+    name: ${_PHP_IMAGE}
+    waitFor: ['create-db', 'prepare-env']
+    entrypoint: bash
+    env:
+      - DB_HOST_READ=mysql
+      - DB_HOST_WRITE=mysql
+      - MYSQL_DATABASE=xsgcasino_testing
+      - LOG_MYSQL_DATABASE=xsgcasino_testing_log
+      - MYSQL_ROOT_PASSWORD=[REDACTED]
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        php -d memory_limit=2G artisan migrate:fresh
+
+  # ───────────────────────────────────────────────────────────────
+  # 執行 artisan test（需等待 redis 就緒）
+  # ───────────────────────────────────────────────────────────────
+  - id: test
+    name: ${_PHP_IMAGE}
+    waitFor: ['migrate', 'start-redis']
+    entrypoint: bash
+    env:
+      - DB_HOST_READ=mysql
+      - DB_HOST_WRITE=mysql
+      - MYSQL_DATABASE=xsgcasino_testing
+      - LOG_MYSQL_DATABASE=xsgcasino_testing_log
+      - MYSQL_ROOT_PASSWORD=[REDACTED]
+      - REDIS_HOST=redis
+      - REDIS_PORT=6379
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        php artisan test
+
+  # ───────────────────────────────────────────────────────────────
+  # Pint 格式檢查（與 test 併發）
+  # ───────────────────────────────────────────────────────────────
+  - id: pint
+    name: ${_PHP_IMAGE}
+    waitFor: ['composer-install']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        vendor/bin/pint --test
+
+  # ───────────────────────────────────────────────────────────────
+  # PHPMD 圈複雜度檢查（與 test 併發）
+  # ───────────────────────────────────────────────────────────────
+  - id: phpmd
+    name: ${_PHP_IMAGE}
+    waitFor: ['composer-install']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        php -d error_reporting=E_ALL^E_DEPRECATED vendor/bin/phpmd \
+          app/ text .phpmd.xml \
+          --suffixes php \
+          --baseline-file phpmd.baseline.xml
+
+  # ───────────────────────────────────────────────────────────────
+  # Docker build（所有品質檢驗通過後執行）
+  # ───────────────────────────────────────────────────────────────
+  - id: docker-build
+    name: example.invalid/cloud-builders/docker
+    waitFor: ['test', 'pint', 'phpmd']
+    args:
+      - build
+      - -f
+      - .gitlab-ci/build/Dockerfile
+      - -t
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/bucket2024/csr/$REPO_NAME:$SHORT_SHA
+      - -t
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/bucket2024/csr/$REPO_NAME:latest
+      - .
+
+  # ───────────────────────────────────────────────────────────────
+  # Docker push（明確推送，確保後續觸發部署 step 時 image 已在 AR）
+  # 不使用 `images:` 頂層區塊，因為該區塊的 push 發生在所有 step 完成之後，
+  # 會晚於後面的 trigger-deploy-* step，導致下游 deploy pipeline 拉不到 image。
+  # ───────────────────────────────────────────────────────────────
+  - id: docker-push
+    name: example.invalid/cloud-builders/docker
+    waitFor: ['docker-build']
+    args:
+      - push
+      - --all-tags
+      - asia-east1-docker.pkg.dev/$PROJECT_ID/bucket2024/csr/$REPO_NAME
+
+  # ───────────────────────────────────────────────────────────────
+  # 觸發下游 deploy pipeline
+  #
+  # 互斥條件：
+  #   - dev 類（dev / dev2 / devwtt）：BRANCH_NAME 為 develop 或 cicd/stage-build
+  #   - alfawin77（prod）：TAG_NAME 符合 ^release_[0-9]+$
+  #
+  # 設計：
+  #   - dev 先觸發（會跑 migration，三個 dev 環境共用 DB）
+  #   - dev2 / devwtt 於 dev 觸發後並行觸發（設 _RUN_MIGRATION=false）
+  #   - alfawin77 由 release_N tag 觸發；526 側 trigger 設 --require-approval，
+  #     會進入 PENDING_APPROVAL，需人類於 Cloud Build Console 核准才會部署
+  #   - 本機 waitFor 只確保 `gcloud` 命令順序，不等下游 build 完成
+  #     （接受寬鬆語意，migration 通常秒級完成）
+  # ───────────────────────────────────────────────────────────────
+  - id: trigger-apis-deploy-dev
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if [ "$BRANCH_NAME" != "develop" ] && [ "$BRANCH_NAME" != "cicd/stage-build" ]; then
+          echo "BRANCH_NAME=$BRANCH_NAME 非 develop/cicd/stage-build，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-dev \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+
+  - id: trigger-apis-deploy-dev2
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['trigger-apis-deploy-dev']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if [ "$BRANCH_NAME" != "develop" ] && [ "$BRANCH_NAME" != "cicd/stage-build" ]; then
+          echo "BRANCH_NAME=$BRANCH_NAME 非 develop/cicd/stage-build，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-dev2 \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+
+  - id: trigger-apis-deploy-devwtt
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['trigger-apis-deploy-dev']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if [ "$BRANCH_NAME" != "develop" ] && [ "$BRANCH_NAME" != "cicd/stage-build" ]; then
+          echo "BRANCH_NAME=$BRANCH_NAME 非 develop/cicd/stage-build，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-devwtt \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+
+  - id: trigger-apis-deploy-alfawin77
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        # 僅在 release_N tag build 時觸發；526 側該 trigger 設 --require-approval，
+        # 會進入 PENDING_APPROVAL，待人類於 Cloud Build Console 核准後才部署。
+        # 注意：TAG_NAME 必須直接用 Cloud Build text substitution 形式（不可用
+        # bash default 語法），否則 step container 內 bash 評估會落空。
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-alfawin77 \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-alfawin77 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  # ───────────────────────────────────────────────────────────────
+  # Prod fan-out（與 alfawin77 併發；皆 require-approval）
+  # 526 側 trigger：
+  #   - 階段 C part 1：vworldmy / wintoto / vwb2c / yes2win / tpower（5 GKE）
+  #   - 階段 C part 2a：vplus33（on-prem，走 kubeconfig file）
+  # 條件與 alfawin77 一致：TAG_NAME 符合 release_N
+  # ───────────────────────────────────────────────────────────────
+  - id: trigger-apis-deploy-vworldmy
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-vworldmy \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-vworldmy 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  - id: trigger-apis-deploy-wintoto
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-wintoto \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-wintoto 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  - id: trigger-apis-deploy-vwb2c
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-vwb2c \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-vwb2c 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  - id: trigger-apis-deploy-yes2win
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-yes2win \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-yes2win 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  - id: trigger-apis-deploy-tpower
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-tpower \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-tpower 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"
+
+  # vplus33 on-prem baremetal（階段 C part 2a 新增）
+  # 526 側改用 _KUBECONFIG_FILE=deploy-keys/vplus33-production，不經 GKE
+  - id: trigger-apis-deploy-vplus33
+    name: example.invalid/cloud-builders/gcloud
+    waitFor: ['docker-push']
+    entrypoint: bash
+    args:
+      - -c
+      - |
+        set -euo pipefail
+        if ! echo "$TAG_NAME" | grep -Eq '^release_[0-9]+$'; then
+          echo "TAG_NAME=$TAG_NAME 非 release_N 格式，略過觸發"
+          exit 0
+        fi
+        gcloud builds triggers run apis-deploy-vplus33 \
+          --project=tp-wz3-rd \
+          --region=asia-east1 \
+          --branch=main \
+          --substitutions=_SRC_PROJECT=csr/apis,_SRC_SHORT_SHA=$SHORT_SHA
+        echo "apis-deploy-vplus33 已提交，進入 PENDING_APPROVAL；請至 Cloud Build Console 核准"

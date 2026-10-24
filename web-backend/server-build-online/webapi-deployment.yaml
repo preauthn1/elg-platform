@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: backend-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-web
+    spec:
+      terminationGracePeriodSeconds: 10    
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: backend-nginx-container
+          image: "example.invalid/tp-wz3-online/backend-web-nginx-image:ab5e302"
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: backend-web-container
+          image: "example.invalid/tp-wz3-online/backend-web-image:ab5e302"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          resources:
+            limits:
+              memory: 500Mi
+            requests:
+              cpu: 100m
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html;"]

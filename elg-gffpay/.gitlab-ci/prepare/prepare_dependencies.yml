@@ -1,0 +1,130 @@
+stages:
+  - prepare
+
+prepare_dependencies:
+  stage: prepare
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:ae4fd248
+  services:
+    - name: mysql:8.0.29
+      alias: mysql
+      command: ["mysqld", "--port=3307"]
+  tags:
+    - php8
+  extends:
+    - .default_cache
+    - .mysql_variable
+    - .mysql_service
+  rules:
+    - when: always
+  before_script:
+      # 準備 .env.testing 和 .env
+      - |
+        cp .env.testing-ci .env.testing
+        cp .env.testing-ci .env
+        uname -a
+        apt-get update && apt-get install -y git
+        export PREV_COMMIT_HASH=$(cat prev_commit.txt || echo "")
+        echo "$CI_COMMIT_SHA" > prev_commit.txt
+
+      # merge request 時執行 local merge
+      - |
+        if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ] && [ "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" = "main" ]; then
+          git config --global user.email "user@example.invalid"
+          git config --global user.name "runner"
+          
+          echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+          git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME 
+          git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+          git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+        fi
+  script:
+    # 準備 vendor (composer install)
+    - |
+      if [ ! -d vendor ] || [ -z "$(ls -A vendor)" ]; then
+        echo "Running composer install"
+        apt-get update -yqq
+        apt-get install libicu-dev -yqq
+        docker-php-ext-install intl
+        composer config --global process-timeout 2000
+        composer install --no-progress --no-interaction --prefer-dist
+      else
+        echo "Using cached vendor/"
+      fi
+
+    # 準備 key
+    - php artisan key:generate
+
+    # 等待 MySQL 服務就緒
+    - |
+      until mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 -e "SELECT 1"; do
+        echo "等待 MySQL 服務就緒..."
+        sleep 1
+      done
+    
+    # 準備 init.sql (migrate)
+    - |
+      if [ ! -f init.sql ]; then
+        echo "未找到 init.sql 文件，将执行正常迁移";
+        php artisan migrate:fresh;
+        php artisan app:upgrade
+        mysqldump -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 --routines $MYSQL_DATABASE > init.sql;
+        exit 0
+      fi
+
+      echo "檢查 migration 是否更新"
+      chmod +x .gitlab-ci/prepare/check_migration_changes.sh
+      set +e
+      ./.gitlab-ci/prepare/check_migration_changes.sh database/migrations
+      MIGRATION_CHANGES_RESULT_CODE=$?
+      set -e
+
+      echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"
+      echo "MIGRATION_CHANGES_RESULT_CODE: $MIGRATION_CHANGES_RESULT_CODE"
+      echo "--------------------------------"
+      echo "CI_COMMIT_REF_NAME: $CI_COMMIT_REF_NAME"
+      echo "MIGRATION_CHANGES_RESULT_CODE: $MIGRATION_CHANGES_RESULT_CODE"
+      echo "PREV_COMMIT_HASH: $PREV_COMMIT_HASH"
+      echo "CI_COMMIT_SHA: $CI_COMMIT_SHA"
+      echo "prev_commit.txt: $(cat prev_commit.txt)"
+
+      if [ ! "$CI_COMMIT_REF_NAME" = "main" ] && [ ! "$CI_COMMIT_REF_NAME" = "develop" ]; then
+        echo "檢查 migration 是否更新"
+        chmod +x .gitlab-ci/prepare/check_migration_changes.sh
+        set +e
+        ./.gitlab-ci/prepare/check_migration_changes.sh database/migrations
+        MIGRATION_CHANGES_RESULT_CODE=$?
+        set -e
+      fi
+
+      if [ "$MIGRATION_CHANGES_RESULT_CODE" = "1" ]; then
+        echo "migration 檔案被修改, 重建 DB 並更新 init.sql"
+        php artisan migrate:fresh;
+        php artisan app:upgrade;
+        mysqldump -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 --routines $MYSQL_DATABASE > init.sql;
+      else 
+        echo "執行 migration 和升級"
+        mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 $MYSQL_DATABASE < init.sql;
+
+        MIGRATE_OUTPUT=$(php artisan migrate)
+        APP_UPGRADE_OUTPUT=$(php artisan app:upgrade)
+        echo "$MIGRATE_OUTPUT"
+        echo "$APP_UPGRADE_OUTPUT"
+
+        NOT_HAS_MIGRATE=$(echo "$MIGRATE_OUTPUT" | grep -q "Nothing to migrate" && echo "yes" || echo "no")
+        NOT_HAS_UPGRADE=$(echo "$APP_UPGRADE_OUTPUT" | grep -q "共更新 0 筆資料" && echo "yes" || echo "no")
+
+        if [ "$NOT_HAS_MIGRATE" = "yes" ] && [ "$NOT_HAS_UPGRADE" = "yes" ]; then
+          echo "⚠️ 沒有遷移或升級，跳過更新 init.sql"
+        else
+          echo "✅ 遷移或升級成功，更新 init.sql"
+          mysqldump -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 --routines $MYSQL_DATABASE > init.sql
+        fi
+      fi
+
+  artifacts:
+    paths:
+      - vendor/
+      - init.sql
+      - .env.testing
+      - .env
+    expire_in: 1 hour

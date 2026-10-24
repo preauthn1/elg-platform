@@ -1,0 +1,89 @@
+{
+    "domains": [
+        {
+            "name": "金流",
+            "paths": [
+                "app/Services/Payment/",
+                "app/Http/Controllers/External/CashFlow/",
+                "app/Services/WithdrawalPayoutService.php",
+                "app/Services/WithdrawalPayoutManualService.php",
+                "app/Services/WithdrawalPayoutQueryService.php",
+                "app/Services/DepositService.php",
+                "app/Http/Controllers/Frontend/DepositController.php",
+                "app/Http/Controllers/Frontend/AutoDepositController.php"
+            ],
+            "reviewers": ["RB", "Hongze"]
+        },
+        {
+            "name": "遊戲對接",
+            "paths": [
+                "app/Vendors/",
+                "app/Http/Controllers/External/SingleWallets/",
+                "app/Http/Controllers/External/TransferWallets/"
+            ],
+            "reviewers": ["Rhys", "Tim", "Hongze"]
+        },
+        {
+            "name": "活動系統",
+            "paths": [
+                "app/Services/EventV2/",
+                "app/Enums/EventV2/",
+                "app/Enums/Event/",
+                "app/Models/EventV2*.php",
+                "app/Http/Controllers/Agent/EventController.php",
+                "app/Http/Controllers/Agent/EventV2Controller.php",
+                "app/Http/Controllers/Frontend/Event*Controller.php",
+                "app/Http/Requests/Agent/EventV2/",
+                "app/Http/Requests/Frontend/EventV2/",
+                "app/Http/Requests/Frontend/Event/",
+                "app/Http/Resources/Agent/EventV2/",
+                "app/Http/Resources/Frontend/EventV2/",
+                "app/Services/EventService.php",
+                "app/Services/EventJackpotService.php",
+                "app/Services/EventNewInviteService.php",
+                "app/Services/EventTotalBetRecordService.php",
+                "app/Services/Frontend/EventInvite/",
+                "app/Services/Frontend/EventProgressiveJackpot/",
+                "app/Services/Agent/EventListService.php"
+            ],
+            "reviewers": ["Daniel", "Max"]
+        },
+        {
+            "name": "會員提款與風控",
+            "paths": [
+                "app/Services/WithdrawalService.php",
+                "app/Services/WithdrawalFee.php",
+                "app/Services/WithdrawalFeeResolver.php",
+                "app/Services/MemberRestrictionGuard.php",
+                "app/Services/IpRestrictionGuard.php",
+                "app/Http/Controllers/Frontend/WithdrawalController.php"
+            ],
+            "reviewers": ["Toro", "Neil"]
+        },
+        {
+            "name": "Olympus 後台",
+            "paths": [
+                "app/Filament/",
+                "app/Providers/Filament/",
+                "resources/views/filament/",
+                "config/filament.php"
+            ],
+            "reviewers": ["Rhys", "RB"]
+        },
+        {
+            "name": "資料表結構",
+            "paths": ["database/migrations/"],
+            "reviewers": ["Mars", "Daniel"]
+        },
+        {
+            "name": "Stored procedure",
+            "paths": ["database/procedures/"],
+            "reviewers": ["Mars", "Neil"]
+        },
+        {
+            "name": "CI 設定",
+            "paths": [".gitlab-ci.yml", ".gitlab-ci/", ".gitlab/"],
+            "reviewers": ["Rhys", "Toro", "Tim"]
+        }
+    ]
+}

@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-webapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: agent-webapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agent-webapi
+    spec:
+      terminationGracePeriodSeconds: 10    
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: agent-nginx-container
+          image: "example.invalid/tp-wz3-online/agent-webapi-nginx-image:b605495"
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 400Mi
+            requests:
+              cpu: 80m 
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: agent-fluentd-container
+          image: "example.invalid/tp-wz3-online/agent-webapi-fluentd-image:b605495"
+          resources:
+            limits:
+              memory: 400Mi
+            requests:
+              cpu: 80m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: agent-webapi-container
+          image: "example.invalid/tp-wz3-online/agent-webapi-image:b605495"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          resources:
+            limits:
+              memory: 400Mi
+            requests:
+              cpu: 80m 
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; php artisan migrate; chmod -R 777 storage"]

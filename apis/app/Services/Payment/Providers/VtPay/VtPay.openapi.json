@@ -1,0 +1,829 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "默认模块",
+    "description": "",
+    "version": "1.0.0"
+  },
+  "tags": [
+    {
+      "name": "商户交易查询接口"
+    },
+    {
+      "name": "代付相关接口"
+    },
+    {
+      "name": "充值相关接口"
+    },
+    {
+      "name": "金流测试查询接口"
+    }
+  ],
+  "paths": {
+    "/queryBalance": {
+      "post": {
+        "summary": "商户余额查询接口",
+        "deprecated": false,
+        "description": "# 1.接入网址请参考下图\n\n![image.png](https://example.invalid/api/v1/projects/3863922/resources/444767/image-preview)\n# 2.资料传送需经过加密,请参考：重要信息-A-g.AES 加解密与请求 (串接前必读)\n\n# 3.由商户对平台发起请求",
+        "operationId": "doQueryBalanceUsingPOST",
+        "tags": [
+          "商户交易查询接口",
+          "金流测试查询接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {}
+              },
+              "example": ""
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resCode": {
+                      "type": "integer",
+                      "description": "\t 响应编码"
+                    },
+                    "resDesc": {
+                      "type": "string",
+                      "description": "\t 描述信息"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "balance": {
+                          "type": "number",
+                          "description": "余额"
+                        },
+                        "availableBalance": {
+                          "type": "number",
+                          "description": "可用余额"
+                        },
+                        "freezeBalance": {
+                          "type": "number",
+                          "description": "冻结金额"
+                        },
+                        "waitIncomeAmount": {
+                          "type": "integer",
+                          "description": "等待入款金额"
+                        },
+                        "todayTrFee": {
+                          "type": "integer",
+                          "description": "今日转账费用"
+                        }
+                      },
+                      "required": [
+                        "balance",
+                        "availableBalance",
+                        "freezeBalance",
+                        "waitIncomeAmount",
+                        "todayTrFee"
+                      ],
+                      "description": "响应数据"
+                    }
+                  },
+                  "required": [
+                    "resCode",
+                    "resDesc",
+                    "data"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "resCode": "000000",
+                      "resDesc": "操作成功",
+                      "data": {
+                        "balance": 430.3,
+                        "availableBalance": 461.38,
+                        "freezeBalance": 44.69,
+                        "waitIncomeAmount": 0,
+                        "todayTrFee": 0
+                      }
+                    }
+                  },
+                  "2": {
+                    "summary": "异常示例",
+                    "value": {
+                      "resCode": "000103",
+                      "resDesc": "商户信息不存在",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/queryPay": {
+      "post": {
+        "summary": "充值查询接口",
+        "deprecated": false,
+        "description": "# 充值查询\n\n### 1. 接入网址(请参考下图)\n\n> https://[接入网址]/SH/sendPay\n\n![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n### 3. 充值接口返回\n\n#### （1）返回数据结构\n\n| 字段               | 描述                                                         |\n| ------------------ | ------------------------------------------------------------ |\n| resCode            | 错误代码，000000为成功其余都为失败                           |\n| resDesc            | 成功失败信息                                                 |\n| data               | 回传信息                                                     |\n| data.orderId       | 第三方订单号                                                 |\n| data.shOrderNo     | 商户系统订单号, 该订单号将作为接口的返回数据                 |\n| data.orderType     | 订单充值类型 <br />  |\n| data.status        | 参考 `重要信息d.订单状态`                                    |\n| data.orderAmount   | 商户订单金额                                                 |\n| data.paidAmount    | 用户实际充值金额                                             |\n| data.requestAmount | PayHub产生充值金额                                           |\n| data.createdAt     | 订单创建时间, 格式: `yyyy-MM-dd HH:mm:ss`                    |\n| data.finishedAt    | 订单完成时间, 格式: `yyyy-MM-dd HH:mm:ss`                    |\n\n#### （2）返回示例\n\n```json\n{\n  \"resCode\": \"000000\",\n  \"resDesc\": \"操作成功\",\n  \"data\": {\n    \"shOrderNo\": \"ff91c0c1-3055-4b3b-8014-39d9c75ad8ba\",\n    \"orderAmount\": 11,\n    \"requestAmount\": 11,\n    \"paidAmount\": 11,\n    \"createdAt\": \"2024-04-25 21:32:35\",\n    \"finishedAt\": \"2024-05-04 05:13:09\",\n    \"status\": 3,\n    \"orderType\": \"QRPay\",\n    \"orderId\": \"D-1208251955115456726642689\"\n  }\n}\n```\n\n### 4. 请求实例\n\n#### （1）Body `urlencoded`\n\n| 字段      | 描述                                                         |\n| --------- | ------------------------------------------------------------ |\n| shOrderNo | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |",
+        "operationId": "doQueryPayUsingPOST",
+        "tags": [
+          "商户交易查询接口",
+          "金流测试查询接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shOrderNo": {
+                    "type": "string",
+                    "description": "商户订单号, 该订单号将作为接口的返回数据 该值需在商户系统内唯一存在",
+                    "maxLength": 50
+                  }
+                },
+                "required": [
+                  "shOrderNo",
+                  "01HZ6VPRV7BMM6SE24A3TQ7M43"
+                ]
+              },
+              "example": {
+                "shOrderNo": "ff91c0c1-3055-4b3b-8014-39d9c75ad8ba"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "resCode": {
+                      "type": "string",
+                      "description": "响应编码"
+                    },
+                    "resDesc": {
+                      "type": "string",
+                      "description": "描述信息"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "响应结果"
+                    }
+                  },
+                  "required": [
+                    "resCode",
+                    "resDesc",
+                    "data"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "resCode": "000000",
+                      "resDesc": "操作成功",
+                      "data": {
+                        "shOrderNo": "ff91c0c1-3055-4b3b-8014-39d9c75ad8ba",
+                        "orderAmount": 11,
+                        "requestAmount": 11,
+                        "paidAmount": 11,
+                        "createdAt": "2024-04-25 21:32:35",
+                        "finishedAt": "2024-05-04 05:13:09",
+                        "status": 3,
+                        "orderType": "QRPay",
+                        "orderId": "D-1208251955115456726642689"
+                      }
+                    }
+                  },
+                  "2": {
+                    "summary": "异常示例",
+                    "value": {
+                      "resCode": "000103",
+                      "resDesc": "商户信息不存在",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/queryWithdraw": {
+      "post": {
+        "summary": "代付查询接口",
+        "deprecated": false,
+        "description": "# 1.接入网址请参考下图\n\n![image.png](https://example.invalid/api/v1/projects/3863922/resources/444759/image-preview)\n\n# 2.资料传送需经过加密,请参考：重要信息-A-g.AES 加解密与请求 (串接前必读)\n\n# 3.由商户对平台发起请求",
+        "operationId": "doQueryWithdrawUsingPOST",
+        "tags": [
+          "商户交易查询接口",
+          "金流测试查询接口"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "shOrderNo": {
+                    "type": "string",
+                    "description": "商户订单参考编号"
+                  }
+                },
+                "required": [
+                  "shOrderNo"
+                ]
+              },
+              "example": {
+                "shOrderNo": "e3cfa018-7bb4-4537-ac9b-af48df09a69d"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "object",
+                      "properties": {},
+                      "description": "响应结果"
+                    },
+                    "resCode": {
+                      "type": "string",
+                      "description": "响应编码"
+                    },
+                    "resDesc": {
+                      "type": "string",
+                      "description": "描述信息"
+                    }
+                  },
+                  "required": [
+                    "data",
+                    "resCode",
+                    "resDesc"
+                  ]
+                },
+                "examples": {
+                  "1": {
+                    "summary": "成功示例",
+                    "value": {
+                      "resCode": "000000",
+                      "resDesc": "操作成功",
+                      "data": {
+                        "shOrderNo": "e3cfa018-7bb4-4537-ac9b-af48df09a69d",
+                        "orderAmount": 8,
+                        "requestAmount": 8,
+                        "paidAmount": null,
+                        "createdAt": "2024-04-28 13:47:53",
+                        "finishedAt": "2024-04-28 13:52:24",
+                        "status": 5,
+                        "orderType": null,
+                        "orderId": "D-1208251955115456726642689"
+                      }
+                    }
+                  },
+                  "2": {
+                    "summary": "异常示例",
+                    "value": {
+                      "resCode": "000103",
+                      "resDesc": "商户信息不存在",
+                      "data": null
+                    }
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/SH/sendWithdraw": {
+      "post": {
+        "summary": "发送代付订单",
+        "deprecated": false,
+        "description": "## 1.接入网址请参考下图\n\n![image.png](https://example.invalid/api/v1/projects/3863922/resources/444674/image-preview)\n\n## 2.资料传送需经过加密,请参考：重要信息-A-g. AES 加解密与请求 (串接前必读)\n\n## 3.由商户对平台发起请求\n\n\n![代付交易.png](https://example.invalid/api/v1/projects/3863922/resources/469182/image-preview)\n\n## 4. 代付Notification API结果通知\n\n| Key          | Description                                                  |\n| ------------ | ------------------------------------------------------------ |\n| sh_order_no  | **string(50)**<br />required<br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_status | **string(20)** <br />代付结果<br />请参考`重要信息 e.常见错误类型说明` |\n| order_amount | **decimal(14,6)**<br />商户订单金额                          |\n| paid_amount  | **decimal(14,6)\\|null**<br />实际到账金额                    |\n\n```json\n{\n\t\"order_status\": 3,\n\t\"sh_order_no\": \"20250121084528181009644\",\n\t\"order_amount\": 200000.000000,\n\t\"paid_amount\": 200000.000000\n}\n```",
+        "operationId": "sendWithdrawUsingPOST",
+        "tags": [
+          "代付相关接口"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "default": "Bearer_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sh_order_no": {
+                    "type": "string",
+                    "description": "string(50) \n必填 \n商户订单号, 该订单号将作为接口的返回数据 该值需在商户系统内唯一存在",
+                    "maxLength": 50
+                  },
+                  "bank_code": {
+                    "type": "string",
+                    "description": "string(50)\n必填\n银行代码, 网银支付时提供\n请参考 A-c. 银行代码列表\n请选择商户币种其所属的银行代码，单一商户仅能使用单一币种",
+                    "maxLength": 50
+                  },
+                  "bank_account": {
+                    "type": "string",
+                    "description": "string(50)\n必填\n银行帐户",
+                    "maxLength": 50
+                  },
+                  "bank_user_name": {
+                    "type": "string",
+                    "description": "string(50)\n必填\n银行户名\n银行真实姓名（如有需要时对账用）",
+                    "maxLength": 50
+                  },
+                  "order_amount": {
+                    "type": "number",
+                    "description": "decimal(14,6)\n必填\n商户订单金额\n使用越南银行时应为正整数，不允许含有小数的金额",
+                    "format": "double"
+                  },
+                  "notify_url": {
+                    "type": "string",
+                    "description": "string(255)\n异步通知商户地址\n若有需要可於 商户後台/交易纪录 中手动操作结果通知",
+                    "maxLength": 255
+                  },
+                  "operate_type": {
+                    "type": "string",
+                    "description": "string(50)\n必填\n类型:\nAUTO: 自动提现\nHAND: 人工提现",
+                    "maxLength": 50
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "string(100)\n备注",
+                    "maxLength": 100
+                  }
+                },
+                "required": [
+                  "sh_order_no",
+                  "bank_code",
+                  "bank_account",
+                  "bank_user_name",
+                  "order_amount",
+                  "operate_type"
+                ]
+              },
+              "example": ""
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "error_code": {
+                      "type": "integer",
+                      "description": "订单发起处理状态代码\n若处理成功则回传 200，除此之外皆为处理失败\n应以此状态判断订单请求成功后再做接续处理\n相关状态代码可参考 A-e. 错误代码列表 或 A-f. 常见错误类型说明\n部份錯誤也會觸發充值結果通知，請參考 C-b. 代付结果通知。"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "order_id": {
+                          "type": "string",
+                          "description": "第三方订单号"
+                        },
+                        "sh_order_no": {
+                          "type": "string",
+                          "description": "商户订单号"
+                        }
+                      },
+                      "required": [
+                        "order_id",
+                        "sh_order_no"
+                      ],
+                      "description": "\t回传信息"
+                    }
+                  },
+                  "required": [
+                    "error_code",
+                    "data"
+                  ]
+                },
+                "example": {
+                  "error_code": 200,
+                  "data": {
+                    "order_id": "W-0103201000001",
+                    "sh_order_no": "2TX5d8dc37804727"
+                  }
+                }
+              }
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    },
+    "/SH/sendPay": {
+      "post": {
+        "summary": "发起充值",
+        "deprecated": false,
+        "description": "## a. 银行充值\n\n### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/581233/image-preview)\n\n### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n### 3. 由商户对平台发起请求\n\n\n![银行充值.png](https://example.invalid/api/v1/projects/3863922/resources/469157/image-preview)\n\n### 4. 充值接口返回\n\n#### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额                                                 |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n| data.token          | 跳转至充值网站验证用口令                                     |\n\n#### （2）返回示例\n\n  ```json\n{\n  \"error_code\": 200,\n  \"data\": {\n    \"order_id\": \"D-0103201000001\",\n    \"order_amount\": 10.01,\n    \"request_amount\": 10.01,\n    \"url\": [\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]"\n    ],\n    \"token\": \"1AYo99S4vymMeAWHsvWeWGH7XKblhL8tuDYlfhAN\"\n  }\n}\n  ```\n\n### 5. 请求实例\n\n#### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n#### （2）Body `urlencoded`\n\n| 字段         | 描述                                                         |\n| ------------ | ------------------------------------------------------------ |\n| sh_order_no  | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount | **decimal(14,6)** <br />必填 <br />订单提交金额<br />使用时应为正整数，不允许含有小数的金额 |\n| order_type   | **string(10)**<br />必填<br />订单充值类型填入: <br />    `100: 网银类型` |\n| bank_code    | **string(50)**<br />必填<br />银行代码, 网银充值时提供 参考`重要信息 c.银行代码列表` <br />请选择商户币种其所属的银行代码，单一商户仅能使用单一币种 |\n| notify_url   | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note         | **string(100)** <br />备注                                   |\n| language     | 用户进入充值网后所要显示的语系，预设为用户浏览器语系 <br />已支援语系：  <br />`en: 英文` `vn: 越南文` <br /> |\n\n  \n\n  ## b.  QRPay 充值\n\n  ### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n  ### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 3. 由商户对平台发起请求\n\n\n  ![QR充值.png](https://example.invalid/api/v1/projects/3863922/resources/469167/image-preview)\n\n  ### 4. 充值接口返回\n\n  #### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额<br/>`注意: 若充值金额若为整数，平台可能会随机加入后两位小数供对帐使用` |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n| data.token          | 跳转至充值网站验证用口令                                     |\n\n  #### （2）返回示例\n\n  ```json\n{\n  \"error_code\": 200,\n  \"data\": {\n    \"order_id\": \"D-0103201000001\",\n    \"order_amount\": 10.01,\n    \"request_amount\": 10.01,\n    \"url\": [\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]"\n    ],\n    \"token\": \"1AYo99S4vymMeAWHsvWeWGH7XKblhL8tuDYlfhAN\"\n  }\n}\n  ```\n\n  > 注意: QRPay 充值 仅越南部份银行支持\n\n  ### 5. 请求实例\n\n  #### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n  #### （2）Body `urlencoded`\n\n| 字段         | 描述                                                         |\n| ------------ | ------------------------------------------------------------ |\n| sh_order_no  | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount | **decimal(14,6)** <br />必填 <br />订单提交金额<br />使用越南银行时应为正整数，不允许含有小数的金额 |\n| order_type   | **string(10)**<br />必填<br />订单充值类型填入: <br />      `QRPay: QR Code 扫码充值` <br />      `QRZaloPay: Zalo 扫码充值，仅限越南` <br />      `QRMonopay: Momo 扫码充值，仅限越南` <br />      `QRViettelpay: Viettelpay 扫码充值，仅限越南` |\n| bank_code    | **string(50)**<br />银行代码, 网银充值时提供 参考`重要信息 c.银行代码列表` <br />请选择商户币种其所属的银行代码，单一商户仅能使用单一币种 |\n| notify_url   | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note         | **string(100)** <br />备注                                   |\n| language     | 用户进入充值网后所要显示的语系，预设为用户浏览器语系 <br />已支援语系：  <br />`en: 英文` `vn: 越南文` <br /> |\n\n  ## c.  LBT 充值（仅支持新加坡地区）\n\n  ### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n  ### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 3. 由商户对平台发起请求\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/469118/image-preview)\n\n  ### 4. 充值接口返回\n\n  #### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额                                                 |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n| data.token          | 跳转至充值网站验证用口令                                     |\n\n  #### （2）返回示例\n\n  ```json\n{\n  \"error_code\": 200,\n  \"data\": {\n    \"order_id\": \"D-0103201000001\",\n    \"order_amount\": 10.01,\n    \"request_amount\": 10.01,\n    \"url\": [\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]",\n      \"https://example.invalid?token=[REDACTED]"\n    ],\n    \"token\": \"1AYo99S4vymMeAWHsvWeWGH7XKblhL8tuDYlfhAN\"\n  }\n}\n  ```\n\n  > 注意: LBT 充值 仅支持新加坡地区\n\n  ### 5. 请求实例\n\n  #### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n  #### （2）Body `urlencoded`\n\n| 字段         | 描述                                                         |\n| ------------ | ------------------------------------------------------------ |\n| sh_order_no  | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount | **decimal(14,6)** <br />必填 <br />订单提交金额              |\n| order_type   | **string(10)**<br />必填<br />订单充值类型填入: <br />      `lbt: LBT充值` <br /> |\n| bank_code    | **string(50)**<br />必填<br />银行代码, 网银充值时提供 参考`重要信息 c.银行代码列表` <br />请选择商户币种其所属的银行代码，单一商户仅能使用单一币种 |\n| notify_url   | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note         | **string(100)** <br />备注                                   |\n| language     | 用户进入充值网后所要显示的语系，预设为用户浏览器语系 <br />已支援语系：  <br />`en: 英文` `vn: 越南文` <br /> |\n\n  ## d.  FPX 充值（仅支持马来西亚地区）\n\n  ### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n  ### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 3. 由商户对平台发起请求\n\n  ### 4. 充值接口返回\n\n  #### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额                                                 |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n\n  #### （2）返回示例\n\n  ```json\n{\n\t\"order_amount\": 1,\n\t\"request_amount\": 1,\n\t\"order_id\": \"D-1306251933446006457856001\",\n\t\"url\": [\n\t\t\"https://tpa.payhalal.my/acquiring/redirect?token=[REDACTED]"\n\t]\n}\n  ```\n\n  > 注意: FPX 充值 仅支持马来西亚地区\n\n  ### 5. 请求实例\n\n  #### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n  #### （2）Body `urlencoded`\n\n| 字段           | 描述                                                         |\n| -------------- | ------------------------------------------------------------ |\n| sh_order_no    | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount   | **decimal(14,6)** <br />必填 <br />订单提交金额              |\n| order_type     | **string(10)**<br />必填<br />订单充值类型填入: <br />      `FPX: FPX充值` <br /> |\n| bank_code      | **string(50)**<br />必填<br />银行代码, FPX充值时提供 参考`重要信息 c.银行代码列表` <br />请选择MYR银行代码，单一商户仅能使用单一币种 |\n| notify_url     | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note           | **string(100)** <br />备注                                   |\n| customer_name  | **string(50)** <br />必填 <br />客户名                       |\n| customer_email | **string(50)** <br />必填 <br />客户邮箱                     |\n| customer_phone | **string(50)** <br />必填 <br />客户电话号码                 |\n\n  ## e.  TNG 充值（仅支持马来西亚地区）\n\n  ### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n  ### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 3. 由商户对平台发起请求\n\n  ### 4. 充值接口返回\n\n  #### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额                                                 |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n\n  #### （2）返回示例\n\n  ```json\n{\n\t\"order_amount\": 1,\n\t\"request_amount\": 1,\n\t\"order_id\": \"D-1306251933455558225973249\",\n\t\"url\": [\n\t\t\"https://tpa.payhalal.my/acquiring/redirect?token=[REDACTED]"\n\t]\n}\n  ```\n\n  > 注意: TNG 充值 仅支持马来西亚地区\n\n  ### 5. 请求实例\n\n  #### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n  #### （2）Body `urlencoded`\n\n| 字段           | 描述                                                         |\n| -------------- | ------------------------------------------------------------ |\n| sh_order_no    | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount   | **decimal(14,6)** <br />必填 <br />订单提交金额              |\n| order_type     | **string(10)**<br />必填<br />订单充值类型填入: <br />      `TNG: TNG充值` <br /> |\n| notify_url     | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note           | **string(100)** <br />备注                                   |\n| customer_name  | **string(50)** <br />必填 <br />客户名                       |\n| customer_email | **string(50)** <br />必填 <br />客户邮箱                     |\n| customer_phone | **string(50)** <br />必填 <br />客户电话号码                 |\n\n  ## f.  Cards 充值（仅支持马来西亚地区）\n\n  ### 1. 接入网址(请参考下图)\n\n  > https://[接入网址]/SH/sendPay\n\n  ![image.png](https://example.invalid/api/v1/projects/3863922/resources/444665/image-preview)\n\n  ### 2. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 3. 由商户对平台发起请求\n\n  ### 4. 充值接口返回\n\n  #### （1）返回数据结构\n\n| 字段                | 描述                                                         |\n| ------------------- | ------------------------------------------------------------ |\n| error_code          | 订单发起处理状态代码<br/>**若处理成功则回传 200，除此之外皆为处理失败<br/>应以此状态判断订单请求成功后再做接续处理**<br/>相关状态代码可参考 `重要信息 e.错误代码列表` 或 `重要信息 f.常见错误类型说明`<br/>部份錯誤也會觸發充值結果通知，請參考 `重要信息 d.充值结果通知`。 |\n| data                | 回传信息                                                     |\n| data.order_id       | 第三方订单号                                                 |\n| data.order_amount   | 商户订单金额                                                 |\n| data.request_amount | 平台产生充值金额                                             |\n| data.url            | 充值网站网址，每次配给网域不同，需使用 GET 请求方法 `可用网站位址数组, 请测速後择一跳转` [测速程式码示例](https://example.invalid/devkhgy/top/doc/zh/客户端浏览器域名测速自動版.html) |\n\n  #### （2）返回示例\n\n  ```json\n{\n\t\"order_amount\": 1,\n\t\"request_amount\": 1,\n\t\"order_id\": \"D-1306251933457636289695745\",\n\t\"url\": [\n\t\t\"https://tpa.payhalal.my/acquiring/redirect?token=[REDACTED]"\n\t]\n}\n  ```\n\n  > 注意: Cards 充值 仅支持马来西亚地区\n\n  ### 5. 请求实例\n\n  #### （1）HEADERS\n\n  > Content-Type\tapplication/json\n\n  #### （2）Body `urlencoded`\n\n| 字段             | 描述                                                         |\n| ---------------- | ------------------------------------------------------------ |\n| sh_order_no      | **string(50)** <br />必填 <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_amount     | **decimal(14,6)** <br />必填 <br />订单提交金额              |\n| order_type       | **string(10)**<br />必填<br />订单充值类型填入: <br />      `Cards: Cards充值` <br /> |\n| notify_url       | **string(255)** <br />异步通知商户地址 <br />若有需要可於 商户後台/交易纪录中手动操作结果通知 <br />**无需进行 encode url 处理** <br /> |\n| note             | **string(100)** <br />备注                                   |\n| customer_name    | **string(50)** <br />必填 <br />客户名                       |\n| customer_email   | **string(50)** <br />必填 <br />客户邮箱                     |\n| customer_phone   | **string(50)** <br />必填 <br />客户电话号码                 |\n| card_holder_name | **string(50)** <br />必填 <br />持卡人姓名                   |\n| card_number      | **string(50)** <br />必填 <br />银行卡号                     |\n| card_exp_mn      | **int** <br />必填 <br />银行卡过期月份                      |\n| card_exp_yy      | **int** <br />必填 <br />银行卡过期年份，必须大于等于今年，格式为当前年份后两位（例：25，代表2025年） |\n| card_cvv         | **string(50)** <br />必填 <br />安全码                       |\n\n  ## g. 充值结果通知\n\n  > 充值请求平台参数 notify_url 值\n\n  ### 1. 资料传送需经过加密，请参考 `重要信息g.** AES 加解密与请求 (串接前必读) **`\n\n  ### 2. 由商户平台提供接口\n\n  完成充值後，平台处理完成後透过 `notify_url` 地址通知商户\n\n  #### （1）充值交易完成通知接口返回数据结构\n\n| 字段   | 描述                      |\n| ------ | ------------------------- |\n| result | 是否接收成功，success: 是 |\n\n  #### （2）充值交易完成通知接口返回示例\n\n  内容需可反解成 JSON 物件之格式，\n  **若成功接收平台交易完成通知，无论交易結果成功與否，皆须回應下列范例。**\n  **回应需进行加密处理**\n\n  ```json\n{\"result\":\"success\"}\n  ```\n\n  #### （3）返回数据结构\n\n| 字段           | 描述                                                         |\n| -------------- | ------------------------------------------------------------ |\n| sh_order_no    | **string(50)** <br />商户订单号, 该订单号将作为接口的返回数据 `该值需在商户系统内唯一存在` |\n| order_status   | **string(20)** <br />充值结果<br />请参考`重要信息d. 订单状态` |\n| order_amount   | **decimal(14,6)** <br />商户订单金额                         |\n| paid_amount    | **decimal(14,6)\\|null** <br />用户实际充值金额               |\n| request_amount | **decimal(14,6)**<br />平台产生充值金额                      |\n\n  ```java\n{\n\t\"order_status\": 3,\n\t\"sh_order_no\": \"312928796\",\n\t\"order_amount\": 50000,\n\t\"request_amount\": 50000,\n\t\"paid_amount\": 50000,\n\t\"order_id\": \"D-1701251880140397168148482\"\n}\n  ```",
+        "operationId": "sendPayUsingPOST",
+        "tags": [
+          "充值相关接口"
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "token",
+            "required": false,
+            "example": "",
+            "schema": {
+              "type": "string",
+              "default": "Bearer_token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "sh_order_no": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "商户订单号, 该订单号将作为接口的返回数据 该值需在商户系统内唯一存在"
+                  },
+                  "order_amount": {
+                    "type": "number",
+                    "format": "double",
+                    "description": "订单提交金额 使用越南银行时应为正整数，不允许含有小数的金额"
+                  },
+                  "order_type": {
+                    "type": "string",
+                    "description": "订单充值类型 100: 网银类型 QRPay：QR Code 扫码充值 LBT：手动充值 FPX：FPX充值 TNG：TNG充值 Cards：Cards充值",
+                    "maxLength": 10
+                  },
+                  "bank_code": {
+                    "type": "string",
+                    "description": "银行代码, 网银充值时提供 参考 A-c. 银行代码列表 请选择商户币种其所属的银行代码，单一商户仅能使用单一币种。网银充值、FPX充值必填",
+                    "maxLength": 50
+                  },
+                  "notify_url": {
+                    "type": "string",
+                    "description": "异步通知商户地址 若有需要可於 商户後台/交易纪录 中手动操作结果通知",
+                    "maxLength": 255
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "用户进入充值网后所要显示的语系，预设为用户浏览器语系 已支援语系： en: 英文 vn: 越南文(仅限越南银行)"
+                  },
+                  "customer_name": {
+                    "type": "string",
+                    "description": "客户名，马来西亚充值必填",
+                    "maxLength": 50
+                  },
+                  "customer_email": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "客户邮箱，马来西亚充值必填"
+                  },
+                  "customer_phone": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "客户电话号码，马来西亚充值必填"
+                  },
+                  "card_holder_name": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "持卡人姓名，Cards充值必填"
+                  },
+                  "card_number": {
+                    "type": "string",
+                    "maxLength": 50,
+                    "description": "银行卡号，Cards充值必填"
+                  },
+                  "card_exp_mn": {
+                    "type": "integer",
+                    "description": "银行卡过期月份，Cards充值必填"
+                  },
+                  "card_exp_yy": {
+                    "type": "integer",
+                    "description": "银行卡过期年份，必须大于等于今年，格式为当前年份后两位（例：25，代表2025年），Cards充值必填"
+                  },
+                  "card_cvv": {
+                    "type": "string",
+                    "description": "安全码，Cards充值必填"
+                  }
+                },
+                "required": [
+                  "sh_order_no",
+                  "order_amount",
+                  "order_type"
+                ]
+              },
+              "example": ""
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "headers": {}
+          },
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "401": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "403": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          },
+          "404": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "headers": {}
+          }
+        },
+        "security": []
+      }
+    }
+  },
+  "components": {
+    "schemas": {},
+    "responses": {},
+    "securitySchemes": {}
+  },
+  "servers": [],
+  "security": []
+}

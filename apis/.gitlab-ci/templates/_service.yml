@@ -1,0 +1,33 @@
+# CI 的 MySQL 是 job 結束就丟掉的拋棄式服務：沒有 replica、不需要還原、當機頂多重跑 job。
+# 出廠預設的 binlog 與每筆 DDL / commit 的 fsync 都在保護「當機後資料還在、可被複製出去」，
+# 這些情境在 CI 都不存在，但建測試庫時 785 張表 + 214 支 procedure 的每一個 DDL 都在付代價。
+# 本機實測（同一份 init.sql、MySQL 8.0.30）：預設序列還原 4 庫 96s → 關掉後並行 32s。
+#   --skip-log-bin                          8.0 起 binlog 預設開啟，關掉省一份寫入與 sync_binlog=1 的 fsync
+#   --innodb-flush-log-at-trx-commit=0      redo log 每秒刷一次，不在每個 commit / DDL 等 fsync
+#   --innodb-doublewrite=0                  不寫 doublewrite 區（防斷電半頁損毀，CI 不需要）
+#   --innodb-flush-method=O_DIRECT_NO_FSYNC 資料檔寫入後不 fsync，只在建檔 / 擴檔 / 關檔時 fsync
+# 🔴 這組參數只能用在拋棄式測試庫，禁止搬到任何會保存資料的環境。
+.mysql_service:
+  services: &mysql_service
+    - name: mysql:8.0.29
+      alias: mysql
+      command:
+        - mysqld
+        - --port=3307
+        - --skip-log-bin
+        - --innodb-flush-log-at-trx-commit=0
+        - --innodb-doublewrite=0
+        - --innodb-flush-method=O_DIRECT_NO_FSYNC
+
+.redis_service:
+  services: &redis_service
+    - name: redis:6.2.12-alpine
+      alias: redis
+
+# 避免合併錯誤
+.combine_service: &combine_service
+  - *mysql_service
+  - *redis_service
+
+.default_service:
+  services: *combine_service

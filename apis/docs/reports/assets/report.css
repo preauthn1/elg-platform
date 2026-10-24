@@ -1,0 +1,383 @@
+/* ============================================================================
+ * docs/reports 共用樣式（報告設計系統）
+ * ----------------------------------------------------------------------------
+ * 用法：報告 HTML 於 <head> 引用 <link rel="stylesheet" href="assets/report.css">
+ *      （相對路徑：經 /docs/reports/{name} 路由與 file:// 直開皆可解析；
+ *       路由端由 routes/web.php 的 reports.assets 提供此檔）
+ *
+ * 色票：Frest 官方 demo 實抓（core.css / theme-default.css）
+ *   primary #5A8DEE / success #39DA8A / danger #FF5B5C / warning #FDAC41
+ *   info #00CFDD / secondary #69809A；soft 底＝官方 bg-label-* 定義值
+ *
+ * 設計規範（RB 定案，詳見 memory: report-html-style-preferences）：
+ *   - label / chip（.st、.badge）＝官方 label 樣式：官方淺底＋原色文字
+ *   - 節點徽章（.fn-n）＝官方 solid badge：原色底＋白字
+ *   - icon 一律素色線條 SVG（feather 風、stroke=currentColor），禁 emoji；
+ *     內文 icon 用 <svg class="ni"><use href="#i-xxx"/></svg>，
+ *     symbol 集（i-pin/i-cal/i-compass/i-crash…）內聯於各報告 <body> 開頭
+ *   - 圈號字元（①②③ⒶⒷⒸ）包 .cn 放大
+ *   - 流程圖分支「每條路徑一欄」用 .fsplit/.fpath；旁路加 .bypass（虛線）
+ *   - 連接線標籤（.fc-l）不用粗體；code 不用紅色
+ * ========================================================================== */
+:root{
+  --primary:#5A8DEE; --primary-2:#87ACF3; --primary-soft:#E5EDFC;
+  --success:#39DA8A; --success-soft:#DFF9EC;
+  --danger:#FF5B5C;  --danger-soft:#FFE5E5;
+  --warning:#FDAC41; --warning-soft:#FFF2E1;
+  --info:#00CFDD;    --info-soft:#D6F7FA;
+  --secondary:#69809A; --secondary-soft:#E7EBEF;
+  --body-bg:#F2F2F6; --card:#FFFFFF;
+  --heading:#516377; --text:#677788; --muted:#A9B4BF; --faint:#98A5B3;
+  --border:#D4D8DD;
+  --sidebar-bg:#26334D; --sidebar-text:#D3DAE5; --sidebar-muted:#6E7E95;
+  --shadow:0 4px 24px 0 rgba(38,51,77,.08);
+  --shadow-sm:0 2px 8px 0 rgba(38,51,77,.05);
+  --radius:.5rem; --radius-lg:.857rem;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--body-bg); color:var(--text);
+  font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei",sans-serif;
+  font-size:14px; line-height:1.55; -webkit-font-smoothing:antialiased;}
+::selection{background:var(--primary-soft); color:var(--primary)}
+a{text-decoration:none}
+
+/* ===== 版面：側欄＋內容區 ===== */
+.app{display:flex; min-height:100vh}
+.sidebar{width:260px; flex:0 0 260px; background:var(--sidebar-bg);
+  position:fixed; inset:0 auto 0 0; height:100vh; z-index:30;
+  display:flex; flex-direction:column; box-shadow:0 0 15px 0 rgba(34,41,47,.25);}
+.brand{display:flex; align-items:center; gap:11px; padding:20px 22px 18px}
+.brand .logo{width:34px; height:34px; border-radius:9px;
+  background:linear-gradient(118deg,var(--primary),var(--primary-2));
+  display:flex; align-items:center; justify-content:center; font-size:18px; box-shadow:0 4px 12px rgba(90,141,238,.5)}
+.brand .name{color:#fff; font-weight:700; font-size:18px; letter-spacing:.2px}
+.brand .logo svg{width:19px; height:19px; color:#fff}
+.menu-label{color:var(--sidebar-muted); font-size:11px; font-weight:700; letter-spacing:.08em;
+  text-transform:uppercase; padding:14px 22px 8px}
+.menu{list-style:none; margin:0; padding:0 12px; overflow-y:auto}
+.menu a{display:flex; align-items:center; gap:12px; color:var(--sidebar-text);
+  padding:11px 14px; border-radius:6px; font-size:14px; font-weight:500; margin:3px 0; transition:.15s}
+.menu a .ic{width:18px; text-align:center; font-size:15px; opacity:.85}
+/* 側欄章節編號（2026-08-27 新增）：與 icon 之間不吃 flex gap，緊貼標題前 */
+.menu a .mn{min-width:17px; margin-right:-4px; text-align:right; font-size:11px; font-weight:700;
+  font-variant-numeric:tabular-nums; opacity:.55; letter-spacing:0}
+.menu a:hover .mn,.menu a.active .mn{opacity:.9}
+.menu a .ic svg{width:17px; height:17px; display:block; margin:0 auto}
+.menu a:hover{background:rgba(255,255,255,.05); color:#fff; transform:translateX(3px)}
+.menu a:hover .ic{opacity:1}
+.menu a.disabled{opacity:.45; pointer-events:none}
+.menu a.active{color:#fff; background:linear-gradient(118deg,var(--primary),rgba(90,141,238,.7));
+  box-shadow:0 0 10px 1px rgba(90,141,238,.7)}
+.sidebar .foot{margin-top:auto; padding:16px 22px; color:var(--sidebar-muted); font-size:11.5px; border-top:1px solid rgba(255,255,255,.06)}
+.content{flex:1 1 auto; margin-left:260px; min-width:0}
+.container{max-width:1180px; margin:0 auto; padding:0 28px 48px}
+.topbar{position:sticky; top:0; z-index:20; background:rgba(242,242,246,.86);
+  backdrop-filter:saturate(160%) blur(8px); padding:16px 28px; margin-bottom:6px;
+  display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border)}
+.topbar .crumb{font-size:13px; color:var(--faint)}
+.topbar .crumb b{color:var(--heading); font-weight:600}
+.topbar h1{font-size:20px; margin:2px 0 0; color:var(--heading); font-weight:700}
+.topbar .chips{display:flex; gap:8px; flex-wrap:wrap}
+.chip{background:var(--card); border:1px solid var(--border); color:var(--text);
+  padding:6px 12px; border-radius:6px; font-size:12px; box-shadow:var(--shadow-sm)}
+.chip svg{width:13px; height:13px; opacity:.7}
+
+/* ===== 卡片與標題 ===== */
+.card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+  box-shadow:var(--shadow); margin:22px 0}
+.card .card-head{padding:18px 22px 4px}
+.card .card-head h2{display:flex; align-items:center; gap:11px; font-size:18px; margin:0; color:var(--heading); font-weight:700}
+.card .card-head .idx{display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px;
+  background:var(--primary-soft); color:var(--primary); border-radius:8px; font-size:14px; font-weight:800}
+.card .card-head .idx svg{width:16px; height:16px}
+.card .card-head .desc{color:var(--text); font-size:13px; margin:9px 0 0}
+.card .card-body{padding:14px 22px 22px}
+/* 單欄報告用的獨立區塊卡：自帶 padding，不需 .card-body */
+.prov{background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:14px 18px; margin:14px 0; box-shadow:var(--shadow-sm)}
+.pnote{color:var(--muted); font-size:12.5px; margin:0 0 8px}
+h1{font-size:20px; margin:0; color:var(--heading); font-weight:700}
+h2{font-size:18px; margin:32px 0 10px; color:var(--heading); font-weight:700}
+.sub{color:var(--muted); margin-bottom:18px; font-size:12.5px}
+h3{font-size:16.5px; margin:28px 0 12px; color:var(--heading); font-weight:700}
+.empty{color:var(--muted); font-size:13px; padding:18px; text-align:center}
+footer{padding:16px 2px 0; color:var(--faint); font-size:12px}
+
+/* ===== 統計磚 ===== */
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:20px; margin:24px 0 4px}
+.stat{background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg);
+  padding:18px 20px; box-shadow:var(--shadow); display:flex; align-items:center; gap:15px}
+.stat .avatar{width:46px; height:46px; border-radius:9px; display:flex; align-items:center;
+  justify-content:center; font-size:20px; flex:0 0 46px}
+.stat .avatar svg{width:23px; height:23px}
+.stat .num{font-size:23px; font-weight:800; color:var(--heading); line-height:1.1}
+.stat .lbl{color:var(--text); font-size:12.5px; margin-top:2px}
+.av-primary{background:var(--primary-soft); color:var(--primary)}
+.av-success{background:var(--success-soft); color:var(--success)}
+.av-warning{background:var(--warning-soft); color:var(--warning)}
+.av-danger{background:var(--danger-soft);  color:var(--danger)}
+.av-info{background:var(--info-soft); color:var(--info)}
+.av-secondary{background:var(--secondary-soft); color:var(--secondary)}
+
+/* ===== 表格 ===== */
+.tbl-scroll{overflow-x:auto; border:1px solid var(--border); border-radius:var(--radius); margin-top:6px}
+table{border-collapse:collapse; width:100%; font-size:13px; background:var(--card)}
+thead th{background:#F2F2F6; color:var(--heading); text-align:left; font-weight:700;
+  font-size:12px; letter-spacing:.04em; text-transform:uppercase;
+  padding:12px 16px; border-bottom:1px solid var(--border); white-space:nowrap}
+tbody td{padding:12px 16px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:#F8FAFC}
+td.center,th.center{text-align:center}
+td b{color:var(--heading)}
+table.fixed{table-layout:fixed}
+table.fixed th,table.fixed td{word-break:break-word}
+tr.row-chg{background:var(--warning-soft)}
+/* 生命週期報告的觸發點表：時間欄不換行 */
+#triggers th:nth-child(2),#triggers td:nth-child(2),
+#triggers th:nth-child(3),#triggers td:nth-child(3){white-space:nowrap}
+/* 名詞對照表：首欄加寬不換行 */
+.terms th:first-child,.terms td:first-child{white-space:nowrap; min-width:150px}
+
+/* ===== 文字元素 ===== */
+.mono{font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace; font-size:12px;
+  background:#F2F2F6; padding:2px 7px; border-radius:5px; color:var(--primary); display:inline-block}
+.trig{display:block; margin-top:7px; font-size:12.5px; color:var(--text); line-height:1.5}
+code{font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace; font-size:12px;
+  background:#F2F2F6; padding:1px 6px; border-radius:4px; color:var(--primary)}
+.tick{color:var(--success); font-weight:800}
+.dash{color:var(--muted)}
+.dis{color:var(--warning); font-weight:700}
+.chg{color:var(--warning); font-weight:700; font-size:12px}
+.same{color:var(--muted); font-size:12px}
+.arrow{color:var(--primary); font-weight:800; padding:0 3px}
+/* 圈號字元（①②③／ⒶⒷⒸ）字形筆畫小，統一放大加粗 */
+/* 圈號一律固定字級與字型：原為 1.45em，會隨父層（13px 表格/註記 vs 繼承 body 的 14px）算出 18.85 / 20.3px 兩種大小 */
+.cn{display:inline-block; font-size:16px; line-height:1; font-weight:700; vertical-align:-2px; letter-spacing:.02em;
+  font-family:"PingFang TC","Microsoft JhengHei","Hiragino Sans","Apple Symbols","Segoe UI Symbol",sans-serif}
+/* 素色線條 icon（feather 風，symbol 內聯於各頁 body 開頭） */
+svg.ni{width:14px; height:14px; fill:none; stroke:currentColor; stroke-width:2;
+  stroke-linecap:round; stroke-linejoin:round; vertical-align:-2px; color:var(--primary)}
+.fn-n svg.ni{width:12px; height:12px; color:inherit; vertical-align:-1.5px}
+/* 側欄／統計磚／章節徽章／節點徽章內的 <use> 型 icon：補線條屬性並繼承父層顏色 */
+.menu a .ic svg,.stat .avatar svg,.card .card-head .idx svg,.fnode .fn-n svg{
+  fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+/* 節點徽章內無 .ni 的裸 svg 也要給尺寸，否則會撐滿容器蓋住版面 */
+.fnode .fn-n svg{width:12px; height:12px}
+.fc-l svg.ni{color:inherit}
+/* 隨字級縮放的行內 icon（與固定 14px 的 svg.ni 併用） */
+.iic{width:1em; height:1em; vertical-align:-.12em; display:inline-block}
+
+/* ===== label / badge（Frest 官方 bg-label-* 樣式：官方淺底＋原色文字） ===== */
+.badge{display:inline-block; font-size:12px; font-weight:700; padding:4px 10px; border-radius:6px; white-space:nowrap; letter-spacing:.02em}
+.b-primary{background:var(--primary-soft); color:var(--primary)}
+.b-success{background:var(--success-soft); color:var(--success)}
+.b-danger{background:var(--danger-soft); color:var(--danger)}
+.b-warning{background:var(--warning-soft); color:var(--warning)}
+.b-info{background:var(--info-soft); color:var(--info)}
+.b-secondary{background:var(--secondary-soft); color:var(--secondary)}
+.badges{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0}
+.badge.pill{border-radius:1em}
+/* 訂單狀態 chip（依 withdrawal/deposit status 配色） */
+.st{display:inline-block; font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px; font-weight:700; padding:3px 9px; border-radius:6px; white-space:nowrap}
+.st .n{font-weight:800; margin-right:5px}
+.st.s0{background:var(--secondary-soft); color:var(--secondary)}
+.st.s1{background:var(--info-soft); color:var(--info)}
+.st.s2{background:var(--danger-soft); color:var(--danger)}
+.st.s3{background:var(--success-soft); color:var(--success)}
+.st.s4{background:var(--warning-soft); color:var(--warning)}
+.st.s9{background:var(--danger-soft); color:var(--danger)}
+.st.s21{background:var(--info-soft); color:var(--info)}
+.st.s22{background:var(--warning-soft); color:var(--warning)}
+.st.s23{background:var(--primary-soft); color:var(--primary)}
+.st.s24{background:var(--success-soft); color:var(--success)}
+.st.s29{background:var(--danger-soft); color:var(--danger)}
+
+/* ===== callout 與清單 ===== */
+.callout{background:var(--primary-soft); border:1px solid rgba(90,141,238,.2);
+  border-radius:var(--radius); padding:16px 18px; margin:18px 0; font-size:13px; color:var(--text)}
+.callout.warn{background:var(--danger-soft); border-color:rgba(255,91,92,.2)}
+.example.invalid{background:var(--info-soft); border-color:var(--info)}
+.callout.success{background:var(--success-soft); border-color:var(--success)}
+ul.clean{margin:8px 0; padding-left:20px} ul.clean li{margin:5px 0; color:var(--text); font-size:13px}
+ul.clean li b{color:var(--heading)}
+ul.tight{margin:8px 0; padding-left:22px} ul.tight li{margin:5px 0}
+.foot-note{color:var(--faint); font-size:12px; margin-top:26px; text-align:center}
+
+/* ===== 風險卡 ===== */
+.risk{background:var(--card); border:1px solid var(--border); border-left-width:4px;
+  border-radius:var(--radius); padding:15px 18px; margin:12px 0; box-shadow:var(--shadow-sm)}
+.risk.high{border-left-color:var(--danger)}
+.risk.mid{border-left-color:var(--warning)}
+.risk.low{border-left-color:var(--primary)}
+.risk .rh{display:flex; align-items:center; gap:11px; margin-bottom:5px}
+.risk .sev{font-size:11px; font-weight:800; padding:3px 10px; border-radius:6px; letter-spacing:.03em}
+.risk.high .sev{background:var(--danger-soft); color:var(--danger)}
+.risk.mid .sev{background:var(--warning-soft); color:var(--warning)}
+.risk.low .sev{background:var(--primary-soft); color:var(--primary)}
+.risk .rt{font-weight:700; font-size:14.5px; color:var(--heading)}
+.risk p{margin:4px 0 0; color:var(--text); font-size:13px}
+.risk .prov{font-weight:800; color:var(--heading)}
+.risk .loc{font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace; font-size:12px;
+  background:#F2F2F6; padding:2px 7px; border-radius:5px; color:var(--primary)}
+.risk .fix{color:var(--success)}
+.risk .ticket{color:var(--primary)}
+.group-title{font-size:12px; font-weight:800; color:var(--faint); text-transform:uppercase;
+  letter-spacing:.07em; margin:24px 0 6px}
+.legend{display:flex; flex-wrap:wrap; gap:16px; margin:14px 2px 0; font-size:12.5px; color:var(--text)}
+.legend span{display:inline-flex; align-items:center; gap:7px}
+
+/* ===== 摺疊區塊與 diff ===== */
+details{margin-top:8px}
+summary{cursor:pointer; color:var(--primary); font-size:12.5px; user-select:none}
+pre.diff{background:#1E2233; border-radius:8px; padding:12px 14px; overflow:auto; margin:8px 0 0;
+  font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace; font-size:12px;
+  line-height:1.45; color:#C8CAD0; white-space:pre}
+pre.diff .add{background:rgba(57,218,138,.16); color:#9FF0C0; display:block}
+pre.diff .del{background:rgba(255,91,92,.16); color:#FFB3B3; display:block}
+pre.diff .hh{color:#7F8499; display:block}
+
+/* ===== ASCII 流程區塊 ===== */
+.flow{background:#F2F2F6; border:1px solid var(--border); border-radius:var(--radius); padding:20px 18px; overflow-x:auto}
+.flow pre{margin:0; font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+  font-size:12.5px; line-height:1.75; color:var(--text); white-space:pre}
+.flow pre b{color:var(--primary); font-weight:800}
+/* 橫向節點流程：.flow 預設是 ASCII pre 容器，節點型需另加 .inline 取消底色與內距 */
+.flow.inline{display:flex; align-items:center; gap:9px; flex-wrap:wrap;
+  background:none; border:none; padding:0; margin:12px 0}
+/* .flow 內的節點徽章與箭頭（非 pre 的圖示型流程） */
+.flow .node{background:var(--card); border:1.5px solid var(--border); border-radius:8px;
+  padding:9px 14px; font-size:12.5px; font-weight:600; color:var(--heading); box-shadow:var(--shadow-sm)}
+.flow .node.hl{border-color:var(--primary); background:var(--primary-soft); color:var(--primary)}
+.flow .arrow{color:var(--muted); font-weight:700}
+
+/* ===== 節點流程圖（.fchart） ===== */
+.fchart{display:flex; flex-direction:column; align-items:center; gap:0;
+  background:linear-gradient(180deg,#FCFDFF,#F5F8FD); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:30px 18px 24px; overflow-x:auto}
+/* 連續兩張流程圖之間保留間隙（例：目標流程報告「落點之後的定案」21/22 兩圖） */
+.fchart + .fchart{margin-top:18px}
+.fcap{font-size:13px; color:var(--heading); font-weight:700; margin-bottom:18px}
+.frow{display:flex; justify-content:center; align-items:stretch; gap:18px; flex-wrap:wrap}
+/* 同一階段內換行時的縱向間距：.fchart 的 gap 為 0，有 .fconn 夾著才靠其 padding 撐開；
+   兩個 .frow 直接相鄰時會貼死，且 .fn-n 圈號 top:-12px 會壓到上一列節點下緣。 */
+.frow + .frow{margin-top:26px}
+.fnode{position:relative; min-width:130px; padding:21px 17px 12px; border-radius:12px;
+  border:1.5px solid var(--border); background:var(--card); box-shadow:var(--shadow-sm);
+  display:flex; flex-direction:column; gap:3px; text-align:center; transition:.16s}
+.fnode:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+/* 節點徽章＝Frest 官方 solid badge（原色底＋白字） */
+.fnode .fn-n{position:absolute; top:-12px; left:50%; transform:translateX(-50%);
+  min-width:26px; height:26px; padding:0 9px; border-radius:13px; font-size:12.5px; font-weight:800;
+  display:flex; align-items:center; justify-content:center;
+  font-family:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace; box-shadow:var(--shadow-sm)}
+.fnode .fn-t{font-weight:700; font-size:13px; color:var(--heading); margin-top:1px}
+.fnode .fn-d{font-size:12.5px; color:var(--text)}
+.fnode.term{box-shadow:var(--shadow-sm),0 0 0 3px var(--success-soft)}
+.fnode.bypass{border-style:dashed}
+.fnode.s0{border-color:var(--secondary)} .fnode.s0 .fn-n{background:var(--secondary); color:#fff}
+.fnode.s1{border-color:var(--info)}      .fnode.s1 .fn-n{background:var(--info); color:#fff}
+.fnode.s2{border-color:var(--danger)}    .fnode.s2 .fn-n{background:var(--danger); color:#fff}
+.fnode.s3{border-color:var(--success)}   .fnode.s3 .fn-n{background:var(--success); color:#fff}
+.fnode.s4{border-color:var(--warning)}   .fnode.s4 .fn-n{background:var(--warning); color:#fff}
+.fnode.s9{border-color:var(--danger)}    .fnode.s9 .fn-n{background:var(--danger); color:#fff}
+.fnode.s21{border-color:var(--info)}     .fnode.s21 .fn-n{background:var(--info); color:#fff}
+.fnode.s22{border-color:var(--warning)}  .fnode.s22 .fn-n{background:var(--warning); color:#fff}
+.fnode.s23{border-color:var(--primary)}  .fnode.s23 .fn-n{background:var(--primary); color:#fff}
+.fnode.s24{border-color:var(--success)}  .fnode.s24 .fn-n{background:var(--success); color:#fff}
+.fnode.s29{border-color:var(--danger)}   .fnode.s29 .fn-n{background:var(--danger); color:#fff}
+/* 語意名節點色（無 status 編號的流程圖用；與 .fnode.sNN 互補） */
+.fnode.n-grey{border-color:var(--secondary)}   .fnode.n-grey .fn-n{background:var(--secondary); color:#fff}
+.fnode.n-info{border-color:var(--info)}        .fnode.n-info .fn-n{background:var(--info); color:#fff}
+.fnode.n-danger{border-color:var(--danger)}    .fnode.n-danger .fn-n{background:var(--danger); color:#fff}
+.fnode.n-success{border-color:var(--success)}  .fnode.n-success .fn-n{background:var(--success); color:#fff}
+.fnode.n-warning{border-color:var(--warning)}  .fnode.n-warning .fn-n{background:var(--warning); color:#fff}
+.fnode.n-primary{border-color:var(--primary)}  .fnode.n-primary .fn-n{background:var(--primary); color:#fff}
+/* 連接線與標籤（標籤不用粗體） */
+.fconn{display:flex; flex-direction:column; align-items:center; gap:3px; padding:9px 0 7px}
+.fconn .fc-l{font-size:12.5px; color:var(--primary); background:var(--primary-soft);
+  padding:3px 12px; border-radius:5px; font-weight:400}
+.fconn .fc-l b{font-weight:400}
+.fconn .fc-a{width:2px; height:18px; background:linear-gradient(var(--primary),rgba(90,141,238,.3)); position:relative}
+.fconn .fc-a::after{content:""; position:absolute; bottom:-2px; left:50%; transform:translateX(-50%);
+  border:5px solid transparent; border-top-color:var(--primary)}
+/* .par＝並行／順序註記（非閘門）：兩段之間沒有閘門、只有先後約束時使用。
+   灰＋虛線與藍色實線的閘門 .fconn 區分，避免讀成「又一道閘」。 */
+.fconn.par .fc-l{color:var(--secondary); background:var(--secondary-soft)}
+.fconn.par .fc-a{width:0; background:none; border-left:2px dashed var(--secondary)}
+.fconn.par .fc-a::after{border-top-color:var(--secondary)}
+.fbranch{display:flex; justify-content:center; gap:18px; flex-wrap:wrap; margin-bottom:15px}
+.fbranch span{min-width:130px; text-align:center; font-size:12.5px; font-weight:700; color:var(--text)}
+/* 每條分支一欄：標籤 → 專屬箭頭 → 結果節點（勿改成 flex 標籤容器，inline 內容會錯位） */
+.fsplit{display:flex; justify-content:center; align-items:stretch; gap:22px; flex-wrap:wrap; padding:8px 0 2px; align-self:stretch}
+.fpath{display:flex; flex-direction:column; align-items:center; flex:0 1 225px}
+.fpath .fp-l{text-align:center; font-size:12.5px; font-weight:700; color:var(--text); display:block; min-height:40px; padding-top:2px}
+.fpath .fp-a{width:2px; height:20px; margin:6px 0 16px; background:linear-gradient(var(--primary),rgba(90,141,238,.3)); position:relative}
+.fpath .fp-a::after{content:""; position:absolute; bottom:-2px; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--primary)}
+.fpath.bypass .fp-a{width:0; background:none; border-left:2px dashed var(--warning)}
+.fpath.bypass .fp-a::after{border-top-color:var(--warning)}
+.fpath .fnode{margin-top:0; width:100%}
+/* 圖下註解卡；<b> 重點用 primary 顯眼色 */
+.fnotes{align-self:stretch; margin-top:18px; display:flex; flex-direction:column; gap:8px}
+.fnote{font-size:13px; color:var(--text); background:var(--card); margin-top:10px;
+  border:1px solid var(--border); border-left:3px solid var(--primary); border-radius:7px; padding:9px 13px}
+/* .fnotes 容器已用 gap 控制間距，避免與 margin 疊加 */
+.fnotes .fnote{margin-top:0}
+.fnote.bad{border-left-color:var(--danger)}
+.fnote.good{border-left-color:var(--success)}
+.callout b,.fnote b{color:var(--primary)}
+
+/* ===== 階梯圖（.ladder/.rung）：階級高度與配色由各報告自訂 ===== */
+.ladder{display:flex; gap:0; align-items:flex-end; margin:18px 0 8px; flex-wrap:wrap}
+.rung{flex:1; min-width:150px; margin:0 5px; border-radius:9px 9px 0 0; padding:14px 14px 12px;
+  color:#fff; position:relative; text-shadow:0 1px 2px rgba(55,45,38,.22)}
+.rung .tag{font-size:17px; font-weight:800; display:flex; align-items:center; gap:5px; flex-wrap:wrap}
+.rung .nm{font-size:12.5px; font-weight:600; opacity:.96; margin-top:2px}
+.rung .dd{font-size:11.5px; opacity:.9; margin-top:6px; line-height:1.45}
+
+/* ===== 分期時程卡（.phases/.phase） ===== */
+.phases{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px}
+.phase{flex:1 1 150px; background:var(--card); border:1px solid var(--border);
+  border-top:3px solid var(--primary); border-radius:var(--radius); padding:13px 15px; box-shadow:var(--shadow-sm)}
+.phase .pn{font-size:11px; font-weight:800; color:var(--primary); letter-spacing:.05em}
+.phase .pt{font-size:13.5px; font-weight:700; color:var(--heading); margin:3px 0 4px}
+.phase .pd{font-size:11.5px; color:var(--faint)}
+.phase.p0{border-top-color:var(--warning)}   .phase.p0 .pn{color:var(--warning)}
+.phase.pend{border-top-color:var(--success)} .phase.pend .pn{color:var(--success)}
+
+/* ===== 響應式 ===== */
+@media(max-width:900px){
+  .sidebar{transform:translateX(-100%)} .content{margin-left:0}
+  .topbar{flex-direction:column; align-items:flex-start; gap:8px; padding:14px 18px}
+  .container{padding:0 16px 40px}
+}
+
+/* 過期／已推翻的敘述標記：刪除線＋紅色註記標籤（2026-08-27 新增） */
+.stale{text-decoration:line-through; text-decoration-color:var(--danger); text-decoration-thickness:2px; opacity:.6}
+.stale-tag{display:inline-block; font-size:11px; font-weight:800; padding:2px 7px; border-radius:5px;
+  background:var(--danger-soft); color:var(--danger); margin:0 4px; text-decoration:none; opacity:1; letter-spacing:.02em}
+
+/* 章節交叉引用連結（2026-08-27 新增） */
+.xref{color:var(--primary); font-weight:600; border-bottom:1px dotted currentColor}
+.xref:hover{border-bottom-style:solid}
+
+/* 圈號字級兜底：.fbranch span 等「class + element」選擇器 specificity（0,0,1,1）高於單一
+   .cn（0,0,1,0），順序無法壓過 specificity，故此處用同級的 example.invalid 並置於檔案末尾。 */
+example.invalid{font-size:16px}
+
+/* 折疊式歷史沿革（2026-08-27 新增）：把已被取代的舊結論收起來，避免與現行結論並列誤導 */
+details.hist{border:1px solid var(--border); border-radius:9px; background:var(--card); margin-top:14px}
+details.hist>summary{cursor:pointer; padding:11px 15px; font-weight:700; font-size:14px; list-style:none;
+  display:flex; align-items:center; gap:8px; color:var(--text)}
+details.hist>summary::-webkit-details-marker{display:none}
+details.hist>summary::before{content:"\25B8"; color:var(--primary); font-size:13px}
+details.hist[open]>summary::before{content:"\25BE"}
+details.hist>summary:hover{background:var(--primary-soft)}
+details.hist .hist-body{padding:6px 15px 15px; border-top:1px solid var(--border)}
+
+/* 章節內分組標題（2026-08-27 新增） */
+.grp{margin:30px 0 12px; padding:9px 14px; border-radius:8px; background:var(--primary-soft);
+  font-size:15px; font-weight:800; color:var(--primary); display:flex; align-items:baseline; gap:10px}
+.grp .grp-d{margin-left:auto; font-size:12px; font-weight:600; opacity:.8; color:var(--text)}

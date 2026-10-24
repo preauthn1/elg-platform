@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<routes xmlns="http://example.invalid/schema/routing"
+    xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example.invalid/schema/routing https://example.invalid/schema/routing/routing-1.0.xsd">
+
+    <import resource="validpattern.xml" prefix="/{foo}" host="">
+        <default key="foo">123</default>
+        <requirement key="foo">\d+</requirement>
+        <option key="foo">bar</option>
+        <condition>context.getMethod() == "POST"</condition>
+    </import>
+</routes>

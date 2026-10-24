@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cs-backend-web-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "customerservice-backend-static-ip"    
+spec:
+  tls:
+    - secretName: dev-cs-backend-ingress
+    - secretName: dev-cs-backend-tm99s-com-nginx-0728172020
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: cs-backend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: cs-backend-web-service
+          servicePort: nginx-port

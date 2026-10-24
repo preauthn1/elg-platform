@@ -1,0 +1,7 @@
+{
+  "name": "apis-toolkit",
+  "description": "APIs 領域一站式（Laravel 13 / PHP 8.4）：金流接入、遊戲商接入、金流通道拆分、多白標容器內命令執行（whitelabel-container-exec）、白標唯讀 SQL 查詢（whitelabel-db-query，mysql MCP 直連 read replica）、對帳（reconcile-bet-records 診斷 / repair-bet-records 修復 / list-sbr-corrections）、報表（report-payment-audit / report-order-status-lifecycle）、GCP log 排查（gcp-log-troubleshoot）、新邊界重工掃描（scan-duplicate-work，掛在 release-workflow §3.0.6）+ 白標 registry + scaffolding 命令 + 審查 agent。只裝 APIs repo。依賴 dev-toolkit（commit / release 流程）與 gcp-mcp（gcp-log-troubleshoot 用其 observability MCP）。",
+  "author": { "name": "rb" },
+  "keywords": ["apis", "laravel", "payment", "game", "scaffolding", "db", "白標", "對帳", "report", "報表"],
+  "dependencies": ["dev-toolkit", "gcp-mcp"]
+}

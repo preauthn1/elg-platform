@@ -1,0 +1,7 @@
+{
+  "name": "op-toolkit",
+  "description": "建工單流程（GFF 需求單 + OP 線上問題單）、讀 OP 單並指路排查、改工單描述與需求單示意圖產製。依賴 gitlab-mcp。",
+  "author": { "name": "rb" },
+  "keywords": ["工單", "ticket", "gff", "op", "gitlab"],
+  "dependencies": ["gitlab-mcp"]
+}

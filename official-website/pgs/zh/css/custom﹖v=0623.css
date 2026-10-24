@@ -1,0 +1,349 @@
+/* =======================================================
+*
+* 	Template Style 
+*
+* ======================================================= */
+
+.feature {
+    width: 100%;
+    background: url(../images/index-feature%EF%B9%96v=0411.png) #2d2d2d no-repeat;
+    background-position: bottom right;
+    background-size: contain;
+    mix-blend-mode: screen;
+    margin: 0 auto;
+    height: 650px;
+}
+
+.feature-content {
+    text-align: center;
+}
+
+.feature-content h4 {
+    text-align: left;
+    color: #a08c64;
+}
+
+.feature-content .desc {
+    text-align: left;
+    color: #8a8a8a;
+}
+
+.feature-content .row {
+    margin-top: 90px;
+}
+
+.feature-inverse {
+    background: url(../images/in_ph01.png) #181818 no-repeat;
+    background-position: bottom left;
+}
+
+@media screen and (min-width: 1200px) {
+    .container-fluid.no-full {
+        width: 1156px;
+    }
+}
+
+@media screen and (max-width: 1366px) {
+    .feature {
+        background-size: 50%;
+    }
+}
+
+@media screen and (max-width: 1199px) {
+    .feature {
+        background-size: 55%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .feature {
+        background-size: 60%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .feature {
+        height: 950px;
+        background-position: 50% 100%;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    .feature {
+        height: 950px;
+        background-image: none;
+    }
+    .feature-inverse {
+        background-image: none;
+    }
+}
+
+.black-box {
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+    /*background: url(../images/black-box-bg.png.html) #0f0f0f;*/
+}
+
+.black-box p {
+    font-size: 13px;
+    color: #8a8a8a;
+}
+
+.contact-box {
+    padding: 0;
+    color: #8a8a8a;
+    background-color: #0f0f0f;
+}
+
+.contact-box .feedback, .contact-box .contact {
+    padding-top: 40px;
+}
+
+.contact-box h3 {
+    margin: 14px 0;
+    color: #fff;
+    text-align: center;
+}
+
+.contact-box h6 {
+    margin: 0;
+    color: #a08c64;
+    text-align: center;
+}
+
+.contact-box p {
+    text-align: center;
+    font-size: 13px;
+}
+
+.contact-box .form-control {
+    border-radius: 0;
+    color: #fff;
+    border: 1px solid #575757;
+    background: transparent;
+}
+
+.contact-box p.address {
+    text-transform: uppercase;
+    padding: 0px 30px 0px 30px;
+    margin-bottom: 20px;
+}
+
+.morebtn {
+    width: 140px;
+    margin: 20px auto;
+    display: inline-block;
+    height: 38px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    text-shadow: none;
+    text-align: center;
+    color: #a08c64;
+    background: none;
+    transition: all 300ms ease-in-out;
+    border: 1px solid #a08c64;
+    line-height: 38px;
+}
+
+.morebtn:hover {
+    color: #fff;
+    background: #a08c64;
+}
+
+.copyright p {
+    text-transform: uppercase;
+    font-size: 13px;
+    padding-top: 36px;
+    color: #8a8a8a;
+}
+
+.slot-icon {
+    background: url(../images/icos/about_01.png) no-repeat center center;
+    background-size: 80%;
+}
+
+.lotto-icon {
+    background: url(../images/icos/about_02.png) no-repeat center center;
+    background-size: 80%;
+}
+
+.live-icon {
+    background: url(../images/icos/about_03.png) no-repeat center center;
+    background-size: 80%;
+}
+
+.sport-icon {
+    background: url(../images/icos/about_04.png) no-repeat center center;
+    background-size: 80%;
+}
+
+/**/
+
+.main-box {
+    min-height: 250px;
+}
+
+.main-box ul {
+    padding: 0px;
+    margin: 0px;
+    list-style-type: none;
+}
+
+.main-box li {
+    width: 20%;
+    overflow: hidden;
+    position: relative;
+    float: left;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.main-box li a {
+    width: 100%;
+    display: block;
+    color: #fff;
+}
+
+.main-box li a {
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 100%;
+    float: left;
+    min-height: 250px;
+    -webkit-transition: all 0.5s ease 0s;
+    -moz-transition: all 0.5s ease 0s;
+    -o-transition: all 0.5s ease 0s;
+    -ms-transition: all 0.5s ease 0s;
+    transition: all 0.5s ease 0s;
+}
+
+.main-box li a:hover {
+    background-color: rgba(0, 24, 54, 0);
+}
+
+.main-box li {
+    height: 100%;
+    min-height: 250px;
+}
+
+.main-box li p {
+    font-size: 14px;
+}
+
+.main-box li a span {
+    font-size: 18px;
+    font-weight: normal;
+    display: block;
+    text-transform: uppercase;
+    padding-top: 10%;
+    color: #fff;
+    opacity: 0;
+    height: 100px;
+    width: 100px;
+    margin: 0 auto;
+    border-radius: 50px;
+    background-color: #a08c64;
+    vertical-align: middle;
+    line-height: 50px;
+    margin-top: 30%;
+}
+
+.main-box li a:hover span {
+    display: block;
+    opacity: 1;
+}
+
+@media screen and (max-width: 480px) {
+    .main-box li {
+        width: 100%;
+        height: 180px;
+    }
+}
+
+/**/
+
+.partner_block {
+    background: url(../images/partner_bg%EF%B9%96v=0415.jpg) no-repeat center;
+    padding: 19% 0 19%;
+}
+
+section {
+    text-align: center;
+}
+
+.p_list {
+    margin: -2% auto;
+    width: 65.5em;
+}
+
+.p_list>a {
+    width: 157px;
+    height: 157px;
+    border: 1px #cbad64 solid;
+    color: #cbad64;
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    display: inline-block;
+    cursor: pointer;
+    margin: 0 40px;
+    background-position: 0px 0px;
+}
+
+.mg_btn {
+    background: url(../images/p_mg.png) no-repeat;
+}
+
+.ag_btn {
+    background: url(../images/p_ag.png) no-repeat;
+}
+
+.pt_btn {
+    background: url(../images/p_pt.png) no-repeat;
+}
+
+.og_btn {
+    background: url(../images/p_og.png) no-repeat;
+}
+
+.ab_btn {
+    background: url(../images/p_ab.png) no-repeat;
+}
+
+.qt_btn {
+    background: url(../images/p_qt.png) no-repeat;
+}
+
+.nt_btn {
+    background: url(../images/p_nt.png) no-repeat;
+}
+
+.dios_btn {
+    background: url(../images/p_dios.png) no-repeat;
+}
+
+.apl_btn {
+    background: url(../images/p_apl.png) no-repeat;
+}
+
+.dt_btn {
+    background: url(../images/p_dt.png) no-repeat;
+}
+
+.mcai_btn {
+    background: url(../images/p_mcai.png) no-repeat;
+}
+
+.bbin_btn {
+    background: url(../images/p_bbin.png) no-repeat;
+}
+
+.partner_block span {
+    display: none;
+}
+
+.p_list>a:hover {
+    background-position: -2px -159px;
+}

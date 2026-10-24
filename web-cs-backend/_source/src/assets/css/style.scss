@@ -1,0 +1,50 @@
+.fa-times {
+  cursor: pointer;
+}
+
+.fa-times.medium {
+  font-size: 25px;
+  padding: 10px;
+}
+
+.f-l {
+  float: left;
+}
+
+.f-r {
+  float: right;
+}
+
+.text-r {
+  text-align: right;
+}
+
+.text-c {
+  text-align: center;
+}
+
+.text-l {
+  text-align: left;
+}
+
+input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.v-btn__content {
+  i.fa {
+    margin-right: 5px;
+  }
+}
+
+.popup-content {
+  background: #fff;
+  min-height: 600px;
+  padding: 15px;
+}
+
+.popup-content table th {
+  white-space: break-spaces !important;
+  vertical-align: inherit !important;
+  padding: 5px !important;
+}

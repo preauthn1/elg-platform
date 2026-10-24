@@ -1,0 +1,280 @@
+# Default values for api-frontend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+configs:
+  data:
+    .env: |
+      APP_NAME=api-internal
+      APP_ENV=local
+      APP_KEY=base64:f47dAEo1zF4C9SzY0tQvURjJ8Q6tmp69fgt3RzCAv7Y=
+      APP_DEBUG=true
+      APP_URL=http://localhost
+
+      LOG_CHANNEL=laravel
+
+      DB_CONNECTION=mysql
+      DB_DATABASE=dev_xsgcasino
+      DB_PORT=3306
+      DB_HOST_READ=0.0.0.0
+      DB_HOST_WRITE=0.0.0.0
+      DB_USERNAME_READ=developer
+      DB_PASSWORD_READ=!QAZ2wsxForXSGames
+      DB_USERNAME_WRITE=developer
+      DB_PASSWORD_WRITE=!QAZ2wsxForXSGames
+      LOG_DATABASE=dev_xsgcasino_log
+
+      CS_DB_DATABASE=dev_chat
+      CS_DB_HOST=0.0.0.0
+      CS_DB_USERNAME=developer
+      CS_DB_PASSWORD=[REDACTED]
+
+      BROADCAST_DRIVER=log
+      CACHE_DRIVER=file
+      QUEUE_CONNECTION=sync
+      SESSION_DRIVER=file
+      SESSION_LIFETIME=120
+
+      REDIS_HOST=0.0.0.0
+      REDIS_PASSWORD=[REDACTED]
+      REDIS_PORT=6379
+
+      MAIL_MAILER=smtp
+      MAIL_HOST=example.invalid
+      MAIL_PORT=2525
+      MAIL_USERNAME=null
+      MAIL_PASSWORD=[REDACTED]
+      MAIL_ENCRYPTION=null
+      MAIL_FROM_ADDRESS=null
+      MAIL_FROM_NAME="${APP_NAME}"
+
+      AWS_ACCESS_KEY_ID=
+      AWS_SECRET_ACCESS_KEY=
+      [REDACTED]
+      AWS_BUCKET=
+
+      PUSHER_APP_ID=
+      PUSHER_APP_KEY=
+      PUSHER_APP_SECRET=
+      [REDACTED]
+
+      MIX_PUSHER_APP_KEY="${PUSHER_APP_KEY}"
+      MIX_PUSHER_APP_CLUSTER="${PUSHER_APP_CLUSTER}"
+
+
+    nginx.conf: |
+      user  nginx;
+      worker_processes  auto;
+      error_log  /var/log/nginx/error.log warn;
+      pid        /var/run/nginx.pid;
+      events {
+          worker_connections  4096;
+      }
+      http {
+          include       /etc/nginx/mime.types;
+          default_type  application/octet-stream;
+
+          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                            '$status $body_bytes_sent "$http_referer" '
+                            '"$http_user_agent" "$http_x_forwarded_for"';
+
+          access_log  /var/log/nginx/access.log  main;
+
+          sendfile        on;
+          tcp_nopush     on;
+          tcp_nodelay     on;
+
+          keepalive_timeout  65;
+
+          #gzip  on;
+
+          include /etc/nginx/conf.d/*.conf;
+
+          server {
+              listen       80 default_server;
+              listen       [::]:80 default_server;
+              server_name  _;
+              root         /var/www/html/public;
+              index        index.php;
+
+              # if ($http_x_forwarded_proto = 'http') {
+              #     rewrite ^ https://$host$request_uri? permanent;
+              # }
+
+              add_header X-Frame-Options "SAMEORIGIN";
+              add_header X-XSS-Protection "1; mode=block";
+              add_header X-Content-Type-Options "nosniff";
+
+              # Load configuration files for the default server block.
+              include /etc/nginx/default.d/*.conf;
+
+              location / {
+                try_files $uri $uri/ /index.php?$query_string;
+              }
+              location = /favicon.ico { access_log off; log_not_found off; }
+              location = /robots.txt  { access_log off; log_not_found off; }
+              error_page 404 /index.php;
+
+              location ~* \.(pem|key) {
+                  deny all;
+                  return 403;
+              }
+
+              location ~ \.php$ {
+                  fastcgi_pass   0.0.0.0:9000;
+                  fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                  include        fastcgi_params;
+              }
+
+              error_page 404 /404.html;
+                  location = /40x.html {
+              }
+
+              error_page 500 502 503 504 /50x.html;
+                  location = /50x.html {
+              }
+          }
+      }
+
+    google-fluentd.conf: |
+      <source>
+        @type tail
+        # Parse the timestamp, but still collect the entire line as 'message'
+        # format /^\[(?<time>\d{4}-\d{1,2}-\d{1,2} \d{1,2}:\d{1,2}:\d{1,2})\] (?<env>[\w]+)\.(?<severity>[A-Z]+): (?<message>.*)/
+        format json
+        path /var/www/html/storage/logs/laravel-%Y-%m-%d.log
+        # path /var/www/html/storage/logs/laravel.log
+        pos_file /var/lib/google-fluentd/pos/laravel.pos
+        tag laravel
+        time_format %Y-%m-%dT%H:%M:%S.%NZ
+      </source>
+      # Master configuration file for google-fluentd
+
+      # Include any configuration files in the config.d directory.
+      #
+      # An example "catch-all" configuration can be found at
+      # https://example.invalid/GoogleCloudPlatform/fluentd-catch-all-config
+      @include config.d/*.conf
+
+      # Prometheus monitoring.
+      #<source>
+      #  @type prometheus
+      #  port 24231
+      #</source>
+      #<source>
+      #  @type prometheus_monitor
+      #</source>
+      <system>
+        log_level trace
+      </system>
+
+      # Do not collect fluentd's own logs to avoid infinite loops.
+      <match fluent.**>
+        @type null
+      </match>
+
+      # Add a unique insertId to each log entry that doesn't already have it.
+      # This helps guarantee the order and prevent log duplication.
+      <filter **>
+        @type add_insert_ids
+      </filter>
+
+      # Configure all sources to output to Google Cloud Logging
+      <match **>
+        @type elasticsearch
+        logstash_format true
+        type_name _doc
+        include_tag_key true
+        host efk-elasticsearch-client.default.svc.cluster.local
+        port 9200
+
+        buffer_type file
+        buffer_path /var/log/google-fluentd/buffers
+        buffer_chunk_limit 512KB
+        # Flush logs every 5 seconds, even if the buffer is not full.
+        flush_interval 5s
+        # Enforce some limit on the number of retries.
+        disable_retry_limit false
+        # After 3 retries, a given chunk will be discarded.
+        retry_limit 3
+        # Wait 10 seconds before the first retry. The wait interval will be doubled on
+        # each following retry (20s, 40s...) until it hits the retry limit.
+        retry_wait 10
+        max_retry_wait 300
+        # Use multiple threads for processing.
+        num_threads 8
+        detect_json true
+
+        request_timeout 2147483648
+      </match>
+
+
+image:
+  repository: example.invalid/tp-wz3-rd/target/api-internal
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: gcrcred
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations:
+    example.invalid/ingress.class: nginx
+    example.invalid/proxy-body-size: "0"
+    # example.invalid/ingress.class: nginx
+    # example.invalid/tls-acme: "true"
+  hosts: []
+#    - host: example.invalid
+#      paths:
+#        - /
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

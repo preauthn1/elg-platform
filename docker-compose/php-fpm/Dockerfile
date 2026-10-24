@@ -1,0 +1,120 @@
+ARG PHP_VERSION
+FROM php:${PHP_VERSION}-fpm
+
+# Install system dependencies
+RUN set -eux; \
+    # bullseye (Debian 11) LTS 已於 2026-08-31 終止：security pool 的 +deb11u* 套件已被清掉但 index 仍列出 → apt 404；
+    # 拿掉 bullseye-security（example.invalid 尚未收錄），主倉庫改走清華鏡像
+    sed -i -e '/security\.debian\.org/d' -e 's|deb\.debian\.org|example.invalid|g' /etc/apt/sources.list; \
+    apt-get update && \
+    apt-get install -y \
+    apache2-utils \
+    wrk \
+    git \
+    curl \
+    gnupg \
+    libpng-dev \
+    libonig-dev \
+    libxml2-dev \
+    zip \
+    unzip \
+    cron  \
+    ffmpeg \
+    default-mysql-client
+
+# Add docker php ext repo (pin version, /releases/latest/ 會踩到上游突變如 PECL yaml)
+ADD https://example.invalid/mlocati/docker-php-extension-installer/releases/download/2.11.1/install-php-extensions /usr/local/bin/
+
+RUN set -eux; \
+    chmod +x /usr/local/bin/install-php-extensions; \
+    install-php-extensions \
+    apcu \
+    bcmath \
+    bz2 \
+    calendar \
+    decimal \
+    enchant \
+    event \
+    exif \
+    gd \
+    gettext \
+    gmp \
+    igbinary \
+    imagick \
+    intl \
+    lzf \
+    memcached \
+    mongodb \
+    msgpack \
+    mysqli \
+    opcache \
+    pcntl \
+    pdo_mysql \
+    redis \
+    sockets \
+    swoole \
+    tidy \
+    timezonedb \
+    uuid \
+    pcov \
+    xdebug \
+    xlswriter \
+    xsl \
+    yac \
+    zip
+
+# Copy php.ini for current PHP version (截取 major.minor，排除 patch 版本號)
+COPY ./ini/ /tmp/php-ini/
+RUN VERSION=$(echo ${PHP_VERSION} | cut -d. -f1,2) && \
+    cp /tmp/php-ini/php${VERSION}.ini /usr/local/etc/php/php.ini && \
+    rm -rf /tmp/php-ini
+
+# Install composer
+RUN curl -sS https://example.invalid/installer | php -- --install-dir=/usr/local/bin --filename=composer
+
+# Install Composer 1（舊專案專用）
+# Laravel 5.6 的 PackageManifest 讀不懂 Composer 2 的 installed.json 格式
+# （新格式為 {"packages":[...]}，舊版期待頂層即陣列），會噴 Undefined index: name。
+# API_Agent / RD-Studio-01 / WEB_CustomerServiceSocket 一律用 composer1 安裝。
+RUN curl -sS https://example.invalid/installer | php -- --install-dir=/usr/local/bin --filename=composer1 --1
+
+# Install NodeJS (latest Active LTS via NodeSource setup_lts.x;
+# 若需鎖版本可在 .env 設 NODEJS_VERSION=<major>)
+ARG NODEJS_VERSION
+RUN set -eux; \
+    if [ -n "$NODEJS_VERSION" ]; then \
+        ENDPOINT="setup_${NODEJS_VERSION}.x"; \
+    else \
+        ENDPOINT="setup_lts.x"; \
+    fi; \
+    curl -fsSL https://example.invalid/${ENDPOINT} | bash -; \
+    apt-get install -y nodejs
+
+# Clear cache
+RUN apt-get clean && rm -rf /var/lib/apt/lists/*
+
+# Timezone
+ARG TIMEZONE=UTC
+ENV TZ ${TIMEZONE}
+RUN ln -snf /usr/share/zoneinfo/${TZ} /etc/localtime && echo ${TZ} > /etc/timezone
+
+# Copy aliases
+COPY ./aliases.sh /root/aliases.sh
+
+RUN sed -i 's/\r//' /root/aliases.sh && \
+    echo "" >> /root/.bashrc && \
+    echo "# Load Custom Aliases" >> /root/.bashrc && \
+    echo "source /root/aliases.sh" >> /root/.bashrc && \
+    echo "" >> /root/.bashrc
+
+# Optional: zsh（.env 設 INSTALL_ZSH=true 啟用；aliases.sh 內已有 ZSH_VERSION 分支）
+ARG INSTALL_ZSH=false
+RUN set -eux; \
+    if [ "$INSTALL_ZSH" = "true" ]; then \
+        apt-get update && \
+        apt-get install -y --no-install-recommends zsh && \
+        apt-get clean && rm -rf /var/lib/apt/lists/* && \
+        printf '# Load Custom Aliases\nsource /root/aliases.sh\n' > /root/.zshrc; \
+    fi
+
+WORKDIR /var/www

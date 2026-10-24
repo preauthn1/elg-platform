@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://example.invalid/schema/routing"
+        xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://example.invalid/schema/routing
+        http://example.invalid/schema/routing/routing-1.0.xsd">
+
+    <route id="app_utf8" path="/utf8">
+        <option key="utf8">true</option>
+    </route>
+    <route id="app_no_utf8" path="/no-utf8">
+        <option key="utf8">false</option>
+    </route>
+</routes>

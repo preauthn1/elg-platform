@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<ruleset name="PHP Mess Detector Rules"
+         xmlns="http://example.invalid/ruleset/1.0.0"
+         xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://example.invalid/ruleset/1.0.0 http://example.invalid/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="http://example.invalid/ruleset_xml_schema.xsd">
+    <description>複雜度規則（對應 copilot-instructions §4 第 7 條）</description>
+
+    <!-- 排除不需分析的目錄 -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/database/migrations/*</exclude-pattern>
+    <exclude-pattern>*/database/seeders/*</exclude-pattern>
+    <exclude-pattern>*/database/data/*</exclude-pattern>
+
+    <!-- ═══════════════════════════════════════════════════════
+         CyclomaticComplexity
+         ─────────────────────────────────────────────────────
+         單一方法的分支數（if/elseif/foreach/while/case/&&/||/??）
+         超過 20 即視為違規。
+         ═══════════════════════════════════════════════════════ -->
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="20"/>
+            <property name="showClassesComplexity" value="true"/>
+            <property name="showMethodsComplexity" value="true"/>
+        </properties>
+    </rule>
+
+
+    <!-- ═══════════════════════════════════════════════════════
+         ExcessiveMethodLength
+         ─────────────────────────────────────────────────────
+         方法超過 200 行時警告，鼓勵拆分。
+         ═══════════════════════════════════════════════════════ -->
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="200"/>
+            <property name="ignore-whitespace" value="true"/>
+        </properties>
+    </rule>
+
+</ruleset>
+

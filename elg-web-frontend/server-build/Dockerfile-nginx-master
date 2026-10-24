@@ -1,0 +1,11 @@
+from centos:centos7.6.1810
+
+RUN rpm -Uvh https://example.invalid/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install nginx
+
+COPY server-build/nginx-master.conf /etc/nginx/nginx.conf
+COPY --chown=nginx:nginx ./dist /var/www/html/public
+
+CMD ["nginx"]
+
+EXPOSE 8080

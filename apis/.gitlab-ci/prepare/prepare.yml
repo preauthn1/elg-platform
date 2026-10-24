@@ -1,0 +1,220 @@
+stages:
+  - prepare
+
+prepare:
+  stage: prepare
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8-minimal:ae4fd248
+  tags:
+    - php8
+  needs:
+    - calculate_migration_hash
+  # 本 job 只做「依賴準備 + 靜態檢查」，不碰資料庫，故不掛 .default_service（MySQL / Redis）。
+  # .default_variables 仍需保留：MR local merge 依賴其中的 GIT_DEPTH: 0 才走得到 merge-base。
+  extends:
+    - .default_cache
+    - .default_variables
+    - .php_memory_variable
+  rules:
+    # master 的 push pipeline 只是把 MR pipeline 測過的內容再測一次（MR-to-master 已在
+    # before_script 以 git merge --no-ff 模擬合併結果），且 master 不觸發 build/deploy，
+    # 純重複。合併後的把關改由 release tag pipeline 負責（該處 test 已 gate release-prod）。
+    # tag pipeline 的 CI_PIPELINE_SOURCE 同樣是 push，靠 CI_COMMIT_BRANCH 只在 branch
+    # pipeline 有值來區分，故本規則不會擋掉 release_xxx 的 tag pipeline。
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - when: always
+  before_script:
+      # 準備 .env.testing 和 .env
+      - |
+        _T0=$(date +%s)
+        cp .env.testing-ci .env.testing
+        cp .env.testing-ci .env
+        uname -a
+        echo "確認 git 安裝狀態："
+        which git && echo "✅ git 已安裝" || echo "❌ git 未安裝"
+        echo "Git 版本："
+        git --version
+        git config --global user.email "user@example.invalid"
+        git config --global user.name "runner"
+        printf '\033[1;36m[CI timing]\033[0m 準備 .env 與 git 設定 — \033[1;32m%ss\033[0m\n' "$(($(date +%s)-_T0))"
+      # merge request 時執行 local merge
+      - |
+        _T0=$(date +%s)
+        if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ] && [ "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" = "master" ]; then
+          apt-get update && apt-get install -y git
+
+          git config --global user.email "user@example.invalid"
+          git config --global user.name "runner"
+
+          echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+          git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+          git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+          git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+        fi
+        printf '\033[1;36m[CI timing]\033[0m MR merge（或略過）— \033[1;32m%ss\033[0m\n' "$(($(date +%s)-_T0))"
+  script:
+    # 準備 vendor (composer install)
+    #
+    # 快取 key（見 _cache.yml）是用 job 一開始 checkout 出來的 composer.lock 算的，
+    # 但 MR-to-master pipeline 的本地 merge（見上方 before_script）在快取還原「之後」
+    # 才把 target 分支的 composer.lock 併進工作目錄；若來源分支落後 master 的套件異動
+    # （如新增 laravel/horizon），快取 key 對到的是 merge 前的舊版 composer.lock，
+    # 會誤命中一份少裝套件的 vendor/。只檢查目錄存在與否無法偵測這種內容不一致，
+    # 故額外用 composer.lock 內容雜湊比對，過期就強制重跑 composer install。
+    - |
+      _T0=$(date +%s)
+      LOCK_HASH=$(md5sum composer.lock | awk '{print $1}')
+      CACHED_HASH=$(cat vendor/.composer_lock_hash 2>/dev/null || echo "")
+      if [ ! -d vendor ] || [ -z "$(ls -A vendor)" ] || [ "$LOCK_HASH" != "$CACHED_HASH" ]; then
+        echo "Running composer install"
+        composer config --global process-timeout 2000
+        # 設置 PHP 記憶體限制以避免 filament:upgrade 時記憶體耗盡
+        # 使用環境變數 PHP_MEMORY_LIMIT (預設 2G) 而非無限制，符合業界標準
+        export COMPOSER_MEMORY_LIMIT=${PHP_MEMORY_LIMIT:-2G}
+        php -d memory_limit=${PHP_MEMORY_LIMIT:-2G} $(which composer) install --no-progress --no-interaction --prefer-dist
+        echo "$LOCK_HASH" > vendor/.composer_lock_hash
+      else
+        echo "Using cached vendor/"
+      fi
+      printf '\033[1;36m[CI timing]\033[0m composer install / vendor 快取 — \033[1;32m%ss\033[0m\n' "$(($(date +%s)-_T0))"
+
+    # 準備 key
+    - |
+      _T0=$(date +%s)
+      php -d memory_limit=${PHP_MEMORY_LIMIT:-2G} artisan key:generate
+      printf '\033[1;36m[CI timing]\033[0m artisan key:generate — \033[1;32m%ss\033[0m\n' "$(($(date +%s)-_T0))"
+
+    # PSR-4、pint、PHPMD 併發
+    # 測試與資料庫準備已拆為獨立的 test job（見 .gitlab-ci/prepare/test.yml），本 job 只留
+    # 依賴準備與靜態檢查；順帶消除原本 composer dump-autoload 與 artisan test 併發
+    # 競爭 vendor/autoload 的隱患
+    # 各子 shell 須 set +e：否則 CI 預設 errexit 下指令非 0 會在寫入 *.exit 前就結束，造成 cat 找不到檔案
+    - |
+      _T0=$(date +%s)
+      OUT_DIR=$(mktemp -d)
+      trap 'rm -rf "$OUT_DIR"' EXIT
+
+      echo "併發執行：PSR-4、pint、PHPMD"
+
+      (
+        set +e
+        _start=$(date +%s)
+        composer dump-autoload > "$OUT_DIR/psr4.txt" 2>&1
+        echo $? > "$OUT_DIR/psr4-composer.exit"
+        echo $(($(date +%s) - _start)) > "$OUT_DIR/psr4.sec"
+      ) &
+
+      (
+        set +e
+        _start=$(date +%s)
+        composer pint:test > "$OUT_DIR/pint.txt" 2>&1
+        echo $? > "$OUT_DIR/pint.exit"
+        echo $(($(date +%s) - _start)) > "$OUT_DIR/pint.sec"
+      ) &
+
+      (
+        set +e
+        _start=$(date +%s)
+        php -d error_reporting=E_ALL^E_DEPRECATED vendor/bin/phpmd \
+          app/ text .phpmd.xml \
+          --suffixes php \
+          --baseline-file phpmd.baseline.xml \
+          > "$OUT_DIR/phpmd.txt" 2>&1
+        echo $? > "$OUT_DIR/phpmd.exit"
+        echo $(($(date +%s) - _start)) > "$OUT_DIR/phpmd.sec"
+      ) &
+
+      wait
+      _T1=$(date +%s)
+
+      OUTPUT_PSR4=$(cat "$OUT_DIR/psr4.txt")
+      OUTPUT_PINT=$(cat "$OUT_DIR/pint.txt")
+      OUTPUT_PHPMD=$(cat "$OUT_DIR/phpmd.txt")
+
+      EC_PSR4_COMPOSER=$(cat "$OUT_DIR/psr4-composer.exit")
+      EC_PINT=$(cat "$OUT_DIR/pint.exit")
+      EC_PHPMD=$(cat "$OUT_DIR/phpmd.exit")
+
+      SEC_PSR4=$(cat "$OUT_DIR/psr4.sec")
+      SEC_PINT=$(cat "$OUT_DIR/pint.sec")
+      SEC_PHPMD=$(cat "$OUT_DIR/phpmd.sec")
+
+      echo ""
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "1) PSR-4（composer dump-autoload）"
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      printf '%s\n' "$OUTPUT_PSR4"
+      PSR4_FAIL=0
+      if [ "$EC_PSR4_COMPOSER" -ne 0 ]; then
+        echo "❌ composer dump-autoload 結束碼: $EC_PSR4_COMPOSER"
+        PSR4_FAIL=1
+      elif echo "$OUTPUT_PSR4" | grep -q "does not comply with psr-4 autoloading standard"; then
+        echo "❌ PSR-4 autoloading check failed"
+        PSR4_FAIL=1
+      else
+        echo "✅ PSR-4 autoloading check passed"
+      fi
+      printf '\033[1;36m[CI timing]\033[0m 1) PSR-4 — \033[1;32m%ss\033[0m\n' "$SEC_PSR4"
+
+      echo ""
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "2) pint --test"
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      printf '%s\n' "$OUTPUT_PINT"
+      PINT_FAIL=0
+      if [ "$EC_PINT" -ne 0 ]; then
+        echo "❌ pint --test 結束碼: $EC_PINT"
+        PINT_FAIL=1
+      else
+        echo "✅ pint --test passed"
+      fi
+      printf '\033[1;36m[CI timing]\033[0m 2) pint — \033[1;32m%ss\033[0m\n' "$SEC_PINT"
+
+      echo ""
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "3) 圈複雜度（PHPMD）"
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      printf '%s\n' "$OUTPUT_PHPMD"
+      PHPMD_FAIL=0
+      if [ "$EC_PHPMD" -ne 0 ]; then
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        echo "  ❌ 圈複雜度超過 10，請拆分方法後重新提交"
+        echo "  參考：copilot-instructions §4 第 7 條"
+        echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+        PHPMD_FAIL=1
+      else
+        echo "✅ 圈複雜度檢查通過"
+      fi
+      printf '\033[1;36m[CI timing]\033[0m 3) PHPMD — \033[1;32m%ss\033[0m\n' "$SEC_PHPMD"
+
+      printf '\033[1;36m[CI timing]\033[0m 併發階段牆鐘 — \033[1;32m%ss\033[0m\n' "$((_T1-_T0))"
+
+      FAILED=0
+      echo ""
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+      echo "失敗摘要"
+      echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      if [ "$PSR4_FAIL" -ne 0 ]; then
+        echo "❌ PSR-4 failed (exit=$EC_PSR4_COMPOSER)"
+        tail -20 "$OUT_DIR/psr4.txt"
+        FAILED=1
+      fi
+
+      if [ "$PINT_FAIL" -ne 0 ]; then
+        echo "❌ pint failed (exit=$EC_PINT)"
+        tail -20 "$OUT_DIR/pint.txt"
+        FAILED=1
+      fi
+
+      if [ "$PHPMD_FAIL" -ne 0 ]; then
+        echo "❌ PHPMD failed (exit=$EC_PHPMD)"
+        tail -20 "$OUT_DIR/phpmd.txt"
+        FAILED=1
+      fi
+
+      if [ "$FAILED" -eq 0 ]; then
+        echo "✅ 全部檢查通過"
+      else
+        exit 1
+      fi

@@ -1,0 +1,16 @@
+{
+  "name": "gitlab-mcp",
+  "description": "GitLab MCP server 與工單小工具 gitlab-workitem，由 op-toolkit / dev-toolkit 使用",
+  "author": { "name": "rb" },
+  "keywords": ["gitlab", "mcp", "pat", "工單基礎"],
+  "userConfig": {
+    "gitlab_pat": {
+      "type": "string",
+      "title": "GitLab Personal Access Token",
+      "description": "GitLab Personal Access Token（scope=api，從 http://example.invalid:1688/-/profile/personal_access_tokens 申請）。建議改放本地 secrets 檔 ~/.gff/secrets.env（key GITLAB_PERSONAL_ACCESS_TOKEN、chmod 600），wrapper 會優先讀取、token 輪替只需改一行；此欄留空即可。僅 Windows 或未建 secrets 檔時作為 fallback。",
+      "sensitive": true,
+      "required": false,
+      "default": ""
+    }
+  }
+}

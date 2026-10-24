@@ -1,0 +1,431 @@
+/* 使用指南 /guide、/guide/<code>（templates/pages/guide.njk）
+   ≥1024 資料夾式頁籤＋面板；768–1023 頁籤改按鈕格、拿掉手機圖；≤767 照手機稿。 */
+
+/* ---------- 首屏：緊湊型 ---------- */
+.guide-hero.page-hero--compact { padding-bottom: calc(99 * var(--u)); }
+
+/* ---------- 外框：跟首屏文字同一條左緣 ---------- */
+.guide-layout {
+  position: relative;
+  width: min(var(--container-wide), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+  padding-bottom: calc(187 * var(--u));
+}
+
+/* ========== 頁籤 ========== */
+.guide-tabs {
+  position: relative;
+  z-index: 2;                                  /* 亮的頁籤要蓋住面板上框 1px */
+  display: flex;
+  align-items: flex-end;
+  gap: calc(12 * var(--u));
+}
+.guide-tabs a {
+  flex: 0 1 calc(256 * var(--u));
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(96 * var(--u));
+  padding: calc(8 * var(--u)) calc(16 * var(--u)) 0;
+  border: 1px solid rgb(255 255 255 / .72);
+  border-bottom: 0;
+  border-radius: var(--r-10) var(--r-10) 0 0;
+  background: linear-gradient(180deg, #0c0b0d 0%, #082209 100%);
+  font-size: max(14px, calc(38 * var(--u)));
+  line-height: 1.1;
+  text-align: center;
+  color: rgb(255 255 255 / .8);
+  transition: color .2s, border-color .2s;
+}
+.guide-tabs a:hover { color: #fff; border-color: var(--c-neon); }
+@media (min-width: 1024px) {
+  .guide-tabs:not(:has(> a:first-child.active)) { padding-left: calc(23 * var(--u)); }
+}
+.guide-tabs a.active {
+  flex-basis: calc(409 * var(--u));
+  height: calc(102 * var(--u));
+  margin-bottom: -1px;                         /* 蓋掉面板的上框，跟面板連成一體 */
+  padding-top: calc(18 * var(--u));
+  border-color: rgb(255 255 255 / .72);
+  /* 面板左上角的顏色（面板漸層從這裡接下去） */
+  background: linear-gradient(180deg, #003000 0%, #002c00 100%);
+  font-size: max(16px, calc(43 * var(--u)));
+  font-weight: 600;
+  color: #fff;
+}
+/* 編號與箭頭只有按鈕格（≤1023）才顯示 */
+.guide-tabs .guide-tab-no,
+.guide-tabs .icon { display: none; }
+.guide-tab-name { overflow-wrap: break-word; text-wrap: balance; }
+
+/* ========== 面板 ========== */
+.guide-panel {
+  position: relative;
+  padding: calc(92 * var(--u)) calc(104 * var(--u)) calc(106 * var(--u));
+  border: 1px solid rgb(255 255 255 / .72);
+  border-radius: var(--r-10);
+  background: linear-gradient(170deg, #005200 calc(-790 * var(--u)), #001a00 calc(420 * var(--u)), #000 calc(860 * var(--u)));
+}
+.guide-panel.is-first-active { border-top-left-radius: 0; }
+@media (min-width: 1024px) {
+  .guide-panel { margin-right: calc(-8 * var(--u)); }
+}
+
+/* 右側手機示意圖 */
+.guide-visual {
+  position: absolute;
+  top: calc(-23 * var(--u));
+  right: calc(133 * var(--u));
+  z-index: 0;
+  width: calc(685 * var(--u));
+  height: auto;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(180deg, #000 47%, transparent 91.5%);
+  mask-image: linear-gradient(180deg, #000 47%, transparent 91.5%);
+}
+
+/* ---------- 標題區 ---------- */
+.guide-intro {
+  position: relative;
+  z-index: 1;
+  padding-left: calc(48 * var(--u));
+  margin-bottom: calc(69 * var(--u));
+}
+.guide-panel.has-visual .guide-intro { max-width: calc((48 + 700) * var(--u)); }
+.guide-intro .section-title { margin-bottom: 0; }
+.guide-intro .section-title > span {
+  font-size: max(13px, calc(32 * var(--u)));
+  font-weight: 600;
+  line-height: 1.72;
+}
+.guide-intro .section-title h2 {
+  font-size: max(32px, calc(96 * var(--u)));
+  line-height: 1;
+}
+.guide-intro .section-title > span + h2 { margin-top: calc(12 * var(--u)); }
+.guide-intro .section-title h2 strong {
+  margin-top: calc(15.5 * var(--u));
+  font-size: max(18px, calc(49 * var(--u)));
+  font-weight: 600;
+}
+.guide-intro .section-title p {
+  margin-top: calc(37 * var(--u));
+  max-width: none;
+  font-size: max(13px, calc(22 * var(--u)));
+  line-height: 1.32;
+  text-wrap: pretty;
+}
+/* 英文／馬來文的大標字多，縮一級免得三行 */
+html:not([lang|="zh"]) .guide-intro .section-title h2 { font-size: max(30px, calc(76 * var(--u))); line-height: 1.05; }
+html:not([lang|="zh"]) .guide-intro .section-title h2 strong { font-size: max(18px, calc(42 * var(--u))); line-height: 1.1; }
+
+/* ---------- 步驟卡 ---------- */
+.guide-steps {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: calc(25 * var(--u));
+}
+.guide-step {
+  position: relative;
+  display: grid;
+  grid-template-columns: calc(83.8 * var(--u)) minmax(0, 1fr);
+  column-gap: calc(49.2 * var(--u));
+  align-items: center;
+  min-height: calc(184 * var(--u));
+  padding: calc(28 * var(--u)) calc(51.7 * var(--u));
+  border: 1px solid rgb(255 255 255 / .8);
+  border-radius: var(--r-17);
+  background: linear-gradient(180deg, #004300 -112.6%, #0b0a0c 62.1%);
+}
+.guide-step .num-tile {
+  --tile: calc(83.8 * var(--u));
+  border-radius: calc(9 * var(--u));
+  background: linear-gradient(-30deg, #005200 -9%, #00ff00 94%);
+  box-shadow: inset 0 0 0 .5px var(--c-green);
+  font-size: max(16px, calc(49 * var(--u)));
+  font-weight: 500;
+}
+.guide-step h3 {
+  font-family: var(--font-display);
+  font-size: max(18px, calc(50 * var(--u)));
+  font-weight: 900;
+  line-height: 1.05;
+  color: #fff;
+}
+.guide-step p {
+  margin-top: calc(10.7 * var(--u));
+  font-size: max(13px, calc(23 * var(--u)));
+  font-weight: 600;
+  line-height: 1.22;
+  color: var(--c-muted-2);
+  text-wrap: pretty;                           /* 避免最後一行只剩一兩個字 */
+}
+/* 卡底光條 */
+.guide-step .glow-line {
+  left: calc(41 * var(--u));
+  right: calc(41 * var(--u));
+  bottom: -1px;
+  height: max(2px, calc(5 * var(--u)));
+}
+
+/* ---------- 安全提醒 ---------- */
+.guide-notice {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  isolation: isolate;
+  min-height: calc(226 * var(--u));
+  margin-top: calc(88 * var(--u));
+  padding: calc(47 * var(--u)) calc(62 * var(--u)) calc(46 * var(--u));
+  border: 1px solid var(--c-lime-2);
+  border-radius: var(--r-12);
+  background: linear-gradient(121deg, #9ecf7e 1%, #e1f5a9 57%);
+  color: var(--c-green);
+}
+/* 盾牌：電腦版是右側浮水印，超出框的部分裁掉 */
+.guide-notice .icon {
+  position: absolute;
+  z-index: -1;
+  top: calc(21 * var(--u));
+  right: calc(37.4 * var(--u));                /* 從右邊算，窄螢幕才不會跑出框外 */
+  width: calc(211.6 * var(--u));
+  height: calc(231.3 * var(--u));
+  opacity: .18;
+}
+.guide-notice h3 {
+  font-family: var(--font-display);
+  font-size: max(20px, calc(53 * var(--u)));
+  font-weight: 900;
+  line-height: 1.19;
+}
+.guide-notice p {
+  max-width: min(calc(1020 * var(--u)), 100% - calc(160 * var(--u)));
+  margin-top: calc(11.6 * var(--u));
+  font-size: max(13px, calc(24 * var(--u)));
+  font-weight: 600;
+  line-height: 1.17;
+}
+
+/* ========== 1024–1279：寬度不再等比，頁籤可縮、字小一級，手機圖按面板寬度縮 ========== */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .guide-tabs a { font-size: max(14px, calc(32 * var(--u))); padding-inline: calc(12 * var(--u)); }
+  .guide-tabs a.active { font-size: max(16px, calc(38 * var(--u))); }
+  .guide-visual { width: min(calc(685 * var(--u)), 40%); right: 4%; }
+  .guide-panel.has-visual .guide-intro { max-width: min(calc((48 + 700) * var(--u)), 56%); }
+}
+
+/* ========== ≤1023：頁籤改成按鈕格，面板不再跟頁籤相接、拿掉手機圖 ========== */
+@media (max-width: 1023px) {
+  .guide-tabs {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .guide-tabs a,
+  .guide-tabs a.active {
+    justify-content: flex-start;
+    gap: 10px;
+    height: auto;
+    min-height: 56px;
+    margin: 0;
+    padding: 8px 12px 8px 16px;
+    border: 1px solid rgb(0 255 0 / .75);
+    border-radius: 10px;
+    background: var(--c-ink-2);
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.2;
+    text-align: left;
+    color: #fff;
+  }
+  /* 亮的那格 */
+  .guide-tabs a.active { background: linear-gradient(180deg, #005200 -79.5%, #16090b 100%); }
+  .guide-tabs a:hover { border-color: var(--c-neon); }
+  .guide-tabs .guide-tab-no {
+    display: block;
+    flex: none;
+    font-family: var(--font-latin);
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--c-neon);
+  }
+  .guide-tab-name { flex: 1; min-width: 0; text-wrap: pretty; }
+  .guide-tabs .icon { display: block; flex: none; width: 12px; height: 12px; }
+
+  .guide-panel,
+  .guide-panel.is-first-active { border-radius: var(--r-10); }
+  .guide-visual { display: none; }
+  .guide-panel.has-visual .guide-intro { max-width: none; }
+  .guide-panel { padding: 48px 32px 56px; }
+  .guide-intro { padding-left: 16px; margin-bottom: 40px; }
+  .guide-step h3 { font-size: max(18px, calc(40 * var(--u))); }
+  .guide-notice { margin-top: 48px; }
+}
+
+/* ========== ≤767：手機稿 ========== */
+@media (max-width: 767px) {
+  .guide-hero.guide-hero--first.page-hero--compact { padding-top: calc((35.6 + 42) * var(--u)); }
+  .guide-tabs a:first-child:not(.active) { background: linear-gradient(180deg, #000 0%, #16090b 100%); }
+  /* 首屏：本頁手機字比其他內頁小一級；背景圖延伸到頁籤後面 */
+  .guide-hero.page-hero--compact {
+    padding-top: calc(35.6 * var(--u));
+    padding-bottom: calc(33 * var(--u));
+  }
+  .guide-hero .hero-copy .eyebrow { font-size: max(13px, calc(13 * var(--u))); line-height: 1.46; }
+  .guide-hero .hero-copy h1 { margin-top: calc(14.4 * var(--u)); font-size: max(40px, calc(60 * var(--u))); line-height: .883; }
+  .guide-hero .hero-copy h1 strong { margin-top: calc(15.3 * var(--u)); font-size: max(30px, calc(40 * var(--u))); line-height: 1.225; }
+  .guide-hero .hero-copy > p { margin-top: calc(2.7 * var(--u)); font-size: max(12px, calc(12 * var(--u))); line-height: 1.25; }
+  .guide-hero .hero-actions { margin-top: calc(51.4 * var(--u)); }
+
+  .guide-layout {
+    width: auto;
+    margin-inline: calc(31 * var(--u)) calc(30 * var(--u));
+    padding-bottom: calc(30 * var(--u));
+  }
+
+  .guide-tabs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(10 * var(--u));
+    margin: 0 calc(11 * var(--u)) 0;
+  }
+  .guide-tabs a,
+  .guide-tabs a.active {
+    gap: calc(10 * var(--u));
+    min-height: max(44px, calc(52 * var(--u)));
+    padding: calc(6 * var(--u)) calc(8 * var(--u)) calc(6 * var(--u)) calc(12 * var(--u));
+    border-width: .7px;
+    border-color: var(--c-neon);
+    border-radius: calc(10 * var(--u));
+    font-size: max(13px, calc(16 * var(--u)));
+  }
+  .guide-tabs .guide-tab-no { font-size: max(14px, calc(18 * var(--u))); }
+  /* 窄手機（360）＋馬來文「Pengeluaran」要放得下，間距收回 6 */
+  @media (max-width: 400px) {
+    .guide-tabs a, .guide-tabs a.active { gap: 6px; }
+    html:not([lang|="zh"]) .guide-tabs a { gap: 4px; font-size: 12px; }
+  }
+  .guide-tabs .icon { width: calc(12 * var(--u)); height: calc(12 * var(--u)); stroke-width: 2; }
+
+  /* 面板：手機沒有框、沒有漸層 */
+  .guide-panel,
+  .guide-panel.is-first-active {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+  }
+
+  .guide-intro {
+    padding-left: calc(10 * var(--u));
+    margin: calc(20.5 * var(--u)) 0 calc(27.5 * var(--u));
+  }
+  .guide-intro .section-title > span { font-size: max(13px, calc(16 * var(--u))); line-height: 1.8; }
+  .guide-intro .section-title h2 { font-size: max(30px, calc(48 * var(--u))); font-weight: 600; line-height: 1.083; }
+  .guide-intro .section-title > span + h2 { margin-top: calc(2.5 * var(--u)); }
+  .guide-intro .section-title h2 strong { margin-top: calc(8 * var(--u)); font-size: max(18px, calc(26 * var(--u))); line-height: 1; }
+  .guide-intro .section-title p { margin-top: calc(8.5 * var(--u)); font-size: max(12px, calc(12 * var(--u))); line-height: 1.33; }
+  html:not([lang|="zh"]) .guide-intro .section-title h2 { font-size: max(28px, calc(40 * var(--u))); line-height: 1.1; }
+  html:not([lang|="zh"]) .guide-intro .section-title h2 strong { font-size: max(17px, calc(22 * var(--u))); line-height: 1.15; }
+
+  /* 步驟卡 */
+  .guide-steps { gap: calc(15 * var(--u)); }
+  .guide-step {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    min-height: calc(94 * var(--u));
+    padding: calc(9.6 * var(--u)) calc(18 * var(--u)) calc(13.2 * var(--u));
+    overflow: hidden;
+    border-color: var(--c-line);
+    /* 右上角的光暈 */
+    background:
+      radial-gradient(calc(95 * var(--u)) calc(65 * var(--u)) at calc(100% - 30 * var(--u)) calc(10 * var(--u)), rgb(236 89 90 / .14) 0%, rgb(236 89 90 / .07) 45%, transparent 100%),
+      linear-gradient(180deg, #0d0c0e 0%, var(--c-ink-1) 100%);
+  }
+  .guide-step .num-tile {
+    --tile: calc(23 * var(--u));
+    border-radius: calc(4 * var(--u));
+    font-size: max(11px, calc(12 * var(--u)));
+  }
+  .guide-step-copy { margin-top: calc(9.2 * var(--u)); }
+  .guide-step h3 {
+    font-family: inherit;
+    font-size: max(18px, calc(22 * var(--u)));
+    font-weight: 700;
+    line-height: 1;
+  }
+  html:not([lang|="zh"]) .guide-step h3 { line-height: 1.1; }
+  .guide-step p {
+    margin-top: calc(2 * var(--u));
+    font-size: max(11px, calc(10 * var(--u)));   /* 放大到 11（12 會讓第 1、4 張卡換兩行） */
+    font-weight: 400;
+    line-height: max(13px, calc(13 * var(--u)));
+  }
+  .guide-step .glow-line {
+    left: calc(18 * var(--u));
+    right: calc(18 * var(--u));
+    bottom: 0;
+    height: max(2px, calc(3 * var(--u)));
+  }
+
+  /* 提醒框 */
+  .guide-notice {
+    min-height: calc(106 * var(--u));
+    margin-top: calc(42 * var(--u));
+    padding: calc(14 * var(--u)) calc(8 * var(--u)) calc(17 * var(--u)) calc(46 * var(--u));
+    border-radius: calc(12 * var(--u));
+    background: linear-gradient(113deg, #9ecf7e 0%, #e1f5a9 90%);
+    border-color: #d60000;
+    color: #fff;
+  }
+  .guide-notice .icon {
+    z-index: 0;
+    top: calc(18 * var(--u));
+    left: calc(16.5 * var(--u));
+    right: auto;
+    width: calc(19.5 * var(--u));
+    height: calc(21.3 * var(--u));
+    opacity: 1;
+    color: #e1f5a9;
+  }
+  .guide-notice h3 {
+    font-family: inherit;
+    font-size: max(17px, calc(20 * var(--u)));
+    font-weight: 500;
+    line-height: 1.2;
+  }
+  .guide-notice p {
+    max-width: none;
+    margin-top: calc(7 * var(--u));
+    font-size: max(12px, calc(12 * var(--u)));
+    font-weight: 400;
+    line-height: max(14px, calc(14 * var(--u)));
+  }
+}
+/* 提醒內文的手動換行（後台 \n）只在 420–767 生效，更窄或電腦版自動換行 */
+.guide-notice p br { display: none; }
+@media (min-width: 420px) and (max-width: 767px) {
+  .guide-notice p br { display: inline; }
+}
+
+/* ========== 字型指派：放檔尾蓋過上面同特異度的規則 ========== */
+@media (min-width: 768px) {
+  .guide-tabs a:not(.active) .guide-tab-name { font-weight: 300; }
+  .guide-tab-no { font-family: var(--font-latin); font-weight: 500; }
+  .guide-intro .section-title > span { font-family: var(--font-lt); }
+}
+@media (max-width: 767px) {
+  .guide-step h3 { font-family: var(--font-lt); font-weight: 500; }
+  .guide-notice h3 { font-family: var(--font-lt); font-weight: 300; }
+  .guide-tab-name,
+  .guide-intro .section-title p,
+  .guide-step p,
+  .guide-notice p { font-weight: 300; }
+}
+/* Lantinghei SC Heavy → 400（見 site.css 檔尾） */
+@media (min-width: 768px) {
+  .guide-step h3,
+  .guide-notice h3 { font-weight: 400; }
+}

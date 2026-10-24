@@ -1,0 +1,161 @@
+# target/gffv3/gff-marketplace — marketplace 結構驗證 CI
+#
+# 兩道硬閘：
+#   validate:structure — bash + php + grep 跑 scripts/validate.sh。
+#   需要審核人核准     — MR 合併前須由審核人核准（名單在 .gitlab/approval-rules.json）。
+# 提醒重新核准只提醒、不擋合併：推新 commit 讓既有核准失效時，由 bot 在 MR 留言 @ 那幾位審核人。
+# MR 介入通知由排程 pipeline 跑，排程起的 pipeline 只跑這一個 job（見該 job 的說明）。
+#
+# - runner：用 `php8` tag（K8s executor，與 apis 共用的 group runner）。
+#   無 tag 的 job 不會被有 tag 的 runner 撿走，因此必須指定。
+# - image：內部 phpbase/8（runner 只拉得到內部 registry；公開 Docker Hub 鏡像會 ImagePullBackOff）。
+#   php 內建，validate.sh 用 php 解析 JSON，不需 jq / apk add / npm install。
+# - 官方 `claude plugin validate` 沒有在 CI 跑，pre-commit 也不跑，要在本機手動跑。job 連得到公開網路（npm、Debian 套件來源
+#   實測可連），但 phpbase 映像檔沒有 node，apt 提供的 nodejs 版本低於 Claude Code 的 npm 套件要求（實測 20 對 22 以上），
+#   要另外安裝新版 node 才跑得了。
+
+# 什麼時候起 pipeline（GitLab 官方文件「Switch between branch pipelines and merge request pipelines」的寫法）：
+#   分支已開 MR     → 只跑 MR pipeline（CI 才拿得到 MR 編號等資訊，同一次 push 也不會跑兩條）
+#   分支還沒開 MR   → 照舊跑分支 pipeline
+#   合進 main       → 跑 main 的分支 pipeline，notify:merge 靠這條發 Slack
+# 第二條只擋 push：已開 MR 的分支若是排程、手動 Run pipeline、API 或 trigger 起的 pipeline，照樣放行。
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH && $CI_OPEN_MERGE_REQUESTS && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+
+stages:
+  - validate
+  - approval
+  - notify
+
+validate:structure:
+  stage: validate
+  rules:
+    # 排程只跑「MR 介入通知」；main 上的結構驗證已在合併時跑過
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
+    - when: on_success
+  tags: [php8]
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  script:
+    - bash scripts/validate.sh
+
+# 核准檢查與合併通知共用的設定：這些 job 都要用 git 算出變更檔案。
+# phpbase 映像檔沒有 git，job 開始時才安裝（與 apis 的核准檢查同做法）。
+.approval_base:
+  tags: [php8]
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  variables:
+    # 安裝 git 時不要嘗試開互動介面，否則 log 會多一串 debconf 警告
+    DEBIAN_FRONTEND: noninteractive
+  before_script:
+    - command -v git > /dev/null || (apt-get update -qq && apt-get install -y -qq git > /dev/null)
+
+# 合併前核准（規則見 scripts/lib/approval.php）：
+#   只在 MR pipeline 出現，而且是手動 job。寫在 rules 裡的 when: manual 預設 allow_failure: false，
+#   沒按 ▶ 時 pipeline 停在「blocked」，專案開了「Pipelines must succeed」就不能合併。
+#   審核人按核准鈕後按 ▶；沒通過就看 job 輸出該找誰，核准後按重試。
+#   放在最後一個會在 MR 上跑的階段：手動 job 會卡住所在階段，放前面會讓後面的檢查也不跑。
+# 生效開關：專案 CI 變數 APPROVAL_ENFORCE（設定 → CI/CD → 變數，不可勾 Protected，否則一般分支的 MR pipeline 讀不到）。
+#   = "true" → 正式模式：手動 job、沒通過不能合併。
+#   其他值或沒設 → 試行模式：自動跑，沒有有效核准只顯示警告（allow_failure），不擋合併。
+#   這樣程式碼可以提早合進來，生效當天只要改變數，不必發 MR。
+# job 名稱刻意用中文白話：MR 頁面只顯示 job 名稱與成敗、不顯示 log，名稱本身要讓人看懂為什麼被擋。
+需要審核人核准:
+  extends: .approval_base
+  stage: approval
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $APPROVAL_ENFORCE == "true"
+      when: manual
+      allow_failure: false
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      allow_failure: true
+  script:
+    # 淺層 clone 可能沒有 MR 的起點 commit，先抓 target branch
+    - git fetch --quiet origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - php scripts/approval-check.php check
+
+# 核准失效提醒（規則見 scripts/approval-check.php 的 notify-stale）：
+#   社群版推新 commit 不會移除核准，畫面上仍顯示「已核准」，審核人不知道要重審。
+#   每次 MR pipeline 自動跑：有核准因這次推送失效時，由 bot 在 MR 留言 @ 那幾位審核人，
+#   請他們先撤銷核准、再核准，再按「需要審核人核准」的 ▶。同一個 commit 只提醒一次，手動重跑不會洗版。
+#   只提醒、不擋合併；不看 APPROVAL_ENFORCE（只有真的核准過的人會收到，試行模式也不會洗版）。
+# 前置條件：專案 CI 變數 APPROVAL_BOT_TOKEN（Project Access Token，api scope；Masked、不可勾 Protected，
+#   否則一般分支的 MR pipeline 讀不到）。沒設就印「略過提醒」後結束；token 到期要換新，到期日記在變數的 Description。
+# needs: [] — 不等 validate:structure，結構驗證失敗也照樣提醒。
+# allow_failure: true — 留言失敗（token 過期、API 不通）不能擋 MR。
+提醒重新核准:
+  extends: .approval_base
+  stage: approval
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  allow_failure: true
+  script:
+    # 淺層 clone 可能沒有 MR 的起點 commit，先抓 target branch
+    - git fetch --quiet origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - php scripts/approval-check.php notify-stale
+
+# 合併後檢查：社群版不能在合併當下再檢查一次（例如核准檢查通過後審核人又取消核准），
+# 所以合併進 main 後回頭確認。沒有有效核准就合併（含貼緊急標籤放行的）、查不到合併時間、或檢查本身失敗，
+# 都發 Slack（用 notify:merge 同一組變數）。試行模式（APPROVAL_ENFORCE 不是 "true"）只印在 job log，不發 Slack。
+# needs: [] — 不等 validate:structure，main 上結構驗證失敗時也照樣檢查。
+# allow_failure: true — Slack 不通不能擋 pipeline。
+合併後檢查核准:
+  extends: .approval_base
+  stage: notify
+  needs: []
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"'
+  script:
+    - php scripts/approval-check.php audit
+  allow_failure: true
+
+# 合併進 main 後自動推播 Slack，依變更性質分流（見 scripts/notify-merge.php）：
+#   帶 breaking label，或動到 plugin 設定檔（marketplace.json、plugin.json、.mcp.json、bin/）
+#                                        → 重大變更通知（附更新步驟；動到 MCP 設定時附重啟與 /mcp 檢查）
+#   否則動到 plugin 的 skills、agents、commands → 一般更新通知（列 MR 標題、作者、連結與受影響的 skill、agent、command）
+#   兩者皆非                             → 不發，不打擾團隊
+# 前置條件：GitLab CI/CD Variables（Settings → CI/CD → Variables，Protected）：
+#   SLACK_BOT_TOKEN   — Slack App 的 Bot User OAuth Token（xoxb-...），scope chat:write
+#   SLACK_CHANNEL_ID  — 目標頻道 ID（e.g. C0123456789）
+# 若兩個變數未設定，job 會直接 exit 0 不報錯。
+# allow_failure: true — Slack 不通不能擋 pipeline。
+# 通知要用 git 算出這次合併動到哪些檔案。安裝 git 失敗時照樣執行腳本：
+#   重大變更通知仍會發出，只是不列受影響的 plugin 名單；
+#   非 breaking 的無法判斷有沒有動到 skill、agent、command，job 會失敗（pipeline 上顯示警告），不會當成沒動到而略過。
+notify:merge:
+  extends: .approval_base
+  stage: notify
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "main" && $CI_PIPELINE_SOURCE == "push"'
+  before_script:
+    - command -v git > /dev/null || (apt-get update -qq && apt-get install -y -qq git > /dev/null) || echo "安裝 git 失敗，通知不會列出受影響的清單"
+  script:
+    - php scripts/notify-merge.php
+  allow_failure: true
+
+# MR 介入通知（規則見 scripts/lib/mr-intervention.php，CI 入口 scripts/mr-intervention-notify.php）：
+#   掃描所有開著的 MR，輪到誰動手（被指派審核、核准因新 commit 失效、可以合併）就在 MR 留言加 Slack @ 誰。
+#   加審核人、核准、貼標籤都不會觸發 pipeline，所以靠排程：設定 → CI/CD → 排程（Pipeline schedules），
+#   目標分支 main，時區 Asia/Taipei，週一到週五 09:00～19:00 每 15 分鐘（cron `*/15 9-18 * * 1-5`）。
+#   其他 job 的 rules 都不會在排程起的 pipeline 出現。
+# 前置條件：APPROVAL_BOT_TOKEN（讀 MR、寫留言；沒設就略過）、SLACK_BOT_TOKEN 與 SLACK_CHANNEL_ID（同 notify:merge）、
+#   target/gffv3 群組變數 SLACK_USER_MAP（GitLab 帳號對 Slack user id 的 JSON 物件）、
+#   專案變數 MR_NOTIFY_SINCE（上線時間；沒設就只建立紀錄、不通知，見腳本開頭）。
+# needs: []：排程 pipeline 只有這一個 job，不等其他階段。
+# allow_failure: true：Slack 或 API 不通不能擋 main 的 pipeline。
+# resource_group：兩次掃描同時跑會讀到同一份舊紀錄、各發一次通知，所以手動執行排程剛好跟排程重疊時，排隊依序跑。
+MR 介入通知:
+  extends: .approval_base
+  stage: notify
+  needs: []
+  resource_group: mr-intervention-notify
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $CI_COMMIT_BRANCH == "main"'
+  script:
+    - php scripts/mr-intervention-notify.php
+  allow_failure: true

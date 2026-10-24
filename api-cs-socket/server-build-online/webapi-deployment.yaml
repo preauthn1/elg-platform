@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cs-socket-deployment
+spec:
+  selector:
+    matchLabels:
+      app: cs-socket
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: cs-socket
+    spec:
+      terminationGracePeriodSeconds: 10    
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: cs-nginx-container
+          image: "example.invalid/tp-wz3-online/cs-socket-nginx-image:ab5e302"
+          ports:
+            - containerPort: 80
+            - containerPort: 6001
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          resources:
+            limits:
+              memory: 2000Mi
+            requests:
+              cpu: 1500m
+        - name: cs-socket-container
+          image: "example.invalid/tp-wz3-online/cs-socket-image:ab5e302"          
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          resources:
+            limits:
+              memory: 2000Mi
+            requests:
+              cpu: 1500m
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; php artisan migrate; chmod -R 777 storage; chown -R apache.apache storage;"]

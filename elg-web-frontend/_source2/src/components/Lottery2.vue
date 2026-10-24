@@ -1,0 +1,326 @@
+<template>
+  <div class="lottery" :style="{ backgroundColor: mergedData.bgColor }">
+    <div
+      class="turntable"
+      :style="{
+                background: `url('${mergedData.dotImage}') no-repeat center center / 110%`
+            }"
+    ></div>
+    <!-- 火圈 -->
+    <img src="../assets/img/fire.gif" alt class="fire" />
+    <canvas
+      id="canvas"
+      :width="mergedData.width"
+      :height="mergedData.height"
+      :style="{ transform: `rotate(${rotateDeg}deg)` }"
+    ></canvas>
+    <img :src="mergedData.goImage" class="lottery-go" @click.stop="startRotation" id="lotteryGoPic" />
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'v-lottery',
+  props: {
+    data: {
+      type: Object,
+      required: true,
+      default: () => {}
+    },
+    disabled: Boolean
+  },
+  data() {
+    return {
+      isplayed: true,
+      flag: false, // 转盘开关
+      piece: 0,
+      rotateDeg: 0,
+      defaultData: {
+        data: [],
+        target: '',
+        bgColor: '#ff5859',
+        dotImage: require('../assets/img/wheel1.gif'),
+        goImage: require('../assets/img/go.gif'),
+        width: 500,
+        height: 500
+      }
+    }
+  },
+  computed: {
+    startAngle() {
+      // 獎項漸層轉動
+      const areaArc = 360 / this.mergedData.data.length / 2
+      return (areaArc * Math.PI) / 180
+    },
+    // 大圆盘半径
+    outsideRadius() {
+      return (this.mergedData.width * 12) / 30
+    },
+    // 字体离圆心距离
+    textRadius() {
+      return this.mergedData.width * 0.3
+    },
+    // 防止默认值被覆盖
+    mergedData() {
+      return {
+        ...this.defaultData,
+        ...this.data
+      }
+    }
+  },
+  watch: {
+    disabled(val) {
+      this.flag = val
+    }
+  },
+  mounted() {
+    this.setLotteryHeight()
+    window.addEventListener('resize', () => {
+      this.setLotteryHeight()
+    })
+    this.drawLottery()
+    this.$watch('mergedData.target', () => {
+      if (this.mergedData.target) {
+        let finalDeg = this.getTargetAngel()
+        this.rotateDeg += 270 - finalDeg + (360 - (this.rotateDeg % 360)) + 1800
+      }
+    })
+    const canvas = document.getElementById('canvas')
+    canvas.addEventListener('transitionend', () => {
+      this.flag = false
+      this.$emit('onstop')
+    })
+  },
+  methods: {
+    // 设置转盘的高，使其与宽相等
+    setLotteryHeight() {
+      const lottery = document.querySelector('.lottery')
+      lottery.style.height = lottery.clientWidth + 'px'
+    },
+    // 绘制转盘
+    drawLottery() {
+      const canvas = document.getElementById('canvas')
+      const ctx = canvas.getContext('2d')
+      let devicePixelRatio = window.devicePixelRatio || 1
+      let backingStoreRatio =
+        ctx.webkitBackingStorePixelRatio ||
+        ctx.mozBackingStorePixelRatio ||
+        ctx.msBackingStorePixelRatio ||
+        ctx.oBackingStorePixelRatio ||
+        ctx.backingStorePixelRatio ||
+        1
+      let ratio = devicePixelRatio / backingStoreRatio
+      canvas.width = canvas.width * ratio
+      canvas.height = canvas.height * ratio
+      ctx.scale(ratio, ratio)
+      ctx.translate(0.5, 0.5)
+      this.ctx = ctx
+
+      const [w, h, centerX, centerY] = [
+        this.mergedData.width,
+        this.mergedData.height,
+        this.mergedData.width / 2,
+        this.mergedData.height / 2
+      ]
+      this.centerX = centerX
+      this.centerY = centerY
+      const line_height = 17
+      // 根据奖品个数计算圆周角度
+      let arc = Math.PI / (this.mergedData.data.length / 2)
+      this.piece = arc
+      ctx.clearRect(0, 0, w, h)
+      ctx.strokeStyle = 'transparent'
+      ctx.font = '23px Microsoft YaHei'
+
+      this.mergedData.data.forEach((item, i) => {
+        let angle = this.startAngle + i * arc
+        var bgc = ctx.createRadialGradient(200, 200, 50, 300, 300, 350)
+        // 先取得漸層的起點和終點
+
+        bgc.addColorStop(0, item.color1)
+        bgc.addColorStop(1, item.color2)
+        // bgc.addColorStop(1, item.color1);
+        // 設定漸層的位置和顏色
+        ctx.fillStyle = bgc
+        // 把位置和顏色填入
+        ctx.fillRect(0, 0, 0, 0)
+        // 裁切要漸層的範圍
+        // ctx.fillStyle = item.color || "transparent";
+        ctx.beginPath()
+        ctx.moveTo(centerX, centerY)
+
+        ctx.arc(centerX, centerY, this.outsideRadius, angle, angle + arc, false)
+        // ctx.arc(centerX, centerY, this.insideRadius, angle + arc, angle, true)
+        ctx.closePath()
+        ctx.fill()
+        ctx.stroke()
+        ctx.save()
+
+        this.drawTitle(item, angle, arc)
+        item.src && this.drawImage(item, angle, arc)
+      })
+    },
+    // 重置绘图坐标
+    resetCoordinate(angle, arc) {
+      const ctx = this.ctx
+      let x = this.centerX + Math.cos(angle + arc / 2) * this.textRadius
+      let y = this.centerY + Math.sin(angle + arc / 2) * this.textRadius
+      // translate重新映射画布上的（0，0）位置
+      ctx.translate(x, y)
+      ctx.rotate(angle + arc / 2 + Math.PI / 2)
+    },
+    /**
+     * 绘制奖品名称
+     * @param {Object} item 奖品信息
+     * @param {Number} angle 开始绘制的位置角度
+     * @param {Number} arc 绘制的弧度
+     */
+    drawTitle(item, angle, arc) {
+      const ctx = this.ctx
+      ctx.fillStyle = '#00284C'
+      ctx.font = '20px'
+      this.resetCoordinate(angle, arc)
+      ctx.fillText(item.title, -ctx.measureText(item.title).width / 2, 0)
+      ctx.restore()
+      ctx.save()
+    },
+    // // 根据图片宽高比计算图片的宽高和位置
+    calcImgSize(img) {
+      let [width, height, x, y] = []
+      if (img.width > img.height) {
+        width = 60
+        height = (60 * img.height) / img.width
+        x = -30
+        y = -15
+      } else {
+        height = 50
+        width = (50 * img.width) / img.height
+        x = -20
+        y = -15
+      }
+      return [width, height, x, y]
+    },
+    /**
+     * 预下载图片
+     * @param {String} url 图片地址
+     * @param {Function} callback
+     * @param {Object} {x: 横坐标, y: 纵坐标, width: 图像宽度, height: 图像高度}
+     */
+    preImage(url, callback) {
+      //创建一个Image对象，实现图片的预下载
+      const img = new Image()
+      img.src = url
+      if (img.complete) {
+        const [width, height, x, y] = this.calcImgSize(img)
+        // 如果图片已经存在于浏览器缓存，直接调用回调函数
+        callback.call(img, x, y, width, height)
+        return
+      }
+      img.onload = () => {
+        const [width, height, x, y] = this.calcImgSize(img)
+        // 图片下载完毕时异步调用callback函数
+        callback.call(img, x, y, width, height)
+      }
+    },
+    /**
+     * 绘制奖品图片
+     * @param {Object} item 奖品信息
+     * @param {Number} angle 开始绘制的位置角度
+     * @param {Number} arc 绘制的弧度
+     */
+    drawImage(item, angle, arc) {
+      const ctx = this.ctx
+      const self = this
+      this.preImage(item.src, function(x, y, width, height) {
+        ctx.save()
+        self.resetCoordinate(angle, arc)
+        ctx.drawImage(this, x, y, width, height)
+        ctx.restore()
+      })
+    },
+    // 获取目标角度
+    getTargetAngel() {
+      let idx = this.mergedData.data.findIndex(item => {
+        return item.id === this.mergedData.target
+      })
+      if (idx !== -1) {
+        return ((this.piece * (idx + 0.5) + this.startAngle) * 180) / Math.PI
+      } else {
+        return 360
+      }
+    },
+    // 开始旋转
+    startRotation() {
+      if (!this.flag) {
+        //   火圈
+        $('.fire').css('display', 'block')
+        var lotterysound = document.getElementById('yisell')
+        var lotteryGoPic = document.getElementById('lotteryGoPic')
+        setTimeout(() => {
+          $('.fire').css('display', 'none')
+        }, 5000)
+        if (this.isplayed) {
+          lotterysound.play()
+          this.isplayed = false
+        }
+
+        this.$emit('onstart')
+        this.flag = true
+      }
+    }
+  }
+}
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.lottery {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.fire {
+  position: absolute;
+  top: -143px;
+  right: 0;
+  left: 0px;
+  width: 100%;
+  margin: auto;
+  display: none;
+}
+#canvas {
+  width: 92%;
+  /* height: 92%; */
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  transition: transform 5s ease-in-out;
+  /* cubic-bezier(0.48, 0.76, 0.49, 0.97) */
+  /* let the browser know we plan to animate
+     each view in and out */
+  will-change: transform;
+}
+.turntable {
+  height: 100%;
+  /* animation: rotate180 7s linear both reverse infinite; */
+  /* let the browser know we plan to animate
+     each view in and out */
+  will-change: transform;
+}
+.lottery-go {
+  position: absolute;
+  width: 25%;
+  left: 50%;
+  top: 47%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+}
+@keyframes rotate180 {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+</style>

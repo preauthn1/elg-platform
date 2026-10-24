@@ -1,0 +1,304 @@
+{
+    "generatedAt": "2026-10-07",
+    "source": "workflow:payment-callback-analysis",
+    "note": "§3 回調邏輯 + §5 風險旗標（需 LLM 判讀的部分）。由 payment-callback-analysis workflow 產生；§1/§2/§4 由 report:payment-providers 即時計算，不在此檔。",
+    "providers": {
+        "A3Pay": {
+            "inventoryNote": "AES-256-CBC 解密 Data（PBKDF2-SHA1）＋ RSA SHA-1 對明文驗簽；代收往上 ≤0.10 唯一化上調以實付金額重算 amount/tax/point",
+            "response": "success / fail",
+            "depositSuccessTrigger": "(int)Data.Status===6（7 失敗；其餘含 4 為非終態，不動單只回 success）",
+            "withdrawalSuccessTrigger": "(string)Data.Status==='4'（'5' 失敗→29；其餘 INDETERMINATE 維持 22）",
+            "statusStyle": "代收：常數三態（6/7 終態、其餘 ack 不動單）；代付：resolveWithdrawalOutcome 白名單三態；例外 rethrow 交框架",
+            "sourceHash": "bdd87d30a72af04574712564bc81340c694502903c71b354653af7cb2c092613"
+        },
+        "AkPay": {
+            "inventoryNote": "MD5 簽名（source_id/tx_id/amount/currency/token，hash_equals）＋空憑證守衛（MERCHANT_TOKEN）；無 StatusEnum",
+            "response": "JSON {success:true} / {success:false}；驗簽失敗拋 ApiException",
+            "depositSuccessTrigger": "status==='Completed'",
+            "withdrawalSuccessTrigger": "status==='Approved'",
+            "statusStyle": "二分（非成功即失敗）：代收非 Completed→FAILED；代付非 Approved→FAILURE(29)，無 INDETERMINATE 路徑",
+            "sourceHash": "5aa22c4fc4cef7a7e3b6bea9fbc4086ce005f56d8f2b025f56cc74a2a0102430"
+        },
+        "AllPay": {
+            "inventoryNote": "MD5 簽名（content/notifyTime/version＋key，大寫）＋content base64 JSON；無 Status Enum；代付走舊系統（無 Withdrawal）",
+            "response": "OK / Failure",
+            "depositSuccessTrigger": "content.status==='SUCCESS'（base64 解碼後；另驗 merchantNo 相符）",
+            "withdrawalSuccessTrigger": "—",
+            "statusStyle": "二分（非 SUCCESS 即失敗）",
+            "sourceHash": "33784afd685def619401bfec5cc84ed8b2003f7d7f35ee650b61778ab6c1b266"
+        },
+        "AntzPay": {
+            "inventoryNote": "Kira 薄繼承殼（回調全沿用 Kira）；AES-256-CBC 對稱解密 encryptedData、無獨立驗簽；無 Trait 檔",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "strtoupper(data.status)==='SUCCESS'（金額取 transaction.amountPaid）",
+            "withdrawalSuccessTrigger": "strtoupper(trim(data.status))==='SUCCESS'（金額取 transaction.amountWithdraw）；紀錄為 -2 明確拒絕時收 SUCCESS 照常定案並另發專用告警",
+            "statusStyle": "代收：match SUCCESS/PENDING(→回寫 CREATED)/FAILED，default 失敗；代付：三態 SUCCESS/FAILED/其餘 INDETERMINATE（回 OK 不改狀態）",
+            "sourceHash": "338cd042dbad4c3584f327d78ca396913e7191c9e9f8144365420d36715fcb40"
+        },
+        "Ap8Pay": {
+            "inventoryNote": "無驗簽；無 Trait 檔；只有代收",
+            "response": "OK / 例外訊息原文（已處理的訂單回 'Order already deposit finished'；未定義 FAIL 失敗回應）",
+            "depositSuccessTrigger": "status==='SUCCESS'（不驗金額，amount 傳 null；成功或失敗都會用回調的 amount 覆寫訂單的 amount、rate、point）",
+            "withdrawalSuccessTrigger": "—",
+            "statusStyle": "二分（非成功即失敗）",
+            "sourceHash": "c2aa01a6ca70630c296a04cf9a3a302f7ca59853a4501c5db4421ae09861d9c0"
+        },
+        "B3Wallet": {
+            "inventoryNote": "無驗簽（僅 IP 白名單）＋查詢接口二次確認",
+            "response": "success / fail（框架預設，未覆寫）",
+            "depositSuccessTrigger": "queryBill Status in ['PAID','SETTLED']（不信回調 Paid）；EXPIRED/CANCELLED→失敗；其餘不 finalize 回 success",
+            "withdrawalSuccessTrigger": "queryPayout Status==='PAID'（不信回調 Paid/Error）；FAILED/CANCELLED→29；其餘 INDETERMINATE",
+            "statusStyle": "代收三態（未知→rollback 回成功不改單）；代付 resolveWithdrawalOutcome 三態；狀態以查詢接口為準",
+            "sourceHash": "ef4c0c5cd06d758c0024e59cd67dfa166d7e805a5c267f49aad64a378b8ef441"
+        },
+        "BigPayz": {
+            "inventoryNote": "HMAC-SHA256；代收依欄位分流兩支子回調（ItemID→Payin V2 驗 signature2、RefId→DuitNow 驗 Signature）",
+            "response": "JSON {error_code:0,message:'Operation Success'} / {error_code:1,message:'Operation Failed'}",
+            "depositSuccessTrigger": "status∈{1 Success,3 Approved}（Payin 讀 status、DuitNow 讀 Status，經 BigPayzPayinCallbackStatusCodeEnum::isSuccess）",
+            "withdrawalSuccessTrigger": "Status∈{'1','3'}（resolveWithdrawalOutcome；'2'→失敗，其餘如 0 In Process→INDETERMINATE 不改狀態）",
+            "statusStyle": "代收二分（非 1/3 即失敗，含未知碼與 2）；代付三態（1/3 成功、2 失敗、其餘不改）",
+            "sourceHash": "57f990028753357818eecedf8d7163770cf4f966ff14242d79f4b39970b06820"
+        },
+        "BillionPay": {
+            "inventoryNote": "MD5 簽名（過濾空值與 0、ksort 後 json_encode 再接 secret）；無 StatusEnum",
+            "response": "true / fail",
+            "depositSuccessTrigger": "status==='completed'（以 actual_amount 入帳）；pending 不改狀態並回成功響應",
+            "withdrawalSuccessTrigger": "status==='completed'",
+            "statusStyle": "字串三態（completed 成功／pending 不改狀態／其他一律失敗），代收與代付相同",
+            "sourceHash": "dd8bba12a347c7730a967f4e65bd82bd6f0519225924f7def4945085514549e0"
+        },
+        "CCPayment": {
+            "inventoryNote": "HMAC-SHA256 header 驗簽（Appid+Timestamp+原始 body，hash_equals，不驗時效）＋強制回查；代收回調自建單（永久地址 DirectDeposit，recordId 冪等）＋風險地址回調分流；無 Status Enum（類別常數白名單）",
+            "response": "Success / Fail（代收、代付皆覆寫；驗簽失敗或回查異常拋例外→非 200 由三方重送）",
+            "depositSuccessTrigger": "回查 getAppDepositRecord status==='Success' 且幣/鏈符合通道、地址屬該會員、非 isFlaggedAsRisky→建單 updateDepositOrderSuccess；isFlaggedAsRisky→建單 status 4＋DepositManualReview（不自動入帳）；webhook status 不採信",
+            "withdrawalSuccessTrigger": "回查 getAppWithdrawRecord status==='Success'（SUCCESS_CODES）→24；Failed/Rejected→29；Processing/WaitingApproval/其他→INDETERMINATE 不改狀態",
+            "statusStyle": "代收：二分但無失敗分支（非 Success 只 log＋ack、不建單）；代付：白名單三態（未知→INDETERMINATE 不改狀態）；兩者皆以回查結果判定、webhook 只當觸發",
+            "sourceHash": "087d05194bca11fc43ad1f990aae22700d8fb5b242c9273beb10863cdf521495"
+        },
+        "DgPay": {
+            "inventoryNote": "MD5 驗簽 md5(opCode+orderId+amount+status+secretKey)；雙鍵相容憑證",
+            "response": "JSON {code:'0',description:'Success'} / {code:'-100',description:<錯誤訊息>}（代付失敗 description='Fail'）",
+            "depositSuccessTrigger": "status==='20'（-10/-20→失敗，其餘只記 remark 不改狀態）",
+            "withdrawalSuccessTrigger": "status==='20'（-10/-20→失敗，其餘 INDETERMINATE 維持 22）",
+            "statusStyle": "代收三態（20 成功／-10,-20 失敗／其餘不動）；繞過 checkDepositOrderStatus 自訂冪等（僅 SUCCESS/DEPOSIT_FINISHED 擋，允許失敗→成功）；代付三態 resolveWithdrawalOutcome",
+            "sourceHash": "aad63ddc47600cd61c2b096dc60c7f1ea1ee54efe46d3dd9ed470479d193271d"
+        },
+        "EasyPay": {
+            "inventoryNote": "無驗簽（回調只做 validate 格式，Trait 僅出站 Basic Auth）",
+            "response": "success / fail",
+            "depositSuccessTrigger": "status==='COMPLETE'（金額取 order_amount）",
+            "withdrawalSuccessTrigger": "status==='COMPLETE'（resolveWithdrawalOutcome 白名單）",
+            "statusStyle": "代收三態（COMPLETE 成功／REJECT 失敗／其餘回 success ack 不動單）；代付三態（REJECT→29，PENDING／未知→INDETERMINATE 維持 22）",
+            "sourceHash": "c8a75b04e0ca6df9cffa718d0bbb3b8727dc6b054a63f092793768c87b7f262d"
+        },
+        "EpicPay": {
+            "inventoryNote": "MD5 token 驗簽（merchant-secret-id-amount-ts）",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "status==='1'",
+            "withdrawalSuccessTrigger": "status==='1'",
+            "statusStyle": "二分（非成功即失敗；代付無 INDETERMINATE，非 '1' 一律標 29）",
+            "sourceHash": "d6be4a3442b32e7999b7b36c2c8dc5da07ccf09cda1e58eb961e0c78a6b4181a"
+        },
+        "FPay": {
+            "inventoryNote": "md5(APP_SECRET.order_id) token 驗簽；APP_SECRET 空即拒；代收成功時依 payment_type 改寫 order_type_id",
+            "response": "success / fail",
+            "depositSuccessTrigger": "order_status==='completed'（'fail'→失敗，其他值拋例外）",
+            "withdrawalSuccessTrigger": "order_status==='completed'（'fail'/'rejected'→失敗，其他→INDETERMINATE 不改狀態）",
+            "statusStyle": "代收三態（未知→拋例外）；代付白名單三態 resolveWithdrawalOutcome",
+            "sourceHash": "c9ee967998145c5eb5bf5f638c487d53548dc4ecdb4aad0a23e68055ea0b39af"
+        },
+        "FlashPay": {
+            "inventoryNote": "SHA256(ksort query+secret) 簽名；空 SECRET_KEY 守衛",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "tran_status==='completed'（其餘狀態只記 warning、訂單留 CREATED、回 OK）",
+            "withdrawalSuccessTrigger": "tran_status==='completed'（'rejected'→FAILURE；'refund' 只記 log、其他→INDETERMINATE）",
+            "statusStyle": "代付三態 match（未知→INDETERMINATE 不改狀態）；代收無失敗分支",
+            "sourceHash": "48938ea5d81a329a5936bfd159bdde6b94efbdf2b12c92e28a060ef9727e2092"
+        },
+        "GMPay": {
+            "inventoryNote": "HMAC-SHA256 驗簽（transaction_reference+amount+currency）；standalone 脫離 MajesticPay；代收 origin_amount 湊零頭重算入帳（上限 1.00）",
+            "response": "OK (HTTP 200) / Failed (HTTP 400)；notifySuccessText/FailText 宣告但未使用",
+            "depositSuccessTrigger": "is_sandbox===1 即成功（不看 status）；否則 is_repush≠0→待人工；status==='completed'（大小寫敏感）→成功，origin_amount 差距逾 0~1.00 轉待人工",
+            "withdrawalSuccessTrigger": "Str::lower(status)==='completed'（不看 is_sandbox）",
+            "statusStyle": "代收：二分（非 completed 即 FAILED），直接 order->update 繞過 updateDepositOrderSuccess/Failed 框架；代付：三態 match（completed 成功／pending 未知／其他失敗）",
+            "sourceHash": "2493dc3db2682c6d9a55dd47c1390eae856f9cdd6e1d8a7560c276b9c092bf86"
+        },
+        "GffPay": {
+            "inventoryNote": "無 Trait 檔；MD5 簽名（ksort k=v& 串接＋MerchantKey，轉大寫）；空憑證守衛",
+            "response": "JSON {code:200,message:'Success'} / {code:400,message}（notifySuccessText 'OK'/'Success' 未被使用）",
+            "depositSuccessTrigger": "status==2（寬鬆比較）",
+            "withdrawalSuccessTrigger": "status==='2'（'3'→失敗，其餘如 1 等待付款→不改狀態）",
+            "statusStyle": "代收二分（非 2 即失敗）；代付三態 resolveWithdrawalOutcome（未知→INDETERMINATE 回 200 不改狀態）",
+            "sourceHash": "55d707e2c5ae0644cba25b7c64daaa0cdeb5d212d379be2569231253cdd19295"
+        },
+        "GlobePay": {
+            "inventoryNote": "AES-256-CBC 解密 Data＋RSA SHA-1 驗簽（Signature）",
+            "response": "success / fail（驗簽或解密失敗直接拋例外）",
+            "depositSuccessTrigger": "(int)Status===6",
+            "withdrawalSuccessTrigger": "Status==='6'（7/8→失敗，其餘→INDETERMINATE 不改狀態）",
+            "statusStyle": "代收二分（6 以外一律失敗）；代付三態 resolveWithdrawalOutcome",
+            "sourceHash": "162557025062eac564755df9043e58f8702904d3eb89e3b8f57ebd42f62d47b2"
+        },
+        "Kira": {
+            "inventoryNote": "AES-256-CBC 對稱解密 encryptedData（無獨立驗簽）",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "strtoupper(data.status)==='SUCCESS'（金額取 transaction.amountPaid）；PENDING 寫回 CREATED，FAILED／未知值一律判失敗",
+            "withdrawalSuccessTrigger": "strtoupper(trim(data.status))==='SUCCESS'（FAILED→失敗，其餘不定案）；同步已判明確拒絕(-2)的紀錄收到 SUCCESS 仍照常定案，交易結束後另發專用告警",
+            "statusStyle": "代收：match 三態，default 判失敗（PENDING 寫回 CREATED）；代付：resolveWithdrawalOutcome 三態（SUCCESS/FAILED 白名單，其餘不定案）",
+            "sourceHash": "64457de956a2b6c4326b858c08ea52f22811d86c90894b6de2011a9e49c1cf09"
+        },
+        "LegendPay": {
+            "inventoryNote": "MD5 簽名（ksort＋urldecode＋&key=API_SECRET，大寫）；無 StatusEnum",
+            "response": "success / fail",
+            "depositSuccessTrigger": "status==='1'（'2'→失敗；其他含 '0' 拋 ApiException）",
+            "withdrawalSuccessTrigger": "status==='1'（其他一律 FAILURE→29，無 INDETERMINATE）",
+            "statusStyle": "代收三態（未知→拋例外）；代付二分（非成功即失敗）",
+            "sourceHash": "2e7c82a31b012c1be68a1c1f18eff440e8fac9be8abd4e4dbc55d63b3cd1b70f"
+        },
+        "MajesticPay": {
+            "inventoryNote": "HMAC-SHA256（ref_no+amount+currency）；代收直接 order->update 繞過 updateDepositOrderSuccess",
+            "response": "OK(200) / Failed(400)（自建 buildSuccess/FailResponse，notifySuccessText/notifyFailText 未使用）",
+            "depositSuccessTrigger": "is_sandbox===1 直接 SUCCESS；否則 is_repush!=0→WAITING_MANUAL_DEPOSIT；status==='completed'→SUCCESS（無金額比對）；另須 transaction_reference===third_party_order_no",
+            "withdrawalSuccessTrigger": "strtolower(status)==='completed'（'pending'→INDETERMINATE 保持 22，其他→FAILURE）",
+            "statusStyle": "代收二分（非 completed 即 FAILED，sandbox／repush 特例，繞過框架直接寫 status）；代付三態 match（completed／pending／default 失敗）",
+            "sourceHash": "6e1df6a788dd9af12d442c67f29ba2d69b3e0b780310bc9880533fb8ae470fc9"
+        },
+        "MaxPay": {
+            "inventoryNote": "無驗簽（SHA512 generateHash 只用在送出請求，回調不驗）",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "status_id===1（match 嚴格比對）；2 與其他值一律判失敗",
+            "withdrawalSuccessTrigger": "status_id=='1'（resolveWithdrawalOutcome）；'2' 判失敗(29)；其他值（如 0=Pending）不改狀態",
+            "statusStyle": "代收二分（非成功即失敗）；代付三態（未知不改狀態）",
+            "sourceHash": "ce918ba32bcb79c27af7e53e252264d3c8600477c2007e82b683fef7cc1348b9"
+        },
+        "PayEssence": {
+            "inventoryNote": "SHA256 雙簽名 CheckString/CheckString2（代收 CheckString2 僅成功驗；代付 CheckString2 僅 35002 驗）",
+            "response": "代收處理完 JSON {\"Status\":\"OK\"}、終態／10004 待處理回 success / 例外 fail；代付 success / fail（35003 失敗處理後也回 fail）",
+            "depositSuccessTrigger": "Result===10001 且 CheckString2 驗過（10002/未知→失敗，10004 不改狀態）",
+            "withdrawalSuccessTrigger": "Result==='35002' 且 CheckString2 驗過（35003→失敗；35001/35004/未知→INDETERMINATE）",
+            "statusStyle": "代收 match + default 失敗（10004 待處理保持 CREATED）；代付白名單 resolveWithdrawalOutcome 三態（未知→INDETERMINATE）",
+            "sourceHash": "a17821b26ad8a8f1eb273a5b681a86ae35cb26e905082246a38317101b57a431"
+        },
+        "PayMate": {
+            "inventoryNote": "MD5 簽名（signMsg，ksort 拼接 key:MD5_KEY 轉大寫）＋ Base64 JSON content；SpeedPay 共用本實作",
+            "response": "OK / Failure",
+            "depositSuccessTrigger": "content.status==='SUCCESS'（驗簽＋merchantNo 比對後）",
+            "withdrawalSuccessTrigger": "content.status==='SUCCESS'（其餘一律 FAILURE→29）",
+            "statusStyle": "二分（非成功即失敗），代付無 INDETERMINATE",
+            "sourceHash": "4466a941629907e450cb2038921fb77d6e198a6629587cbe9286d7382e440b65"
+        },
+        "PayPro": {
+            "inventoryNote": "MD5 簽名（ksort 拼接 key=value + MERCHANT_KEY 鹽）",
+            "response": "OK / FAIL",
+            "depositSuccessTrigger": "status==='0000' 或 '0001'（部分支付亦視為成功，以回調 amount 入帳）；'0015' 處理中不改狀態回 OK",
+            "withdrawalSuccessTrigger": "status==='0000'；'0015'→INDETERMINATE 保持 22 回 OK",
+            "statusStyle": "代收：成功/處理中白名單＋其他一律失敗；代付：三態 match（default→FAILURE）",
+            "sourceHash": "678a99f655cdcc7c91e153ad574501baee69f3c6eb5f1e086b787f7bdd1f7c92"
+        },
+        "QuickPay": {
+            "inventoryNote": "MD5 簽名（ksort query+&key=，轉大寫；簽 status+result）＋空憑證守衛；無 Status Enum",
+            "response": "代收 success / fail；代付 SUCCESS / FAIL",
+            "depositSuccessTrigger": "status==10000（寬鬆比較）",
+            "withdrawalSuccessTrigger": "(int)status===10000",
+            "statusStyle": "二分（非成功即失敗；代付無 INDETERMINATE）",
+            "sourceHash": "56d93dfb8ecb45dbeaf3a9f3fedf7a2062b3ea2835cbba5c118555a504da07c3"
+        },
+        "Sure": {
+            "inventoryNote": "MD5 token 驗簽（MerchantID+amount+status+CallBackApiKey+trxno）；無 Trait 檔、無 Status Enum",
+            "response": "success / fail（例外路徑回字面 'failure'）",
+            "depositSuccessTrigger": "status==='1'",
+            "withdrawalSuccessTrigger": "—",
+            "statusStyle": "二分（非 '1' 即失敗）",
+            "sourceHash": "a8e37c2d321932f549894cb572f8c86ef4c6a12c55c53c2156ea8dfe6bd5fdb3"
+        },
+        "SurePay": {
+            "inventoryNote": "MD5 token（merchant+amount+status+CALLBACK_API_KEY+trxno）；空憑證守衛",
+            "response": "success / fail",
+            "depositSuccessTrigger": "status==='1'（其他值一律 updateDepositOrderFailed）",
+            "withdrawalSuccessTrigger": "status==='1'（'-1'→失敗 29；其他→INDETERMINATE 不改狀態、回 success）",
+            "statusStyle": "代收二分（非成功即失敗）；代付三態 resolveWithdrawalOutcome 白名單 ['1']/['-1']，未知→不改狀態",
+            "sourceHash": "d6c12398e16fde50b263f09985e4a43dc08fdcfcfe2e4daa3971fc4577633c18"
+        },
+        "TakaPay": {
+            "inventoryNote": "MD5 簽名（商戶碼+7 欄串接+SECRET_KEY）；StatusCodeEnum",
+            "response": "JSON {status:'00000'} / {status:'12000'}",
+            "depositSuccessTrigger": "status==='00000'（TakaPayStatusCodeEnum::SUCCESS）",
+            "withdrawalSuccessTrigger": "status==='00000'；'10015'→FAILURE；其餘（含 10014 PENDING）→INDETERMINATE",
+            "statusStyle": "代收二分（非 00000 即失敗，含 10014 PENDING）；代付三態白名單（resolveWithdrawalOutcome，未知→不改狀態）",
+            "sourceHash": "8438dd40131fe825c589a5b3936ec73e547d95b59c00154655169aea58a6df57"
+        },
+        "TgPay": {
+            "inventoryNote": "Header 明文金鑰比對（x-public-key/x-secret-key hash_equals）、無簽名",
+            "response": "success / fail",
+            "depositSuccessTrigger": "status==1 && Str::upper(data.status)==='APPROVED'",
+            "withdrawalSuccessTrigger": "—",
+            "statusStyle": "二分（非成功即失敗）；data.status=PENDING 先略過回 success、不改單",
+            "sourceHash": "890846eb9ae19d5e362447daa07d7f3d1abe881d709b9c28c19a9b92332d6087"
+        },
+        "TngPin": {
+            "inventoryNote": "MD5 簽名 md5(ApiKey+transaction_id+merchant_ref)＋可選回調 IP 白名單；三層匹配（merchant_ref→transaction_id→PIN 孤兒）",
+            "response": "JSON {status:'0',message:'Success'}（status=3 時 message 為 'Processing'）；重複回調回 'success'／查無訂單回 'fail'；驗簽／IP 失敗拋 ApiException",
+            "depositSuccessTrigger": "status==='1'（直接寫 status=1，金額取自回調 amount 並自算 tax/point，不走 updateDepositOrderSuccess）",
+            "withdrawalSuccessTrigger": "—",
+            "statusStyle": "三態：'1' 成功／'3' 處理中維持 CREATED／其餘（含 '2' 與未知值）失敗；直接寫 status，繞過框架",
+            "sourceHash": "eda782b1ad0eb779a1626a3a93940497ac35430c4cf1a7b51a50cad5aba4bf48"
+        },
+        "TopPay": {
+            "inventoryNote": "RSA 公鑰解密還原明文比對（驗章前 amount/fee 補 2 位小數）",
+            "response": "SUCCESS / FAIL",
+            "depositSuccessTrigger": "status==='SUCCESS'",
+            "withdrawalSuccessTrigger": "status==2（3/5→失敗，0/1/4→INDETERMINATE）",
+            "statusStyle": "代收二分（非成功即失敗）；代付三態 resolveWithdrawalOutcome 白名單",
+            "sourceHash": "38c6470f9aefc8e93dede44557f92bf1fa868f6c5642a4a640059524f6f0c97f"
+        },
+        "TrustPay": {
+            "inventoryNote": "HMAC-SHA256 驗簽（transaction_reference+amount+currency）",
+            "response": "代收 success / fail；代付 SUCCESS / FAIL",
+            "depositSuccessTrigger": "strtolower(status)==='completed'",
+            "withdrawalSuccessTrigger": "strtolower(status)==='completed'（failed→FAILURE，其餘含 pending→INDETERMINATE 不改狀態、回成功響應）",
+            "statusStyle": "代收二分（非 completed 即失敗）；代付三態白名單 resolveWithdrawalOutcome",
+            "sourceHash": "73db937c7a6f00abe7ed210e5820d7e711847542e6325924748551435d5fe485"
+        },
+        "TtPay": {
+            "inventoryNote": "DGPay 換名白牌（兩支回調直接 extends DgPay，無自有 Trait 檔）；MD5 securityToken 驗簽",
+            "response": "代收 JSON {code:'0',description:'Success'} / {code:'-100',description:<錯誤訊息>}；代付 {code:0,description:'Success'} / {code:-100,description:'Fail'}",
+            "depositSuccessTrigger": "status==='20'（繼承 DgPay；FAILED 單可被成功回調改回成功，SUCCESS/DEPOSIT_FINISHED 才算終態）",
+            "withdrawalSuccessTrigger": "status==='20'（繼承 DgPay；-10/-20 為失敗，其餘狀態視為未定）",
+            "statusStyle": "代收：20 成功、-10/-20 失敗、其餘只記錄不改狀態（自行判斷是否終態，不走框架 checkDepositOrderStatus）；代付：三態 resolveWithdrawalOutcome",
+            "sourceHash": "9e4d8f5ba16da8bbcb63c54857f1a689bfff3140b850b2f6761a56ca0dc6988c"
+        },
+        "VaderPay": {
+            "inventoryNote": "HMAC-SHA256 簽名（代收／代付回調各自欄位串接）＋MerchantCode 比對；StatusCodeEnum；代付驗簽改用原始 JSON 值",
+            "response": "JSON {error_code:0,message:'Operation Success'} / {error_code:-1,message:'Operation Failed'}",
+            "depositSuccessTrigger": "Status===1(SUCCESS)；2(REJECTED)→失敗；0/3 回滾不改單、回成功",
+            "withdrawalSuccessTrigger": "Status∈{1(SUCCESS),3(APPROVED)}；2→FAILURE(29)；0→INDETERMINATE",
+            "statusStyle": "Enum 白名單＋未知碼拋例外（fromValue）；代收三態（0/3 不動）、代付三態（resolveWithdrawalOutcome）",
+            "sourceHash": "5590f7a94177c7dc58a6aededef4a9d842ebbb04b5ef064a5d7e4ed85c28ace9"
+        },
+        "VtPay": {
+            "inventoryNote": "AES-128-CBC 對稱解密（request.response；無 iv/value 的 base64 JSON 直接當明文採用），無簽名",
+            "response": "代收 SUCCESS / FAIL；代付已處理回 JSON {error_code:200,data:{order_id,sh_order_no}}（含不確定態），訂單狀態擋下回 AES 加密 {result:'success'}，查無 payout 回 FAIL、已處理回 SUCCESS",
+            "depositSuccessTrigger": "(int)order_status===3（金額取 paid_amount ?? order_amount ?? 訂單金額）",
+            "withdrawalSuccessTrigger": "order_status==3（5=失敗，其餘→INDETERMINATE 不改狀態）",
+            "statusStyle": "代收二分（非 3 即失敗）；代付三態（resolveWithdrawalOutcome 3/5/其餘未知）",
+            "sourceHash": "84333351ff61a7c2d36299456ec2c3d707224ff22e13ff74b749cc6fb975af30"
+        },
+        "YeePay": {
+            "inventoryNote": "MD5 簽名（ksort、排除 0／空值、&key=secret、轉大寫，hash_equals 比對）",
+            "response": "SUCCESS / FAIL",
+            "depositSuccessTrigger": "驗簽過即成功（不讀 code；code 只驗 in:0,1，code=0 也標成功）",
+            "withdrawalSuccessTrigger": "(int) code===1 → SUCCESS(24)；其他(code=0) → FAILURE(29)",
+            "statusStyle": "代付二分（非成功即失敗，無 INDETERMINATE）；代收無失敗分支",
+            "sourceHash": "5fd1a7099eeb121ccac5e7932acc5d26ab34306f05bd112b8322b1c28e8fb4c9"
+        },
+        "ZPay": {
+            "inventoryNote": "MD5 itemDesc 驗簽（代收＝MD5(存單 zpay_item_desc+secret)、代付＝MD5(referenceId+dateTime+amount+secret)）；StatusCodeEnum",
+            "response": "'OK' / 'FAIL'（代收處理中與代付訂單狀態攔截分支改回 JSON {status:'OK'|'FAIL',message}）",
+            "depositSuccessTrigger": "status===1 (ON)",
+            "withdrawalSuccessTrigger": "status==='1' (ON)；2/3/4/7/8 失敗、5/6 INDETERMINATE",
+            "statusStyle": "三態：代收 Enum（5/6 處理中→回成功不改單；碼值僅限 1～8 驗證，Enum 查無即拋例外）；代付 resolveWithdrawalOutcome",
+            "sourceHash": "2d072aa664c606e7d1a717dc2b6b37d473a08d01f5b6a81c24b2ab0f930bb9a3"
+        }
+    },
+    "globalHash": "864d0edc6a2a63708be59e5f5f77a39713899fbd2422315e9e605589836cd616"
+}

@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多幣別錢包 — 給 PM 的摘要</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+<style>
+/* 本報告專屬：決策清單的計數磚、選項塊、座標表與「不決定會怎樣」 */
+.tally{display:flex; flex-wrap:wrap; gap:0; margin:4px 0 8px;
+  border-top:1px solid var(--border); border-bottom:1px solid var(--border)}
+.tally>div{flex:1 1 140px; padding:14px 20px 14px 0}
+.tally .n{font-size:29px; font-weight:800; line-height:1.1; font-variant-numeric:tabular-nums}
+.tally .k{font-size:12.5px; line-height:1.4; color:var(--faint); margin-top:5px}
+.tally .n-sign{color:var(--danger)}
+.tally .n-define{color:var(--warning)}
+.tally .n-ask{color:var(--primary)}
+.risk .opt{margin-top:10px; padding-left:14px; border-left:2px solid var(--border);
+  font-size:13px; color:var(--text)}
+.risk .opt div+div{margin-top:6px}
+.risk .opt b{color:var(--heading); font-weight:700}
+.risk .cost{margin-top:12px; padding-top:9px; border-top:1px dashed var(--border);
+  font-size:12.5px; color:var(--faint)}
+.risk .cost strong{color:var(--text); font-weight:700; margin-right:7px}
+.tally .n-when{color:var(--secondary)}
+.tally .n-done{color:var(--success)}
+.risk .ans{margin-top:12px; padding:10px 13px; border-radius:6px; background:var(--success-soft);
+  border:1px solid rgba(57,218,138,.35); font-size:13px; color:var(--text)}
+.risk .ans strong{color:#1F9D5E; font-weight:800; margin-right:7px}
+.risk .ans.open{background:var(--warning-soft); border-color:rgba(253,172,65,.4)}
+.risk .ans.open strong{color:#C77A12}
+.risk.done{border-left-color:var(--success)}
+.risk.done .rt{color:var(--text)}
+ol.agenda{margin:10px 0 0; padding-left:22px; font-size:13px}
+ol.agenda li{margin:5px 0; color:var(--text)}
+ol.agenda a{color:var(--primary); font-weight:700; border-bottom:1px dotted currentColor}
+ol.agenda .why{color:var(--faint); margin-left:6px}
+ol.agenda .pl{display:block; margin:12px 0 4px; font-weight:700; color:var(--heading); list-style:none; margin-left:-22px}
+/* 四條殘留通道：一條一張卡，主視覺是「通道幣別 ≠ 組別記帳幣別」 */
+.coords{display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:12px; margin-top:12px}
+.cc{display:flex; flex-direction:column; gap:10px; padding:13px 15px; background:#FAFBFD;
+  border:1px solid var(--border); border-radius:var(--radius)}
+.cc-h{display:flex; align-items:baseline; flex-wrap:wrap; gap:0 6px; font-size:11.5px; color:var(--faint)}
+.cc-h b{font-size:17px; color:var(--heading); font-variant-numeric:tabular-nums; margin-right:10px}
+.cc-h code{font-size:11px}
+.cc-p{font-size:13px; font-weight:700; color:var(--heading)}
+.cc-m{display:flex; align-items:stretch; gap:8px}
+.cc-m .cur{flex:1 1 0; min-width:0; padding:7px 10px; background:var(--card); border:1px solid var(--border);
+  border-radius:6px; font-size:11.5px; line-height:1.35; color:var(--faint)}
+.cc-m .cur b{display:block; font-size:15px; font-weight:800; letter-spacing:.02em; color:var(--heading)}
+.cc-m .cur small{display:block; font-size:11px; color:var(--faint)}
+.cc-m .cur.bad{border-color:rgba(255,91,92,.45); background:var(--danger-soft)}
+.cc-m .cur.bad b{color:var(--danger)}
+.cc-m .ne{align-self:center; font-size:19px; font-weight:800; color:var(--danger); flex:0 0 auto}
+.cc-v{display:flex; align-items:center; gap:8px; margin-top:auto; padding-top:9px;
+  border-top:1px dashed var(--border); font-size:12px; color:var(--text)}
+.cc-v .badge{font-size:11px; padding:3px 9px}
+</style>
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-bulb" viewBox="0 0 24 24"><line x1="9" y1="18" x2="15" y2="18"/><line x1="10" y1="22" x2="14" y2="22"/><path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 0.0.0.0 1.23 1.52 1.41 2.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5h5"/><path d="M9.5 14.5h5"/><path d="M12 7v10"/></svg></div>
+      <div class="name">多幣別錢包</div>
+    </div>
+    <div class="menu-label">給 PM 的摘要</div>
+    <ul class="menu">
+      <li><a href="#what" class="active"><span class="ic"><svg><use href="#i-bulb"/></svg></span><span class="mn">1</span>這件事在做什麼</a></li>
+      <li><a href="#where"><span class="ic"><svg><use href="#i-pin"/></svg></span><span class="mn">2</span>現在到哪了</a></li>
+      <li><a href="#saved"><span class="ic"><svg><use href="#i-check"/></svg></span><span class="mn">3</span>已經拍板的取捨</a></li>
+      <li><a href="#ask"><span class="ic"><svg><use href="#i-help"/></svg></span><span class="mn">4</span>需要你回答的事</a></li>
+      <li><a href="#risk"><span class="ic"><svg><use href="#i-alert"/></svg></span><span class="mn">5</span>風險與保護做法</a></li>
+      <li><a href="#not-yours"><span class="ic"><svg><use href="#i-lock"/></svg></span><span class="mn">6</span>不用你管的部分</a></li>
+    </ul>
+    <div class="menu-label">延伸</div>
+    <ul class="menu">
+      <li><a href="multi-currency-wallet-target-flow.html"><span class="ic"><svg><use href="#i-book"/></svg></span><span class="mn">＋</span>技術版完整簡報</a></li>
+    </ul>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <h1>多幣別錢包 — 給 PM 的摘要</h1>
+        <div class="sub">2026-09-17 · 一頁看完，細節與證據在技術版簡報</div>
+      </div>
+      <div class="badges"><span class="badge b-success pill">9/17 會後：十七題答了十六題</span></div>
+    </div>
+
+    <div class="container">
+
+      <!-- 1 這件事在做什麼 -->
+      <section id="what" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-bulb"/></svg></span>這件事在做什麼</h2>
+          <p class="desc">一句話：<b>讓一個會員可以同時持有多種幣別的錢包，而不是一輩子綁死一種幣別。</b></p>
+        </div>
+        <div class="card-body">
+          <p style="font-size:14px">現在的規則是：會員註冊時，系統看他上層代理屬於哪個組織，就給他那個組織的幣別，一個人只有一個錢包、只認那一種幣。</p>
+          <p style="font-size:14px">改造後會多一支「切換幣別」的功能。<b>切換之後，他看到的東西全部跟著換</b>：</p>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:150px">會員看到的</th><th>切換幣別之後</th></tr></thead>
+              <tbody>
+                <tr><td>遊戲清單</td><td>只顯示支援這個幣別的遊戲</td></tr>
+                <tr><td>活動清單</td><td>只顯示這個幣別的活動；同一檔活動要依幣別各建一份獎勵設定，各幣別各自計算、互不影響</td></tr>
+                <tr><td>存款通道</td><td>只顯示這個幣別收得了的通道</td></tr>
+                <tr><td>提款銀行</td><td>只顯示這個幣別出得了的銀行</td></tr>
+                <tr><td>餘額</td><td>各幣別各自一筆，互不混算。越南盾、印尼盾可以選擇用「千元」顯示，帳上存的仍是完整金額</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <svg class="ni"><use href="#i-alert"/></svg> <span class="stale"><b>已經定案的一條業務規則</b>：會員不能同時跨幣別參加同一檔活動。</span><span class="stale-tag">9/17 撤回</span> 會議結論改為：<b>每個幣別的活動各自獨立配置，視為不同站，玩家可以各領一次</b>，不做防重複參加。活動獎勵要不要統一改送積分還在研究，那題有結論後這條會重新檢視。
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 現在到哪了 -->
+      <section id="where" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-pin"/></svg></span>現在到哪了</h2>
+          <p class="desc">全案分六個階段，目前在第三階段。<b>前兩階段的程式已經寫完並通過審查，還沒推上正式環境。</b></p>
+        </div>
+        <div class="card-body">
+          <div class="phases">
+            <div class="phase pend"><div class="pn">已完成</div><div class="pt">前置契約</div><div class="pd">9/1 收官</div></div>
+            <div class="phase pend"><div class="pn">已完成</div><div class="pt">錢包基礎</div><div class="pd">9/3 併入主線，待排上線</div></div>
+            <div class="phase"><div class="pn">進行中</div><div class="pt">幣別主檔</div><div class="pd">13 件完成 10 件，會後恢復</div></div>
+            <div class="phase p0"><div class="pn">未開工</div><div class="pt">注單結構</div><div class="pd">等結構方案拍板</div></div>
+            <div class="phase p0"><div class="pn">未開工</div><div class="pt">統計鏈路</div><div class="pd">前置條件已滿足</div></div>
+            <div class="phase p0"><div class="pn">未開工</div><div class="pt">報表切換</div><div class="pd">要先跑完觀察期</div></div>
+          </div>
+
+          <div class="callout success" style="margin-top:16px">
+            <svg class="ni"><use href="#i-tick"/></svg> <b>目前的進度不需要業務配合，也還沒有任何行為變化。</b>已經寫完的兩個階段，上正式環境當下真正生效的只有兩件事：所有建立錢包的動作改走同一個入口，以及不再生出一個早就廢除的舊錢包。<b>會員完全感覺不到。</b>
+          </div>
+
+          <div class="risk mid" style="margin-top:14px">
+            <div class="rh"><span class="sev">時程</span><span class="rt">為什麼不能給你一個上線日期</span></div>
+            <p>第四階段（注單結構）要用哪一種改法還沒拍板，那一題沒答案就不能開工，也就估不出後面的工期。<b>目前唯一能確定的時間是：切換前保留最長 2 個月的觀察期</b>，期間新舊兩套並行、每天排程比對，確認資料一致才會真的切過去。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 已經拍板的取捨 -->
+      <section id="saved" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-check"/></svg></span>已經拍板的取捨</h2>
+          <p class="desc">這六項都經過生產資料實查才拍板，也都寫進了決議文件。前四項是往「少做一點」的方向，後兩項是 9/9 新增的設計決定——其中掛代理組別那一項<b>反而增加了工程側的工作量</b>，換到的是設定粒度變細。</p>
+        </div>
+        <div class="card-body">
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/3</span><span class="rt">各遊戲商的注單表不加幣別欄位 ⇒ 省下 126 張表、約 1.95 億筆的改造</span></div>
+            <p>幣別改成在「總注單」建立的當下，看遊戲帳號屬於哪個商戶來決定。原做法要動的那 126 張表分散在四個舊系統，每個寫資料的地方都得跟著填值，<b>而那一層根本沒有人需要按幣別查詢</b>。這個決定日後隨時可以反悔再補。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/3</span><span class="rt">免費幣排行榜錢包確定廢除</span></div>
+            <p>實作另外排時程——它現在還活著，有每日重置程序、活動用的單一錢包、排行榜刷新服務三處還在寫它，得先一一停掉。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/3</span><span class="rt">泥碼錢包的編號維持不變</span></div>
+            <p>會議上提議改號，實查後駁回：想改成的那個號碼目前被已廢除的舊錢包佔著，重複使用會讓過渡期兩種意思擠在同一個號碼上。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/8</span><span class="rt">幣別設定改用一張新表記錄，不動原本的欄位</span></div>
+            <p>原做法是去填組織原有的幣別欄位，但那個欄位同時被<b>註冊限制</b>與<b>註冊欄位設定</b>兩個功能拿來查表——今天查不到值所以一律放行，一旦填上去就會開始生效，等於改幣別設定會順手改掉註冊規則。改用新表之後，這個副作用完全消失。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/9</span><span class="rt">幣別設定掛在「代理組別」，比照系統既有的分組方式</span></div>
+            <p>系統本來就有一套代理分組的做法（個性化設定、財務、簡訊、聊天、註冊欄位都是這樣分的），幣別直接沿用同一套，不另外發明。<b>好處是同一個組織底下不同的代理樹可以各自設定幣別</b>，不必整個組織綁死一種。代價是十萬級的代理資料要逐批回填，這是工程側的工作。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">9/9</span><span class="rt"><span class="stale">USDT 就是對應 USD，加密貨幣那一題到此解除</span><span class="stale-tag">9/17 撤回</span></span></div>
+            <p><b>9/17 會議改判：USDT 是獨立的幣別，不與美元合併。</b>TON 這類不錨定美元的虛擬貨幣，未來也可以成為玩家的記帳幣別，由營運在後台決定開放給哪些代理。GFF USDT 那個組織的玩家帳戶記成 USDT。以下是原本的說明，保留供對照。</p>
+            <p>原本卡著「USDT 算不算一種錢包幣別」，9/9 定案為<b>對應 USD</b>。兩者的換算率都是 1，所以不需要做任何金額換算。<b>GFF USDT 那個組織（978 名啟用中會員（該組織 09-07 仍有登入））可以正常處理了。</b><br>
+            ⚠️ TON 不比照——它的換算率是 1.36～1.8、不錨定美元，當成美元會讓金額尺度直接錯掉。</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 需要你回答的事 -->
+      <section id="ask" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-help"/></svg></span>需要你回答的事</h2>
+          <p class="desc"><b>這一節共十七題，9/17 開會後答了十六題。</b>每題底下綠色那一塊是會議結論；黃色是還沒有答案的。每一題工程側都查過了，查不出來或不該由工程決定，所以才送過來。<b>沒有答案之前，相關的資料一律不動。</b>每題末尾都附了「不決定會怎樣」，方便你判斷哪幾題可以先擱著。</p>
+        </div>
+        <div class="card-body">
+
+          <div class="tally">
+            <div><div class="n n-done">16</div><div class="k">已有結論</div></div>
+            <div><div class="n n-define">1</div><div class="k">擱置：先開哪個白標</div></div>
+            <div><div class="n n-ask">2</div><div class="k">會後新增、還在研究</div></div>
+          </div>
+
+          <div class="callout success" id="agenda">
+            <svg class="ni"><use href="#i-tick"/></svg> <b>9/17 會議之後，工程側接下來做三件事</b>：
+            <ol class="agenda">
+              <li><b>整理幣別主檔</b><span class="why">清掉不是幣別的項目（GCASH、PayMaya、千元寫法等），虛擬貨幣改用獨立的編號區段，六個站共用同一份</span></li>
+              <li><b>兩筆餘額處置</b><span class="why">VWorld 停用錢包銷帳、TPower 無主帳號禮碼作廢；都會先做完整備份，可還原</span></li>
+              <li><b>已關閉站點的資料清理</b><span class="why">越南盾站、vworldbn、MMGames 與四條殘留通道，另開工單處理；動手前會先確認底下的代理真的沒有在用</span></li>
+            </ol>
+          </div>
+
+          <div class="grp"><span>A. 動到錢的，要正式簽收</span><span class="grp-d">涉及資金處置</span></div>
+          <div class="risk high done" id="q-purge">
+            <div class="rh"><span class="sev">要簽收</span><span class="rt">停用錢包整批清除：VWorld 有 1,053 個會員、合計 121,991.62 的餘額要銷帳</span></div>
+            <p>這兩種錢包（型別 1 與 2）已經沒有任何功能在用，8/18 會議定調整批清除。但裡面還躺著上面這些餘額。<b>銷帳屬於資金處置，需要你正式簽收</b>，工程側不會自行決定。<br>
+            執行時的保護做法：先做備份快照與清除記錄（會員、金額、時間都留），保有可回溯的稽核軌跡。</p>
+            <div class="ans"><strong>會議結論</strong>同意銷帳，含上述金額。<b>條件是要有完整備份與可還原的後手</b>，工程側會先做備份快照與清除記錄才執行。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>這批錢包留著不影響功能，但每次盤點都要重新解釋一次它們為什麼還在。</div>
+          </div>
+          <div class="risk high done" id="q-orphan">
+            <div class="rh"><span class="sev">要裁決</span><span class="rt">TPower 的無主帳號身上還有禮碼餘額：3,869 名、合計 74,055.49，可否作廢</span></div>
+            <p>這一群會員的「上層代理是誰」這個資料早就斷掉了，全部是停用或從 2024 年 5 月起就沒登入過，工程上已定調當歷史死帳處理、不再嘗試修復歸屬。<b>但他們身上的禮碼餘額要不要作廢，是業務決定。</b>沒有裁決之前不動這批資料。</p>
+            <div class="ans"><strong>會議結論</strong>同意作廢。上層代理查不到的會員一律視為無效帳號，不必再逐一複查。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>這批帳號會一直留在稽核報表的例外清單裡，每次盤點都要人工略過。</div>
+          </div>
+          <div class="risk high done" id="q-channels">
+            <div class="rh"><span class="sev">要處置</span><span class="rt">四條通道的幣別設定與所屬代理對不上，經查全部零成交，請確認可否停用</span></div>
+            <p>系統判斷「一組代理用哪種幣別記帳」，靠的是換算比例 1 比 1 的那條代收通道。實查發現四條通道的幣別與所屬代理對不上，<b>座標都在 VWorld</b>：</p>
+            <div class="coords">
+              <div class="cc">
+                <div class="cc-h">支付組別 <b>28</b> <code>agent_cash_flows.id</code> <b>31</b></div>
+                <div class="cc-p">Autobank 代收</div>
+                <div class="cc-m">
+                  <div class="cur">通道幣別<b>MYR</b><small>入帳比例 1 比 1</small></div>
+                  <span class="ne">≠</span>
+                  <div class="cur">該組記帳幣別<b>VND</b><small>越南盾</small></div>
+                </div>
+                <div class="cc-v"><span class="badge b-success">零訂單</span>沒有任何金額經過這條通道</div>
+              </div>
+              <div class="cc">
+                <div class="cc-h">支付組別 <b>37</b> <code>agent_cash_flows.id</code> <b>49</b></div>
+                <div class="cc-p">Autobank 代收</div>
+                <div class="cc-m">
+                  <div class="cur">通道幣別<b>MYR</b><small>入帳比例 1 比 1</small></div>
+                  <span class="ne">≠</span>
+                  <div class="cur">該組記帳幣別<b>VND</b><small>越南盾</small></div>
+                </div>
+                <div class="cc-v"><span class="badge b-success">零訂單</span>與上一條同一種錯法</div>
+              </div>
+              <div class="cc">
+                <div class="cc-h">支付組別 <b>89</b> <code>agent_cash_flows.id</code> <b>152</b></div>
+                <div class="cc-p">AllPay 代收</div>
+                <div class="cc-m">
+                  <div class="cur bad">幣別欄填的是<b>PayMaya</b><small>電子錢包，不是幣別</small></div>
+                  <span class="ne">≠</span>
+                  <div class="cur">應該填<b>幣別</b><small>菲律賓披索或其他</small></div>
+                </div>
+                <div class="cc-v"><span class="badge b-warning">13 筆未上分</span>2024-03 至 2025-02，全停在「建立訂單、等待審核」</div>
+              </div>
+              <div class="cc">
+                <div class="cc-h">支付組別 <b>634</b> <code>agent_cash_flows.id</code> <b>97</b></div>
+                <div class="cc-p">AllPay 代付</div>
+                <div class="cc-m">
+                  <div class="cur">通道名稱寫<b>MYR</b><small>「AllPay代付 (MYR)」</small></div>
+                  <span class="ne">≠</span>
+                  <div class="cur bad">幣別欄設成<b>THB</b><small>泰銖</small></div>
+                </div>
+                <div class="cc-v"><span class="badge b-success">零訂單</span>沒有任何金額經過這條通道</div>
+              </div>
+            </div>
+            <p style="margin-top:10px">⇒ <b>沒有任何金額被算錯</b>，這是設定殘留、不是金流缺陷。但多幣別上線後，這四條會讓「這組代理用哪種幣別」的判定拿到兩個答案。<b>需要營運確認可否停用</b>，並在上線前清掉。</p>
+            <div class="ans"><strong>會議結論</strong>可以清。研判是已下線金流商留下的舊資料，PayMaya 是舊版 GCash 的臨時解法、已無現役站使用。<b>連同已關閉的越南盾站資料一併清理</b>，另開工單處理。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>卡住資料回填——判定拿到兩個答案的代理組別，幣別設定就不能建。</div>
+          </div>
+
+          <div class="grp"><span>B. 產品規則，要你定義</span><span class="grp-d">影響後續設計</span></div>
+          <div class="risk mid done">
+            <div class="rh"><span class="sev">要定義</span><span class="rt">分幣別之後，系統要怎麼認出「這是同一檔活動」</span></div>
+            <p>已定案的規則是「會員不能同時跨幣別參加同一檔活動」，但同一檔活動分幣別後會變成好幾筆設定，<b>現行的防重複參加只比對單一活動編號，認不出彼此是同一檔</b>。需要你定義「活動群組」怎麼建、以什麼為單位。</p>
+            <div class="ans"><strong>會議結論</strong>不需要認。各幣別的活動獨立配置、視為不同站，玩家可以各領一次，<b>不做防重複參加</b>。活動獎勵若日後改成統一送積分，這題會重新檢視。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>不擋目前的工作，但擋後面所有活動類的設計。</div>
+          </div>
+          <div class="risk mid done" id="q-transfer-guard">
+            <div class="rh"><span class="sev">要簽收</span><span class="rt">錢包互轉功能改成只服務已經有錢包的會員</span></div>
+            <p>現行行為是：會員沒有錢包時自動幫他開一個。改造後這個自動開通會擋掉，改回傳業務錯誤。<b>實測從 6 月初營運清倉之後這個功能零使用</b>，行為變更風險極低。需要你簽收，並決定回傳哪一個錯誤碼／要顯示什麼訊息給會員。</p>
+            <div class="ans"><strong>會後決定</strong>這個功能的多幣別改造<b>現階段不做</b>，未來有需要再追加。現有行為維持不變。不同幣別之間的互轉也不納入規劃。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>自動開通留著，會在改造期間繼續產生沒有幣別的錢包。</div>
+          </div>
+          <div class="risk mid done">
+            <div class="rh"><span class="sev">要決定</span><span class="rt">活動專用的商戶主檔，要不要一起納入幣別治理</span></div>
+            <p>活動的注單走的是自己一條鏈路，它的主檔目前只存幣別文字、沒有正規的幣別編號。<b>活動注單要不要分幣別統計，是業務決定</b>；目前這一期沒有排。</p>
+            <div class="ans"><strong>會後決定</strong>納入，比照一般的遊戲商戶主檔處理。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>活動注單維持現狀，日後要分幣別統計得另外補一輪改造。</div>
+          </div>
+          <div class="risk mid done">
+            <div class="rh"><span class="sev">要簽收</span><span class="rt">會員互轉改成「收款方不能用這個幣別就擋下來」</span></div>
+            <p>多幣別之後，轉出方用哪種幣別轉出，收款方就收同一種。工程側已定案要加一道檢查：<b>收款方若不被允許使用這個幣別，這筆轉帳擋下來。</b><br>
+            這是行為變更——<b>現行完全不檢查雙方是什麼關係</b>，實測 TPower 近 30 天的跨代理互轉裡，有三分之一發生在彼此不相干的代理分支；VWorld 與 TPower 的跨組織互轉則都是零筆。</p>
+            <div class="ans"><strong>會議結論</strong>保留這道檢查，並補上一段：<b>收款方被允許使用這個幣別、只是還沒有該幣別的錢包時，系統自動幫他建立並入帳</b>；不被允許才擋下。掃 QR Code 轉帳適用同一套規則。要顯示給會員的訊息仍待提供。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>客服會遇到「以前能轉、現在不能」卻沒有說法。需要你簽收，並決定要顯示什麼訊息給會員。</div>
+          </div>
+          <div class="risk mid done">
+            <div class="rh"><span class="sev">要定義</span><span class="rt">未來再接其他虛擬貨幣時，比照 USDT 還是各自成為一種幣別</span></div>
+            <p>9/9 已定案 USDT 對應美元，理由是兩者 1 比 1。<b>但這個做法只在 1 比 1 成立時才對</b>——TON 的換算比例是 1.36～1.8、不錨定美元，當成美元會讓金額尺度直接錯掉。<br>
+            建議現在就定一個原則，之後每接一種新幣不必重新討論：<b>只有錨定美元的穩定幣比照 USDT，其餘一律只當存款管道、不成為會員的記帳幣別。</b>需要你確認這個原則。</p>
+            <div class="ans"><strong>會議結論</strong>原建議不採用。<b>每一種虛擬貨幣都是獨立的幣別</b>，USDT 不與美元合併；幣別定義保持彈性，虛擬貨幣的編號與法幣分開區段。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>每接一種新幣就要重新討論一次，而且容易在趕時程時比照錯。</div>
+          </div>
+          <div class="risk low done">
+            <div class="rh"><span class="sev">要確認</span><span class="rt">TON 只當存款管道、不讓玩家以 TON 計價，這樣可以嗎</span></div>
+            <p>目前 TON 是這樣運作的：會員用 TON 付款，系統按 1.36（存款）或 1.5（提款）換算成美元記進帳戶，<b>玩家看到的餘額是美元、不是 TON</b>。工程側維持這個做法。</p>
+            <div class="ans"><strong>會議結論</strong>不限制。未來可能有客戶要求以 TON 計價，TON 可以成為玩家的記帳幣別，由營運在後台決定開放給哪些代理。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>若業務其實想讓玩家直接以 TON 計價、看到 TON 餘額，那會是完全不同量級的工程，越晚發現代價越大。</div>
+          </div>
+          <div class="risk mid done">
+            <div class="rh"><span class="sev">要確認</span><span class="rt">GFF USDT 這個組織，玩家的錢要記成美元、還是記成 USDT？</span></div>
+            <p>這是上面那條「USDT 對應美元」的前提，之前沒有人問過。<br>
+            這個組織的玩家可以用三種方式儲值：USDT、TON、馬幣；提款也是這三種——<b>近一年真的有 6 筆是提回馬幣的</b>。系統記帳時，馬幣按 0.23 換算、TON 按 1.36～7.56 換算、USDT 按 1 換算。把這三個數字倒推回去，<b>這本帳的單位就是美元</b>（1 美元換 4.35 馬幣，正好是市場匯率）。所以工程上把 USDT 當美元是算得通的。<br>
+            要你決定的是<b>玩家該看到什麼</b>：</p>
+            <div class="opt">
+              <div><b>甲、記成美元</b>——USDT 只是一種付款方式，就像有人用星幣儲值、進的是馬幣帳戶。萬一哪天 1 USDT 不再等於 1 美元，只要改那條通道的換算比例，玩家帳上的錢不受影響。</div>
+              <div><b>乙、記成 USDT</b>——貼近玩家的感覺（他存 USDT、看到 USDT、提 USDT）。但同樣情形下，<b>全部玩家帳上的錢，實際價值會跟著變</b>。</div>
+            </div>
+            <p style="margin-top:10px"><b>另外要請你幫忙問一件事</b>：金流商每次結算，付給我們的是 USDT 還是美元？這決定這個風險由誰承擔。</p>
+            <div class="ans"><strong>會議結論</strong>選乙，<b>記成 USDT</b>。金流商結算付的是 USDT 還是美元，會議上沒有談到，仍請協助確認。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>這個組織兩年多來只有 24 筆成功儲值、12 筆提款，現在改成本很小；等它長大之後再改，動到的就是真的錢。</div>
+          </div>
+          <div class="risk mid done" id="q-who-adds">
+            <div class="rh"><span class="sev">要決定</span><span class="rt">要多開一種「玩家可以開戶的幣別」時，誰有權決定？</span></div>
+            <p>多幣別做好之後，系統裡會有一份名單：<b>玩家可以開哪些幣別的帳戶</b>。要你決定這份名單誰能改：</p>
+            <div class="opt">
+              <div><b>甲、營運在後台自己加</b>——想開新幣別馬上就能開，不必等工程排程。風險是一旦加錯，玩家的帳戶會立刻被建出來，<b>建了就收不回去</b>（那是裝真錢的容器）。</div>
+              <div><b>乙、由工程改設定、跟著版本上線</b>——要排時程，但每次變動都留紀錄、上線前有測試把關。</div>
+            </div>
+            <p style="margin-top:10px">注意這跟「<b>某一群代理可以開哪幾種幣別</b>」是兩件事——後者不論怎麼選，都會是營運在後台自己設定。這題問的是更上層的那份總名單。</p>
+            <div class="ans"><strong>會議結論</strong>後台提供設定讓營運勾選「哪一群代理開放哪些幣別」，各站各自一份。上層的幣別總表由工程維護、六個站共用；總表清乾淨之後裡面只有真的幣別，營運不會勾到付款方式。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>工程側會先做成最保守的那一種（跟著版本上線），日後要放寬得再改一輪。</div>
+          </div>
+          <div class="risk low done">
+            <div class="rh"><span class="sev">要確認</span><span class="rt">玩家在存款頁看到的幣別清單，要不要把「只能付款、不能開戶」的也列進去？</span></div>
+            <p>現在會員 App 的幣別清單，會把系統裡所有啟用的幣別都列出來，包含 USDT、TON、GCASH、PayMaya——<b>這些是付款方式，不是玩家可以開戶的幣別</b>。<br>
+            多幣別做完之後，「我的帳戶是什麼幣別」和「我可以用什麼方式付款」會變成兩件事，前端要不要分開顯示，需要你決定。</p>
+            <div class="ans"><strong>會後決定</strong>結案。幣別總表整理之後，GCASH、PayMaya 這類付款方式不會再出現在幣別清單裡，這個問題不存在了。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>不擋工程進度，但玩家可能會在清單裡看到一種其實開不了戶的幣別。</div>
+          </div>
+
+          <div class="grp"><span>C. 只有業務知道答案的</span><span class="grp-d">資料面查不出來</span></div>
+          <div class="risk mid done" id="q-vworldbn">
+            <div class="rh"><span class="sev">要問</span><span class="rt">vworldbn 這個組織，是否曾經以汶萊幣計價？底下 572 個啟用中的代理要不要停用？</span></div>
+            <p>組織名稱看起來是汶萊，但<b>資料面找不到任何汶萊幣的痕跡</b>——74 筆訂單與 2 筆金流渠道全是馬幣，最上層的代理帳號也已停用、2025 年 4 月起零登入。可是底下還掛著 572 個啟用中的代理。<br>
+            工程側的建議是設成馬幣，但把握程度只有中等，需要業務確認。</p>
+            <div class="ans"><strong>會後決定</strong>視為已關閉站點，與越南盾站一併清理，不替它建幣別設定。動手前會先列出那 572 個代理的最後登入與近期交易，確認是舊站殘留才動。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>這個組織的幣別設定不能建，底下就開不了新錢包。</div>
+          </div>
+          <div class="risk mid done" id="q-mmgames">
+            <div class="rh"><span class="sev">要問</span><span class="rt">MMGames 這個組織服務的是誰、用什麼幣別？是否已經退場？</span></div>
+            <p>資料面線索最少的一個，工程側的建議把握程度低。<b>如果已經退場，處理方式完全不同</b>（不建列、底下不再開新錢包），所以要先確認。</p>
+            <div class="ans"><strong>會後決定</strong>同上，視為已關閉站點處理，動手前先確認。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>同上；而且若誤判成「還在營運」，會為一個空殼建一整套設定。</div>
+          </div>
+          <div class="risk low done">
+            <div class="rh"><span class="sev">要問</span><span class="rt">現有 268 條通道的換算比例，數字裡有沒有含平台的加成？</span></div>
+            <p>換算比例現在混了三種東西：市場匯率、存提款兩邊的價差、以及個別通路的折讓。<b>從數字本身看不出哪一部分是哪一部分</b>——例如同一組代理的兩條 USDT 通道，一條 4.0、一條 4.4。<br>
+            未來若要把匯率集中管理、自動更新，得先把這三層拆開，而拆開需要營運逐條說明。</p>
+            <div class="ans"><strong>會議結論</strong>不拆、不集中管理。支付商的換算與會員錢包的換算是兩套獨立的邏輯，站方通常不按真實匯率換算，每條通道各自配置、人工維護。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>不擋目前的工作，但匯率只能長期靠人工逐條維護。</div>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">要建議</span><span class="rt">後面的階段先開哪一個白標？</span></div>
+            <p>工程側建議挑資料量小、業務單純的站先試，不要六站同時開。<b>哪一站業務上最能承受試錯，需要你給意見。</b></p>
+            <div class="ans open"><strong>尚無結論</strong>會議決定待時機更明朗後再定。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>只能由工程側依資料量挑，可能挑到業務最不能出事的那一站。</div>
+          </div>
+
+          <div class="grp"><span>D. 時程，要你給</span><span class="grp-d">決定工程怎麼排交付</span></div>
+          <div class="risk mid done" id="q-deadline">
+            <div class="rh"><span class="sev">要給</span><span class="rt">多幣別有沒有硬上線期限？</span></div>
+            <p>第 2 節說明了工程側為什麼給不出上線日期；這一題反過來問：<b>業務端有沒有一個非趕上不可的日子</b>。<br>
+            目前的排法是「注單結構改新表、冷熱資料分離、72 支資料庫程式、28 支報表、切換閘門」合併交付，<b>任何一段卡住，整個多幣別就上不了線</b>。如果有硬期限，工程要另外準備一條降級路徑：先用「原表加欄位」的做法上線，結構改造往後放。</p>
+            <div class="ans"><strong>會議結論</strong>沒有硬期限。客戶希望 11 月上線，已明確告知無法達成；繼續推進開發，實際時程待後續確認。工程側不另外準備降級路徑。</div>
+            <div class="cost"><strong>不決定會怎樣</strong>工程側按「沒有期限」排，走合併交付；日後若冒出期限，降級路徑只能臨時補，品質與風險都沒把關。</div>
+          </div>
+
+          <div class="grp"><span>E. 會後新增、還在研究的</span><span class="grp-d">有結論前不影響目前的工作</span></div>
+          <div class="risk mid">
+            <div class="rh"><span class="sev">研究中</span><span class="rt">活動獎勵要不要統一改送積分，再讓玩家換回各幣別</span></div>
+            <p>會議上討論過用積分（平台幣）當活動獎勵的統一單位。卡住的地方是：積分換成哪個幣別、用什麼比例換、要打幾倍流水才能換，而且換成不同幣別之後，原本的流水卡控會失效。<b>尚未拍板，PM 端會進一步研究。</b></p>
+            <div class="ans open"><strong>對工程的影響</strong>有結論之前，活動一律照「各幣別獨立、各領一次」設計。若日後改送積分，第 4 題（同一檔活動）要重新檢視。</div>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">待定</span><span class="rt">與幣別無關的活動，獎勵要送到哪一個幣別的錢包</span></div>
+            <p>充值返利、投注達標這類活動，用哪個幣別做就送哪個幣別，很好處理。<b>純行為觸發的活動（例如簽到、邀請）沒有對應的幣別</b>，獎勵該進哪個錢包還沒有答案，與上一題的積分方案是同一組問題。</p>
+            <div class="ans open"><strong>對工程的影響</strong>這類活動的多幣別改造會排在積分方案有結論之後。</div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 5 風險 -->
+      <section id="risk" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-alert"/></svg></span>最大的風險，與我們的保護做法</h2>
+        </div>
+        <div class="card-body">
+          <div class="risk high">
+            <div class="rh"><span class="sev">最大風險</span><span class="rt">注單與分潤這條鏈路，中間漏一層下游就全對不起來</span></div>
+            <p>玩家下一注之後，這筆注單會一路往下流：先進遊戲商自己的注單表 → 彙整成總注單 → 算成每天的統計 → 最後餵給對帳與分潤報表。<b>幣別必須從源頭一路跟著傳下去</b>，任何一層漏掉，下游的數字就對不起來。<br>
+            麻煩的是這條鏈上大多數處理是寫在資料庫裡的程式，改前端或後端程式不會讓它自動生效，得一支一支處理。</p>
+          </div>
+
+          <div class="tbl-scroll" style="margin-top:14px">
+            <table>
+              <thead><tr><th style="width:190px">保護做法</th><th>怎麼運作</th></tr></thead>
+              <tbody>
+                <tr><td><b>分階段、每階段可獨立回退</b></td><td>每個小階段都能單獨交付到正式環境、單獨退回去，不必整批回捲。</td></tr>
+                <tr><td><b>新舊並行的觀察期</b></td><td>最長 2 個月。期間新做法先跟著跑但不採用，真相仍然在舊的那一邊。</td></tr>
+                <tr><td><b>每日排程校驗</b></td><td>每天自動比對新舊兩邊的資料與報表，對不上就會被抓出來。</td></tr>
+                <tr><td><b>開關預設關閉</b></td><td>切換行為的開關全部預設關著，部署當下等於零行為變更，要開才開。</td></tr>
+                <tr><td><b>上線前後都有檢查</b></td><td>資料庫變更上線前，逐站確認資料表格式支援「線上加欄位」（不鎖表）；上線後逐站確認欄位真的加上去了。這是第一期計劃裡的部署完成定義。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 不用你管 -->
+      <section id="not-yours" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg><use href="#i-lock"/></svg></span>不用你管的部分</h2>
+          <p class="desc">下面這些工程側自理，只有在<b>影響業務行為</b>或<b>動到錢</b>的時候才會來問你。</p>
+        </div>
+        <div class="card-body">
+          <ul style="font-size:14px;line-height:2">
+            <li>資料表要怎麼改、要不要另外建新表、大表怎麼分區</li>
+            <li>資料庫裡那些程式（共 213 支，這次受影響 114 支）要怎麼搬、怎麼重寫</li>
+            <li>部署順序、資料庫變更的執行方式與回退方式</li>
+            <li>各站台之間設定不一致的清理</li>
+            <li>歷史資料怎麼回填、無主帳號的工程面判定規則</li>
+          </ul>
+          <div class="fnote">
+            <svg class="ni"><use href="#i-book"/></svg> 這份摘要刻意不重述數字明細。<b>所有數字與證據的唯一來源是技術版簡報</b>
+            <a class="xref" href="multi-currency-wallet-target-flow.html">多幣別錢包 — 目標架構與流程</a>
+            與設計目錄下的決議文件；兩邊有出入時以技術版為準。
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+</body>
+</html>

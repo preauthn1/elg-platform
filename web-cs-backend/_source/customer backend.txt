@@ -1,0 +1,27 @@
+CustomerServiceBackend-
+切換正式/測試 main.js(socket)、 Global.vue
+
+components
+ -AppDrawer.vue  左側menu區塊
+ -AppToolbar.vue 右側header工具(語系、分享碼、登出)
+
+ -chat 聊天
+  --ChatMenu (聊天室menu)
+  --ChatLayout.vue
+    --ChatMessaging.vue (聊天室)
+      --ChatHistory (左側聊天室列表)
+      --ChatWindow (右側聊天室)
+ 
+    --ChatHistoryHide.vue (聊天室隱藏房間)
+
+    --ChatContact.vue
+      --ChatContactList.vue 聯絡好友左側列表
+      --ChatContactProfile.vue 聯絡好友右側
+	--ChatNoteTitle.vue 筆記標題(<router-view>停用)
+	--ChatNoteContent.vue 筆記內容(<router-view>停用)
+
+pages
+ -management 營運商與客服人員管理
+ -history 紀錄查詢
+ -report sr02報表
+ -setting 個人設定/系統設定

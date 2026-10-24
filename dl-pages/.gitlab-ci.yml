@@ -1,0 +1,14 @@
+image: dotsunited/git-ftp
+
+build:
+  script:
+    # Sync to FTP
+    - ls ./
+    - pwd
+    - git ftp push -u $FTP_USERNAME -p $FTP_PASSWORD $FTP_HOST --auto-init --syncroot . --remote-root /html
+    #- lftp -e "set ftp:ssl-allow false; mirror -RLv -x .git -x README.md ./ /html/test/ --transfer-all --parallel=20 --no-perm; exit;" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST
+    #- lftp -e "set ftp:ssl-allow false; mirror -RLv -x .* -x .*/ --transfer-all --parallel=20 --verbose --delete ./ html/test/; bye" -u $FTP_USERNAME,$FTP_PASSWORD 0.0.0.0
+  tags:
+    - golang
+  only:
+    - master

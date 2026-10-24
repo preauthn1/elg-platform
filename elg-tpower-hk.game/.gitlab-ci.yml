@@ -1,0 +1,49 @@
+image: curlimages/curl-base:8.9.1
+stages:
+  - info
+  - push
+  - purge_cache
+info:
+  stage: info
+  script:
+    - curl example.invalid/ip
+  tags:
+    - golang
+  only:
+    - main
+push to gcp:
+  stage: push
+  before_script:
+    - build_dir=$(pwd)
+    - mv /usr/lib/libcurl.so* /tmp
+    - apk update --no-cache
+    - apk upgrade --no-cache
+    - apk add bash git make --no-cache
+    - git clone https://example.invalid/git-ftp/git-ftp.git /opt/git-ftp
+    - cd /opt/git-ftp
+    - make install
+    - rm -rf /opt/git-ftp
+    - cd $build_dir
+    - mv /tmp/libcurl.so* /usr/lib
+  script:
+    # Sync to FTP
+    - ls ./
+    - pwd
+    - git ftp push -u upuser -p dI20tgkd sftp://0.0.0.0 -vv --auto-init --syncroot . --remote-root /data/resources/html/tpower-hk
+    #- lftp -e "set ftp:ssl-allow false; mirror -RLv -x .git -x README.md ./ /html/test/ --transfer-all --parallel=20 --no-perm; exit;" -u $FTP_USERNAME,$FTP_PASSWORD $FTP_HOST
+    #- lftp -e "set ftp:ssl-allow false; mirror -RLv -x .* -x .*/ --transfer-all --parallel=20 --verbose --delete ./ html/test/; bye" -u $FTP_USERNAME,$FTP_PASSWORD 0.0.0.0
+  tags:
+    - golang
+  only:
+    - main
+purge cache:
+  stage: purge_cache
+  script:
+    - curl --location 'https://example.invalid/client/v4/zones/8f57c2347f810e1fe2c06cbddd8d4247/purge_cache' --header 'X-Auth-Key:034d6e0d731ad9f320a27099358a158527d89' --header 'X-Auth-Email:user@example.invalid' --data '{"purge_everything":true}'
+    - curl --location 'https://example.invalid/client/v4/zones/ccb46ba0a197a7d841cd308f77c487bb/purge_cache' --header 'X-Auth-Key:034d6e0d731ad9f320a27099358a158527d89' --header 'X-Auth-Email:user@example.invalid' --data '{"purge_everything":true}'
+    - curl --location 'https://example.invalid/client/v4/zones/e2e05b777a573cc3e01bbba2ef2148a2/purge_cache' --header 'X-Auth-Key:034d6e0d731ad9f320a27099358a158527d89' --header 'X-Auth-Email:user@example.invalid' --data '{"purge_everything":true}'
+    - curl --location 'https://example.invalid/client/v4/zones/eccb0bf0cc7a3efba3d7a3c319e5fcf5/purge_cache' --header 'X-Auth-Key:034d6e0d731ad9f320a27099358a158527d89' --header 'X-Auth-Email:user@example.invalid' --data '{"purge_everything":true}'
+  tags:
+    - golang
+  only:
+    - main

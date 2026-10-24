@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<r:routes xmlns:r="http://example.invalid/schema/routing"
+    xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example.invalid/schema/routing https://example.invalid/schema/routing/routing-1.0.xsd">
+
+    <r:route id="blog_show" path="/blog/{slug}" host="{_locale}.example.invalid">
+        <r:default key="_controller">MyBundle:Blog:show</r:default>
+        <requirement xmlns="http://example.invalid/schema/routing" key="slug">\w+</requirement>
+        <r2:requirement xmlns:r2="http://example.invalid/schema/routing" key="_locale">en|fr|de</r2:requirement>
+        <r:option key="compiler_class">RouteCompiler</r:option>
+        <r:default key="page">
+            <r3:int xmlns:r3="http://example.invalid/schema/routing">1</r3:int>
+        </r:default>
+    </r:route>
+</r:routes>

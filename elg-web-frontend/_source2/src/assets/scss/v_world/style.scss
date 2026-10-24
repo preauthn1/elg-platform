@@ -1,0 +1,3339 @@
+$BgWidth: 100%;
+$BgHeight: 100vh;
+$Bottom50: 48px;
+html body {
+    overscroll-behavior-y: contain;
+    height: 100%;
+    -webkit-overflow-scrolling: touch !important;
+
+    font-family: "微軟正黑體", "Helvetica", "Arial", "LiHei Pro", "黑體-繁",
+        sans-serif;
+    background: #040411;
+}
+body:-webkit-scrollbar {
+    display: none;
+}
+
+div {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+header {
+    //display: none;
+    height: 50px;
+    box-sizing: border-box;
+}
+button {
+    color: #fff;
+    font-weight: bold;
+}
+//全部頁面的寬高
+.widthHeight {
+    width: 100%;
+    height: 100vh;
+}
+//有footerBtn的頁面(lobby)
+.footerBtnBottom {
+    width: 100%;
+    height: 100vh;
+    padding-bottom: 48px;
+}
+
+//全部頁面padding,width90%
+.AllContent {
+    padding-top: 30px;
+    width: 90%;
+    margin: auto;
+    text-align: center;
+}
+//驗證用
+.validate {
+    margin: 48px 0px;
+    width: 100%;
+    text-align: right;
+    color: red;
+}
+
+//背景共用
+.BgContent {
+    background-image: url(../../img/v_world/bgContent.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.BgContentGameList {
+    background-image: url(../../img/v_world/bgContent.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+.BgAll {
+    background-color: #04020c;
+    margin: auto;
+    width: 100%;
+    color: #fff;
+
+    font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+        sans-serif;
+    max-height: 100%;
+}
+//point,背景共用
+.Bglong {
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    width: 100%;
+}
+//長條藍色按鈕背景共用
+.blueBtn_Setting {
+    background-image: url(../../img/v_world/blueBtn.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 40px;
+    line-height: 38px;
+}
+//有藍色長條按鈕頁面
+.buleBtnPadding {
+    // padding-top: 44px;
+}
+.buleBtnItem {
+    width: 95%;
+    margin: auto;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+.buleBtndiv {
+    margin: auto;
+    width: 320px;
+    font-size: 15px;
+    height: 33px;
+    line-height: 33px;
+    text-align: left;
+    padding-left: 20px;
+    .walletAddBtn {
+        width: 20%;
+        height: 33px;
+    }
+}
+.blueBtnLong {
+    width: 98%;
+    margin: 10px auto;
+}
+.blueBtnFont {
+    padding-left: 15px;
+    width: 90%;
+    text-align: left;
+    font-weight: bold;
+    color: #fff;
+}
+.blueBtnRight {
+    width: 10%;
+    img {
+        margin-top: -2px;
+        width: 10px;
+    }
+}
+//有藍色長條按鈕頁面以上
+
+//input輸入框右邊有叉叉
+.blueInput {
+    height: 60px;
+    width: 340px;
+    position: relative;
+    margin: 15px auto;
+    .blueInputFont {
+        color: red;
+        position: absolute;
+        top: 4px;
+        left: 7px;
+        height: 35px;
+        line-height: 35px;
+        font-size: 15px;
+    }
+    span {
+        position: absolute;
+        top: 4px;
+        left: 15px;
+        color: #448eff;
+        height: 35px;
+        line-height: 35px;
+        font-size: 14px;
+    }
+
+    input {
+        position: absolute;
+        right: 35px;
+        top: 4px;
+        height: 35px;
+        // line-height: 35px;
+        background-color: #0a164429;
+        border: none;
+        outline: none;
+        color: #fff;
+        text-align: left;
+        width: 170px;
+        font-size: 14px;
+    }
+    .shareInput {
+        height: 35px;
+        line-height: 35px;
+    }
+    img {
+        position: absolute;
+        top: 14px;
+        right: 8px;
+        width: 15px;
+    }
+}
+//按鈕共用-藍色置中
+.imgfontAll {
+    position: relative;
+    width: 140px;
+    margin: 20px auto;
+    height: 38px;
+    line-height: 39px;
+    background-image: url(../../img/v_world/confirmBtn.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 0 7px #0b316d;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 15px;
+        color: #fff;
+    }
+}
+.imgfontAll:active {
+    background-image: url(../../img/v_world/FinishBtn.png);
+    box-shadow: 0 4px #666;
+    transform: translateY(4px);
+}
+.imgfontGreen {
+    position: relative;
+    width: 140px;
+    margin: 20px auto;
+    height: 38px;
+    line-height: 39px;
+    background-image: url(../../img/v_world/GrayBtn.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    border-radius: 5px;
+    box-shadow: 0 7px #0b316d;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 16px;
+        color: #fff;
+    }
+}
+
+.imgfontGreen {
+    position: relative;
+    width: 140px;
+    margin: 20px auto;
+    height: 32px;
+    line-height: 32px;
+    background-image: url(../../img/v_world/green_btn_normal.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    box-shadow: 0 8px #224c03;
+    border-radius: 5px;
+
+    span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        font-size: 16px;
+        color: #fff;
+    }
+}
+.imgfontGreen:active {
+    background-image: url(../../img/v_world/green_btn_disable.png);
+    box-shadow: 0 4px #666;
+    transform: translateY(4px);
+}
+.imgfontall_A {
+    background-image: url(../../img/v_world/FinishBtn.png);
+    box-shadow: 0 4px #666;
+    transform: translateY(4px);
+}
+// 按鈕共用-並排
+.imgfont {
+    margin: auto;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+    width: 44%;
+    height: 32px;
+    line-height: 32px;
+    border: none;
+    border-radius: 5px;
+    font-size: 13px;
+    span {
+        color: #fff;
+        font-weight: bold;
+        margin: auto;
+    }
+}
+.blueBtn {
+    background-image: url(../../img/v_world/confirmBtn.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    // box-shadow: 0 8px #0b316d;
+    border-radius: 5px;
+}
+.blueBtn:active {
+    background-image: url(../../img/v_world/FinishBtn.png);
+    // box-shadow: 0 4px #666;
+    // transform: translateY(4px);
+}
+
+.blue2Btn {
+    background-image: url(../../img/v_world/blue_btn_normal.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    // box-shadow: 0 8px #0b316d;
+    border-radius: 5px;
+}
+.blue2Btn:active {
+    background-image: url(../../img/v_world/blue_btn_disable.png);
+    // box-shadow: 0 4px #666;
+    // transform: translateY(4px);
+}
+
+.grayBtn {
+    background-image: url(../../img/v_world/GrayBtn.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    // box-shadow: 0 8px #373636;
+    border-radius: 5px;
+}
+.grayBtn:active {
+    background-image: url(../../img/v_world/GrayBtn2.png);
+    // box-shadow: 0 4px #666;
+    // transform: translateY(4px);
+}
+
+.greenBtn {
+    background-image: url(../../img/v_world/green_btn_normal.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    // box-shadow: 0 8px #224c03;
+    border-radius: 5px;
+}
+.greenBtn:active {
+    background-image: url(../../img/v_world/green_btn_disable.png);
+    // box-shadow: 0 4px #666;
+    // transform: translateY(4px);
+}
+
+.redBtn {
+    background-image: url(../../img/v_world/red_btn_normal.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    // box-shadow: 0 8px #350000;
+    border-radius: 5px;
+}
+.redBtn:active {
+    background-image: url(../../img/v_world/red_btn_disable.png);
+    // box-shadow: 0 4px #666;
+    // transform: translateY(4px);
+}
+
+// eventModal遮屏共用
+.mask {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9998;
+    background-color: rgba(0, 0, 0, 0.7);
+    .eventModal {
+        position: relative;
+        top: 1%;
+        width: 97%;
+        margin: auto;
+        z-index: 9999;
+        height: 98%;
+        .closeBtn {
+            position: absolute;
+            top: 0;
+            right: 2px;
+            img {
+                width: 30px;
+            }
+        }
+    }
+}
+
+//彈窗大框有title
+.StoredModal {
+    margin: auto;
+    width: 100%;
+    .StoredModalCon {
+        margin: auto;
+        width: 85%;
+        border: 1px #2390dd solid;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        .StoredTitile {
+            position: relative;
+            margin: auto;
+            width: 100%;
+
+            .TitlePic {
+                width: 100%;
+                height: 60px;
+            }
+            .TitleFontClose {
+                position: absolute;
+                top: 30%;
+                left: 0;
+                right: 0;
+                text-align: center;
+                width: 100%;
+            }
+            .TitleFont {
+                color: #fff;
+                font-weight: bold;
+                font-size: 20px;
+                padding-left: 115px;
+            }
+            .TitleFontPoint {
+                color: #fff;
+                font-weight: bold;
+                font-size: 20px;
+                // padding-left: 115px;
+            }
+            .TitleClose {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 5px;
+
+                img {
+                    width: 25px;
+                }
+            }
+        }
+        .StoredContent {
+            background-color: #0f1c49;
+            width: 100%;
+            height: 100%;
+            border: #ffffff00 2px solid;
+            .ContentTitle {
+                width: 90%;
+                margin: auto;
+                text-align: left;
+                height: 50px;
+                line-height: 65px;
+                font-weight: bold;
+                // font-size: 15px;
+            }
+
+            .ContentBgFont {
+                background-color: #090825;
+                box-shadow: 1px 1px 1p 1px #1d316a inset;
+                text-align: left;
+                line-height: 30px;
+                span {
+                    color: #5065a1;
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                p {
+                    padding-left: 5px;
+                    font-weight: bold;
+                    color: #e4d84d;
+                }
+            }
+
+            .StoredModalBtn {
+                width: 90%;
+                margin: auto;
+                // border: red solid 2px;
+                .Gimgfont {
+                    position: relative;
+                    width: 140px;
+                    margin: 20px auto;
+                    height: 32px;
+                    text-align: center;
+                    span {
+                        margin: auto;
+                        height: 32px;
+                        line-height: 32px;
+                        font-size: 16px;
+                        color: #fff;
+                    }
+                }
+            }
+        }
+    }
+}
+//彈窗共用(小提示框)
+
+.modalBlueAll {
+    background: -webkit-linear-gradient(#0a52ae, #142846);
+    background: -o-linear-gradient(#0a52ae, #142846);
+    background: -moz-linear-gradient(#0a52ae, #142846);
+    background: linear-gradient(#0a52ae, #142846);
+    border-radius: 2px;
+    border: 1px #3091e2 solid;
+    width: 300px;
+    color: #fff;
+    font-weight: bold;
+    margin: auto;
+    padding: 20px 0;
+    text-align: center;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+// 有TITLE框
+
+.depositvisible {
+    border-radius: 2px;
+    // border: 1px #3091e2 solid;
+
+    .modalTitleAll {
+        border-radius: 2px;
+        width: 300px;
+        color: #fff;
+        font-weight: bold;
+        margin: auto;
+        position: relative;
+        top: 50%;
+
+        transform: translateY(-50%);
+        text-align: center;
+        .modalTitle {
+            border-left: 1px #3091e2 solid;
+            border-right: 1px #3091e2 solid;
+            border-top: 1px #3091e2 solid;
+            width: 300px;
+            margin: auto;
+            position: relative;
+            .TitlePic {
+                width: 100%;
+            }
+            .modalTitleAll {
+                position: absolute;
+                left: 0;
+                right: 0;
+
+                .contentTitle {
+                    padding-left: 30px;
+                    font-size: 18px;
+                    font-weight: bold;
+                    width: 90%;
+                }
+                .closeBtn {
+                    width: 10%;
+                    padding-right: 10px;
+                }
+            }
+        }
+        .modalContentAll {
+            background: -webkit-linear-gradient(#0a52ae, #142846);
+            background: -o-linear-gradient(#0a52ae, #142846);
+            background: -moz-linear-gradient(#0a52ae, #142846);
+            background: linear-gradient(#0a52ae, #142846);
+
+            border-left: 1px #3091e2 solid;
+            border-right: 1px #3091e2 solid;
+            border-bottom: 1px #3091e2 solid;
+            .nomoneyFont {
+                margin-bottom: 10px;
+                font-size: 18px;
+            }
+            .inputModalBg {
+                height: 30px;
+                width: 210px;
+                position: relative;
+                margin: 30px auto;
+                .moneyinput {
+                    position: absolute;
+                    margin-top: -1px;
+                    margin-right: 5px;
+                    top: 0;
+                    right: 0px;
+                    height: 28px;
+                    background-color: #0a164429;
+                    border: none;
+                    outline: none;
+                    color: #fff;
+                    text-align: right;
+                    width: 180px;
+                }
+            }
+        }
+    }
+}
+
+//comfirmBtnAll 彈窗兩個按鈕共用
+.comfirmBtnAll {
+    width: 80%;
+    margin: auto;
+    clear: both;
+}
+//input背景共用-細長
+.textbox {
+    background-image: url(../../img/v_world/textbox.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+//input背景共用-寬
+.info_text_box {
+    background-image: url(../../img/v_world/info_text_box.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+// 彈出背景框共用
+.modalBg {
+    background-image: url("../../img/v_world/transfer_background.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+//modalBtn
+.modalBtn {
+    width: 100px;
+    // height: 23px;
+    // line-height: 23px;
+    text-align: center;
+    cursor: pointer;
+    outline: none;
+    color: #fff;
+}
+// iframeloading用
+.loadingiframe {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 40%;
+    width: 70px;
+    margin: auto;
+    background: -webkit-linear-gradient(#0a52ae, #142846);
+    background: -o-linear-gradient(#0a52ae, #142846);
+    background: -moz-linear-gradient(#0a52ae, #142846);
+    background: linear-gradient(#0a52ae, #142846);
+    border-radius: 10px;
+    border: 1px #3091e2 solid;
+    padding: 25px;
+    box-shadow: 0px 0px 10px #777777;
+    color: #fff;
+}
+//direction鎖定方向
+.directionMask {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9998;
+    background-color: #000000f5;
+    // display: none;
+    .directionPic {
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        margin: auto;
+        z-index: 9999;
+        width: 100%;
+        // height: 80%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+
+//login wechat
+.wechatMask {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 9998;
+    background-color: rgba(0, 0, 0, 0.7);
+    // display: none;
+    .wechatPic {
+        position: relative;
+        top: 3%;
+        // transform: translateY(-50%);
+        margin: auto;
+        z-index: 9999;
+        width: 80%;
+        // height: 80%;
+        img {
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
+//Login
+.login {
+    margin: auto;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow-y: auto;
+    // display: none;
+    img {
+        width: 100%;
+        height: 100vh;
+    }
+    .specialT {
+        position: absolute;
+        width: 100%;
+        margin: auto;
+        top: 0%;
+        left: 0;
+        z-index: 9;
+    }
+    .signin {
+        position: absolute;
+        width: 80%;
+        margin: auto;
+        top: 38%;
+        left: 0;
+        right: 0;
+        z-index: 12;
+
+        .inputbg {
+            margin: 10px auto;
+            width: 98%;
+            background-color: #100731;
+            color: #fff;
+        }
+        .fontsizelogin {
+            font-size: 14px;
+        }
+        .loginBtn {
+            width: 100%;
+            margin: 20px auto;
+        }
+        .forgetpwBtn {
+            background-image: url(../../img/v_world/whitesquare.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            width: 240px;
+            height: 25px;
+            line-height: 25px;
+            margin: 40px auto;
+            text-align: center;
+
+            span {
+                color: #fff;
+            }
+        }
+    }
+    .loginFooter {
+        margin: auto;
+        width: 100%;
+        height: 50px;
+        line-height: 25px;
+        color: #fff;
+        font-size: 10px;
+        background-color: #7b7b7b47;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        text-align: center;
+    }
+}
+.contentAll {
+    position: relative;
+    min-height: 100%;
+    background-color: #04020c;
+    width: 100%;
+    .ys-float-btn {
+        box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        color: #666666;
+        z-index: 1050;
+        transition: all 0.3s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        bottom: 20vw;
+    }
+    .eventbtn {
+        position: relative;
+        .specialButton {
+            position: absolute;
+            top: -5px;
+            bottom: 0;
+            right: 6%;
+            // left:0;
+            width: 100%;
+        }
+        .eventBtnT {
+            position: absolute;
+            top: -8px;
+            bottom: 0;
+            right: 0;
+            width: 45%;
+        }
+        .eventFont {
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            color: #fff;
+            font-size: 8px;
+            text-align: center;
+        }
+        img {
+            width: 100%;
+            // height: 100%;
+            object-fit: contain;
+            margin-bottom: 3px;
+        }
+        p {
+            font-size: 7px;
+        }
+    }
+    .modal {
+        top: 1%;
+        .modal-dialog {
+            width: 100%;
+            height: 100vh;
+            margin: auto;
+            .modal-content {
+                background: none;
+                border: none;
+                .closeBtn {
+                    position: absolute;
+                    top: 25px;
+                    right: 24px;
+                    z-index: 200;
+                    img {
+                        width: 51%;
+                    }
+                }
+                .modal-body {
+                    display: inline-block;
+                    -webkit-overflow-scrolling: touch !important;
+                    overflow-y: auto !important;
+                }
+                .modal-body,
+                .modal-body {
+                    width: 100%;
+                    height: 100vh;
+                    margin: auto;
+                    iframe {
+                        width: 100%;
+                        height: 100%;
+                    }
+                }
+            }
+        }
+    }
+}
+//home
+.speciallogT {
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    right: 0;
+    z-index: 999;
+    width: 100%;
+}
+.homeTitle {
+    z-index: 100;
+    height: 44px;
+    position: fixed;
+    line-height: 44px;
+    width: 100%;
+    font-weight: bold;
+    background-image: url(../../img/v_world/titleBg.png);
+    background-position: 0px;
+    .loginbarBack {
+        width: 15%;
+        padding: 1px;
+        img {
+            width: 30px;
+            margin-left: 10px;
+        }
+    }
+    .loginbarTitle {
+        width: 50%;
+        padding: 1px;
+        text-align: center;
+        span {
+            font-size: 17px;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    .gamePointTransfer {
+        width: 10%;
+        padding: 1px;
+        img {
+            // margin-right: 10px;
+            width: 28px;
+        }
+    }
+    .loginbarright {
+        width: 15%;
+        padding: 1px;
+        img {
+            margin-right: 10px;
+            width: 35px;
+        }
+        span {
+            color: #fff;
+            font-size: 18px;
+            margin-right: 10px;
+        }
+        .dropdown-item {
+            height: 50px;
+        }
+    }
+}
+
+// Lobby_bar
+.lobbybar {
+    width: 100%;
+    height: 38%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+
+    .lobbyHeader {
+        position: relative;
+        width: 100%;
+        // height: 60%;
+        margin: auto;
+
+        img {
+            width: 100%;
+            height: 40px;
+        }
+
+        .lobbybarTitle {
+            color: #fff;
+            width: 100%;
+            height: 30%;
+            margin: auto;
+            position: absolute;
+            top: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            vertical-align: middle;
+        }
+        .personal {
+            width: 100%;
+            margin: auto;
+            position: relative;
+            height: 70%;
+            .specialINT {
+                position: absolute;
+                top: -40px;
+                width: 100%;
+                left: 0;
+                right: 0;
+                height: 50px;
+            }
+            .personalImg {
+                width: 100%;
+                height: 80px;
+            }
+            img {
+                width: 100%;
+                height: 100%;
+            }
+            .personalUser {
+                position: absolute;
+                top: 5%;
+                left: 0;
+                right: 0;
+                width: 90%;
+                height: 80%;
+                margin: auto;
+                z-index: 50;
+                color: #fff;
+                .personalLeft {
+                    width: 19%;
+                    height: 86%;
+                    margin-top: 3%;
+                    img {
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+                .personalRight {
+                    width: 80%;
+                    padding-left: 3%;
+                    height: 100%;
+                    .lobbyInputBg {
+                        position: relative;
+                        height: 50%;
+                        padding-top: 3%;
+
+                        img {
+                            width: 100%;
+                            height: 90%;
+                        }
+
+                        .lobbyFontBtn {
+                            position: absolute;
+                            top: 10px;
+                            right: 0px;
+                            bottom: 0;
+                            left: 0;
+                            padding-left: 5px;
+                            // padding-top: 4%;
+                            font-size: 12px;
+                            width: 100%;
+                            // height: 22px;
+                            display: flex;
+                            align-items: center;
+                            text-align: left;
+                            color: #fff;
+                            span {
+                                color: #fff;
+                                font-size: 14px;
+                            }
+                            .lobbyFont {
+                                width: 80%;
+                                height: 100%;
+                                display: flex;
+                                align-items: center;
+                                color: #fff;
+                                span {
+                                    color: #fff;
+                                    font-size: 14px;
+                                }
+                            }
+                            .StoredBtn {
+                                margin-left: 10px;
+                                // margin: auto;
+                                text-align: right;
+                                width: 15%;
+                                height: 90%;
+                                // border: 2px solid red;
+
+                                img {
+                                    max-width: 100%;
+                                    max-height: 100%;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .carouselPic {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        // height: 40%;
+        padding: 1px;
+        height: 130px;
+        margin-top: -1px;
+
+        .bannerImg {
+            width: 400px; /*圖片寬度*/
+            position: absolute;
+            left: 50%;
+            height: 100%;
+            max-height: 100%;
+            margin-left: -200px; /*圖片寬度一半*/
+            overflow: hidden;
+            behavior: expression(
+                this.style.width = document.documentElement.offsetWidth
+            );
+            img {
+                max-height: 100%;
+                height: 100%;
+                // width: 100%;
+            }
+        }
+    }
+}
+
+//Lobby
+.Lobby {
+    height: 100vh;
+    width: 100%;
+    // margin-bottom: $Bottom50;
+    // padding-bottom: 60px;
+    // border: red solid 2px;
+    .Lobby_barAll {
+        width: 100%;
+        height: 40%;
+        padding: 1px;
+        // height: 30%;
+    }
+    .LobbyContent {
+        // width: 95%;
+        margin: auto;
+        margin-top: 12px;
+        padding-left: 5px;
+        color: #fff;
+        // margin-bottom: 70px;
+        padding-bottom: 70px;
+        // border: red solid 2px;
+        .blackBg {
+            margin: 1%;
+            width: 31%;
+            border-radius: 5px;
+            // border: 2px solid red;
+            .blackPic {
+                height: 100%;
+                width: 100%;
+                margin: auto;
+                position: relative;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+                .blackImg {
+                    position: absolute;
+                    top: 2px;
+                    width: 100%;
+                    height: 100%;
+                    margin: auto;
+                    // border:2px solid red;
+                    text-align: center;
+                    // display:flex;
+                    // justify-content: center;
+                    // align-items: center;
+                    .newHotPic {
+                        position: absolute;
+                        z-index: 2;
+                    }
+                    .hotPic {
+                        top: -2px;
+                        left: -2px;
+                        width: 85px;
+                    }
+                    .newPic {
+                        top: -2px;
+                        right: -2px;
+                        width: 85px;
+                    }
+                    a {
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        img {
+                            max-height: 93%;
+                            max-width: 93%;
+                        }
+                    }
+                }
+            }
+        }
+
+        .grayBg {
+            margin: 1%;
+            width: 31%;
+            // line-height: 100px;
+            border-radius: 5px;
+            position: relative;
+            // border: 2px solid red;
+            .blackPic {
+                height: 100%;
+                width: 100%;
+                img {
+                    max-width: 100%;
+                    max-height: 100%;
+                }
+            }
+            .blackImg {
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                margin: auto;
+                text-align: center;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                a {
+                    width: 100%;
+                    height: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    img {
+                        max-height: 95%;
+                        max-width: auto;
+                    }
+                }
+            }
+            .maintainfont {
+                position: absolute;
+                z-index: 10;
+                top: 11px;
+                left: 2px;
+                font-size: 11px;
+                font-weight: bolder;
+                color: #af1f00;
+                // border: 2px solid red;
+                width: 75%;
+                height: 23%;
+                text-align: left;
+                display: inline-block;
+            }
+            .maintain {
+                position: absolute;
+                top: 7px;
+                left: -4px;
+                width: 100px;
+                z-index: 2;
+            }
+            .comingSoon {
+                position: absolute;
+                top: 7px;
+                left: -4px;
+                width: 100px;
+                z-index: 2;
+            }
+            .disPic {
+                -webkit-filter: grayscale(1);
+                max-height: 100%;
+                max-width: 100%;
+                text-align: center;
+                margin: auto;
+            }
+        }
+    }
+}
+
+//Signup
+
+.signupModalBtn {
+    margin: auto;
+}
+
+//Forgetpw
+.TitleFont {
+    font-size: 13px;
+    color: #5f94e3;
+}
+
+.ForgetpwForm {
+    padding-top: 10px;
+    width: 100%;
+    margin: auto;
+    .locationBtn {
+        margin: 15px auto;
+        background-color: #3759a8;
+        border-radius: 5px;
+        width: 100%;
+        height: 40px;
+        color: #fff;
+        font-weight: bold;
+        .locationTitle {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+        }
+        .locationSel {
+            height: 40px;
+            line-height: 40px;
+            padding-left: 160px;
+        }
+        .locationPic {
+            height: 40px;
+            line-height: 40px;
+            padding-right: 10px;
+            img {
+                width: 14px;
+            }
+        }
+    }
+    span {
+        color: #fff;
+    }
+    .TimeBtn {
+        margin: auto;
+        background-image: url(../../img/v_world/FinishBtn.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        width: 160px;
+        height: 50px;
+        font-size: 15px;
+        padding-top: 12px;
+        line-height: 3px;
+        color: #7380a3;
+    }
+    .fontsize {
+        margin: 20px auto;
+        font-size: 15px;
+    }
+}
+
+.content {
+    font-size: 15px;
+}
+
+//LocationSelect
+.LocationBtn {
+    margin: 12px auto;
+    width: 320px;
+    height: 45px;
+    line-height: 45px;
+    color: #5f94e3;
+    font-weight: bold;
+    .float-left {
+        padding-left: 10px;
+    }
+    .float-right {
+        padding-right: 10px;
+    }
+}
+
+//Setpw
+
+.setpwAcc {
+    width: 340px;
+    text-align: right;
+    margin: 10px;
+    .float-left {
+        width: 60px;
+        text-align: center;
+    }
+    .float-right {
+        width: 215px;
+        text-align: left;
+    }
+}
+
+.setpwfont {
+    margin: 30px;
+}
+
+.setpwSubmit {
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    color: #000;
+
+    button {
+        margin: auto;
+    }
+    .diglogMsg {
+        padding-top: 300px;
+    }
+}
+
+//Banner_events
+.banner_events {
+    @extend .BgContent;
+    @extend .BgAll;
+    margin-bottom: $Bottom50;
+    padding-bottom: $Bottom50;
+    height: $BgHeight;
+    .eventsAll {
+        width: 80%;
+        margin: auto;
+    }
+}
+//Events_header
+.Events_header {
+    background-image: url("../../img/v_world/lobbyBg2.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: center;
+    z-index: 100;
+    height: 44px;
+    position: fixed;
+    line-height: 44px;
+    background-color: #00284c;
+    width: 100%;
+
+    .backBtn {
+        width: 15%;
+        height: 44px;
+        line-height: 44px;
+        text-align: center;
+        img {
+            margin-top: -3px;
+            width: 28px;
+        }
+    }
+    .EventsHeaderTitle {
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        font-size: 18px;
+        width: 70%;
+        height: 44px;
+        line-height: 44px;
+    }
+    .closeBtn {
+        width: 15%;
+        height: 44px;
+        line-height: 44px;
+        img {
+            width: 30px;
+        }
+    }
+}
+//Events
+.Events {
+    background-color: #0f1c49;
+    background-attachment: fixed;
+    width: $BgWidth;
+    padding-bottom: 10px;
+    // height: $BgHeight;
+    .eventsAll {
+        // height: 100vh;
+        width: 95%;
+        margin: auto;
+        padding-top: 44px;
+        .eventsCon {
+            margin: 10px auto;
+            width: 93%;
+            .eventsConFont {
+                color: #fff;
+                text-align: left;
+                font-size: 13px;
+                font-weight: bolder;
+                // border:2px solid red;
+                width: 100%;
+                .eventPr {
+                    // border:2px solid blue;
+                    width: 100%;
+                    text-align: left;
+                    margin: 10px auto;
+                }
+                .eventPrR {
+                    // border:2px solid blue;
+                    width: 100%;
+                    text-align: left;
+                    img {
+                        // margin-left:20px;
+                        width: 25px;
+                    }
+                }
+            }
+            .eventsList {
+                margin: 20px 5px;
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 10px;
+                .eventsTitle {
+                    width: 100%;
+                    margin: auto;
+                    line-height: 30px;
+                    text-align: left;
+                    .eventsLogo {
+                        width: 12%;
+                        // border:2px solid red;
+                        img {
+                            margin-top: -5px;
+                            width: 25px;
+                        }
+                    }
+                    .eventsFont {
+                        color: #fe5f42;
+                        font-weight: bold;
+                        // border:2px solid yellow;
+                        font-size: 15px;
+                        width: 75%;
+                        span {
+                            color: rgb(126, 124, 124);
+                            font-size: 13px;
+                        }
+                    }
+                    .eventTicket {
+                        width: 10%;
+                        // border:2px solid blue;
+                        img {
+                            margin-top: -5px;
+                            // margin-right:10px;
+                            width: 28px;
+                        }
+                    }
+                    .eventsFontBlue {
+                        color: #00284c;
+                        font-weight: bold;
+                        font-size: 15px;
+                        span {
+                            color: rgb(126, 124, 124);
+                            font-size: 13px;
+                        }
+                        img {
+                            margin-left: 10px;
+                            width: 10%;
+                        }
+                    }
+                }
+                .eventTime {
+                    width: 100%;
+                    margin: auto;
+                    color: #707070;
+                    font-size: 13px;
+                    text-align: left;
+                }
+                .reddeemTime {
+                    width: 100%;
+                    margin: auto;
+                    color: #fe5f42;
+                    font-size: 14px;
+                    text-align: left;
+                    font-weight: normal;
+                }
+                .remarks {
+                    width: 100%;
+                    margin: auto;
+                    color: #707070;
+                    font-size: 14px;
+                    text-align: left;
+                    font-weight: bolder;
+                }
+                .eventsProgress {
+                    width: 100%;
+                    margin: 18px auto 3px auto;
+                }
+                .dateFont {
+                    width: 100%;
+
+                    color: #707070;
+                    font-size: 13px;
+                    text-align: left;
+                    font-weight: bold;
+                }
+                .eventsPointFont {
+                    width: 100%;
+                    margin: auto;
+                    color: #707070;
+                    font-size: 13px;
+                    text-align: left;
+                    font-weight: bold;
+                    span {
+                        color: #fe5f42;
+                    }
+                }
+                .eventsBtn {
+                    width: 100%;
+                    margin: 15px auto;
+                }
+            }
+        }
+    }
+}
+.eventFontTitle {
+    font-size: 18px;
+    margin: 30px auto;
+}
+//EventsContent
+.EventsContent {
+    background-color: #0f1c49;
+    background-attachment: fixed;
+    width: $BgWidth;
+    height: $BgHeight;
+    .EventsContentAll {
+        width: 95%;
+        margin: auto;
+        padding-top: 44px;
+        .EventsContenCon {
+            margin: 20px auto;
+            width: 93%;
+            .EventsContentTitle {
+                color: #fff;
+                font-size: 18px;
+                font-weight: bold;
+                text-align: left;
+                height: 45px;
+                line-height: 40px;
+            }
+            .EventsContentList {
+                margin: 20px 5px;
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 10px;
+                .EventsContentPic {
+                    width: 30%;
+                    img {
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+                .EventsContentFont {
+                    width: 70%;
+                    padding-left: 5px;
+                    .FontTitle {
+                        color: #f8806a;
+                        font-weight: bold;
+                        text-align: left;
+                        height: 40px;
+                        line-height: 40px;
+                    }
+                    .FontTime {
+                        color: #707070;
+                        font-weight: bold;
+                        font-size: 13px;
+                        text-align: left;
+                        height: 35px;
+                        line-height: 35px;
+                    }
+                }
+            }
+        }
+    }
+}
+//EventDescription
+.EventDescription {
+    background-color: #0f1c49;
+    background-attachment: fixed;
+    padding-bottom: 48px;
+    .EventDescriptionAll {
+        width: 100%;
+        margin: auto;
+        padding-top: 44px;
+        .EventDescriptionPic {
+            width: 100%;
+            margin: auto;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .EventDescriptionCon {
+            margin: 20px auto;
+            width: 90%;
+            .EventDescriptionList {
+                margin: 20px 5px;
+                padding: 10px;
+                background-color: #fff;
+                border-radius: 10px;
+                color: #707070;
+                font-weight: bold;
+                text-align: left;
+                font-size: 13px;
+                .EventDescriptTitle {
+                    color: #00284c;
+                    font-weight: bold;
+                    text-align: left;
+                    font-size: 15px;
+                    line-height: 30px;
+                    .eventPr {
+                        // border:2px solid blue;
+                        width: 50%;
+                        text-align: left;
+                    }
+                    .eventPrR {
+                        // border:2px solid blue;
+                        width: 50%;
+                        text-align: right;
+                        img {
+                            margin-top: -5px;
+                            margin-left: 20px;
+                            width: 25px;
+                        }
+                    }
+                }
+                .EventDescriptTitle_Gray {
+                    font-size: 16px;
+                }
+                .EventDescriptTime {
+                    margin: 5px auto;
+                }
+                .EventDescriptFont {
+                    white-space: pre-wrap;
+                }
+                .eventItem {
+                    width: 70%;
+                    margin: auto;
+                }
+                .EventDescriptProgress {
+                    width: 100%;
+                    margin: 18px auto 3px auto;
+                }
+                .EventDescriptDate {
+                    margin: 2px auto;
+                    span {
+                        color: #f8806a;
+                    }
+                }
+                .reddeemTime {
+                    width: 100%;
+                    margin: auto;
+                    color: #fe5f42;
+                    font-size: 14px;
+                    text-align: left;
+                    font-weight: normal;
+                }
+                .dateFont {
+                    width: 100%;
+
+                    color: #707070;
+                    font-size: 13px;
+                    line-height: 20px;
+                    text-align: left;
+                }
+            }
+        }
+        .EventDescriptBtn {
+            width: 80%;
+            margin: 15px auto;
+        }
+    }
+}
+//ScratchCard
+// .cardEventHeader {
+//     padding: 1px;
+//     height: 45px;
+// }
+
+.ScratchCardAll {
+    padding-top: 45px;
+    width: 100%;
+    height: 100vh;
+    margin: auto;
+    position: relative;
+    .scratchCardMask {
+        position: absolute;
+        top: 40px;
+        left: 0;
+        width: 100%;
+
+        margin: auto;
+        // border: 2px solid #fff;
+        z-index: 500;
+        img {
+            margin-top: 35%;
+            width: 340px;
+            height: 340px;
+            // border: 2px solid #fff;
+        }
+    }
+    img {
+        height: 92vh;
+    }
+}
+
+//Lottery
+.Lottery {
+    width: 100%;
+    height: 100%;
+}
+.Events_bar {
+    width: 100%;
+    height: 44px;
+}
+.LotteryAll {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+    position: relative;
+    .LotteryBgPic {
+        width: 100%;
+        height: 100vh;
+    }
+    .LotteryTitle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        color: #fff;
+        font-weight: bold;
+        margin: auto;
+        font-size: 18px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+    }
+    .LotteryGo {
+        width: 100%;
+        position: absolute;
+        top: 15%;
+        left: 0;
+        right: 0;
+    }
+}
+
+//GameList
+.GameListPadding {
+    width: 100%;
+    // padding-top: 44px;
+    background-image: url(../../img/v_world/bgContent.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    .GameListMenu {
+        width: 100%;
+        height: 100px;
+        position: fixed;
+        background-position: 0px 0px;
+        z-index: 10;
+        .wrapper {
+            padding-top: 10px;
+            margin: auto;
+            width: 90%;
+            .pointbg {
+                position: relative;
+                text-align: left;
+                width: 91%;
+                span {
+                    position: absolute;
+                    margin: 7px 15px;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    font-size: 15px;
+                    color: #fff;
+                }
+
+                .GameListInput {
+                    height: 40px;
+                    width: 99%;
+                    line-height: 40px;
+                    text-align: left;
+                    padding-left: 19px;
+                    margin: 0px auto;
+                    font-size: 16px;
+
+                    span {
+                        font-size: 14px;
+                    }
+                    .gameListBtnPic {
+                        padding-right: 5px;
+                        img {
+                            height: 25px;
+                        }
+                    }
+                }
+            }
+            .GameListBtn {
+                width: 9%;
+                .gamefont {
+                    font-size: 14px;
+                }
+                .bm-burger-button {
+                    width: 26px;
+                    height: 20px;
+                    left: auto;
+                    right: 15px;
+                    top: 13px;
+                    cursor: pointer;
+                }
+                .bm-burger-bars {
+                    background-color: #fff;
+                }
+                .line-style {
+                    position: absolute;
+                    height: 20%;
+                    left: 0;
+                    right: 0;
+                }
+                .cross-style {
+                    position: absolute;
+                    top: 12px;
+                    right: 2px;
+                    cursor: pointer;
+                }
+                .bm-cross {
+                    background: #bdc3c7;
+                }
+                .bm-cross-button {
+                    height: 24px;
+                    width: 24px;
+                }
+                .bm-menu {
+                    height: 100%; /* 100% Full-height */
+                    width: 0; /* 0 width - change this with JavaScript */
+                    position: fixed; /* Stay in place */
+                    z-index: 1000; /* Stay on top */
+                    top: 43px;
+                    left: auto;
+                    right: 0;
+                    background-color: #0a3370; /* Black*/
+                    overflow-x: hidden; /* Disable horizontal scroll */
+                    padding-top: 40px; /* Place content 60px from the top */
+                    transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
+                }
+
+                .bm-overlay {
+                    background: rgba(0, 0, 0, 0.3);
+                }
+                .bm-item-list {
+                    // color: #b8b7ad;
+                    color: #ffffff00;
+                    margin-left: 10%;
+                    font-size: 20px;
+                }
+                .bm-item-list > * {
+                    display: flex;
+                    text-decoration: none;
+                    padding: 0.7em;
+                }
+                .bm-item-list > * > span {
+                    margin-left: 10px;
+                    font-weight: 700;
+                    color: white;
+                }
+            }
+        }
+        .navbar {
+            width: 100%;
+        }
+        .search {
+            width: 90%;
+            margin: auto;
+            padding-top: 10px;
+            .searchinput {
+                width: 90%;
+                .inputbg {
+                    background-color: #100731;
+                    color: #fff;
+                    width: 100%;
+                    height: 30px;
+                }
+            }
+            .searchBtn {
+                width: 10%;
+                padding-top: 3px;
+                padding-left: 5px;
+                .searchicon {
+                    width: 40px;
+                }
+            }
+        }
+    }
+    .GameListItem {
+        width: 95%;
+        margin: auto;
+        padding-top: 100px;
+        .gameHeart {
+            position: relative;
+            left: 0px;
+            right: 0px;
+            width: 44%;
+            margin: 3%;
+            .GameListImg {
+                width: 100%;
+                height: 125px;
+                padding: 10px;
+                background-color: #21252963;
+                border-radius: 5px 5px 0px 0px;
+                display: flex;
+                justify-content: center;
+                box-shadow: 1px 1px 3px 2px #083671d1 inset;
+                // border: 5px #acacacba solid;
+                // border-style: inset;
+                img {
+                    max-height: 100%;
+                    max-width: 100%;
+                    height: 100%;
+                }
+            }
+            .Heart {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                width: 30px;
+            }
+            .GameListFont {
+                background-color: #000;
+                border-radius: 0px 0px 5px 5px;
+                margin: auto;
+                font-size: 15px;
+                width: 100%;
+                line-height: 45px;
+                height: 45px;
+                font-weight: bold;
+                color: #948e7e;
+                overflow: hidden;
+                text-align: center;
+            }
+        }
+    }
+    .modalContent {
+        height: 120px;
+    }
+
+    .deposit {
+        @extend .mask;
+        .content {
+            @extend .modalBg;
+            position: relative;
+            top: 45%;
+            transform: translateY(-45%);
+            margin: auto;
+            width: 80%;
+            height: 450px;
+            .contentItem {
+                width: 98%;
+                margin: auto;
+                padding: 15px 0;
+                position: relative;
+                .contentTitle {
+                    font-size: 20px;
+                    font-weight: bold;
+                }
+                .closeBtn {
+                    position: absolute;
+                    top: 15px;
+                    right: 2px;
+                    width: 25px;
+                }
+            }
+            .moneyTitle {
+                height: 96px;
+                line-height: 96px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+            .moneycontent {
+                padding-top: 20px;
+                width: 70%;
+                margin: auto;
+                height: 190px;
+
+                .amount {
+                    font-size: 15px;
+                    height: 40px;
+                    line-height: 40px;
+                    text-align: left;
+                    margin: 5px auto;
+                    color: #448eff;
+                    font-weight: bold;
+                }
+                .inputModalBg {
+                    height: 30px;
+                    width: 210px;
+                    position: relative;
+                    margin: 30px auto;
+                    input {
+                        position: absolute;
+                        margin-top: -1px;
+                        margin-right: 5px;
+                        top: 0;
+                        right: 0px;
+                        height: 28px;
+                        background-color: #0a164429;
+                        border: none;
+                        outline: none;
+                        color: #fff;
+                        text-align: right;
+                        width: 180px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+//Game
+.Game {
+    @extend .BgContent;
+    @extend .BgAll;
+    width: 100%;
+    height: $BgHeight;
+    .gameLoginHe {
+        padding: 1px;
+        height: 44px;
+    }
+    .GamePlay {
+        width: 100%;
+        height: 100%;
+        padding-top: 2px;
+        // border: 2px red solid;
+        // -webkit-overflow-scrolling: touch !important;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        -moz-overflow-scrolling: touch;
+        -o-overflow-scrolling: touch;
+        -ms-overflow-scrolling: touch;
+        // touch-action: auto;
+        // touch-action: manipulation;
+        // .iframeG {
+        //     -webkit-overflow-scrolling: touch !important;
+        // }
+    }
+}
+//GameApp
+//GameAppInput共用
+.GameAppInput {
+    height: 40px;
+    width: 300px;
+    line-height: 40px;
+    text-align: left;
+    padding-left: 10px;
+    margin: 10px auto;
+    font-size: 14px;
+    span {
+        font-size: 14px;
+    }
+}
+.CtrlCBtn {
+    margin: auto;
+    width: 30px;
+    text-align: center;
+    height: 40px;
+    line-height: 38px;
+    img {
+        width: 16px;
+    }
+}
+
+.GameAppOpen {
+    background-image: url(../../img/v_world/bigbox3.png);
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 310px;
+    height: 132px;
+    text-align: left;
+    padding-left: 20px;
+    margin: 10px auto;
+
+    .OpenFont {
+        padding-top: 5px;
+        width: 90%;
+    }
+    .OpenBtn {
+        width: 90%;
+        margin: auto;
+        // text-align: center;
+        .androIosBtn {
+            padding: 1px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            width: 110px;
+            height: 40px;
+            margin: 10px 8px;
+        }
+        .AndroidBtn {
+            background-image: url("../../img/v_world/OpenBtn.png");
+        }
+        .AndroidBtn:active {
+            background-image: url("../../img/v_world/OpenBtnB.png");
+        }
+        .IosBtn {
+            background-image: url("../../img/v_world/OpenBtn2.png");
+        }
+        .IosBtn:active {
+            background-image: url("../../img/v_world/OpenBtnB2.png");
+        }
+    }
+    .gameIn {
+        padding-bottom: 5px;
+        width: 98%;
+        font-size: 10px;
+        .gameInLeft {
+            width: 90%;
+        }
+        .gameInRight {
+            width: 30%;
+            img {
+                padding-left: 10px;
+                width: 40px;
+            }
+        }
+    }
+}
+.GameAppFont {
+    width: 95%;
+    margin: 20px auto;
+    line-height: 15px;
+    color: #96a8cc;
+    height: 125px;
+    .iosOpenFont {
+        width: 100%;
+        margin: auto;
+        // border: 2px solid red;
+        .GameAppPwSet {
+            width: 60%;
+            margin: auto;
+            text-align: left;
+            font-size: 13px;
+            p {
+                height: 15px;
+            }
+            ul {
+                width: 100%;
+                height: 50px;
+                // border: 2px solid red;
+                li {
+                    height: 15px;
+                }
+            }
+        }
+        .ifnewpw {
+            width: 90%;
+            margin: auto;
+            // border: 2px solid red;
+            text-align: left;
+            // margin-bottom:20px;
+        }
+    }
+}
+.GameAppNewPw {
+    width: 90%;
+    margin: auto;
+    margin-top: 40px;
+    .NewPwFont {
+        width: 60%;
+        height: 39px;
+        line-height: 39px;
+        font-size: 15px;
+        text-align: left;
+    }
+    .NewPwInput {
+        background-image: url(../../img/v_world/textbox.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+        width: 100%;
+        height: 32px;
+        position: relative;
+        margin: auto;
+
+        .newpwfont {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 5px;
+            color: #96a8cc;
+            font-size: 13px;
+            height: 32px;
+            line-height: 32px;
+        }
+        input {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            right: 10px;
+            height: 30px;
+            background-color: #0a164429;
+            border: none;
+            outline: none;
+            color: #fff;
+            text-align: right;
+            width: 200px;
+        }
+    }
+}
+.GameAppBtn {
+    margin: 45px auto;
+}
+
+//Points
+
+.PointsPadding {
+    width: 100%;
+    // padding-top: 44px;
+    .pointsfixed {
+        height: 110px;
+        position: fixed;
+        width: 100%;
+        background-position: 0px 0px;
+        z-index: 500;
+        .PointsAcc {
+            width: 95%;
+            margin: auto;
+            padding: 10px 0;
+            color: #fff;
+            div {
+                margin: auto;
+                width: 320px;
+                font-size: 15px;
+                height: 40px;
+                line-height: 35px;
+                text-align: left;
+                padding-left: 20px;
+
+                img {
+                    width: 60px;
+                    height: 32px;
+                }
+            }
+            button {
+                margin-right: 5px;
+                margin-top: 2px;
+            }
+            img {
+                height: 38px;
+            }
+        }
+        .ButtonSelect {
+            width: 85%;
+            margin: auto;
+            text-align: center;
+            //全部轉入,重新整理Button共用
+            .AllButton {
+                width: 150px;
+                height: 35px;
+                line-height: 35px;
+                border: none;
+
+                span {
+                    color: #fff;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .PointsItem {
+        width: 100%;
+        margin: auto;
+        padding-top: 120px;
+        .GameSelect {
+            width: 50%;
+            .GameAll {
+                border: 1px solid #fff;
+                background-color: #1040b3;
+                width: 90%;
+                margin: 10px auto;
+                border-radius: 5px;
+                .PointsTop {
+                    .GamePoints {
+                        width: 72%;
+                        margin: 8px;
+                        background-image: url(../../img/v_world/text_box.png);
+                        background-repeat: no-repeat;
+                        background-size: 100%;
+                        color: #f8d90b;
+                        font-weight: bold;
+                        height: 30px;
+                        line-height: 30px;
+                        padding-right: 10px;
+                        text-align: right;
+                    }
+                    .PointsReBtn {
+                        width: 10%;
+                        padding-top: 7px;
+                        margin-right: 10px;
+                        .reBtn {
+                            background-image: url(../../img/v_world/button_normal.png);
+                            background-repeat: no-repeat;
+                            background-size: 100%;
+                            width: 25px;
+                            height: 25px;
+                            padding: 1px;
+                        }
+                        .reBtn:active {
+                            background-image: url(../../img/v_world/button_disable.png);
+                        }
+                    }
+                }
+                .PointsImg {
+                    background-color: #0a162e;
+                    width: 100%;
+                    height: 100px;
+                    margin: auto;
+                    position: relative;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    .blackBgPic {
+                        width: 90%;
+                        height: 95%;
+                    }
+                    .blackBg {
+                        position: absolute;
+                        left: 0;
+                        right: 0;
+                        top: 0;
+                        width: 100%;
+                        height: 100%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        img {
+                            max-height: 90%;
+                            max-width: 90%;
+                        }
+                    }
+                }
+
+                // .PointsImg {
+                //     background-color: #0a162e;
+                //     width: 100%;
+                //     height: 100px;
+                //     margin: auto;
+                //     display: flex;
+                //     align-items: center;
+                //     justify-content: center;
+                //     .blackBg {
+                //         width: 100%;
+                //         margin: 10px 6%;
+                //         height: 90px;
+                //         line-height: 90px;
+                //         background-image: url(../../img/v_world/blackBg.png);
+                //         background-size: 100%;
+                //         background-repeat: no-repeat;
+                //         border-radius: 5px;
+                //         border: 2px solid #503f01cf;
+                //         img {
+                //             max-height: 100%;
+                //             max-width: 100%;
+                //         }
+                //     }
+                // }
+                .PointsButton {
+                    margin: auto;
+                    .ButtonInOut {
+                        margin: auto;
+                        width: 50%;
+                        .inoutBtn {
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .pointsModal {
+        height: 50px;
+    }
+
+    .pointTo {
+        padding-top: 20px;
+        width: 100%;
+        .pointToFont {
+            width: 40%;
+            text-align: center;
+            font-size: 16px;
+            line-height: 24px;
+        }
+        .pointToImg {
+            width: 20%;
+
+            img {
+                width: 35px;
+            }
+        }
+    }
+    .pointAcc {
+        margin: 10px auto;
+        width: 270px;
+        height: 40px;
+        line-height: 38px;
+        position: relative;
+        .pointInputAll {
+            position: absolute;
+            bottom: 1px;
+            width: 100%;
+            height: 100%;
+            .pointsInput {
+                background-color: #07112e;
+                height: 22px;
+                line-height: 22px;
+                border: none;
+                outline: none;
+                color: #f3d84d;
+                text-align: right;
+                padding-right: 10px;
+                -webkit-appearance: none; /* Safari 和 Chrome，常用於iOS下移除內建樣式 */
+                -moz-appearance: none; /* FireFox */
+                appearance: none;
+                margin-right: 5px;
+            }
+            span {
+                padding-left: 10px;
+                color: #5b8eda;
+                font-weight: bold;
+            }
+        }
+    }
+    .pointsBtn {
+        width: 95%;
+        margin: auto;
+        text-align: right;
+
+        .BtnAll {
+            margin-left: 10px;
+            width: 100%;
+
+            padding: 8px 1px;
+            .pointsbulBtn {
+                background-image: url(../../img/v_world/transferNormal.png);
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+            .pointsbulBtn:active {
+                background-image: url(../../img/v_world/transferDown.png);
+            }
+            .pointsredBtn {
+                background-image: url(../../img/v_world/transferMaxNormal.png);
+                background-repeat: no-repeat;
+                background-size: 100%;
+            }
+            .pointsredBtn:active {
+                background-image: url(../../img/v_world/transferMaxD.png);
+            }
+            .numberBtn {
+                width: 28%;
+                height: 40px;
+                line-height: 40px;
+                text-align: center;
+                font-weight: bold;
+                margin: 2px 5px;
+            }
+        }
+    }
+}
+
+//Transfer
+// .Transfer {
+//     @extend .modalBg;
+//     width: 300px;
+//     margin: auto;
+//     position: relative;
+//     top: 45%;
+//     transform: translateY(-45%);
+//     height: 450px;
+
+//     .TransferItem {
+//         width: 290px;
+//         margin: auto;
+//         padding: 15px 0;
+//         position: relative;
+//         .TransferTitle {
+//             font-size: 20px;
+//             font-weight: bold;
+//         }
+//         .closeBtn {
+//             position: absolute;
+//             top: 15px;
+//             right: 2px;
+//             width: 25px;
+//         }
+//         .pointTo {
+//             margin-top: 30px;
+//             width: 100%;
+
+//             .pointToFont {
+//                 width: 40%;
+//                 text-align: center;
+//                 font-size: 16px;
+//                 line-height: 20px;
+//             }
+//             .pointToImg {
+//                 width: 20%;
+//                 img {
+//                     width: 35px;
+//                 }
+//             }
+//         }
+//         .pointAcc {
+//             margin: 10px auto;
+//             width: 270px;
+//             height: 40px;
+//             line-height: 38px;
+//             position: relative;
+//             .pointsInput {
+//                 position: absolute;
+//                 top: 3px;
+//                 right: 3px;
+//                 background-color: #07112e;
+//                 height: 28px;
+//                 border: none;
+//                 outline: none;
+//                 color: #f3d84d;
+//                 text-align: right;
+//                 padding-right: 10px;
+//                 -webkit-appearance: none; /* Safari 和 Chrome，常用於iOS下移除內建樣式 */
+//                 -moz-appearance: none; /* FireFox */
+//                 appearance: none;
+//             }
+//             span {
+//                 padding-left: 10px;
+//                 color: #5b8eda;
+//             }
+//         }
+//         .pointBtn {
+//             width: 270px;
+//             margin: 10px auto;
+//             height: 182px;
+//             text-align: center;
+//             .numberBtn {
+//                 margin: 2px;
+//                 background-image: url(../../img/v_world/transferNormal.png);
+//                 background-repeat: no-repeat;
+//                 background-size: 100%;
+//                 width: 86px;
+//                 height: 42px;
+//                 line-height: 42px;
+//             }
+//             .numberBtn:active {
+//                 background-image: url(../../img/v_world/transferDown.png);
+//             }
+//             .numberBtnRed {
+//                 margin: 2px;
+//                 background-image: url(../../img/v_world/transferMaxNormal.png);
+//                 background-repeat: no-repeat;
+//                 background-size: 100%;
+//                 width: 86px;
+//                 height: 42px;
+//                 line-height: 42px;
+//             }
+//             .numberBtnRed:active {
+//                 background-image: url(../../img/v_world/transferMaxD.png);
+//             }
+//         }
+//         .pointSubmit {
+//             color: #fff;
+//             margin: 30px auto;
+//             width: 150px;
+//             height: 33px;
+//             line-height: 33px;
+//             font-weight: bold;
+//         }
+//     }
+// }
+
+.ButtonSelect {
+    width: 95%;
+    margin: auto;
+    button {
+        margin: 20px 0;
+    }
+}
+
+//RecordList
+.RecordListAll {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+    // padding-top: 44px;
+    .RecordListCon {
+        margin: 2px auto;
+        width: 100%;
+        color: #fff;
+        thead {
+            background-color: #100731;
+            color: #fff;
+            font-size: 15px;
+            line-height: 15px;
+            th {
+                vertical-align: middle;
+                border: none;
+            }
+            .number {
+                width: 30%;
+            }
+            .cardnumber {
+                width: 30%;
+            }
+            .date {
+                width: 30%;
+            }
+            .gamer {
+                width: 15%;
+            }
+            .cardgamer {
+                width: 30%;
+            }
+            .point {
+                width: 25%;
+                margin: auto;
+            }
+            .cardpoint {
+                width: 30%;
+            }
+        }
+        tbody {
+            color: #7fa4ff;
+            font-size: 13px;
+            th {
+                border: none;
+                vertical-align: middle;
+            }
+            td {
+                border: none;
+                vertical-align: middle;
+            }
+        }
+        .colorG {
+            color: #49de63;
+        }
+        .colorR {
+            color: #ff7a7a;
+        }
+    }
+}
+
+//DateSelection
+
+.DateSelectionCon {
+    margin: auto;
+    text-align: center;
+    width: 90%;
+    color: #000;
+    span {
+        color: #fff;
+    }
+    .DateFont {
+        color: #fff;
+        margin: auto;
+        padding: 20px 0;
+    }
+}
+
+//StoredValue
+.pointValue {
+    height: 100px;
+    line-height: 40px;
+    font-size: 20px;
+
+    p {
+        font-size: 22px;
+    }
+}
+.bankSelect {
+    margin: auto;
+    text-align: center;
+    .custom-select {
+        background-color: #3759a8;
+    }
+    .bankRightBtn {
+        position: relative;
+        .bankSelectBg {
+            background-image: url(../../img/v_world/select.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            border: none;
+            color: #fff;
+            font-weight: bold;
+            margin-bottom: 20px;
+
+            .optionFont {
+                color: #000;
+                background-color: #fff;
+            }
+        }
+        .RightBtn {
+            position: absolute;
+            top: 13px;
+            right: 6px;
+            width: 13px;
+        }
+    }
+
+    .inputBg {
+        height: 40px;
+        width: 338px;
+        position: relative;
+        margin: auto;
+        input {
+            position: absolute;
+            top: 2px;
+            left: 13px;
+            height: 30px;
+            background-color: #0a164429;
+            border: none;
+            outline: none;
+            color: #fff;
+            text-align: left;
+            width: 250px;
+        }
+        img {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 13px;
+        }
+    }
+}
+
+.ValueBtn {
+    margin: auto;
+}
+.ContentFontStored {
+    margin: 15px;
+    padding: 20px;
+    width: 90%;
+}
+
+//Setting
+
+.SettingItem {
+    width: 100%;
+    margin: auto;
+    padding-top: 20px;
+    .SettingData {
+        width: 85%;
+        height: 80px;
+        margin: auto;
+        .settingLeft {
+            width: 88%;
+            height: 100%;
+            .SettingUser {
+                margin: 5px 0 7px 0;
+                height: 30px;
+                line-height: 30px;
+                text-align: left;
+                font-size: 15px;
+                padding-left: 10px;
+                background-image: url(../../img/v_world/chatBg.png);
+                border: 1px solid #043cb0;
+                border-radius: 5px;
+            }
+        }
+        .settingRight {
+            width: 6%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            margin-left: 10px;
+
+            img {
+                width: 50%;
+            }
+        }
+    }
+
+    .bluePic {
+        width: 20%;
+        text-align: center;
+        img {
+            margin-top: -2px;
+            width: 28px;
+        }
+    }
+    .settingFont {
+        width: 70%;
+        text-align: left;
+        span {
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    .SettingNum {
+        height: 35px;
+        width: 300px;
+        margin: auto;
+        margin-top: 30px;
+        line-height: 35px;
+        text-align: left;
+        font-size: 15px;
+        padding-left: 10px;
+        background-image: url(../../img/v_world/chatBg.png);
+        border: 1px solid #043cb0;
+        border-radius: 5px;
+        // position: relative;
+        .shareCode {
+            width: 35%;
+            height: 35px;
+            line-height: 35px;
+            font-size: 13px;
+            // border: 2px solid red;
+            span {
+                font-size: 14px;
+            }
+        }
+        .shareCodePic {
+            width: 30%;
+            height: 35px;
+            line-height: 32px;
+            text-align: right;
+            // border: 2px solid red;
+            position: relative;
+            .sharePic {
+                height: 30px;
+                width: 100%;
+                // border: 2px solid red;
+            }
+            .shareFont {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                text-align: center;
+                // border: 2px solid red;
+            }
+        }
+    }
+    .settingBtn {
+        margin: 50px auto;
+    }
+}
+
+//SettingPersonal
+
+.SettingPersonalPic {
+    width: 90%;
+    margin: auto;
+    padding-bottom: 10px;
+    .float-left {
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+
+        img {
+            max-height: 100%;
+            max-width: 100%;
+        }
+    }
+    .float-right {
+        width: 20px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        img {
+            width: 10px;
+        }
+    }
+}
+.SettingPersonalData {
+    font-size: 18px;
+    width: 100%;
+    margin: auto;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #a0c1ffd9;
+    .PersonalAll {
+        margin: auto;
+        width: 90%;
+        .PersonalItem {
+            font-size: 16px;
+            margin-bottom: 5px;
+            .PersonalLeft {
+                width: 30%;
+                color: #448eff;
+            }
+            .PersonalCenter {
+                width: 55%;
+                text-align: right;
+            }
+            .PersonalRight {
+                width: 10%;
+                text-align: right;
+                margin-right: 9px;
+
+                img {
+                    width: 10px;
+                }
+            }
+        }
+    }
+}
+.SettingPersonalBtn {
+    width: 98%;
+    margin: 10px auto;
+}
+
+//ChangeImg
+
+.ChangeImgItem {
+    width: 98%;
+    margin: auto;
+    // padding-top: 50px;
+    color: #fff;
+    .ChangeImgSelect {
+        width: 100%;
+        margin: auto;
+        text-align: right;
+        img {
+            width: 70%;
+        }
+    }
+    .dropdown-menu {
+        transform: translate3d(-60px, 35px, 0px);
+        min-width: 0rem;
+    }
+    .dropdown-item {
+        padding: 0.35rem 1rem;
+    }
+    .dropdownFont {
+        width: 90px;
+        // font-size: 10px;
+    }
+    .ImgSelect {
+        width: 80%;
+        height: 100%;
+        margin: 60px auto;
+        // border: 2px solid red;
+        img {
+            max-height: 100%;
+            max-width: 100%;
+            border-radius: 10px;
+        }
+    }
+}
+
+//ChangePassword
+
+.changeAcc {
+    width: 340px;
+    text-align: right;
+    margin: 10px;
+    .float-left {
+        width: 50px;
+        text-align: center;
+    }
+    .float-right {
+        width: 215px;
+        text-align: left;
+    }
+}
+
+.changefont {
+    margin: 30px;
+}
+
+.ChangePwSubmit {
+    width: 90%;
+    text-align: center;
+    margin: auto;
+    color: #000;
+
+    button {
+        margin: auto;
+    }
+    .diglogMsg {
+        padding-top: 300px;
+    }
+}
+
+//Language
+.LanguageBtn {
+    width: 90%;
+    margin-bottom: 20px;
+}
+
+//NewEvent
+.NewEvent {
+    @extend .BgContent;
+    @extend .BgAll;
+    width: 100%;
+    margin-bottom: $Bottom50;
+    padding-bottom: $Bottom50;
+    height: $BgHeight;
+    .NewEventItem {
+        width: 90%;
+        margin: auto;
+        padding-top: 44px;
+        color: #fff;
+        .EventList {
+            text-align: left;
+            border-bottom: 1px #448eff solid;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            .EventTitle {
+                font-size: 18px;
+                color: #fff;
+            }
+            .EventTime {
+                color: #448eff;
+                font-size: 15px;
+            }
+        }
+    }
+}
+//About
+.card {
+    background-color: none;
+}
+.AboutTitle {
+    background-color: #89b4f975;
+    .TitleHeight {
+        height: 55px;
+    }
+    .buttonFont {
+        color: #fff;
+        border: none;
+        font-size: 15px;
+    }
+    .aboutcon {
+        text-align: left;
+        font-size: 13px;
+    }
+}
+
+footer {
+    position: fixed;
+    bottom: -3px;
+    padding: 5px 0;
+    height: 66px;
+    box-sizing: border-box;
+    width: 100%;
+    z-index: 100;
+    // display: none;
+    .specialINB {
+        position: absolute;
+        top: -10px;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 110;
+    }
+    .lobbyMenu {
+        display: flex;
+        margin: auto;
+        width: 100%;
+        justify-content: space-around;
+        position: absolute;
+        bottom: 0px;
+        background-repeat: repeat-x;
+        background-image: url(../../img/v_world/footerBg.png);
+
+        .menuBtn {
+            position: relative;
+            width: 180px;
+            height: 66px;
+            text-align: center;
+            a {
+                display: block;
+                span {
+                    color: #fff;
+                    font-size: 13px;
+                    font-weight: bold;
+                    position: absolute;
+                    margin: 6px auto;
+                    top: 20;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                }
+                img {
+                    width: 100%;
+                }
+            }
+            // .talkBtn {
+            //     width: 25%;
+            //     position: absolute;
+            //     top: 5px;
+            //     right: 3px;
+            // }
+        }
+    }
+}
+
+footer.p_static {
+    position: static;
+    height: 60px;
+    // display: none;
+}
+//talkiframe
+.talkIframe {
+    width: 100%;
+    height: 90vh;
+    // padding-bottom: 60px;
+}
+.chatIframe {
+    width: 100%;
+    // height: 100%;
+    -webkit-overflow-scrolling: touch !important;
+    overflow-y: auto;
+    // padding-bottom: 60px;
+    // border: 2px solid blue;
+}
+.talkIframePadding {
+    padding-bottom: 60px;
+}
+.buttonEnter {
+    margin: 60px auto;
+    text-align: center;
+}
+.enterV4 {
+    border: 0;
+    background-color: #003c9d;
+    color: #fff;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.enterV4:hover {
+    color: #003c9d;
+    background-color: #fff;
+    border: 2px #003c9d solid;
+}
+// /* Slider */
+.slick-slider {
+    position: relative;
+
+    display: block;
+    box-sizing: border-box;
+
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+    -webkit-touch-callout: none;
+    -khtml-user-select: none;
+    -ms-touch-action: pan-y;
+    touch-action: pan-y;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+    position: relative;
+
+    display: block;
+    overflow: hidden;
+
+    margin: 0;
+    padding: 0;
+}
+.slick-list:focus {
+    outline: none;
+}
+.slick-list.dragging {
+    cursor: pointer;
+    cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+    -webkit-transform: translate3d(0, 0, 0);
+    -moz-transform: translate3d(0, 0, 0);
+    -ms-transform: translate3d(0, 0, 0);
+    -o-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+    position: relative;
+    top: 0;
+    left: 0;
+
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+.slick-track:before,
+.slick-track:after {
+    display: table;
+
+    content: "";
+}
+.slick-track:after {
+    clear: both;
+}
+.slick-loading .slick-track {
+    visibility: hidden;
+}
+
+.slick-slide {
+    display: none;
+    float: left;
+
+    height: 100%;
+    min-height: 1px;
+}
+[dir="rtl"] .slick-slide {
+    float: right;
+}
+.slick-slide img {
+    display: block;
+}
+.slick-slide.slick-loading img {
+    display: none;
+}
+.slick-slide.dragging img {
+    pointer-events: none;
+}
+.slick-initialized .slick-slide {
+    display: block;
+}
+.slick-loading .slick-slide {
+    visibility: hidden;
+}
+.slick-vertical .slick-slide {
+    display: block;
+
+    height: auto;
+
+    border: 1px solid transparent;
+}
+.slick-arrow.slick-hidden {
+    display: none;
+}
+.slick-dots {
+    display: none !important;
+}
+
+.slickDiv {
+    border: 2px solid red;
+    width: 40%;
+}
+.slickPic {
+    // width: 50%;
+    img {
+        width: 100%;
+    }
+}
+.specialB {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100;
+    z-index: 9;
+    width: 100%;
+}
+.bottomIcon {
+    z-index: 10;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 50px;
+    display: flex;
+    // justify-content: space-around;
+    justify-content: space-between;
+    width: 60%;
+    margin: auto;
+    .whatapp {
+        // border: 2px solid red;
+        // width:100%;
+        margin: auto;
+        text-align: center;
+
+        .whatappPic {
+            width: 50px;
+            margin: auto;
+            text-align: center;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .whatappFont {
+            font-size: small;
+            color: #fff;
+            font-weight: bold;
+            line-height: 23px;
+        }
+    }
+}

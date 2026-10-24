@@ -1,0 +1,40 @@
+#
+# STAGE 1: composer
+#
+FROM composer as composer
+
+ARG SSH_PRIVATE_KEY
+ARG GITLAB_HOST
+
+
+# Copy composer files from project root into composer container's working dir
+COPY _release/composer.* /app/
+COPY _release/.env.example /app/.env
+
+RUN which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )
+
+RUN mkdir -p ~/.ssh && echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa && chmod -R 700 ~/.ssh && cat ~/.ssh/id_rsa
+
+# Run composer to build dependencies in vendor folder
+RUN eval $(ssh-agent -s) && ssh-add ~/.ssh/id_rsa \
+ && ssh-keyscan -p 1022 $GITLAB_HOST >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts \
+ && set -xe && composer install --no-dev --no-scripts --no-suggest --no-interaction --no-autoloader --prefer-dist
+
+# Copy everything from project root into composer container's working dir
+COPY _release /app
+
+RUN composer dump-autoload --no-dev --optimize --classmap-authoritative
+
+# Generated optimized autoload files containing all classes from vendor folder and project itself
+
+FROM php:7.3-fpm as runtime
+
+RUN docker-php-ext-install pdo pdo_mysql json ctype mbstring tokenizer opcache
+
+RUN mkdir /app
+COPY --from=composer /app /app
+COPY _release/.env.rd /app/.env
+
+WORKDIR /app
+
+CMD ["php-fpm", "--nodaemonize"]

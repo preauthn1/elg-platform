@@ -1,0 +1,113 @@
+{
+    "$schema": "https://example.invalid/schema.json",
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The skeleton application for the Laravel framework.",
+    "keywords": ["laravel", "framework"],
+    "license": "MIT",
+    "require": {
+        "php": "^8.4",
+        "ext-bcmath": "*",
+        "ext-curl": "*",
+        "ext-redis": "*",
+        "bacon/bacon-qr-code": "^3.0",
+        "dedoc/scramble": "^0.13",
+        "filament/filament": "^5.0",
+        "laravel/ai": "^0.6.3",
+        "laravel/framework": "^13.0",
+        "laravel/horizon": "^5.47",
+        "laravel/socialite": "^5.29",
+        "laravel/tinker": "^3.0",
+        "nxp/math-executor": "^2.3",
+        "opcodesio/log-viewer": "^3.15",
+        "phpseclib/phpseclib": "^3.0",
+        "pragmarx/google2fa": "^9.0",
+        "socialiteproviders/microsoft-azure": "^5.2",
+        "spatie/laravel-activitylog": "^4.10",
+        "spatie/laravel-data": "^4.15",
+        "spatie/laravel-google-cloud-storage": "^2.3",
+        "symfony/yaml": "^8.1",
+        "xtheme/artisan-ui": "^1.0"
+    },
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "^3.5",
+        "brianium/paratest": "^7.0",
+        "driftingly/rector-laravel": "^2.3",
+        "fakerphp/faker": "^1.23",
+        "kitloong/laravel-migrations-generator": "^7.4",
+        "lanin/laravel-api-debugger": "^4.0",
+        "larastan/larastan": "^3.0",
+        "laravel/boost": "^2.4",
+        "laravel/pail": "^1.2.2",
+        "laravel/pint": "^1.13",
+        "laravel/sail": "^1.41",
+        "laravel/telescope": "^5.20",
+        "mockery/mockery": "^1.6",
+        "nunomaduro/collision": "^8.6",
+        "phpmd/phpmd": "^2.15",
+        "phpunit/phpunit": "^11.5.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-update-cmd": [
+            "@php artisan vendor:publish --tag=laravel-assets --ansi --force"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi",
+            "@php -r \"file_exists('database/database.sqlite') || tofuuch('database/database.sqlite');\"",
+            "@php artisan migrate --graceful --ansi"
+        ],
+        "dev": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx concurrently -c \"#93c5fd,#c4b5fd,#fb7185,#fdba74\" \"php artisan serve\" \"php artisan queue:listen --tries=1\" \"php artisan pail --timeout=0\" \"npm run dev\" --names=server,queue,logs,vite"
+        ],
+        "pint": "vendor/bin/pint && vendor/bin/pint --config pint-legacy.json app/Http/Controllers/External/SingleWallets app/Http/Controllers/External/TransferWallets",
+        "pint:test": "vendor/bin/pint --test && vendor/bin/pint --config pint-legacy.json --test app/Http/Controllers/External/SingleWallets app/Http/Controllers/External/TransferWallets",
+        "stan": "vendor/bin/phpstan analyse --memory-limit=2G",
+        "phpmd": "@php -d error_reporting=E_ALL^E_DEPRECATED vendor/bin/phpmd app/ text .phpmd.xml --suffixes php --baseline-file phpmd.baseline.xml",
+        "phpmd:baseline": "@php -d error_reporting=E_ALL^E_DEPRECATED vendor/bin/phpmd app/ text .phpmd.xml --suffixes php --generate-baseline",
+        "lint": "pint && phpstan analyse && composer phpmd",
+        "test:parallel": "@php artisan test --parallel",
+        "test:coverage": "@php artisan test --coverage",
+        "test:coverage-html": "@php artisan test --coverage-html storage/coverage",
+        "rector": "vendor/bin/rector process --dry-run",
+        "rector:app": "vendor/bin/rector process app --dry-run",
+        "boost": "@php artisan boost:update --ansi"
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": [
+              "laravel/telescope"
+            ]
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": true
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
+}

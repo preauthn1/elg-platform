@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "tp-wz3-online",
+  "private_key_id": "3717a1ea0347334c4c5548aa721adf1ad802df85",
+  "private_key": "[REDACTED]",
+  "client_email": "user@example.invalid",
+  "client_id": "116848430882899151964",
+  "auth_uri": "https://example.invalid/o/oauth2/auth",
+  "token_uri": "https://example.invalid/token",
+  "auth_provider_x509_cert_url": "https://example.invalid/oauth2/v1/certs",
+  "client_x509_cert_url": "https://example.invalid/robot/v1/metadata/x509/fileupload-01%example.invalid"
+}

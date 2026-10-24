@@ -1,0 +1,3541 @@
+@charset "UTF-8";
+html body {
+  overscroll-behavior-y: contain;
+  height: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  font-family: '微軟正黑體', 'Helvetica', 'Arial', 'LiHei Pro', '黑體-繁', sans-serif;
+  background: #040411;
+}
+
+body:-webkit-scrollbar {
+  display: none;
+}
+
+div {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+header {
+  height: 50px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+button {
+  color: #fff;
+  font-weight: bold;
+}
+
+.widthHeight {
+  width: 100%;
+  height: 100vh;
+}
+
+.footerBtnBottom {
+  width: 100%;
+  height: 100vh;
+  padding-bottom: 48px;
+}
+
+.AllContent {
+  padding-top: 30px;
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+.validate {
+  margin: 48px 0px;
+  width: 100%;
+  text-align: right;
+  color: red;
+}
+
+.BgContent, .banner_events, .Game, .NewEvent {
+  background-image: url(../../img/v_world/bgContent.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.BgContentGameList {
+  background-image: url(../../img/v_world/bgContent.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.BgAll, .banner_events, .Game, .NewEvent {
+  background-color: #04020c;
+  margin: auto;
+  width: 100%;
+  color: #fff;
+  font-family: 'Helvetica', 'Arial', 'LiHei Pro', '黑體-繁', '微軟正黑體', sans-serif;
+  max-height: 100%;
+}
+
+.Bglong {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  width: 100%;
+}
+
+.blueBtn_Setting {
+  background-image: url(../../img/v_world/blueBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 40px;
+  line-height: 38px;
+}
+
+.buleBtnItem {
+  width: 95%;
+  margin: auto;
+  padding-top: 20px;
+  padding-bottom: 10px;
+}
+
+.buleBtndiv {
+  margin: auto;
+  width: 320px;
+  font-size: 15px;
+  height: 33px;
+  line-height: 33px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.buleBtndiv .walletAddBtn {
+  width: 20%;
+  height: 33px;
+}
+
+.blueBtnLong {
+  width: 98%;
+  margin: 10px auto;
+}
+
+.blueBtnFont {
+  padding-left: 15px;
+  width: 90%;
+  text-align: left;
+  font-weight: bold;
+  color: #fff;
+}
+
+.blueBtnRight {
+  width: 10%;
+}
+
+.blueBtnRight img {
+  margin-top: -2px;
+  width: 10px;
+}
+
+.blueInput {
+  height: 60px;
+  width: 340px;
+  position: relative;
+  margin: 15px auto;
+}
+
+.blueInput .blueInputFont {
+  color: red;
+  position: absolute;
+  top: 4px;
+  left: 7px;
+  height: 35px;
+  line-height: 35px;
+  font-size: 15px;
+}
+
+.blueInput span {
+  position: absolute;
+  top: 4px;
+  left: 15px;
+  color: #448eff;
+  height: 35px;
+  line-height: 35px;
+  font-size: 14px;
+}
+
+.blueInput input {
+  position: absolute;
+  right: 35px;
+  top: 4px;
+  height: 35px;
+  background-color: #0a164429;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-align: left;
+  width: 170px;
+  font-size: 14px;
+}
+
+.blueInput .shareInput {
+  height: 35px;
+  line-height: 35px;
+}
+
+.blueInput img {
+  position: absolute;
+  top: 14px;
+  right: 8px;
+  width: 15px;
+}
+
+.imgfontAll {
+  position: relative;
+  width: 140px;
+  margin: 20px auto;
+  height: 38px;
+  line-height: 39px;
+  background-image: url(../../img/v_world/confirmBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 7px #0b316d;
+          box-shadow: 0 7px #0b316d;
+}
+
+.imgfontAll span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 15px;
+  color: #fff;
+}
+
+.imgfontAll:active {
+  background-image: url(../../img/v_world/FinishBtn.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.imgfontGreen {
+  position: relative;
+  width: 140px;
+  margin: 20px auto;
+  height: 38px;
+  line-height: 39px;
+  background-image: url(../../img/v_world/GrayBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  border-radius: 5px;
+  -webkit-box-shadow: 0 7px #0b316d;
+          box-shadow: 0 7px #0b316d;
+}
+
+.imgfontGreen span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.imgfontGreen {
+  position: relative;
+  width: 140px;
+  margin: 20px auto;
+  height: 32px;
+  line-height: 32px;
+  background-image: url(../../img/v_world/green_btn_normal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  -webkit-box-shadow: 0 8px #224c03;
+          box-shadow: 0 8px #224c03;
+  border-radius: 5px;
+}
+
+.imgfontGreen span {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-size: 16px;
+  color: #fff;
+}
+
+.imgfontGreen:active {
+  background-image: url(../../img/v_world/green_btn_disable.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.imgfontall_A {
+  background-image: url(../../img/v_world/FinishBtn.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.imgfont {
+  margin: auto;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+  width: 44%;
+  height: 32px;
+  line-height: 32px;
+  border: none;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.imgfont span {
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+}
+
+.blueBtn {
+  background-image: url(../../img/v_world/confirmBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-box-shadow: 0 8px #0b316d;
+          box-shadow: 0 8px #0b316d;
+  border-radius: 5px;
+}
+
+.blueBtn:active {
+  background-image: url(../../img/v_world/FinishBtn.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.blue2Btn {
+  background-image: url(../../img/v_world/blue_btn_normal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-box-shadow: 0 8px #0b316d;
+          box-shadow: 0 8px #0b316d;
+  border-radius: 5px;
+}
+
+.blue2Btn:active {
+  background-image: url(../../img/v_world/blue_btn_disable.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.grayBtn {
+  background-image: url(../../img/v_world/GrayBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-box-shadow: 0 8px #373636;
+          box-shadow: 0 8px #373636;
+  border-radius: 5px;
+}
+
+.grayBtn:active {
+  background-image: url(../../img/v_world/GrayBtn2.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.greenBtn {
+  background-image: url(../../img/v_world/green_btn_normal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-box-shadow: 0 8px #224c03;
+          box-shadow: 0 8px #224c03;
+  border-radius: 5px;
+}
+
+.greenBtn:active {
+  background-image: url(../../img/v_world/green_btn_disable.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.redBtn {
+  background-image: url(../../img/v_world/red_btn_normal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  -webkit-box-shadow: 0 8px #350000;
+          box-shadow: 0 8px #350000;
+  border-radius: 5px;
+}
+
+.redBtn:active {
+  background-image: url(../../img/v_world/red_btn_disable.png);
+  -webkit-box-shadow: 0 4px #666;
+          box-shadow: 0 4px #666;
+  -webkit-transform: translateY(4px);
+          transform: translateY(4px);
+}
+
+.mask, .GameListPadding .deposit {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.mask .eventModal, .GameListPadding .deposit .eventModal {
+  position: relative;
+  top: 1%;
+  width: 97%;
+  margin: auto;
+  z-index: 9999;
+  height: 98%;
+}
+
+.mask .eventModal .closeBtn, .GameListPadding .deposit .eventModal .closeBtn {
+  position: absolute;
+  top: 0;
+  right: 2px;
+}
+
+.mask .eventModal .closeBtn img, .GameListPadding .deposit .eventModal .closeBtn img {
+  width: 30px;
+}
+
+.StoredModal {
+  margin: auto;
+  width: 100%;
+}
+
+.StoredModal .StoredModalCon {
+  margin: auto;
+  width: 85%;
+  border: 1px #2390dd solid;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.StoredModal .StoredModalCon .StoredTitile {
+  position: relative;
+  margin: auto;
+  width: 100%;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitlePic {
+  width: 100%;
+  height: 60px;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitleFontClose {
+  position: absolute;
+  top: 30%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 100%;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitleFont {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  padding-left: 115px;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitleFontPoint {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitleClose {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 5px;
+}
+
+.StoredModal .StoredModalCon .StoredTitile .TitleClose img {
+  width: 25px;
+}
+
+.StoredModal .StoredModalCon .StoredContent {
+  background-color: #0f1c49;
+  width: 100%;
+  height: 100%;
+  border: #ffffff00 2px solid;
+}
+
+.StoredModal .StoredModalCon .StoredContent .ContentTitle {
+  width: 90%;
+  margin: auto;
+  text-align: left;
+  height: 50px;
+  line-height: 65px;
+  font-weight: bold;
+}
+
+.StoredModal .StoredModalCon .StoredContent .ContentBgFont {
+  background-color: #090825;
+  -webkit-box-shadow: 1px 1px 1p 1px #1d316a inset;
+          box-shadow: 1px 1px 1p 1px #1d316a inset;
+  text-align: left;
+  line-height: 30px;
+}
+
+.StoredModal .StoredModalCon .StoredContent .ContentBgFont span {
+  color: #5065a1;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.StoredModal .StoredModalCon .StoredContent .ContentBgFont p {
+  padding-left: 5px;
+  font-weight: bold;
+  color: #e4d84d;
+}
+
+.StoredModal .StoredModalCon .StoredContent .StoredModalBtn {
+  width: 90%;
+  margin: auto;
+}
+
+.StoredModal .StoredModalCon .StoredContent .StoredModalBtn .Gimgfont {
+  position: relative;
+  width: 140px;
+  margin: 20px auto;
+  height: 32px;
+  text-align: center;
+}
+
+.StoredModal .StoredModalCon .StoredContent .StoredModalBtn .Gimgfont span {
+  margin: auto;
+  height: 32px;
+  line-height: 32px;
+  font-size: 16px;
+  color: #fff;
+}
+
+.modalBlueAll {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0a52ae), to(#142846));
+  background: linear-gradient(#0a52ae, #142846);
+  border-radius: 2px;
+  border: 1px #3091e2 solid;
+  width: 300px;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  padding: 20px 0;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.depositvisible {
+  border-radius: 2px;
+}
+
+.depositvisible .modalTitleAll {
+  border-radius: 2px;
+  width: 300px;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  text-align: center;
+}
+
+.depositvisible .modalTitleAll .modalTitle {
+  border-left: 1px #3091e2 solid;
+  border-right: 1px #3091e2 solid;
+  border-top: 1px #3091e2 solid;
+  width: 300px;
+  margin: auto;
+  position: relative;
+}
+
+.depositvisible .modalTitleAll .modalTitle .TitlePic {
+  width: 100%;
+}
+
+.depositvisible .modalTitleAll .modalTitle .modalTitleAll {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
+.depositvisible .modalTitleAll .modalTitle .modalTitleAll .contentTitle {
+  padding-left: 30px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 90%;
+}
+
+.depositvisible .modalTitleAll .modalTitle .modalTitleAll .closeBtn {
+  width: 10%;
+  padding-right: 10px;
+}
+
+.depositvisible .modalTitleAll .modalContentAll {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0a52ae), to(#142846));
+  background: linear-gradient(#0a52ae, #142846);
+  border-left: 1px #3091e2 solid;
+  border-right: 1px #3091e2 solid;
+  border-bottom: 1px #3091e2 solid;
+}
+
+.depositvisible .modalTitleAll .modalContentAll .nomoneyFont {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.depositvisible .modalTitleAll .modalContentAll .inputModalBg {
+  height: 30px;
+  width: 210px;
+  position: relative;
+  margin: 30px auto;
+}
+
+.depositvisible .modalTitleAll .modalContentAll .inputModalBg .moneyinput {
+  position: absolute;
+  margin-top: -1px;
+  margin-right: 5px;
+  top: 0;
+  right: 0px;
+  height: 28px;
+  background-color: #0a164429;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-align: right;
+  width: 180px;
+}
+
+.comfirmBtnAll {
+  width: 80%;
+  margin: auto;
+  clear: both;
+}
+
+.textbox {
+  background-image: url(../../img/v_world/textbox.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.info_text_box {
+  background-image: url(../../img/v_world/info_text_box.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.modalBg, .GameListPadding .deposit .content {
+  background-image: url("../../img/v_world/transfer_background.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.modalBtn {
+  width: 100px;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  color: #fff;
+}
+
+.loadingiframe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  width: 70px;
+  margin: auto;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0a52ae), to(#142846));
+  background: linear-gradient(#0a52ae, #142846);
+  border-radius: 10px;
+  border: 1px #3091e2 solid;
+  padding: 25px;
+  -webkit-box-shadow: 0px 0px 10px #777777;
+          box-shadow: 0px 0px 10px #777777;
+  color: #fff;
+}
+
+.directionMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000000f5;
+}
+
+.directionMask .directionPic {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+.directionMask .directionPic img {
+  width: 100%;
+  height: 100%;
+}
+
+.wechatMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.wechatMask .wechatPic {
+  position: relative;
+  top: 3%;
+  margin: auto;
+  z-index: 9999;
+  width: 80%;
+}
+
+.wechatMask .wechatPic img {
+  width: 100%;
+  height: 100%;
+}
+
+.login {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.login img {
+  width: 100%;
+  height: 100vh;
+}
+
+.login .specialT {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 0%;
+  left: 0;
+  z-index: 9;
+}
+
+.login .signin {
+  position: absolute;
+  width: 80%;
+  margin: auto;
+  top: 38%;
+  left: 0;
+  right: 0;
+  z-index: 12;
+}
+
+.login .signin .inputbg {
+  margin: 10px auto;
+  width: 98%;
+  background-color: #100731;
+  color: #fff;
+}
+
+.login .signin .fontsizelogin {
+  font-size: 14px;
+}
+
+.login .signin .loginBtn {
+  width: 100%;
+  margin: 20px auto;
+}
+
+.login .signin .forgetpwBtn {
+  background-image: url(../../img/v_world/whitesquare.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 240px;
+  height: 25px;
+  line-height: 25px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+.login .signin .forgetpwBtn span {
+  color: #fff;
+}
+
+.login .loginFooter {
+  margin: auto;
+  width: 100%;
+  height: 50px;
+  line-height: 25px;
+  color: #fff;
+  font-size: 10px;
+  background-color: #7b7b7b47;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+.contentAll {
+  position: relative;
+  min-height: 100%;
+  background-color: #04020c;
+  width: 100%;
+}
+
+.contentAll .ys-float-btn {
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #666666;
+  z-index: 1050;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  bottom: 20vw;
+}
+
+.contentAll .eventbtn {
+  position: relative;
+}
+
+.contentAll .eventbtn .specialButton {
+  position: absolute;
+  top: -5px;
+  bottom: 0;
+  right: 6%;
+  width: 100%;
+}
+
+.contentAll .eventbtn .eventBtnT {
+  position: absolute;
+  top: -8px;
+  bottom: 0;
+  right: 0;
+  width: 45%;
+}
+
+.contentAll .eventbtn .eventFont {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-size: 8px;
+  text-align: center;
+}
+
+.contentAll .eventbtn img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 3px;
+}
+
+.contentAll .eventbtn p {
+  font-size: 7px;
+}
+
+.contentAll .modal {
+  top: 1%;
+}
+
+.contentAll .modal .modal-dialog {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+.contentAll .modal .modal-dialog .modal-content {
+  background: none;
+  border: none;
+}
+
+.contentAll .modal .modal-dialog .modal-content .closeBtn {
+  position: absolute;
+  top: 25px;
+  right: 24px;
+  z-index: 200;
+}
+
+.contentAll .modal .modal-dialog .modal-content .closeBtn img {
+  width: 51%;
+}
+
+.contentAll .modal .modal-dialog .modal-content .modal-body {
+  display: inline-block;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+}
+
+.contentAll .modal .modal-dialog .modal-content .modal-body,
+.contentAll .modal .modal-dialog .modal-content .modal-body {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+.contentAll .modal .modal-dialog .modal-content .modal-body iframe,
+.contentAll .modal .modal-dialog .modal-content .modal-body iframe {
+  width: 100%;
+  height: 100%;
+}
+
+.speciallogT {
+  position: absolute;
+  bottom: -15px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+.homeTitle {
+  z-index: 100;
+  height: 44px;
+  position: fixed;
+  line-height: 44px;
+  width: 100%;
+  font-weight: bold;
+  background-image: url(../../img/v_world/titleBg.png);
+  background-position: 0px;
+}
+
+.homeTitle .loginbarBack {
+  width: 15%;
+  padding: 1px;
+}
+
+.homeTitle .loginbarBack img {
+  width: 30px;
+  margin-left: 10px;
+}
+
+.homeTitle .loginbarTitle {
+  width: 50%;
+  padding: 1px;
+  text-align: center;
+}
+
+.homeTitle .loginbarTitle span {
+  font-size: 17px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.homeTitle .gamePointTransfer {
+  width: 10%;
+  padding: 1px;
+}
+
+.homeTitle .gamePointTransfer img {
+  width: 28px;
+}
+
+.homeTitle .loginbarright {
+  width: 15%;
+  padding: 1px;
+}
+
+.homeTitle .loginbarright img {
+  margin-right: 10px;
+  width: 35px;
+}
+
+.homeTitle .loginbarright span {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.homeTitle .loginbarright .dropdown-item {
+  height: 50px;
+}
+
+.lobbybar {
+  width: 100%;
+  height: 38%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+.lobbybar .lobbyHeader {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+.lobbybar .lobbyHeader img {
+  width: 100%;
+  height: 40px;
+}
+
+.lobbybar .lobbyHeader .lobbybarTitle {
+  color: #fff;
+  width: 100%;
+  height: 30%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  vertical-align: middle;
+}
+
+.lobbybar .lobbyHeader .personal {
+  width: 100%;
+  margin: auto;
+  position: relative;
+  height: 70%;
+}
+
+.lobbybar .lobbyHeader .personal .specialINT {
+  position: absolute;
+  top: -40px;
+  width: 100%;
+  left: 0;
+  right: 0;
+  height: 50px;
+}
+
+.lobbybar .lobbyHeader .personal .personalImg {
+  width: 100%;
+  height: 80px;
+}
+
+.lobbybar .lobbyHeader .personal img {
+  width: 100%;
+  height: 100%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser {
+  position: absolute;
+  top: 5%;
+  left: 0;
+  right: 0;
+  width: 90%;
+  height: 80%;
+  margin: auto;
+  z-index: 50;
+  color: #fff;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalLeft {
+  width: 19%;
+  height: 86%;
+  margin-top: 3%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalLeft img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight {
+  width: 80%;
+  padding-left: 3%;
+  height: 100%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg {
+  position: relative;
+  height: 50%;
+  padding-top: 3%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg img {
+  width: 100%;
+  height: 90%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn {
+  position: absolute;
+  top: 10px;
+  right: 0px;
+  bottom: 0;
+  left: 0;
+  padding-left: 5px;
+  font-size: 12px;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  text-align: left;
+  color: #fff;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn span {
+  color: #fff;
+  font-size: 14px;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn .lobbyFont {
+  width: 80%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #fff;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn .lobbyFont span {
+  color: #fff;
+  font-size: 14px;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn .StoredBtn {
+  margin-left: 10px;
+  text-align: right;
+  width: 15%;
+  height: 90%;
+}
+
+.lobbybar .lobbyHeader .personal .personalUser .personalRight .lobbyInputBg .lobbyFontBtn .StoredBtn img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.lobbybar .carouselPic {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+  height: 130px;
+  margin-top: -1px;
+}
+
+.lobbybar .carouselPic .bannerImg {
+  width: 400px;
+  /*圖片寬度*/
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  max-height: 100%;
+  margin-left: -200px;
+  /*圖片寬度一半*/
+  overflow: hidden;
+  behavior: expression( this.style.width = document.documentElement.offsetWidth );
+}
+
+.lobbybar .carouselPic .bannerImg img {
+  max-height: 100%;
+  height: 100%;
+}
+
+.Lobby {
+  height: 100vh;
+  width: 100%;
+}
+
+.Lobby .Lobby_barAll {
+  width: 100%;
+  height: 40%;
+  padding: 1px;
+}
+
+.Lobby .LobbyContent {
+  margin: auto;
+  margin-top: 12px;
+  padding-left: 5px;
+  color: #fff;
+  padding-bottom: 70px;
+}
+
+.Lobby .LobbyContent .blackBg {
+  margin: 1%;
+  width: 31%;
+  border-radius: 5px;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic {
+  height: 100%;
+  width: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg {
+  position: absolute;
+  top: 2px;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg .newHotPic {
+  position: absolute;
+  z-index: 2;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg .hotPic {
+  top: -2px;
+  left: -2px;
+  width: 85px;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg .newPic {
+  top: -2px;
+  right: -2px;
+  width: 85px;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg a {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Lobby .LobbyContent .blackBg .blackPic .blackImg a img {
+  max-height: 93%;
+  max-width: 93%;
+}
+
+.Lobby .LobbyContent .grayBg {
+  margin: 1%;
+  width: 31%;
+  border-radius: 5px;
+  position: relative;
+}
+
+.Lobby .LobbyContent .grayBg .blackPic {
+  height: 100%;
+  width: 100%;
+}
+
+.Lobby .LobbyContent .grayBg .blackPic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.Lobby .LobbyContent .grayBg .blackImg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.Lobby .LobbyContent .grayBg .blackImg a {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.Lobby .LobbyContent .grayBg .blackImg a img {
+  max-height: 95%;
+  max-width: auto;
+}
+
+.Lobby .LobbyContent .grayBg .maintainfont {
+  position: absolute;
+  z-index: 10;
+  top: 11px;
+  left: 2px;
+  font-size: 11px;
+  font-weight: bolder;
+  color: #af1f00;
+  width: 75%;
+  height: 23%;
+  text-align: left;
+  display: inline-block;
+}
+
+.Lobby .LobbyContent .grayBg .maintain {
+  position: absolute;
+  top: 7px;
+  left: -4px;
+  width: 100px;
+  z-index: 2;
+}
+
+.Lobby .LobbyContent .grayBg .comingSoon {
+  position: absolute;
+  top: 7px;
+  left: -4px;
+  width: 100px;
+  z-index: 2;
+}
+
+.Lobby .LobbyContent .grayBg .disPic {
+  -webkit-filter: grayscale(1);
+  max-height: 100%;
+  max-width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+.signupModalBtn {
+  margin: auto;
+}
+
+.TitleFont {
+  font-size: 13px;
+  color: #5f94e3;
+}
+
+.ForgetpwForm {
+  padding-top: 10px;
+  width: 100%;
+  margin: auto;
+}
+
+.ForgetpwForm .locationBtn {
+  margin: 15px auto;
+  background-color: #3759a8;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  color: #fff;
+  font-weight: bold;
+}
+
+.ForgetpwForm .locationBtn .locationTitle {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+}
+
+.ForgetpwForm .locationBtn .locationSel {
+  height: 40px;
+  line-height: 40px;
+  padding-left: 160px;
+}
+
+.ForgetpwForm .locationBtn .locationPic {
+  height: 40px;
+  line-height: 40px;
+  padding-right: 10px;
+}
+
+.ForgetpwForm .locationBtn .locationPic img {
+  width: 14px;
+}
+
+.ForgetpwForm span {
+  color: #fff;
+}
+
+.ForgetpwForm .TimeBtn {
+  margin: auto;
+  background-image: url(../../img/v_world/FinishBtn.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 160px;
+  height: 50px;
+  font-size: 15px;
+  padding-top: 12px;
+  line-height: 3px;
+  color: #7380a3;
+}
+
+.ForgetpwForm .fontsize {
+  margin: 20px auto;
+  font-size: 15px;
+}
+
+.content {
+  font-size: 15px;
+}
+
+.LocationBtn {
+  margin: 12px auto;
+  width: 320px;
+  height: 45px;
+  line-height: 45px;
+  color: #5f94e3;
+  font-weight: bold;
+}
+
+.LocationBtn .float-left {
+  padding-left: 10px;
+}
+
+.LocationBtn .float-right {
+  padding-right: 10px;
+}
+
+.setpwAcc {
+  width: 340px;
+  text-align: right;
+  margin: 10px;
+}
+
+.setpwAcc .float-left {
+  width: 60px;
+  text-align: center;
+}
+
+.setpwAcc .float-right {
+  width: 215px;
+  text-align: left;
+}
+
+.setpwfont {
+  margin: 30px;
+}
+
+.setpwSubmit {
+  width: 90%;
+  text-align: center;
+  margin: auto;
+  color: #000;
+}
+
+.setpwSubmit button {
+  margin: auto;
+}
+
+.setpwSubmit .diglogMsg {
+  padding-top: 300px;
+}
+
+.banner_events {
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  height: 100vh;
+}
+
+.banner_events .eventsAll {
+  width: 80%;
+  margin: auto;
+}
+
+.Events_header {
+  background-image: url("../../img/v_world/lobbyBg2.png");
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: center;
+  z-index: 100;
+  height: 44px;
+  position: fixed;
+  line-height: 44px;
+  background-color: #00284c;
+  width: 100%;
+}
+
+.Events_header .backBtn {
+  width: 15%;
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+}
+
+.Events_header .backBtn img {
+  margin-top: -3px;
+  width: 28px;
+}
+
+.Events_header .EventsHeaderTitle {
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+  font-size: 18px;
+  width: 70%;
+  height: 44px;
+  line-height: 44px;
+}
+
+.Events_header .closeBtn {
+  width: 15%;
+  height: 44px;
+  line-height: 44px;
+}
+
+.Events_header .closeBtn img {
+  width: 30px;
+}
+
+.Events {
+  background-color: #0f1c49;
+  background-attachment: fixed;
+  width: 100%;
+  padding-bottom: 10px;
+}
+
+.Events .eventsAll {
+  width: 95%;
+  margin: auto;
+  padding-top: 44px;
+}
+
+.Events .eventsAll .eventsCon {
+  margin: 10px auto;
+  width: 93%;
+}
+
+.Events .eventsAll .eventsCon .eventsConFont {
+  color: #fff;
+  text-align: left;
+  font-size: 13px;
+  font-weight: bolder;
+  width: 100%;
+}
+
+.Events .eventsAll .eventsCon .eventsConFont .eventPr {
+  width: 100%;
+  text-align: left;
+  margin: 10px auto;
+}
+
+.Events .eventsAll .eventsCon .eventsConFont .eventPrR {
+  width: 100%;
+  text-align: left;
+}
+
+.Events .eventsAll .eventsCon .eventsConFont .eventPrR img {
+  width: 25px;
+}
+
+.Events .eventsAll .eventsCon .eventsList {
+  margin: 20px 5px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle {
+  width: 100%;
+  margin: auto;
+  line-height: 30px;
+  text-align: left;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsLogo {
+  width: 12%;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsLogo img {
+  margin-top: -5px;
+  width: 25px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsFont {
+  color: #fe5f42;
+  font-weight: bold;
+  font-size: 15px;
+  width: 75%;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsFont span {
+  color: #7e7c7c;
+  font-size: 13px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventTicket {
+  width: 10%;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventTicket img {
+  margin-top: -5px;
+  width: 28px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsFontBlue {
+  color: #00284c;
+  font-weight: bold;
+  font-size: 15px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsFontBlue span {
+  color: #7e7c7c;
+  font-size: 13px;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsTitle .eventsFontBlue img {
+  margin-left: 10px;
+  width: 10%;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventTime {
+  width: 100%;
+  margin: auto;
+  color: #707070;
+  font-size: 13px;
+  text-align: left;
+}
+
+.Events .eventsAll .eventsCon .eventsList .reddeemTime {
+  width: 100%;
+  margin: auto;
+  color: #fe5f42;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.Events .eventsAll .eventsCon .eventsList .remarks {
+  width: 100%;
+  margin: auto;
+  color: #707070;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bolder;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsProgress {
+  width: 100%;
+  margin: 18px auto 3px auto;
+}
+
+.Events .eventsAll .eventsCon .eventsList .dateFont {
+  width: 100%;
+  color: #707070;
+  font-size: 13px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsPointFont {
+  width: 100%;
+  margin: auto;
+  color: #707070;
+  font-size: 13px;
+  text-align: left;
+  font-weight: bold;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsPointFont span {
+  color: #fe5f42;
+}
+
+.Events .eventsAll .eventsCon .eventsList .eventsBtn {
+  width: 100%;
+  margin: 15px auto;
+}
+
+.eventFontTitle {
+  font-size: 18px;
+  margin: 30px auto;
+}
+
+.EventsContent {
+  background-color: #0f1c49;
+  background-attachment: fixed;
+  width: 100%;
+  height: 100vh;
+}
+
+.EventsContent .EventsContentAll {
+  width: 95%;
+  margin: auto;
+  padding-top: 44px;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon {
+  margin: 20px auto;
+  width: 93%;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentTitle {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
+  height: 45px;
+  line-height: 40px;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList {
+  margin: 20px 5px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList .EventsContentPic {
+  width: 30%;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList .EventsContentPic img {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList .EventsContentFont {
+  width: 70%;
+  padding-left: 5px;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList .EventsContentFont .FontTitle {
+  color: #f8806a;
+  font-weight: bold;
+  text-align: left;
+  height: 40px;
+  line-height: 40px;
+}
+
+.EventsContent .EventsContentAll .EventsContenCon .EventsContentList .EventsContentFont .FontTime {
+  color: #707070;
+  font-weight: bold;
+  font-size: 13px;
+  text-align: left;
+  height: 35px;
+  line-height: 35px;
+}
+
+.EventDescription {
+  background-color: #0f1c49;
+  background-attachment: fixed;
+  padding-bottom: 48px;
+}
+
+.EventDescription .EventDescriptionAll {
+  width: 100%;
+  margin: auto;
+  padding-top: 44px;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionPic {
+  width: 100%;
+  margin: auto;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionPic img {
+  width: 100%;
+  height: 100%;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon {
+  margin: 20px auto;
+  width: 90%;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList {
+  margin: 20px 5px;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 10px;
+  color: #707070;
+  font-weight: bold;
+  text-align: left;
+  font-size: 13px;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTitle {
+  color: #00284c;
+  font-weight: bold;
+  text-align: left;
+  font-size: 15px;
+  line-height: 30px;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTitle .eventPr {
+  width: 50%;
+  text-align: left;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTitle .eventPrR {
+  width: 50%;
+  text-align: right;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTitle .eventPrR img {
+  margin-top: -5px;
+  margin-left: 20px;
+  width: 25px;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTitle_Gray {
+  font-size: 16px;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptTime {
+  margin: 5px auto;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptFont {
+  white-space: pre-wrap;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .eventItem {
+  width: 70%;
+  margin: auto;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptProgress {
+  width: 100%;
+  margin: 18px auto 3px auto;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptDate {
+  margin: 2px auto;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .EventDescriptDate span {
+  color: #f8806a;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .reddeemTime {
+  width: 100%;
+  margin: auto;
+  color: #fe5f42;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptionCon .EventDescriptionList .dateFont {
+  width: 100%;
+  color: #707070;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+}
+
+.EventDescription .EventDescriptionAll .EventDescriptBtn {
+  width: 80%;
+  margin: 15px auto;
+}
+
+.ScratchCardAll {
+  padding-top: 45px;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  position: relative;
+}
+
+.ScratchCardAll .scratchCardMask {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 500;
+}
+
+.ScratchCardAll .scratchCardMask img {
+  margin-top: 35%;
+  width: 340px;
+  height: 340px;
+}
+
+.ScratchCardAll img {
+  height: 92vh;
+}
+
+.Lottery {
+  width: 100%;
+  height: 100%;
+}
+
+.Events_bar {
+  width: 100%;
+  height: 44px;
+}
+
+.LotteryAll {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  position: relative;
+}
+
+.LotteryAll .LotteryBgPic {
+  width: 100%;
+  height: 100vh;
+}
+
+.LotteryAll .LotteryTitle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+.LotteryAll .LotteryGo {
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+}
+
+.GameListPadding {
+  width: 100%;
+  background-image: url(../../img/v_world/bgContent.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.GameListPadding .GameListMenu {
+  width: 100%;
+  height: 100px;
+  position: fixed;
+  background-position: 0px 0px;
+  z-index: 10;
+}
+
+.GameListPadding .GameListMenu .wrapper {
+  padding-top: 10px;
+  margin: auto;
+  width: 90%;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg {
+  position: relative;
+  text-align: left;
+  width: 91%;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg span {
+  position: absolute;
+  margin: 7px 15px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  font-size: 15px;
+  color: #fff;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg .GameListInput {
+  height: 40px;
+  width: 99%;
+  line-height: 40px;
+  text-align: left;
+  padding-left: 19px;
+  margin: 0px auto;
+  font-size: 16px;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg .GameListInput span {
+  font-size: 14px;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg .GameListInput .gameListBtnPic {
+  padding-right: 5px;
+}
+
+.GameListPadding .GameListMenu .wrapper .pointbg .GameListInput .gameListBtnPic img {
+  height: 25px;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn {
+  width: 9%;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .gamefont {
+  font-size: 14px;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-burger-button {
+  width: 26px;
+  height: 20px;
+  left: auto;
+  right: 15px;
+  top: 13px;
+  cursor: pointer;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-burger-bars {
+  background-color: #fff;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .line-style {
+  position: absolute;
+  height: 20%;
+  left: 0;
+  right: 0;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .cross-style {
+  position: absolute;
+  top: 12px;
+  right: 2px;
+  cursor: pointer;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-cross {
+  background: #bdc3c7;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-menu {
+  height: 100%;
+  /* 100% Full-height */
+  width: 0;
+  /* 0 width - change this with JavaScript */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1000;
+  /* Stay on top */
+  top: 43px;
+  left: auto;
+  right: 0;
+  background-color: #0a3370;
+  /* Black*/
+  overflow-x: hidden;
+  /* Disable horizontal scroll */
+  padding-top: 40px;
+  /* Place content 60px from the top */
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  /*0.5 second transition effect to slide in the sidenav*/
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-item-list {
+  color: #ffffff00;
+  margin-left: 10%;
+  font-size: 20px;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-item-list > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  text-decoration: none;
+  padding: 0.7em;
+}
+
+.GameListPadding .GameListMenu .wrapper .GameListBtn .bm-item-list > * > span {
+  margin-left: 10px;
+  font-weight: 700;
+  color: white;
+}
+
+.GameListPadding .GameListMenu .navbar {
+  width: 100%;
+}
+
+.GameListPadding .GameListMenu .search {
+  width: 90%;
+  margin: auto;
+  padding-top: 10px;
+}
+
+.GameListPadding .GameListMenu .search .searchinput {
+  width: 90%;
+}
+
+.GameListPadding .GameListMenu .search .searchinput .inputbg {
+  background-color: #100731;
+  color: #fff;
+  width: 100%;
+  height: 30px;
+}
+
+.GameListPadding .GameListMenu .search .searchBtn {
+  width: 10%;
+  padding-top: 3px;
+  padding-left: 5px;
+}
+
+.GameListPadding .GameListMenu .search .searchBtn .searchicon {
+  width: 40px;
+}
+
+.GameListPadding .GameListItem {
+  width: 95%;
+  margin: auto;
+  padding-top: 100px;
+}
+
+.GameListPadding .GameListItem .gameHeart {
+  position: relative;
+  left: 0px;
+  right: 0px;
+  width: 44%;
+  margin: 3%;
+}
+
+.GameListPadding .GameListItem .gameHeart .GameListImg {
+  width: 100%;
+  height: 125px;
+  padding: 10px;
+  background-color: #21252963;
+  border-radius: 5px 5px 0px 0px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-shadow: 1px 1px 3px 2px #083671d1 inset;
+          box-shadow: 1px 1px 3px 2px #083671d1 inset;
+}
+
+.GameListPadding .GameListItem .gameHeart .GameListImg img {
+  max-height: 100%;
+  max-width: 100%;
+  height: 100%;
+}
+
+.GameListPadding .GameListItem .gameHeart .Heart {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 30px;
+}
+
+.GameListPadding .GameListItem .gameHeart .GameListFont {
+  background-color: #000;
+  border-radius: 0px 0px 5px 5px;
+  margin: auto;
+  font-size: 15px;
+  width: 100%;
+  line-height: 45px;
+  height: 45px;
+  font-weight: bold;
+  color: #948e7e;
+  overflow: hidden;
+  text-align: center;
+}
+
+.GameListPadding .modalContent {
+  height: 120px;
+}
+
+.GameListPadding .deposit .content {
+  position: relative;
+  top: 45%;
+  -webkit-transform: translateY(-45%);
+          transform: translateY(-45%);
+  margin: auto;
+  width: 80%;
+  height: 450px;
+}
+
+.GameListPadding .deposit .content .contentItem {
+  width: 98%;
+  margin: auto;
+  padding: 15px 0;
+  position: relative;
+}
+
+.GameListPadding .deposit .content .contentItem .contentTitle {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.GameListPadding .deposit .content .contentItem .closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 2px;
+  width: 25px;
+}
+
+.GameListPadding .deposit .content .moneyTitle {
+  height: 96px;
+  line-height: 96px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.GameListPadding .deposit .content .moneycontent {
+  padding-top: 20px;
+  width: 70%;
+  margin: auto;
+  height: 190px;
+}
+
+.GameListPadding .deposit .content .moneycontent .amount {
+  font-size: 15px;
+  height: 40px;
+  line-height: 40px;
+  text-align: left;
+  margin: 5px auto;
+  color: #448eff;
+  font-weight: bold;
+}
+
+.GameListPadding .deposit .content .moneycontent .inputModalBg {
+  height: 30px;
+  width: 210px;
+  position: relative;
+  margin: 30px auto;
+}
+
+.GameListPadding .deposit .content .moneycontent .inputModalBg input {
+  position: absolute;
+  margin-top: -1px;
+  margin-right: 5px;
+  top: 0;
+  right: 0px;
+  height: 28px;
+  background-color: #0a164429;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-align: right;
+  width: 180px;
+}
+
+.Game {
+  width: 100%;
+  height: 100vh;
+}
+
+.Game .gameLoginHe {
+  padding: 1px;
+  height: 44px;
+}
+
+.Game .GamePlay {
+  width: 100%;
+  height: 100%;
+  padding-top: 2px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+}
+
+.GameAppInput {
+  height: 40px;
+  width: 300px;
+  line-height: 40px;
+  text-align: left;
+  padding-left: 10px;
+  margin: 10px auto;
+  font-size: 14px;
+}
+
+.GameAppInput span {
+  font-size: 14px;
+}
+
+.CtrlCBtn {
+  margin: auto;
+  width: 30px;
+  text-align: center;
+  height: 40px;
+  line-height: 38px;
+}
+
+.CtrlCBtn img {
+  width: 16px;
+}
+
+.GameAppOpen {
+  background-image: url(../../img/v_world/bigbox3.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 310px;
+  height: 132px;
+  text-align: left;
+  padding-left: 20px;
+  margin: 10px auto;
+}
+
+.GameAppOpen .OpenFont {
+  padding-top: 5px;
+  width: 90%;
+}
+
+.GameAppOpen .OpenBtn {
+  width: 90%;
+  margin: auto;
+}
+
+.GameAppOpen .OpenBtn .androIosBtn {
+  padding: 1px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 110px;
+  height: 40px;
+  margin: 10px 8px;
+}
+
+.GameAppOpen .OpenBtn .AndroidBtn {
+  background-image: url("../../img/v_world/OpenBtn.png");
+}
+
+.GameAppOpen .OpenBtn .AndroidBtn:active {
+  background-image: url("../../img/v_world/OpenBtnB.png");
+}
+
+.GameAppOpen .OpenBtn .IosBtn {
+  background-image: url("../../img/v_world/OpenBtn2.png");
+}
+
+.GameAppOpen .OpenBtn .IosBtn:active {
+  background-image: url("../../img/v_world/OpenBtnB2.png");
+}
+
+.GameAppOpen .gameIn {
+  padding-bottom: 5px;
+  width: 98%;
+  font-size: 10px;
+}
+
+.GameAppOpen .gameIn .gameInLeft {
+  width: 90%;
+}
+
+.GameAppOpen .gameIn .gameInRight {
+  width: 30%;
+}
+
+.GameAppOpen .gameIn .gameInRight img {
+  padding-left: 10px;
+  width: 40px;
+}
+
+.GameAppFont {
+  width: 95%;
+  margin: 20px auto;
+  line-height: 15px;
+  color: #96a8cc;
+  height: 125px;
+}
+
+.GameAppFont .iosOpenFont {
+  width: 100%;
+  margin: auto;
+}
+
+.GameAppFont .iosOpenFont .GameAppPwSet {
+  width: 60%;
+  margin: auto;
+  text-align: left;
+  font-size: 13px;
+}
+
+.GameAppFont .iosOpenFont .GameAppPwSet p {
+  height: 15px;
+}
+
+.GameAppFont .iosOpenFont .GameAppPwSet ul {
+  width: 100%;
+  height: 50px;
+}
+
+.GameAppFont .iosOpenFont .GameAppPwSet ul li {
+  height: 15px;
+}
+
+.GameAppFont .iosOpenFont .ifnewpw {
+  width: 90%;
+  margin: auto;
+  text-align: left;
+}
+
+.GameAppNewPw {
+  width: 90%;
+  margin: auto;
+  margin-top: 40px;
+}
+
+.GameAppNewPw .NewPwFont {
+  width: 60%;
+  height: 39px;
+  line-height: 39px;
+  font-size: 15px;
+  text-align: left;
+}
+
+.GameAppNewPw .NewPwInput {
+  background-image: url(../../img/v_world/textbox.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 100%;
+  height: 32px;
+  position: relative;
+  margin: auto;
+}
+
+.GameAppNewPw .NewPwInput .newpwfont {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 5px;
+  color: #96a8cc;
+  font-size: 13px;
+  height: 32px;
+  line-height: 32px;
+}
+
+.GameAppNewPw .NewPwInput input {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 10px;
+  height: 30px;
+  background-color: #0a164429;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-align: right;
+  width: 200px;
+}
+
+.GameAppBtn {
+  margin: 45px auto;
+}
+
+.PointsPadding {
+  width: 100%;
+}
+
+.PointsPadding .pointsfixed {
+  height: 110px;
+  position: fixed;
+  width: 100%;
+  background-position: 0px 0px;
+  z-index: 500;
+}
+
+.PointsPadding .pointsfixed .PointsAcc {
+  width: 95%;
+  margin: auto;
+  padding: 10px 0;
+  color: #fff;
+}
+
+.PointsPadding .pointsfixed .PointsAcc div {
+  margin: auto;
+  width: 320px;
+  font-size: 15px;
+  height: 40px;
+  line-height: 35px;
+  text-align: left;
+  padding-left: 20px;
+}
+
+.PointsPadding .pointsfixed .PointsAcc div img {
+  width: 60px;
+  height: 32px;
+}
+
+.PointsPadding .pointsfixed .PointsAcc button {
+  margin-right: 5px;
+  margin-top: 2px;
+}
+
+.PointsPadding .pointsfixed .PointsAcc img {
+  height: 38px;
+}
+
+.PointsPadding .pointsfixed .ButtonSelect {
+  width: 85%;
+  margin: auto;
+  text-align: center;
+}
+
+.PointsPadding .pointsfixed .ButtonSelect .AllButton {
+  width: 150px;
+  height: 35px;
+  line-height: 35px;
+  border: none;
+}
+
+.PointsPadding .pointsfixed .ButtonSelect .AllButton span {
+  color: #fff;
+  font-weight: bold;
+}
+
+.PointsPadding .PointsItem {
+  width: 100%;
+  margin: auto;
+  padding-top: 120px;
+}
+
+.PointsPadding .PointsItem .GameSelect {
+  width: 50%;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll {
+  border: 1px solid #fff;
+  background-color: #1040b3;
+  width: 90%;
+  margin: 10px auto;
+  border-radius: 5px;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsTop .GamePoints {
+  width: 72%;
+  margin: 8px;
+  background-image: url(../../img/v_world/text_box.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: #f8d90b;
+  font-weight: bold;
+  height: 30px;
+  line-height: 30px;
+  padding-right: 10px;
+  text-align: right;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsTop .PointsReBtn {
+  width: 10%;
+  padding-top: 7px;
+  margin-right: 10px;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsTop .PointsReBtn .reBtn {
+  background-image: url(../../img/v_world/button_normal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 25px;
+  height: 25px;
+  padding: 1px;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsTop .PointsReBtn .reBtn:active {
+  background-image: url(../../img/v_world/button_disable.png);
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsImg {
+  background-color: #0a162e;
+  width: 100%;
+  height: 100px;
+  margin: auto;
+  position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsImg .blackBgPic {
+  width: 90%;
+  height: 95%;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsImg .blackBg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsImg .blackBg img {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsButton {
+  margin: auto;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsButton .ButtonInOut {
+  margin: auto;
+  width: 50%;
+}
+
+.PointsPadding .PointsItem .GameSelect .GameAll .PointsButton .ButtonInOut .inoutBtn {
+  width: 100%;
+}
+
+.PointsPadding .pointsModal {
+  height: 50px;
+}
+
+.PointsPadding .pointTo {
+  padding-top: 20px;
+  width: 100%;
+}
+
+.PointsPadding .pointTo .pointToFont {
+  width: 40%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+.PointsPadding .pointTo .pointToImg {
+  width: 20%;
+}
+
+.PointsPadding .pointTo .pointToImg img {
+  width: 35px;
+}
+
+.PointsPadding .pointAcc {
+  margin: 10px auto;
+  width: 270px;
+  height: 40px;
+  line-height: 38px;
+  position: relative;
+}
+
+.PointsPadding .pointAcc .pointInputAll {
+  position: absolute;
+  bottom: 1px;
+  width: 100%;
+  height: 100%;
+}
+
+.PointsPadding .pointAcc .pointInputAll .pointsInput {
+  background-color: #07112e;
+  height: 22px;
+  line-height: 22px;
+  border: none;
+  outline: none;
+  color: #f3d84d;
+  text-align: right;
+  padding-right: 10px;
+  -webkit-appearance: none;
+  /* Safari 和 Chrome，常用於iOS下移除內建樣式 */
+  -moz-appearance: none;
+  /* FireFox */
+  appearance: none;
+  margin-right: 5px;
+}
+
+.PointsPadding .pointAcc .pointInputAll span {
+  padding-left: 10px;
+  color: #5b8eda;
+  font-weight: bold;
+}
+
+.PointsPadding .pointsBtn {
+  width: 95%;
+  margin: auto;
+  text-align: right;
+}
+
+.PointsPadding .pointsBtn .BtnAll {
+  margin-left: 10px;
+  width: 100%;
+  padding: 8px 1px;
+}
+
+.PointsPadding .pointsBtn .BtnAll .pointsbulBtn {
+  background-image: url(../../img/v_world/transferNormal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.PointsPadding .pointsBtn .BtnAll .pointsbulBtn:active {
+  background-image: url(../../img/v_world/transferDown.png);
+}
+
+.PointsPadding .pointsBtn .BtnAll .pointsredBtn {
+  background-image: url(../../img/v_world/transferMaxNormal.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+.PointsPadding .pointsBtn .BtnAll .pointsredBtn:active {
+  background-image: url(../../img/v_world/transferMaxD.png);
+}
+
+.PointsPadding .pointsBtn .BtnAll .numberBtn {
+  width: 28%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  font-weight: bold;
+  margin: 2px 5px;
+}
+
+.ButtonSelect {
+  width: 95%;
+  margin: auto;
+}
+
+.ButtonSelect button {
+  margin: 20px 0;
+}
+
+.RecordListAll {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.RecordListAll .RecordListCon {
+  margin: 2px auto;
+  width: 100%;
+  color: #fff;
+}
+
+.RecordListAll .RecordListCon thead {
+  background-color: #100731;
+  color: #fff;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+.RecordListAll .RecordListCon thead th {
+  vertical-align: middle;
+  border: none;
+}
+
+.RecordListAll .RecordListCon thead .number {
+  width: 30%;
+}
+
+.RecordListAll .RecordListCon thead .cardnumber {
+  width: 30%;
+}
+
+.RecordListAll .RecordListCon thead .date {
+  width: 30%;
+}
+
+.RecordListAll .RecordListCon thead .gamer {
+  width: 15%;
+}
+
+.RecordListAll .RecordListCon thead .cardgamer {
+  width: 30%;
+}
+
+.RecordListAll .RecordListCon thead .point {
+  width: 25%;
+  margin: auto;
+}
+
+.RecordListAll .RecordListCon thead .cardpoint {
+  width: 30%;
+}
+
+.RecordListAll .RecordListCon tbody {
+  color: #7fa4ff;
+  font-size: 13px;
+}
+
+.RecordListAll .RecordListCon tbody th {
+  border: none;
+  vertical-align: middle;
+}
+
+.RecordListAll .RecordListCon tbody td {
+  border: none;
+  vertical-align: middle;
+}
+
+.RecordListAll .RecordListCon .colorG {
+  color: #49de63;
+}
+
+.RecordListAll .RecordListCon .colorR {
+  color: #ff7a7a;
+}
+
+.DateSelectionCon {
+  margin: auto;
+  text-align: center;
+  width: 90%;
+  color: #000;
+}
+
+.DateSelectionCon span {
+  color: #fff;
+}
+
+.DateSelectionCon .DateFont {
+  color: #fff;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.pointValue {
+  height: 100px;
+  line-height: 40px;
+  font-size: 20px;
+}
+
+.pointValue p {
+  font-size: 22px;
+}
+
+.bankSelect {
+  margin: auto;
+  text-align: center;
+}
+
+.bankSelect .custom-select {
+  background-color: #3759a8;
+}
+
+.bankSelect .bankRightBtn {
+  position: relative;
+}
+
+.bankSelect .bankRightBtn .bankSelectBg {
+  background-image: url(../../img/v_world/select.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: none;
+  color: #fff;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.bankSelect .bankRightBtn .bankSelectBg .optionFont {
+  color: #000;
+  background-color: #fff;
+}
+
+.bankSelect .bankRightBtn .RightBtn {
+  position: absolute;
+  top: 13px;
+  right: 6px;
+  width: 13px;
+}
+
+.bankSelect .inputBg {
+  height: 40px;
+  width: 338px;
+  position: relative;
+  margin: auto;
+}
+
+.bankSelect .inputBg input {
+  position: absolute;
+  top: 2px;
+  left: 13px;
+  height: 30px;
+  background-color: #0a164429;
+  border: none;
+  outline: none;
+  color: #fff;
+  text-align: left;
+  width: 250px;
+}
+
+.bankSelect .inputBg img {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 13px;
+}
+
+.ValueBtn {
+  margin: auto;
+}
+
+.ContentFontStored {
+  margin: 15px;
+  padding: 20px;
+  width: 90%;
+}
+
+.SettingItem {
+  width: 100%;
+  margin: auto;
+  padding-top: 20px;
+}
+
+.SettingItem .SettingData {
+  width: 85%;
+  height: 80px;
+  margin: auto;
+}
+
+.SettingItem .SettingData .settingLeft {
+  width: 88%;
+  height: 100%;
+}
+
+.SettingItem .SettingData .settingLeft .SettingUser {
+  margin: 5px 0 7px 0;
+  height: 30px;
+  line-height: 30px;
+  text-align: left;
+  font-size: 15px;
+  padding-left: 10px;
+  background-image: url(../../img/v_world/chatBg.png);
+  border: 1px solid #043cb0;
+  border-radius: 5px;
+}
+
+.SettingItem .SettingData .settingRight {
+  width: 6%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-left: 10px;
+}
+
+.SettingItem .SettingData .settingRight img {
+  width: 50%;
+}
+
+.SettingItem .bluePic {
+  width: 20%;
+  text-align: center;
+}
+
+.SettingItem .bluePic img {
+  margin-top: -2px;
+  width: 28px;
+}
+
+.SettingItem .settingFont {
+  width: 70%;
+  text-align: left;
+}
+
+.SettingItem .settingFont span {
+  color: #fff;
+  font-weight: bold;
+}
+
+.SettingItem .SettingNum {
+  height: 35px;
+  width: 300px;
+  margin: auto;
+  margin-top: 30px;
+  line-height: 35px;
+  text-align: left;
+  font-size: 15px;
+  padding-left: 10px;
+  background-image: url(../../img/v_world/chatBg.png);
+  border: 1px solid #043cb0;
+  border-radius: 5px;
+}
+
+.SettingItem .SettingNum .shareCode {
+  width: 35%;
+  height: 35px;
+  line-height: 35px;
+  font-size: 13px;
+}
+
+.SettingItem .SettingNum .shareCode span {
+  font-size: 14px;
+}
+
+.SettingItem .SettingNum .shareCodePic {
+  width: 30%;
+  height: 35px;
+  line-height: 32px;
+  text-align: right;
+  position: relative;
+}
+
+.SettingItem .SettingNum .shareCodePic .sharePic {
+  height: 30px;
+  width: 100%;
+}
+
+.SettingItem .SettingNum .shareCodePic .shareFont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.SettingItem .settingBtn {
+  margin: 50px auto;
+}
+
+.SettingPersonalPic {
+  width: 90%;
+  margin: auto;
+  padding-bottom: 10px;
+}
+
+.SettingPersonalPic .float-left {
+  width: 80px;
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SettingPersonalPic .float-left img {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.SettingPersonalPic .float-right {
+  width: 20px;
+  height: 80px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.SettingPersonalPic .float-right img {
+  width: 10px;
+}
+
+.SettingPersonalData {
+  font-size: 18px;
+  width: 100%;
+  margin: auto;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #a0c1ffd9;
+}
+
+.SettingPersonalData .PersonalAll {
+  margin: auto;
+  width: 90%;
+}
+
+.SettingPersonalData .PersonalAll .PersonalItem {
+  font-size: 16px;
+  margin-bottom: 5px;
+}
+
+.SettingPersonalData .PersonalAll .PersonalItem .PersonalLeft {
+  width: 30%;
+  color: #448eff;
+}
+
+.SettingPersonalData .PersonalAll .PersonalItem .PersonalCenter {
+  width: 55%;
+  text-align: right;
+}
+
+.SettingPersonalData .PersonalAll .PersonalItem .PersonalRight {
+  width: 10%;
+  text-align: right;
+  margin-right: 9px;
+}
+
+.SettingPersonalData .PersonalAll .PersonalItem .PersonalRight img {
+  width: 10px;
+}
+
+.SettingPersonalBtn {
+  width: 98%;
+  margin: 10px auto;
+}
+
+.ChangeImgItem {
+  width: 98%;
+  margin: auto;
+  color: #fff;
+}
+
+.ChangeImgItem .ChangeImgSelect {
+  width: 100%;
+  margin: auto;
+  text-align: right;
+}
+
+.ChangeImgItem .ChangeImgSelect img {
+  width: 70%;
+}
+
+.ChangeImgItem .dropdown-menu {
+  -webkit-transform: translate3d(-60px, 35px, 0px);
+          transform: translate3d(-60px, 35px, 0px);
+  min-width: 0rem;
+}
+
+.ChangeImgItem .dropdown-item {
+  padding: 0.35rem 1rem;
+}
+
+.ChangeImgItem .dropdownFont {
+  width: 90px;
+}
+
+.ChangeImgItem .ImgSelect {
+  width: 80%;
+  height: 100%;
+  margin: 60px auto;
+}
+
+.ChangeImgItem .ImgSelect img {
+  max-height: 100%;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.changeAcc {
+  width: 340px;
+  text-align: right;
+  margin: 10px;
+}
+
+.changeAcc .float-left {
+  width: 50px;
+  text-align: center;
+}
+
+.changeAcc .float-right {
+  width: 215px;
+  text-align: left;
+}
+
+.changefont {
+  margin: 30px;
+}
+
+.ChangePwSubmit {
+  width: 90%;
+  text-align: center;
+  margin: auto;
+  color: #000;
+}
+
+.ChangePwSubmit button {
+  margin: auto;
+}
+
+.ChangePwSubmit .diglogMsg {
+  padding-top: 300px;
+}
+
+.LanguageBtn {
+  width: 90%;
+  margin-bottom: 20px;
+}
+
+.NewEvent {
+  width: 100%;
+  margin-bottom: 48px;
+  padding-bottom: 48px;
+  height: 100vh;
+}
+
+.NewEvent .NewEventItem {
+  width: 90%;
+  margin: auto;
+  padding-top: 44px;
+  color: #fff;
+}
+
+.NewEvent .NewEventItem .EventList {
+  text-align: left;
+  border-bottom: 1px #448eff solid;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.NewEvent .NewEventItem .EventList .EventTitle {
+  font-size: 18px;
+  color: #fff;
+}
+
+.NewEvent .NewEventItem .EventList .EventTime {
+  color: #448eff;
+  font-size: 15px;
+}
+
+.card {
+  background-color: none;
+}
+
+.AboutTitle {
+  background-color: #89b4f975;
+}
+
+.AboutTitle .TitleHeight {
+  height: 55px;
+}
+
+.AboutTitle .buttonFont {
+  color: #fff;
+  border: none;
+  font-size: 15px;
+}
+
+.AboutTitle .aboutcon {
+  text-align: left;
+  font-size: 13px;
+}
+
+footer {
+  position: fixed;
+  bottom: -3px;
+  padding: 5px 0;
+  height: 66px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  z-index: 100;
+}
+
+footer .specialINB {
+  position: absolute;
+  top: -10px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 110;
+}
+
+footer .lobbyMenu {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin: auto;
+  width: 100%;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  position: absolute;
+  bottom: 0px;
+  background-repeat: repeat-x;
+  background-image: url(../../img/v_world/footerBg.png);
+}
+
+footer .lobbyMenu .menuBtn {
+  position: relative;
+  width: 180px;
+  height: 66px;
+  text-align: center;
+}
+
+footer .lobbyMenu .menuBtn a {
+  display: block;
+}
+
+footer .lobbyMenu .menuBtn a span {
+  color: #fff;
+  font-size: 13px;
+  font-weight: bold;
+  position: absolute;
+  margin: 6px auto;
+  top: 20;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+footer .lobbyMenu .menuBtn a img {
+  width: 100%;
+}
+
+footer.p_static {
+  position: static;
+  height: 60px;
+}
+
+.talkIframe {
+  width: 100%;
+  height: 90vh;
+}
+
+.chatIframe {
+  width: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto;
+}
+
+.talkIframePadding {
+  padding-bottom: 60px;
+}
+
+.buttonEnter {
+  margin: 60px auto;
+  text-align: center;
+}
+
+.enterV4 {
+  border: 0;
+  background-color: #003c9d;
+  color: #fff;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.enterV4:hover {
+  color: #003c9d;
+  background-color: #fff;
+  border: 2px #003c9d solid;
+}
+
+.slick-slider {
+  position: relative;
+  display: block;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -khtml-user-select: none;
+  -ms-touch-action: pan-y;
+  touch-action: pan-y;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.slick-list {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.slick-list:focus {
+  outline: none;
+}
+
+.slick-list.dragging {
+  cursor: pointer;
+  cursor: hand;
+}
+
+.slick-slider .slick-track,
+.slick-slider .slick-list {
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+}
+
+.slick-track {
+  position: relative;
+  top: 0;
+  left: 0;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.slick-track:before,
+.slick-track:after {
+  display: table;
+  content: '';
+}
+
+.slick-track:after {
+  clear: both;
+}
+
+.slick-loading .slick-track {
+  visibility: hidden;
+}
+
+.slick-slide {
+  display: none;
+  float: left;
+  height: 100%;
+  min-height: 1px;
+}
+
+[dir='rtl'] .slick-slide {
+  float: right;
+}
+
+.slick-slide img {
+  display: block;
+}
+
+.slick-slide.slick-loading img {
+  display: none;
+}
+
+.slick-slide.dragging img {
+  pointer-events: none;
+}
+
+.slick-initialized .slick-slide {
+  display: block;
+}
+
+.slick-loading .slick-slide {
+  visibility: hidden;
+}
+
+.slick-vertical .slick-slide {
+  display: block;
+  height: auto;
+  border: 1px solid transparent;
+}
+
+.slick-arrow.slick-hidden {
+  display: none;
+}
+
+.slick-dots {
+  display: none !important;
+}
+
+.slickDiv {
+  border: 2px solid red;
+  width: 40%;
+}
+
+.slickPic img {
+  width: 100%;
+}
+
+.specialB {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100;
+  z-index: 9;
+  width: 100%;
+}
+
+.bottomIcon {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 60%;
+  margin: auto;
+}
+
+.bottomIcon .whatapp {
+  margin: auto;
+  text-align: center;
+}
+
+.bottomIcon .whatapp .whatappPic {
+  width: 50px;
+  margin: auto;
+  text-align: center;
+}
+
+.bottomIcon .whatapp .whatappPic img {
+  width: 100%;
+  height: 100%;
+}
+
+.bottomIcon .whatapp .whatappFont {
+  font-size: small;
+  color: #fff;
+  font-weight: bold;
+  line-height: 23px;
+}
+/*# sourceMappingURL=style.css.map */

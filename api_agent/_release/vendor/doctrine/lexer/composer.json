@@ -1,0 +1,24 @@
+{
+    "name": "doctrine/lexer",
+    "type": "library",
+    "description": "Base library for a lexer that can be used in Top-Down, Recursive Descent Parsers.",
+    "keywords": ["lexer", "parser"],
+    "homepage": "http://example.invalid",
+    "license": "MIT",
+    "authors": [
+        {"name": "Guilherme Blanco", "email": "user@example.invalid"},
+        {"name": "Roman Borschel", "email": "user@example.invalid"},
+        {"name": "Johannes Schmitt", "email": "user@example.invalid"}
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "autoload": {
+        "psr-0": { "Doctrine\\Common\\Lexer\\": "lib/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

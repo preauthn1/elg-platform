@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Stored Procedure 全貌盤點 — 使用現況與改寫評估</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/><path d="M15 9.5a2.5 2.5 0 0 0-2.5-2h-1a2.5 2.5 0 0 0 0 5h1a2.5 2.5 0 0 1 0 5h-1A2.5 2.5 0 0 1 9 14.5"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg></div>
+      <div class="name">SP 全貌盤點</div>
+    </div>
+    <div class="menu-label">使用現況與改寫評估</div>
+    <ul class="menu">
+      <li><a href="#summary" class="active"><span class="ic"><svg><use href="#i-pin"/></svg></span>盤點總覽</a></li>
+      <li><a href="#alive"><span class="ic"><svg><use href="#i-clock"/></svg></span>排程驅動的 48 支</a></li>
+      <li><a href="#cost"><span class="ic"><svg><use href="#i-tool"/></svg></span>複雜度與改寫成本</a></li>
+      <li><a href="#app"><span class="ic"><svg><use href="#i-list"/></svg></span>應用層呼叫來源</a></li>
+      <li><a href="#dead"><span class="ic"><svg><use href="#i-pause"/></svg></span>死代碼與技術債</a></li>
+      <li><a href="#open"><span class="ic"><svg><use href="#i-help"/></svg></span>待討論事項</a></li>
+    </ul>
+    <div class="foot">內部討論用 · 2026-08-19<br>資料來源＝TPower 站唯讀實查<br>主簡報見 <code style="color:#9e95f5;background:rgba(255,255,255,.06)">multi-currency-wallet-target-flow</code></div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <div class="crumb">多幣別錢包 <b>/</b> Stored Procedure 盤點</div>
+        <h1>351 支 SP 的使用現況與改寫評估</h1>
+      </div>
+      <div class="chips">
+        <span class="chip">351 支 SP</span>
+        <span class="chip">49 個 MySQL 排程</span>
+        <span class="chip">48 支排程驅動</span>
+        <span class="chip">內部討論稿</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <section id="summary" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>盤點總覽</h2>
+          <p class="desc">起因：決議 <span class="cn">⑥</span> 定調「受影響的 SP 改寫為 PHP 走 Queue」，但<b>沒有人盤點過 SP 的全貌</b>——包含到底有幾支、哪些還在跑、哪些其實已經沒人用。本份盤點回答這三題，並提供改寫成本的量化指標。</p>
+        </div>
+        <div class="card-body">
+          <div class="stats">
+            <div class="stat"><div class="avatar av-primary"><svg><use href="#i-db"/></svg></div><div><div class="num">351</div><div class="lbl">stored procedure<br>全部是 PROCEDURE、0 個 FUNCTION</div></div></div>
+            <div class="stat"><div class="avatar av-success"><svg><use href="#i-clock"/></svg></div><div><div class="num">48</div><div class="lbl">由 MySQL 排程驅動<br>確定是活的</div></div></div>
+            <div class="stat"><div class="avatar av-warning"><svg><use href="#i-repeat"/></svg></div><div><div class="num">76</div><div class="lbl">含 CURSOR 游標<br>改寫難度最高的樣態</div></div></div>
+            <div class="stat"><div class="avatar av-danger"><svg><use href="#i-coin"/></svg></div><div><div class="num">11</div><div class="lbl">含交易控制<br>其餘 340 支<b>沒有</b></div></div></div>
+          </div>
+
+          <div class="callout warn">
+            <svg class="ni"><use href="#i-alert"/></svg> <b>先講一個判準，否則整份盤點會被誤讀</b>：SP 的呼叫來源有<b>三處</b>——<span class="cn">①</span> MySQL 排程器（EVENT）<span class="cn">②</span> 其他 SP 互相 CALL <span class="cn">③</span> 應用層程式碼。<br><br>
+            資料庫層（①②）零引用的有<b>約 220 支</b>，但<b>這不等於死代碼</b>：<span class="mono">SP_transfer_bet_record_*</span> 那 73 支注單轉檔是由應用層呼叫的，<span class="mono">ADMIN_*</span> 那 123 支本來就是<b>人工手動執行的維運工具</b>（備份搬檔、資料檢查、清理），不掛排程是正常的。<b>只有三處都沒有引用才是死代碼候選。</b>
+          </div>
+
+          <h3>依命名前綴分類</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:250px">類別</th><th style="width:70px">支數</th><th style="width:100px">被排程引用</th><th style="width:110px">被其他 SP 引用</th><th>性質</th></tr></thead>
+              <tbody>
+                <tr><td><span class="mono">SP_transfer_bet_record_*</span><br>注單轉檔</td><td class="center"><b>73</b></td><td class="center">1</td><td class="center">9</td><td>一個遊戲商一支，把原始注單轉進 TBR。<b>與主簡報第 5 節記載的 73 支完全吻合</b></td></tr>
+                <tr><td><span class="mono">ADMIN_copy_*</span>／<span class="mono">move_*</span><br>備份搬檔</td><td class="center"><b>52</b></td><td class="center">1</td><td class="center">2</td><td>人工搬表到 <span class="mono">_bak</span>／<span class="mono">_histories</span>。多為一次性維運</td></tr>
+                <tr><td><span class="mono">ADMIN_check_*</span><br>人工檢查</td><td class="center"><b>19</b></td><td class="center">3</td><td class="center">0</td><td>資料一致性檢查，人工按需執行</td></tr>
+                <tr><td><span class="mono">ADMIN_delete_*</span><br>人工刪除</td><td class="center"><b>9</b></td><td class="center">1</td><td class="center">0</td><td>清理資料，人工執行</td></tr>
+                <tr><td><span class="mono">ADMIN_*</span> 其他維運</td><td class="center"><b>43</b></td><td class="center">7</td><td class="center">4</td><td>開關類（allpay_open／close、Auto_Withdrawal）、統計、後台選單操作等</td></tr>
+                <tr><td><span class="mono">SP_calc_*</span> 計算</td><td class="center"><b>26</b></td><td class="center">9</td><td class="center">12</td><td><b>金流核心</b>：股東分潤、三層／無限代獎金、流水限額、代理達成率</td></tr>
+                <tr><td><span class="mono">SP_summary_*</span> 彙總</td><td class="center"><b>25</b></td><td class="center">10</td><td class="center">11</td><td><b>報表核心</b>：SBR 彙總、代理彙總、活動成本彙總</td></tr>
+                <tr><td><span class="mono">SP_payout_*</span> 派彩</td><td class="center"><b>17</b></td><td class="center">5</td><td class="center">6</td><td><b>直接派錢</b>：VIP 獎勵、三層獎金、週救援、拉霸競賽</td></tr>
+                <tr><td><span class="mono">SP_event_*</span> 活動</td><td class="center"><b>16</b></td><td class="center">2</td><td class="center">7</td><td>活動類（首儲、註冊、贈點、排行榜、拉霸競賽）</td></tr>
+                <tr><td><span class="mono">win_lose_*</span> 輸贏查詢</td><td class="center"><b>13</b></td><td class="center">0</td><td class="center">0</td><td><svg class="ni"><use href="#i-alert"/></svg> 資料庫層<b>完全零引用</b>，依遊戲商各一支，疑似舊查詢工具</td></tr>
+                <tr><td><span class="mono">SP_Job_*</span> 排程作業</td><td class="center"><b>6</b></td><td class="center">3</td><td class="center">1</td><td>高頻小作業（排行榜、遊戲商時段記錄）</td></tr>
+                <tr><td><span class="mono">SP_*</span> 其他</td><td class="center"><b>36</b></td><td class="center">4</td><td class="center">11</td><td>取號、設定、重置、簡易結算報表等</td></tr>
+                <tr><td>無前綴雜項</td><td class="center"><b>16</b></td><td class="center">2</td><td class="center">4</td><td><span class="mono">sr11</span>、<span class="mono">transaction_user</span>、<span class="mono">Mars_test</span>、<span class="mono">TEST_*</span>、<span class="mono">orders_to_orders_bak2/3</span> 等</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="alive" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>排程驅動的 48 支（確定是活的）</h2>
+          <p class="desc">由 MySQL EVENT 直接 CALL。共 49 個排程，其中 48 個啟用中、1 個為 <span class="mono">SLAVESIDE_DISABLED</span>。<b>這 48 支就是決議 <span class="cn">⑥</span> 改寫 PHP＋Queue 的最小必做清單</b>——它們的執行完全不經應用層，APIs 版控看不到，也就是主簡報決議 <span class="cn">⑫</span> 要把排程收回 APIs 的原因。</p>
+        </div>
+        <div class="card-body">
+
+          <h3>依執行頻率分組</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:120px">頻率</th><th style="width:60px">支數</th><th>SP（括號為定義字元數）</th></tr></thead>
+              <tbody>
+                <tr><td><b>每 5 分鐘</b><br><span class="badge b-danger">高頻</span></td><td class="center">4</td><td><span class="mono">SP_Job_Ranking_Tbr_Record</span>（1.5K）、<span class="mono">SP_Job_Vendor_Hour_Record</span>（2.6K）、<span class="mono">SP_transfer_bet_record_pg</span>（3.8K）、<span class="mono">SP_calc_flow_limit</span>（11.4K）</td></tr>
+                <tr><td><b>每 10～30 分鐘</b></td><td class="center">4</td><td><span class="mono">COM_Check_And_Log_Procedures</span>（2.0K，10 分）、<span class="mono">ADMIN_check_tpower_permission</span>（2.2K，30 分）、<span class="mono">SP_event_refresh_ranking_job</span>（1.6K，15 分）、<span class="mono">SP_event_slot_competition_job</span>（1.8K，15 分）</td></tr>
+                <tr><td><b>每小時</b></td><td class="center">5</td><td><span class="mono">SP_summary_event_record_by_</span>{<span class="mono">payment</span> 4.6K、<span class="mono">sms</span> 4.4K、<span class="mono">unlimited</span> 4.6K、<span class="mono">vip</span> 3.4K、<span class="mono">lottery</span> 4.1K}——活動成本彙總五支</td></tr>
+                <tr><td><b>每 6 小時</b></td><td class="center">1</td><td><span class="mono">SP_Job_Vendor_Hour_Record_By_Six_Hour</span>（2.9K）</td></tr>
+                <tr><td><b>每日</b><br><span class="badge b-primary">主力</span></td><td class="center">31</td><td>見下方「每日排程」細表</td></tr>
+                <tr><td><b>每月</b></td><td class="center">2</td><td><span class="mono">SP_check_member_vip_keep</span>（6.6K，VIP 保級）、<span class="mono">SP_payout_slot_competition</span>（2.8K，拉霸競賽派彩）</td></tr>
+                <tr><td><b>排程已停用</b></td><td class="center">1</td><td><span class="mono">JOB_By_Minute</span>（153 字元，<span class="mono">Event_JOB_By_Minute</span> 為 <span class="mono">SLAVESIDE_DISABLED</span>、從未執行）</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>每日排程（31 支）依功能分組</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:150px">功能群</th><th>SP（字元數）</th><th style="width:230px">備註</th></tr></thead>
+              <tbody>
+                <tr><td><b>股東分潤</b></td><td><span class="mono">SP_calc_shareholder</span>（<b>48.1K</b>）、<span class="mono">SP_calc_shareholder_winlose</span>（6.5K）</td><td>同一個排程 <span class="mono">Event_Calc_Shareholder_Winlose</span> 驅動兩支。<b>48.1K 是全庫最大的 SP</b></td></tr>
+                <tr><td><b>三層代理獎金</b></td><td><span class="mono">SP_calc_three_hierarchy_bonus</span>（<b>27.9K</b>）、<span class="mono">_by_win_lose</span>（17.4K）、<span class="mono">_merge</span>（4.9K）、<span class="mono">SP_payout_three_hierarchy_bonus</span>（5.9K）、<span class="mono">SP_summary_bet_record_three_hierarchy_by_agent</span>（4.8K）</td><td>三個排程串接。<span class="mono">SP_calc_three_hierarchy_bonus</span> 被 3 個排程引用</td></tr>
+                <tr><td><b>無限代理獎金</b></td><td><span class="mono">SP_calc_unlimit_bonus</span>（12.6K）、<span class="mono">_merge</span>（3.0K）、<span class="mono">ADMIN_unlimit_performance_integration</span>（6.0K）</td><td>兩個排程＋一支業績整合</td></tr>
+                <tr><td><b>代理彙總（SBR 下游）</b></td><td><span class="mono">SP_summary_bet_record_by_agent</span>（6.2K）、<span class="mono">_vreward_by_agent</span>（5.1K）、<span class="mono">_reward_by_agent</span>（4.5K）、<span class="mono">_fee_by_agent</span>（4.4K）、<span class="mono">SP_calc_agent_achievement</span>（6.9K）</td><td><svg class="ni"><use href="#i-alert"/></svg> <b>直接讀 SBR</b>，多幣別改造首波影響</td></tr>
+                <tr><td><b>VIP 與派彩</b></td><td><span class="mono">SP_payout_vip_reward</span>（5.1K）、<span class="mono">SP_payout_vip_other_reward</span>（5.9K）、<span class="mono">SP_payout_slot_lose_rebate</span>（4.3K）</td><td><b>直接派錢</b>，改寫需最高謹慎度</td></tr>
+                <tr><td><b>活動自動加碼</b></td><td><span class="mono">ADMIN_event_automatic_increase</span>（8.3K）、<span class="mono">ADMIN_slot_competition_automatic_increase</span>（3.9K）、<span class="mono">ADMIN_slot_lose_rebate_automatic_increase</span>（2.1K）</td><td>獎池自動增額</td></tr>
+                <tr><td><b>錢包重置</b></td><td><span class="mono">SP_reset_refresh_ranking_wallet</span>（3.9K）</td><td><svg class="ni"><use href="#i-alert"/></svg> 重置 <span class="mono">wallet_type_id=1003</span> 排行榜錢包——<b>該錢包已於 08-19 改判趨近停用、09-03 已裁決廢除（實作另排，停用此 SP 是第一個前置）</b>，若廢除此 SP 一併退役</td></tr>
+                <tr><td><b>資料檢查</b></td><td><span class="mono">ADMIN_Check_Summary_Bet_Record</span>（4.0K，被 2 個排程引用）、<span class="mono">ADMIN_Check_Game_Code</span>（2.3K）、<span class="mono">SP_check_sw_vendor_accounts</span>（1.2K）</td><td>對帳／設定一致性稽核</td></tr>
+                <tr><td><b>清理與搬檔</b></td><td><span class="mono">ADMIN_copy_orders_to_history</span>（2.3K）、<span class="mono">SP_AccessTokenClear</span>（0.5K）、<span class="mono">ADMIN_DELETE_Agent_Access_Tokens</span>（0.5K）、<span class="mono">ADMIN_Member_Login_logs_Cleaner</span>（0.4K）、<span class="mono">ADMIN_firebase_message_cleaner</span>（0.5K）</td><td>小型清理作業，改寫成本低</td></tr>
+                <tr><td><b>其他</b></td><td><span class="mono">ADMIN_TEMP_add_prize_number</span>（0.9K）</td><td><svg class="ni"><use href="#i-alert"/></svg> 命名帶 <span class="mono">TEMP</span> 卻掛在每日排程上——<b>臨時方案長駐化</b>，待確認是否仍需要</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="cost" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>複雜度與改寫成本</h2>
+          <p class="desc">決議 <span class="cn">⑥</span> 要把 SP 改寫成 PHP＋Queue，成本不能只看支數。以下四個指標是從 <span class="mono">ROUTINE_DEFINITION</span> 實測統計出來的，用來判斷<b>哪些適合改寫、哪些不適合</b>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:170px">指標</th><th style="width:110px">支數／數值</th><th>對改寫的意義</th></tr></thead>
+              <tbody>
+                <tr><td><b>含 CURSOR 游標</b></td><td class="center"><b>76</b> 支（22%）</td><td>游標＝逐列處理。改寫 PHP 時通常變成 <span class="mono">chunkById()</span> 迭代，語意可對應但<b>要重新設計批次邊界與失敗續跑</b>。這是改寫工作量的主要來源</td></tr>
+                <tr><td><b>含迴圈</b>（WHILE／LOOP）</td><td class="center"><b>103</b> 支（29%）</td><td>與游標常同時出現。迴圈內若有寫入，改寫時要決定「整批一個交易」還是「逐批各自交易」</td></tr>
+                <tr><td><b>含交易控制</b><br>（START TRANSACTION／COMMIT）</td><td class="center"><span class="badge b-danger">僅 11 支</span></td><td><svg class="ni"><use href="#i-alert"/></svg> <b>最值得注意的一項</b>：340 支<b>沒有</b>顯式交易控制，靠 MySQL autocommit 逐句提交。改寫成 PHP 時若直接包上 <span class="mono">DB::transaction()</span>，<b>交易邊界與鎖持有時間都會改變</b>——原本逐句提交的長時間批次作業，包成單一交易可能造成鎖等待甚至超時。這是改寫的隱形風險，不是照抄邏輯就好</td></tr>
+                <tr><td><b>含動態 SQL</b>（PREPARE）</td><td class="center"><span class="badge b-success">僅 1 支</span></td><td>好消息。動態 SQL 是改寫最痛的樣態，全庫只有 1 支</td></tr>
+                <tr><td><b>定義長度</b></td><td class="center">平均 4,410 字元<br>最大 48,123</td><td>超過 10,000 字元的有 <b>23 支</b>——這批是「改寫成本集中區」</td></tr>
+                <tr><td><b>呼叫其他 SP</b></td><td class="center">248 支定義含 <span class="mono">CALL</span></td><td>SP 之間耦合普遍。改寫必須<b>整串一起改</b>，不能單支抽出——否則 PHP 版與 SQL 版會混用同一份中間表</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>定義最長的 15 支（改寫成本集中區）</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:290px">SP</th><th style="width:90px">字元數</th><th style="width:180px">複雜度樣態</th><th>狀態</th></tr></thead>
+              <tbody>
+                <tr><td><span class="mono">SP_calc_shareholder</span></td><td class="center"><b>48,123</b></td><td>含迴圈</td><td><span class="badge b-success">排程驅動</span> 股東分潤，全庫最大</td></tr>
+                <tr><td><span class="mono">SP_calc_shareholder_test</span></td><td class="center">47,379</td><td>含迴圈</td><td><span class="badge b-danger">零引用</span> <b>測試殘留</b>，與正式版幾乎等大</td></tr>
+                <tr><td><span class="mono">SP_event_deposit_neil</span></td><td class="center">40,055</td><td>游標＋迴圈</td><td><span class="badge b-danger">零引用</span> 命名含人名，疑似個人測試版</td></tr>
+                <tr><td><span class="mono">SP_event_deposit</span></td><td class="center">38,264</td><td>游標</td><td>應用層呼叫（見第 4 節）</td></tr>
+                <tr><td><span class="mono">SP_calc_shareholder_new</span></td><td class="center">34,002</td><td>含迴圈</td><td><span class="badge b-danger">零引用</span> 「new」但沒在跑</td></tr>
+                <tr><td><span class="mono">SP_calc_profit_share</span></td><td class="center">30,393</td><td>含迴圈</td><td>股東分潤新架構</td></tr>
+                <tr><td><span class="mono">SP_calc_three_hierarchy_bonus</span></td><td class="center">27,919</td><td>含迴圈</td><td><span class="badge b-success">排程驅動</span> 被 3 個排程引用</td></tr>
+                <tr><td><span class="mono">SP_event_register_neil</span></td><td class="center">26,821</td><td>游標＋迴圈＋<b>交易</b></td><td><span class="badge b-danger">零引用</span> 人名命名</td></tr>
+                <tr><td><span class="mono">SP_event_register</span></td><td class="center">26,615</td><td>游標＋迴圈＋<b>交易</b></td><td>應用層呼叫</td></tr>
+                <tr><td><span class="mono">SP_event_deposit_for_cs</span></td><td class="center">26,572</td><td>游標＋迴圈</td><td><svg class="ni"><use href="#i-alert"/></svg> 主簡報列為「是否已廢棄待確認」的兩支之一</td></tr>
+                <tr><td><span class="mono">SP_event_deposit_wallet_for_cs</span></td><td class="center">26,146</td><td>游標＋迴圈</td><td>主簡報記載「確實由舊系統呼叫」</td></tr>
+                <tr><td><span class="mono">SP_calc_shareholder2</span></td><td class="center">25,976</td><td>含迴圈</td><td><span class="badge b-danger">零引用</span> 第四個 shareholder 變體</td></tr>
+                <tr><td><span class="mono">ADMIN_Change_Slot_Tournament_Content</span></td><td class="center">25,735</td><td>—</td><td><span class="badge b-secondary">人工維運</span></td></tr>
+                <tr><td><span class="mono">SP_event_deposit_20250204</span></td><td class="center">24,333</td><td>游標＋迴圈</td><td><span class="badge b-danger">零引用</span> 日期命名＝舊版備份</td></tr>
+                <tr><td><span class="mono">SP_event_register_tmp</span></td><td class="center">20,332</td><td>游標＋迴圈＋<b>交易</b></td><td><span class="badge b-danger">零引用</span> <span class="mono">tmp</span> 命名</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="risk high">
+            <div class="rh"><span class="sev">重點</span><span class="rt">15 支最大的 SP 裡，有 7 支是零引用的副本</span></div>
+            <p><span class="mono">SP_calc_shareholder</span> 這一支邏輯就有<b>四個變體</b>（正式 48.1K、<span class="mono">_test</span> 47.4K、<span class="mono">_new</span> 34.0K、<span class="mono">2</span> 26.0K），只有正式版被排程驅動；<span class="mono">SP_event_deposit</span> 與 <span class="mono">SP_event_register</span> 也各有 <span class="mono">_neil</span>／<span class="mono">_tmp</span>／<span class="mono">_20250204</span> 等副本。<br><br>
+            <b>對改寫評估的意義</b>：如果只看「23 支超過 10K 字元」會嚴重高估工作量——<b>先確認副本可刪，實際要改寫的大型 SP 會少掉一半</b>。這也是本次盤點最直接的收穫。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="app" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>應用層呼叫來源</h2>
+          <p class="desc">第三處呼叫來源：APIs（新系統）、四支舊系統 API、RD-Studio-01 排程專案與後台。這一節決定資料庫層零引用的那 220 支裡，哪些其實是活的。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:230px">Repo</th><th style="width:110px">呼叫支數</th><th>樣態與重點</th></tr></thead>
+              <tbody>
+                <tr><td><b>RD-Studio-01</b><br><span class="badge b-danger">最密集</span></td><td class="center"><b>69</b> 靜態<br>＋<b>8</b> 處動態</td><td><b>注單轉檔的真正呼叫者</b>：幾乎所有 <span class="mono">SP_transfer_bet_record_&lt;vendor&gt;</span> 都由此處的 Console Command 排程呼叫（一個遊戲商一支 Command）。另有 <span class="mono">SP_summary_bet_record_team</span>、<span class="mono">SP_summary_rolling_chip_record</span>、<span class="mono">SP_Job_Vendor_Hour_Rerun</span>、<span class="mono">SP_set_lucky_ticket*</span>、<span class="mono">SP_set_w_jackpot_ticket</span>、<span class="mono">ADMIN_Check_VJackpot_Ticket</span>、<span class="mono">SP_transfer_event_record_pgs</span></td></tr>
+                <tr><td><b>API_Agent</b><br>舊系統代理商 API</td><td class="center"><b>約 20</b></td><td>集中在股東分潤與活動：<span class="mono">ShareholderController</span>、<span class="mono">ProfitSharePayoutLogRepository</span>、<span class="mono">RefreshRankingController</span>、<span class="mono">WJackpotController</span>。多為字串串接而非參數綁定</td></tr>
+                <tr><td><b>API_Frontend</b><br>舊系統會員 API</td><td class="center"><b>約 10</b><br>＋75 處選單</td><td>活動與登入類（<span class="mono">SP_check_login_event</span>／<span class="mono">SP_cancel_login_event</span>／<span class="mono">SP_event_register</span>／<span class="mono">SP_event_gift_point</span>／<span class="mono">SP_event_deposit_for_cs</span>…）。另有 75 個 migration 呼叫 <span class="mono">ADMIN_insert_agent_menus</span>／<span class="mono">ADMIN_delete_agent_menus</span>——<b>這解釋了為何這兩支 ADMIN_ SP 資料庫層零引用卻是活的</b></td></tr>
+                <tr><td><b>APIs</b>（新系統）</td><td class="center"><b>約 10</b></td><td>統一走 <span class="mono">DB::statement</span>／<span class="mono">DB::select</span>：<span class="mono">SP_event_register</span>、<span class="mono">SP_event_gift_point</span>、<span class="mono">SP_event_deposit</span>、<span class="mono">SP_event_invite_deposit</span>、<span class="mono">SP_calc_member_vip_deposit_amount</span>、<span class="mono">SP_get_unlimit_my_player</span>、<span class="mono">SP_summary_bet_record_team</span>、<span class="mono">SP_summary_rolling_chip_record</span></td></tr>
+                <tr><td><b>API_External</b></td><td class="center"><b>4</b></td><td>規模最小：<span class="mono">SP_calc_shareholder</span>／<span class="mono">_temp</span>、<span class="mono">SP_shareholder_payout</span>、<span class="mono">SP_transfer_bet_record_pg</span></td></tr>
+                <tr><td><b>API_CustomerServiceBackend</b></td><td class="center"><span class="dash">0</span></td><td>全庫零命中</td></tr>
+                <tr><td><b>WEB_AgentBackend</b></td><td class="center"><span class="dash">0</span></td><td>1,074 個 PHP 檔逐一排除誤判後確認零呼叫。資料操作經 API_Agent 中介，不直連 SP</td></tr>
+                <tr><td><b>WEB_CustomerServiceBackend</b></td><td class="center"><span class="dash">0</span></td><td>純 Vue SPA，無後端 SQL 邏輯</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="risk high">
+            <div class="rh"><span class="sev">關鍵</span><span class="rt">動態組字呼叫讓「靜態比對」無法窮舉注單轉檔 SP</span></div>
+            <p>RD-Studio-01 有 <b>8 處把 SP 名稱用變數拼出來</b>（<span class="mono">$vendor_tname</span> 組字），出現在 <span class="mono">SummaryBetRecordCommand</span>、<span class="mono">NewSummaryBetRecordCommand</span>、<span class="mono">GetM8betBetRecord</span>、<span class="mono">GetLfc888BetRecord</span>、<span class="mono">GetWbetBetRecord</span>、<span class="mono">GetBolakk4dBetRecord</span>、<span class="mono">GetGfg2BetRecord</span>、<span class="mono">Tools/Summary/GameVendor</span>。<br><br>
+            <b>後果</b>：<b>任何目前有效的 <span class="mono">SP_transfer_bet_record_&lt;tname&gt;</span> 都可能被這條路徑呼叫到</b>，用字串 grep 判不出來。所以 <b>73 支注單轉檔 SP 一律不可依「靜態比對零引用」判死</b>——要判死必須先核對 <span class="mono">vendors</span> 設定表，確認哪些 <span class="mono">tname</span> 已不再有效。</p>
+          </div>
+
+          <h3>SP 原始碼的定義權分佈（改寫前必須先確認）</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:200px">Repo</th><th style="width:130px">數量</th><th>機制</th></tr></thead>
+              <tbody>
+                <tr><td><b>APIs</b>（新系統）</td><td class="center"><b>213</b> 個 <span class="mono">.sql</span></td><td><span class="mono">database/procedures/</span> 一支 SP 一個檔案，由 <span class="mono">SyncProcedureSeeder</span> 以 md5 hash 比對後 <span class="mono">DROP</span>＋重建，記錄於 <span class="mono">procedure_hashes</span> 表。<b>這是目前唯一有 hash 同步機制的一套</b></td></tr>
+                <tr><td><b>API_Frontend</b>（舊系統）</td><td class="center"><b>166</b> 個 migration</td><td><svg class="ni"><use href="#i-alert"/></svg> <b>舊系統的 SP 定義權在這裡</b>——直接在 migration 內以 <span class="mono">DB::unprepared()</span> 內嵌 <span class="mono">CREATE PROCEDURE</span> 字串，無 hash 比對，每次異動要新開一支 migration。涵蓋 <span class="mono">SP_transfer_bet_record_*</span> 全系列、<span class="mono">SP_calc_shareholder*</span>、<span class="mono">ADMIN_insert/delete_agent_menus</span> 等</td></tr>
+                <tr><td>API_Agent／API_External／<br>RD-Studio-01／CS 後台</td><td class="center"><span class="dash">0</span></td><td>純消費端，不擁有定義權</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fnote"><svg class="ni"><use href="#i-alert"/></svg> <b>351 支中有多少在版控內？</b> APIs 213 ＋ API_Frontend 166 有重疊（同一支 SP 兩邊都可能有），去重後的覆蓋率<b>尚未核對</b>。改寫任一支 SP 前必須先確認它的原始碼在哪——若兩處都沒有，只存在於生產資料庫，就得先從 DB 取出定義。</div>
+
+          <div class="risk mid">
+            <div class="rh"><span class="sev">交叉檢查</span><span class="rt">4 支「應用層有呼叫，但 TPower 資料庫查不到」</span></div>
+            <p>把應用層呼叫名單拿去反查 <span class="mono">information_schema.ROUTINES</span>，發現這 4 支在 TPower 站不存在：</p>
+            <ul class="clean">
+              <li><span class="mono">SP_shareholder_payout_log</span>——API_Agent <b>兩處</b>呼叫（<span class="mono">Shareholder/V2/ShareholderController</span>、<span class="mono">ShareholderController</span>）</li>
+              <li><span class="mono">SP_reset_shareholder_share_by_agent</span>——API_Agent 呼叫（<span class="mono">ShareholderController</span>）</li>
+              <li><span class="mono">SP_transfer_bet_record_terra</span>、<span class="mono">SP_transfer_bet_record_allbet</span>——RD-Studio-01 呼叫</li>
+            </ul>
+            <p>後兩支是遊戲商別，TPower 未接該遊戲商就屬合理。<b>但前兩支是股東分潤功能、與遊戲商無關</b>——在 TPower 呼叫這兩支會直接失敗。兩種可能：<span class="cn">①</span> 該段程式碼是死路徑（沒人走到）；<span class="cn">②</span> 是真實的線上錯誤但未被發現。<b>建議另案查證</b>，不屬多幣別改造範圍。<br><br>
+            <b>未驗證</b>：本次只查 TPower 一站，其他白標可能有這兩支。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="dead" class="card">
+        <div class="card-head">
+          <h2><span class="idx">5</span>死代碼與技術債樣態</h2>
+          <p class="desc">三處引用來源都沒有的才是死代碼候選。應用層掃描完成前，先列出<b>從命名與引用狀況就能高度懷疑的樣態</b>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:170px">樣態</th><th>SP</th><th style="width:150px">判斷依據</th></tr></thead>
+              <tbody>
+                <tr><td><b>明確測試殘留</b></td><td><span class="mono">Mars_test</span>、<span class="mono">TEST_add_ticket_4d</span>、<span class="mono">TEST_Summary_Event</span>、<span class="mono">SP_calc_shareholder_test</span>、<span class="mono">SP_summary_event_record_by_unlimited_test</span></td><td>命名含 test／TEST，且資料庫層零引用</td></tr>
+                <tr><td><b>無語意佔位命名</b></td><td><span class="mono">ADMIN_AAAA</span>、<span class="mono">ADMIN_AAA_MARS</span>、<span class="mono">ADMIN_AAB</span>、<span class="mono">ADMIN_BBB</span></td><td>命名無任何語意，建立於 2025-04 且從未修改</td></tr>
+                <tr><td><b>個人命名版本</b></td><td><span class="mono">SP_event_deposit_neil</span>（40.1K）、<span class="mono">SP_event_register_neil</span>（26.8K）、<span class="mono">SP_event_invite_deposit_neil</span>、<span class="mono">SP_transfer_bet_record_pp_mars</span>、<span class="mono">ADMIN_Delete_Total_Bet_Record_Mars</span>、<span class="mono">haolong_srm_members</span></td><td>命名含開發者名，屬個人調試版本</td></tr>
+                <tr><td><b>日期／臨時命名</b></td><td><span class="mono">SP_event_deposit_20250204</span>（24.3K）、<span class="mono">SP_event_register_tmp</span>（20.3K）、<span class="mono">SP_calc_profit_share_temp</span>、<span class="mono">ADMIN_TEMP_add_prize_number</span></td><td>日期或 tmp／temp 命名。<svg class="ni"><use href="#i-alert"/></svg> 但 <span class="mono">ADMIN_TEMP_add_prize_number</span> <b>掛在每日排程上</b>，屬臨時方案長駐化，不可直接刪</td></tr>
+                <tr><td><b>備份副本</b></td><td><span class="mono">ADMIN_calc_unlimit_bonus_bak</span>、<span class="mono">ADMIN_wjackpot_automatic_increase_bak</span>、<span class="mono">orders_to_orders_bak2</span>、<span class="mono">orders_to_orders_bak3</span>、<span class="mono">ADMIN_copy_pp_bet_records_to_bak2</span>、<span class="mono">ADMIN_copy_vendor_hour_records_to_bak1</span>、<span class="mono">ADMIN_copy_joker_bet_record_to_bak1</span></td><td><span class="mono">_bak</span>／編號後綴，且有無後綴的正式版並存</td></tr>
+                <tr><td><b>同邏輯多變體</b></td><td><span class="mono">SP_calc_shareholder</span> 家族 4 支、<span class="mono">SP_shareholder_payout2</span>、<span class="mono">SP_summary_bet_record_team</span> 與 <span class="mono">ADMIN_summary_bet_record_team</span>、<span class="mono">SP_transfer_bet_record_vpower_new</span>、<span class="mono">SP_calc_shareholder_new</span></td><td>同一邏輯多個版本並存，只有一個在跑</td></tr>
+                <tr><td><b>整類零引用</b></td><td><span class="mono">win_lose_*</span> 全 13 支</td><td>資料庫層 0 排程、0 SP 引用。依遊戲商各一支（918／ace333／ag／gw99／haolong／isb／joker／lucky／mega888／vplay／wm／xe88／ygg），疑似舊查詢工具</td></tr>
+                <tr><td><b>命名可疑</b></td><td><span class="mono">sr11</span>（一支叫 sr11 的 SP）、<span class="mono">transaction_user</span>、<span class="mono">sp_user_check_balance_ag</span>、<span class="mono">sync_flow_limits_to_clone</span>、<span class="mono">NOTIFY_Summary_report</span></td><td>無標準前綴、命名風格與其他不一致</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>應用層掃描後新增的判定</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:190px">判定</th><th>SP</th><th style="width:210px">依據</th></tr></thead>
+              <tbody>
+                <tr><td><b>強死代碼訊號</b><br><span class="badge b-danger">僅剩註解呼叫</span></td><td><span class="mono">SP_set_prize_member</span>、<span class="mono">SP_summary_event_main</span></td><td>RD-Studio-01 的 <span class="mono">SummaryEvent.php</span> 內呼叫<b>已被註解掉</b>（<span class="mono">//DB::select(...)</span>），全庫找不到其他執行點，資料庫層也零引用——三處皆無</td></tr>
+                <tr><td><b>整類可判死</b><br><span class="badge b-danger">win_lose_* 13 支</span></td><td><span class="mono">win_lose_918_sel</span>、<span class="mono">_ace333</span>、<span class="mono">_ag</span>、<span class="mono">_gw99_sel</span>、<span class="mono">_haolong_sel</span>、<span class="mono">_isb</span>、<span class="mono">_joker_sel</span>、<span class="mono">_lucky</span>、<span class="mono">_mega888</span>、<span class="mono">_vplay_sel</span>、<span class="mono">_wm_sel</span>、<span class="mono">_xe88</span>、<span class="mono">_ygg_sel</span></td><td>資料庫層 0 排程／0 SP 引用，<b>8 個 repo 應用層掃描也全數零呼叫</b>（WEB_AgentBackend 命中的 <span class="mono">win_lose_amount</span> 等為變數名誤判，已排除）。<b>目前最乾淨的可刪批次</b></td></tr>
+                <tr><td><b>僅測試呼叫</b><br><span class="badge b-warning">app/ 零引用</span></td><td><span class="mono">SP_calc_profit_share</span>、<span class="mono">_winlose</span>、<span class="mono">_event_cost</span>、<span class="mono">_payment_cost</span>、<span class="mono">_temp</span>、<span class="mono">SP_payout_profit_share</span>、<span class="mono">SP_agent_schedule</span></td><td>APIs 專案<b>只有測試檔呼叫</b>（<span class="mono">tests/Unit/Database/Procedures/</span>）、<span class="mono">app/</span> 內零引用。但 <span class="mono">SP_calc_profit_share</span> 系列<b>在 API_Agent 有真實呼叫</b>——屬「新系統尚未接手、舊系統仍在用」，不是死代碼</td></tr>
+                <tr><td><b>誤判排除</b><br><span class="badge b-secondary">看似活的其實不是</span></td><td><span class="mono">ADMIN_check_sms_gateway</span></td><td>在 APIs／API_Agent／API_Frontend 三處出現，但<b>全部是組告警訊息或診斷提示的字串</b>，沒有任何 <span class="mono">DB::</span> 執行。同理 <span class="mono">SP_calc_shareholder</span> 有數處 <span class="mono">sprintf</span> 回顯到 API 回應 payload，非執行點</td></tr>
+                <tr><td><b>反而是活的</b><br><span class="badge b-success">資料庫層零引用但有人用</span></td><td><span class="mono">ADMIN_insert_agent_menus</span>、<span class="mono">ADMIN_delete_agent_menus</span></td><td>API_Frontend <b>75 個 migration</b> 呼叫——每次新增後台選單就會執行一次。這正是「資料庫層零引用不等於死代碼」的最好例證</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="fnote"><svg class="ni"><use href="#i-alert"/></svg> <b>其餘仍是「候選」，不是判死</b>。<span class="mono">ADMIN_*</span> 那 123 支尤其要小心——它們本來就是人工執行的維運工具，零引用是正常狀態，刪除前需確認營運手動流程沒有在用。<b>73 支注單轉檔 SP 一律不可用靜態比對判死</b>（見第 4 節動態組字）。</div>
+        </div>
+      </section>
+
+      <section id="open" class="card">
+        <div class="card-head">
+          <h2><span class="idx">6</span>待討論事項</h2>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:230px">議題</th><th>說明</th><th style="width:120px">誰能決定</th></tr></thead>
+              <tbody>
+                <tr><td><b>哪些 SP 不適合改寫<br>成 PHP＋Queue</b></td><td>本份盤點提供的判斷素材：<span class="cn">①</span> 定義長度（23 支超過 10K）<span class="cn">②</span> 是否含游標／迴圈（76／103 支）<span class="cn">③</span> 是否有交易控制（<b>只有 11 支有</b>——改寫時補交易邊界會改變鎖行為）<span class="cn">④</span> 是否與其他 SP 互相 CALL（耦合者必須整串一起改）。<b>建議先討論判準，再逐支裁決</b></td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>零引用副本是否清理</b></td><td>清掉 <span class="mono">_test</span>／<span class="mono">_neil</span>／<span class="mono">_tmp</span>／日期／<span class="mono">_bak</span> 這批副本，可讓「大型 SP 改寫清單」少掉約一半。屬低風險高收益，但需先完成應用層掃描</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>SP 原始碼是否全部進版控</b></td><td>APIs 有 <span class="mono">SyncProcedureSeeder</span> 與 <span class="mono">procedure_hashes</span> 記帳表，代表部分 SP 已由版控管理。<b>待確認</b>：351 支裡有多少支在版控內、多少支只存在於生產資料庫（後者改寫前必須先取出原始碼）</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>直接派錢的 SP 改寫策略</b></td><td><span class="mono">SP_payout_*</span> 17 支中 5 支由排程每日直接派錢（VIP 獎勵、三層獎金、拉霸回饋）。改寫成 PHP 後<b>冪等性與重複派發防護要重新設計</b>——SP 版靠什麼防重複需先查明</td><td><span class="badge b-danger">技術＋業務</span></td></tr>
+                <tr><td><b><span class="mono">win_lose_*</span> 13 支去留</b></td><td>資料庫層完全零引用。若應用層也沒有呼叫，是最乾淨的一批可刪對象</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b><span class="mono">ADMIN_TEMP_add_prize_number</span></b></td><td>命名帶 TEMP 卻掛每日排程且持續執行中。臨時方案長駐化，需確認是否仍需要、或該正名</td><td><span class="badge b-warning">需問原作者</span></td></tr>
+                <tr><td><b>與決議 <span class="cn">⑫</span> 的關係</b></td><td>這 48 支排程驅動 SP 的執行完全不經應用層、APIs 版控看不到——正是決議 <span class="cn">⑫</span>「排程先收回 APIs」的具體標的。<b>改寫順序建議與排程遷移一併規劃</b>，而非兩案並行</td><td><span class="badge b-primary">技術</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="fnote"><svg class="ni"><use href="#i-search"/></svg> <b>本份報告的 AI 參與程度與未驗證項</b>：內容 100% 由 AI 產出。SP 支數、排程對照、複雜度統計、定義長度均為 <span class="mono">information_schema</span>（<span class="mono">ROUTINES</span>／<span class="mono">EVENTS</span>）唯讀實查，可重現。<b>未驗證部分</b>：<span class="cn">①</span> 複雜度樣態（游標／迴圈／交易）以 <span class="mono">ROUTINE_DEFINITION</span> 關鍵字 LIKE 判斷，可能因註解內含關鍵字而高估；<span class="cn">②</span> 「被其他 SP 引用」同樣用 LIKE 比對名稱，短名稱可能被長名稱誤命中（此偏差會<b>高估</b>引用數，故零引用清單是保守可靠的）；<span class="cn">③</span> 第 4、5 節的死代碼判定<b>尚待應用層掃描完成</b>，目前所有「零引用」都只代表資料庫層；<span class="cn">④</span> 本次只查 TPower 一站，其他白標的 SP 集合與排程可能不同。</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('.menu a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const onScroll = () => {
+    const y = window.scrollY + 120;
+    let current = sections[0];
+    for (const s of sections) { if (s.offsetTop <= y) current = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>

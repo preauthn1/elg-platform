@@ -1,0 +1,38 @@
+{
+    "name": "symfony/polyfill-ctype",
+    "type": "library",
+    "description": "Symfony polyfill for ctype functions",
+    "keywords": ["polyfill", "compatibility", "portable", "ctype"],
+    "homepage": "https://example.invalid",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Gert de Pagter",
+            "email": "user@example.invalid"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://example.invalid/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Polyfill\\Ctype\\": "" },
+        "files": [ "bootstrap.php" ]
+    },
+    "suggest": {
+        "ext-ctype": "For best performance"
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.17-dev"
+        },
+        "thanks": {
+            "name": "symfony/polyfill",
+            "url": "https://example.invalid/symfony/polyfill"
+        }
+    }
+}

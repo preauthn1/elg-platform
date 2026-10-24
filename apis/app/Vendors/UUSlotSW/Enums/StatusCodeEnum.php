@@ -1,0 +1,57 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Vendors\UUSlotSW\Enums;
+
+class StatusCodeEnum
+{
+    // Provider Status Code
+    const CODE_SYSTEM_ERROR = 1;
+
+    const PROVIDER_OK = 200;
+
+    const PROVIDER_BAD_REQUEST = 400;
+
+    const PROVIDER_FORBIDDEN = 403;
+
+    const PROVIDER_SERVICE_MAINTENANCE = 503;
+
+    const PROVIDER_NOT_ELIGIBLE = 900300;
+
+    const PROVIDER_INVALID_OPERATOR_ID = 900401;
+
+    const PROVIDER_INVALID_PLAYER = 900402;
+
+    const PROVIDER_INVALID_SIGNATURE = 900403;
+
+    const PROVIDER_INVALID_GAME_ID = 900404;
+
+    const PROVIDER_INVALID_TRAN_ID = 900408;
+
+    // (Applied to any other errors/situations which are not in the list)
+    const PROVIDER_INTERNAL_SERVER_ERROR = 900500;
+
+    // Operator Status Code (ours)
+    const OPERATOR_OK = 200;
+
+    const OPERATOR_INVALID_PLAYER = 900404;
+
+    const OPERATOR_INVALID_OPERATOR_ID = 900405;
+
+    const OPERATOR_INCOMING_REQUEST_INFO_INCOMPLETE = 900406;
+
+    const OPERATOR_INVALID_SIGNATURE = 900407;
+
+    const OPERATOR_DUPLICATE_TRANSACTION = 900409;
+
+    const OPERATOR_BET_TRANSACTION_NOT_FOUND = 900415;
+
+    const OPERATOR_PLAYER_INACTIVE = 900416;
+
+    const OPERATOR_INSUFFICIENT_BALANCE = 900605;
+
+    const OPERATOR_INTERNAL_SERVER_ERROR = 900500;
+
+    const OPERATOR_MAX_PAYOUT_REACHED = 800401;
+}

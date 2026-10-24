@@ -1,0 +1,32 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Facades\SchemaMonitor;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        SchemaMonitor::table('bank_accounts', function (Blueprint $table) {
+            $table->string('account_name', 191)->change()->comment('帳戶名稱');
+            $table->string('account_nickname', 191)->nullable()->change()->comment('帳戶簡稱');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        SchemaMonitor::table('bank_accounts', function (Blueprint $table) {
+            $table->string('account_name', 50)->change()->comment('帳戶名稱');
+            $table->string('account_nickname', 50)->nullable()->change()->comment('帳戶簡稱');
+        });
+    }
+};

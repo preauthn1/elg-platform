@@ -1,0 +1,203 @@
+variables:
+  AR_PATH: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+
+stages:
+  - build-docker
+
+build-logstash:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest || true
+    - curl -vv https://example.invalid/rate_limit
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    # logstash
+    - echo "===== Building logstash ====="
+    - cd ${CI_PROJECT_DIR}/logstash
+    - docker build --push -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest ${AR_PATH}/${CI_PROJECT_PATH}/logstash:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/logstash:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/logstash:latest
+
+build php73:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    # phpbase 73
+    - echo "===== Building phpbase 73 ====="
+    - cd ${CI_PROJECT_DIR}/phpbase/7.3
+    - docker build --push -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.3:latest
+
+build php74:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    # 注意：`docker build` 不會讀取 `--use` 選定的 builder，固定找名叫 "default" 的 builder，
+    # 導致這個 pin 實際上沒生效（其他 job 也有這個問題，這裡先只修 php74）。
+    # 改用 `docker buildx build --builder pinned` 明確指定 builder 名稱，讓 pin 真正生效。
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    # phpbase 74：從 PHP 官方回移分支自行編譯，修補 CVE-2026-109618 / CVE-2026-109619（7.3 無官方修補）
+    # 詳見 phpbase/7.4/VERIFICATION.md
+    - echo "===== Building phpbase 74 ====="
+    - cd ${CI_PROJECT_DIR}/phpbase/7.4
+    - docker buildx build --builder pinned --push -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest --build-arg BUILDKIT_INLINE_CACHE=1 .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/7.4:latest
+
+build php8:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    # phpbase 8
+    - echo "===== Building phpbase 8 ====="
+    - cd ${CI_PROJECT_DIR}/phpbase/8
+    - echo "${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest"
+    - docker buildx build --push --pull --platform linux/amd64 -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest --build-arg BUILDKIT_INLINE_CACHE=1 --provenance=false .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8:latest
+
+build php8-minimal:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    # phpbase 8-minimal
+    - echo "===== Building phpbase 8-minimal ====="
+    - cd ${CI_PROJECT_DIR}/phpbase/8-minimal
+    - echo "${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest"
+    - docker buildx build --push --pull --platform linux/amd64 -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest --build-arg BUILDKIT_INLINE_CACHE=1 --provenance=false .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/phpbase/8-minimal:latest
+
+build nodebase24:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:522.0.0
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - export DOCKER_BUILDKIT=1
+    # pin BuildKit <= v0.30.0 (runc 1.3.5): v0.31.0+ (runc 1.3.6) mounts tmpfs with nr_inodes=1, rejected by the 4.15 node kernel
+    - docker buildx create --name pinned --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    - echo "===== Building nodebase 24 ====="
+    - cd ${CI_PROJECT_DIR}/nodebase/24
+    - docker buildx build --push --platform linux/amd64 -f Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest --build-arg BUILDKIT_INLINE_CACHE=1 --provenance=false .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}/nodebase/24:latest

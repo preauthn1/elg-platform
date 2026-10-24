@@ -1,0 +1,191 @@
+﻿<?php
+require_once '../_init.php';
+$start_date = $_GET['dates'] ? substr($_GET['dates'], 0, 10) : date('Y-m-d', strtotime('-1month'));
+$end_date = $_GET['dates'] ? substr($_GET['dates'], -10) : date('Y-m-d');
+$path_ids = $_GET['p'] ? $_GET['p'] : '';
+// 版位列表
+$data = array();
+$data['page'] = 1;
+$data['per_page'] = 1000;
+$result = curlPost('api/advertisementPath/list', $data);
+if ($result['code'] != 1000) {
+    if ($result['code'] > 9997) {
+        header("location:" . BASE_URL . "login.php");
+    } else {
+        header('Location:' . BASE_URL . "index.php");
+    }
+    exit();
+} else {
+    $paths = $result['data'];
+}
+// 廣告列表
+$advertisements = array();
+$data = array();
+$data['start_time'] = $start_date . ' 00:00:00';
+$data['end_time'] = $end_date . ' 23:59:59';
+foreach ($path_ids as $path_id) {
+    $data['path_id'] = $path_id;
+    $result = curlPost('api/advertisement/list', $data);
+    if ($result['code'] != 1000) {
+        if ($result['code'] > 9997) {
+            header("location:" . BASE_URL . "login.php");
+        } else {
+            header('Location:' . BASE_URL . "index.php");
+        }
+        exit();
+    } else {
+        array_push($advertisements, $result['data']);
+    }
+}
+require_once '../_header.php';
+require_once '../_menu.php';
+?>
+<!-- Page Container START -->
+<div class="page-container">
+    <?php
+    require_once '../_top.php';
+    require_once '../_theme.php';
+    ?>
+    <!-- Content Wrapper START -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="page-title">
+                <h4>系統管理 > 廣告管理</h4>
+            </div>
+            <a href="edit.php" class="btn btn-inverse btn-success">建立廣告</a>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h4 class="card-title">查詢</h4>
+                                    <form class="form-horizontal mrg-top-40 pdd-right-30">
+                                        <div class="form-group row">
+                                            <label for="form-1-1" class="col-md-2 control-label">類型</label>
+                                            <div class="col-md-6">
+                                                <select id="selectize-tags-1" name="p[]" multiple class="item-info">
+                                                    <?php
+                                                    foreach ($paths as $path) {
+                                                        ?>
+                                                    <option value="<?= $path['id'] ?>"
+                                                        <?= in_array($path['id'], $path_ids) ? "selected" : "" ?>>
+                                                        <?= $path['name'] ?></option>
+                                                    <?php
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="form-1-2" class="col-md-2 control-label">開始/結束時間</label>
+                                            <div class="col-md-3">
+                                                <input type="text" id="date-range-picker" name="dates"
+                                                    class="form-control" placeholder="Date range picker" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label for="form-1-2" class="col-md-2 control-label">&nbsp;</label>
+                                            <div class="col-md-3">
+                                                <button class="btn btn-primary" id="search">開始查詢</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-block">
+                            <div class="table-overflow">
+                                <table id="dt-opt" class="table table-lg table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>類型名稱</th>
+                                            <th>圖片</th>
+                                            <!-- <th>超連結</th> -->
+                                            <th>開始日期</th>
+                                            <th>結束日期</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+
+                                        foreach ($advertisements as $advertisement) {
+                                            $advertisement = $advertisement[0];
+                                            if (count($advertisement['images']) > 0) {
+                                                foreach ($advertisement['images'] as $image) {
+                                                    ?>
+                                        <tr>
+                                            <td>
+                                                <div class="mrg-top-15">
+                                                    <span><?= $advertisement['name'] ?></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="list-info mrg-top-10">
+                                                    <img class="thumb-img" src="<?= $image['image'] ?>" alt="">
+                                                </div>
+                                            </td>
+                                            <!-- <td>
+                                                <div class="relative mrg-top-15">
+                                                    <span class="pdd-left-20"><?= $image['url'] ?></span>
+                                                </div>
+                                            </td> -->
+                                            <td>
+                                                <div class="mrg-top-15">
+                                                    <span
+                                                        class="text-info"><b><?= substr($image['start_time'], 0, -3) ?></b></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="mrg-top-15">
+                                                    <span
+                                                        class="text-info"><b><?= substr($image['end_time'], 0, -3) ?></b></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href="edit.php?id=<?= $image['id'] ?>"
+                                                    class="btn btn-default btn-sm">編輯</a>
+                                            </td>
+                                        </tr>
+                                        <?php
+                                                }
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Content Wrapper END -->
+    <?php
+    require_once '../_bottom.php';
+    ?>
+</div>
+<!-- Page Container END -->
+<?php
+require_once '../_footer.php';
+?>
+<script>
+$(document).ready(function() {
+    $('#date-range-picker').daterangepicker({
+        startDate: '<?= $start_date ?>',
+        endDate: '<?= $end_date ?>',
+        locale: {
+            format: 'YYYY-MM-DD'
+        }
+    });
+});
+</script>

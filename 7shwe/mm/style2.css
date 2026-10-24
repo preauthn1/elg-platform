@@ -1,0 +1,50 @@
+@media screen and (max-width: 768px) {
+  .section-1 .text-1 {
+    font-size: 24px;
+  }
+
+  .section-1 .img-1 {
+    width: 100px;
+  }
+
+  .join-btn {
+    font-size: 16px;
+  }
+
+  .section-2 .text-1-2,
+  .section-3 .text-1-2,
+  .section-4 .text-1-2 {
+    font-size: 14px;
+  }
+
+  .section-5 .title .text-1 {
+    font-size: 20px;
+  }
+
+  .section-5 .card .card-title {
+    font-size: 16px;
+  }
+
+  .section-5 .card .card-content {
+    font-size: 14px;
+  }
+
+  .section-6 .text-1,
+  .section-6 .text-2 {
+    font-size: 18px;
+  }
+
+  .section-7 .text-1 {
+    font-size: 30px;
+  }
+
+  .section-7 .img-1 {
+    left: 2%;
+    top: 10%;
+    width: 120px;
+  }
+
+  .section-7 .text-2 {
+    font-size: 14px;
+  }
+}

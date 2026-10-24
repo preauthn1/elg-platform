@@ -1,0 +1,29 @@
+{
+  "bypass_label": "hotfix",
+  "domains": [
+    {
+      "name": "plugin 設定與會執行的程式",
+      "paths": [
+        ".claude-plugin/",
+        "plugins/*/.claude-plugin/*",
+        "plugins/*/.mcp.json",
+        "plugins/*/bin/*",
+        "plugins/*/hooks/*",
+        "plugins/*/scripts/*",
+        "plugins/*/script/*",
+        "plugins/*/registry/*"
+      ],
+      "reviewers": ["rb", "toro", "Rhys"]
+    },
+    {
+      "name": "團隊名單（PM 組決定誰的「0. PM確認」能放行上線）",
+      "paths": ["team-roster.yaml"],
+      "reviewers": ["rb", "toro", "Rhys"]
+    },
+    {
+      "name": "讓原本的觸發說法失效或移除 skill（breaking 標籤）",
+      "labels": ["breaking"],
+      "reviewers": ["rb", "toro", "Rhys"]
+    }
+  ]
+}

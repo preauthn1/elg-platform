@@ -1,0 +1,17 @@
+{
+  "description": "開 session 時對當前專案的 CodeGraph 索引做一次增量同步；專案沒建索引就不做事，失敗只寫進 .codegraph/session-sync.log",
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup|resume|clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash \"${CLAUDE_PLUGIN_ROOT}/hooks/session-sync.sh\"",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

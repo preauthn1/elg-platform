@@ -1,0 +1,38 @@
+stages:
+  - prepare
+
+# 獨立成一個 job 是因為緩存 key 必須是靜態的，要提早計算出來
+calculate_migration_hash:
+  stage: prepare
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8-minimal:ae4fd248
+  tags:
+    - php8
+  rules:
+    - when: always
+  before_script:
+    # merge request 時執行 local merge
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ] && [ "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" = "main" ]; then
+        apt-get update && apt-get install -y git
+        git config --global user.email "user@example.invalid"
+        git config --global user.name "runner"
+
+        echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+        git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+        git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+        git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+      fi
+  script:
+    - |
+      # 計算 database/migrations 的 hash
+      MIGRATION_HASH=$(find database/migrations -type f -exec md5sum {} \; 2>/dev/null | sort | md5sum | awk '{print $1}')
+      if [ -z "$MIGRATION_HASH" ]; then
+        echo "警告: 無法計算 MIGRATION_HASH，使用預設值"
+        MIGRATION_HASH="default"
+      fi
+      echo "MIGRATION_HASH=$MIGRATION_HASH" >> migration_hash.env
+      echo "計算的 MIGRATION_HASH: $MIGRATION_HASH"
+  artifacts:
+    reports:
+      dotenv: migration_hash.env
+

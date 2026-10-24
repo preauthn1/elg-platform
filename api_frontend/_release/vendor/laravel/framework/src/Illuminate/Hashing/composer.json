@@ -1,0 +1,35 @@
+{
+    "name": "illuminate/hashing",
+    "description": "The Illuminate Hashing package.",
+    "license": "MIT",
+    "homepage": "https://example.invalid",
+    "support": {
+        "issues": "https://example.invalid/laravel/framework/issues",
+        "source": "https://example.invalid/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "user@example.invalid"
+        }
+    ],
+    "require": {
+        "php": ">=7.0",
+        "illuminate/contracts": "5.5.*",
+        "illuminate/support": "5.5.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\Hashing\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.5-dev"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev"
+}

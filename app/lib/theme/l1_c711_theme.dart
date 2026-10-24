@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+import 'package:futter_web_frontend/models/l1theme.dart';
+
+L1Theme l1C711Theme = L1Theme(
+  name: 'C711',
+  lobbyImageMarginTop: 8,
+  colorStops: [0, 0.45, 0.85, 1],
+  icon: Color(0xFFFFFFFF),
+  appbarIcon: Color(0xFFd8c077),
+  container: Color(0xFF31090b),
+  border: Color(0xFF82510B),
+  gameItemBorder: Color(0xFFD84B4B),
+  textHead: Color(0xFFd8c077),
+  textAppbar: Color(0xFFFFD36D),
+  textMuted: Color(0xFF6c757d),
+  textLink: Color(0xFF1bc3fe),
+  textDanger: Color(0xFFfe5f00),
+  textAppbarBalance: Color(0xFFffb2b2),
+  dialogTitleBg: [
+    Color(0xFFa52502),
+    Color(0xFF730a16),
+  ],
+  borderCard: [
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+  ],
+  borderButton: [
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+  ],
+  borderListButton: [
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+    Color(0xFF82510B),
+  ],
+  borderInputFocus: [
+    Colors.yellow,
+    Colors.yellow,
+    Colors.yellow,
+    Colors.yellow,
+  ],
+  buttonRadius: 10,
+  containerInsideBorderWidth: 1,
+  buttonDanger: [
+    Color(0xFFd00e0b),
+    Color(0xFF9f0404),
+    Color(0xFF3d0d11),
+    Color(0xFF171317),
+  ],
+  buttonWarning: [
+    Color(0xFFe3d385),
+    Color(0xFFd3a836),
+    Color(0xFFab6704),
+    Color(0xFFb9822c),
+  ],
+  buttonPrimary: [
+    Color(0xff4da5f7),
+    Color(0xff007ce8),
+    Color(0xff144d99),
+    Color(0xff144e9a),
+  ],
+  buttonSecondary: [
+    Color(0xFF5f161c),
+    Color(0xFF551418),
+    Color(0xFF420f0f),
+    Color(0xFF300a08),
+  ],
+  buttonInfo: [
+    Color(0xff70421e),
+    Color(0xff834b23),
+    Color(0xff532f15),
+    Color(0xff130b05),
+  ],
+  buttonList: [
+    Color(0xFF493834),
+    Color(0xFF3a2e35),
+    Color(0xFF141418),
+    Color(0xFF421719),
+  ],
+  buttonDisable: [
+    Color(0xff756362),
+    Color(0xff665C6B),
+    Color(0xff484453),
+    Color(0xff2C2B36),
+  ],
+  eventProgressBg: [
+    Color(0xff7D7A7B),
+    Color(0xff7D7A7B),
+    Color(0xff7D7A7B),
+    Color(0xff7D7A7B),
+  ],
+  eventProgress: [
+    Color(0xFFd00e0b),
+    Color(0xFF9f0404),
+    Color(0xFF3d0d11),
+    Color(0xFF171317),
+  ],
+  theme: ThemeData(
+    platform: TargetPlatform.iOS,
+    brightness: Brightness.dark,
+    textTheme: TextTheme(
+      bodyText2: TextStyle(color: Colors.white),
+    ),
+  ),
+);

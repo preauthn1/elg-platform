@@ -1,0 +1,302 @@
+# pm-ticket-create routing question schema
+#
+# CONTRACT FOR SKILL:
+#   1. Skill MUST run `preflight` first: parse the user's initial message
+#      and pre-fill any inferred fields. Only ask questions for fields that
+#      remain empty after preflight.
+#   2. Skill MUST iterate questions in `order` sequence. Skip a question
+#      only if its field was inferred in preflight.
+#   3. Each question's `valid_values` is exhaustive. Any user answer not in
+#      the list MUST trigger re-ask (do NOT silently accept).
+#   4. `branches` define follow-up questions triggered by specific answers.
+#   5. AskUserQuestion is capped at 4 options per call. When `valid_values`
+#      has >4 items, see `ask_strategy` for how to split.
+#
+# After all routing questions answered, skill loads the matching
+# description-schema/<schema>.md and proceeds to Phase 2 (content fill).
+
+version: 2
+mode: "medium-determinism"
+
+preflight:
+  # Skill MUST attempt to infer these from the user's first message before
+  # asking. Examples of inference triggers in parentheses.
+  infer:
+    - field: station
+      hints: ["TPower", "TP", "ME77", "Me77", "Alfawin77", "VWorld", "VW",
+              "VWSG", "Yes2win", "Wintoto", "APIs", "TTN", "VWMY", "VW2", "WTT", "Y2W"]
+      multi_site_hints: ["多站", "同時", "跨站", "+", "/", "、"]
+      # 內部工具：訊息提到，或開單時所在 repo 的 git remote 路徑含工具名稱（大小寫不拘）。
+      # 訊息明講站台或工具時以訊息為準，git remote 只在訊息沒提到時參考。
+      internal_tool_hints:
+        Olympus: ["Olympus", "olympus"]
+        GM: ["GM", "GFF-Marketplace", "gff-marketplace", "市集"]
+    - field: opener_role
+      # 不從訊息猜。用 Phase 0 whoami 的 username 對名單檔 team-roster.yaml（讀法見 SKILL.md 名詞表的「名單檔」）的 role_by_group：
+      #   組別對到 PM → 直接採用，不問
+      #   組別對到 RD（後端、前端）→ 轉到 rd-ticket-create，本 skill 不往下問
+      #   測試組、名單裡沒有這個帳號 → 問 Q0_opener_role；答 RD 一樣轉到 rd-ticket-create
+      source: "whoami + team-roster.yaml"
+    - field: source
+      # 來自「新版後台回報」Google 表單的單：不掛站別、標題尾端帶表單實際項次
+      hints: ["回報表單", "新版後台回報", "表單第", "表單項次", "回報單 #"]
+    - field: milestone
+      hints:
+        TTN項目: ["TTN"]
+        新代理後台: ["新後台", "新代理後台", "代理後台"]
+    - field: category
+      # 同時命中多類時，A、B、Bp 的專屬詞優先：「新增金流商」算 A，不算 C。C 的動詞只在其他類都沒命中時才採用
+      hints:
+        A: ["金流", "代收", "代付", "支付", "pay", "payment", "channel 通道"]
+        B: ["遊戲商", "game vendor", "單錢包", "轉帳錢包", "直對", "platform"]
+        Bp: ["簡訊", "OTP", "WhatsApp", "SMS"]
+        C: ["優化", "修復", "新增", "重構", "增加", "改成", "加一個", "加上", "加入", "fix", "bug", "需求"]
+        D: ["維護", "協作", "跨部門", "流程"]
+    - field: vendor_name
+      hints: ["接入 <X>", "<X> 配置", "接 <X>", "對接 <X>"]
+  # Skill MUST acknowledge inferred values in one short sentence BEFORE asking remaining
+  # questions, so user can correct: "我從你的訊息判斷：站台是 TPower、分類是金流商、廠商是 MangoPay，對嗎？"
+
+questions:
+  - id: Q0_opener_role
+    order: 0
+    field: opener_role
+    required_when: { opener_role: unresolved }
+    # 只在 whoami 的帳號屬於測試組、或名單裡沒有這個帳號時問；其餘情況由名單檔直接判定
+    prompt: "你這次是以 RD 還是 PM 的身分開單？"
+    ask_strategy: single
+    header: "開單身分"
+    options:
+      - { value: PM, label: "PM",  description: "一律需要 QA 驗收，主單指派給你自己" }
+      - { value: RD, label: "RD",  description: "改用 RD 開單的流程（rd-ticket-create）" }
+
+  - id: Q1_station
+    order: 1
+    field: station
+    required: true
+    prompt: "這張單是給誰的？"
+    ask_strategy: two_stage
+    # Stage A（4 個選項）：每個選項都回答「這張單是給誰的」
+    stage_a:
+      header: "給誰的"
+      options:
+        - { value: SITE,          label: "特定站台" }
+        - { value: ALL_SITES,     label: "所有站台共用（不掛站別）" }
+        - { value: INTERNAL_TOOL, label: "內部工具（Olympus、GM）" }
+        - { value: FORM,          label: "新版後台回報表單（不掛站別）" }
+    # 選 SITE 之後用 stage_b_sites 複選站台，依選到的站數決定 Q1_station 的值：
+    #   選 1 站 → Q1_station = SINGLE（單站台）
+    #   選 2 站以上 → Q1_station = MULTI（多站姐妹單，每站各建一張，見 cross-site-link.md）
+    # ALL_SITES、INTERNAL_TOOL、FORM 直接當 Q1_station 的值。
+    on_all_sites: |
+      所有站台共用（跨站的基礎建設，例如 APIs 的功能）：station=""，標題不掛站別，寫成 [GFF]<主題>。
+    on_internal_tool: |
+      再用 stage_b_internal_tool 選是哪個內部工具；選到的值就是 station，標題寫成 [GFF][<工具>]<主題>。
+      內部工具的單不做主題格式檢查（見 title-format.md）。
+    on_form: |
+      Source = 新版後台回報 Google 表單：標題不掛站別（表單是全站共用的）。
+      Skill MUST 問這筆回報在表單上的實際項次，標題尾端寫 " - <項次>"；
+      項次要對回表單上的數字，不可憑口述套用。
+    # Stage B（特定站台）：複選。AskUserQuestion 一次最多 4 個選項，第 4 個用來展開下一頁
+    stage_b_sites:
+      header: "站台"
+      prompt: "哪些站台？（選 2 個以上會各開一張姐妹單）"
+      multiSelect: true
+      options:
+        - { value: TTN,       label: TTN }
+        - { value: TPower,    label: TPower }
+        - { value: VWorld,    label: VWorld }
+        - { value: OTHER_4,   label: "其他站台（再列 4 個）" }
+      stage_b_overflow:
+        multiSelect: true
+        options:
+          - { value: ME77,      label: ME77 }
+          - { value: Yes2win,   label: Yes2win }
+          - { value: Alfawin77, label: Alfawin77 }
+          - { value: Wintoto,   label: Wintoto }
+        # VWSG、VWMY、VW2 等其餘白名單站名：用自填選項
+      # 勾了 OTHER_4 時，第二頁選到的站台與第一頁的合併成同一份清單
+    stage_b_internal_tool:
+      header: "內部工具"
+      options:
+        - { value: Olympus, label: Olympus }
+        - { value: GM,      label: "GM（GFF-Marketplace，Claude Code 的 skill 市集）" }
+    on_multi: |
+      Skill MUST repeat the entire create flow once per selected site.
+      After all parents created, MUST execute reference/cross-site-link.md
+      to POST `relates_to` issue links between all sister parents.
+
+  - id: Q2_category
+    order: 2
+    field: category
+    required: true
+    prompt: "屬於哪一類？"
+    ask_strategy: single
+    header: "分類"
+    options:
+      - { value: A,  label: "金流商",                     schema: A-payment }
+      - { value: B,  label: "遊戲商",                     schema: B-game-vendor }
+      - { value: Bp, label: "簡訊、OTP 驗證碼、WhatsApp",  schema: Bp-sms-otp }
+      - { value: C,  label: "功能優化或修復",             schema: C-feature }
+    # Stage 2 overflow (D is rare, present only if user rejects A-C)
+    overflow:
+      - { value: D,  label: "系統維護或跨部門協作",       schema: D-maintenance }
+    branches:
+      B:
+        ask: Q2b_wallet_type
+
+  - id: Q2b_wallet_type
+    field: wallet_type
+    required_when: { category: B }
+    prompt: "遊戲商錢包類型？"
+    ask_strategy: single
+    header: "錢包類型"
+    options:
+      - { value: SW_DIRECT,   label: "單錢包(直對)" }
+      - { value: SW_PLATFORM, label: "單錢包(平台)" }
+      - { value: TW,          label: "轉帳錢包" }
+
+  - id: Q3_priority
+    order: 3
+    field: priority
+    required: true
+    prompt: "優先級？（決定主單掛哪個「0.2」開頭的標籤）"
+    ask_strategy: single
+    header: "優先級"
+    options:
+      - { value: NORMAL,   label: "一般",     label_value: null }
+      - { value: PRIORITY, label: "優先",     label_value: "0.2 優先" }
+      - { value: NO_DELAY, label: "不可延期", label_value: "0.2 不可延期" }
+      - { value: INSERT,   label: "插單",     label_value: "0.2 插單" }
+
+  - id: Q4_subtask
+    order: 4
+    field: subtask_pattern
+    required: true
+    prompt: "要怎麼拆子任務？"
+    ask_strategy: two_stage_by_category
+    # 問使用者時，選項用 display 的 label 與 description 顯示，畫面上不出現代碼；使用者選的代碼才寫進 subtask_pattern
+    display:
+      BACKEND:       { label: "只動後端",                     description: "開發、測試各一張" }
+      FRONTEND:      { label: "只動前端",                     description: "前端、測試各一張" }
+      FULLSTACK:     { label: "前後端都要動",                 description: "開發、前端各一張，前後端的測試各一張，共四張" }
+      PAYMENT:       { label: "接金流商",                     description: "開發、測試各一張" }
+      GAME_VENDOR:   { label: "設定遊戲商",                   description: "開發、測試各一張" }
+      APIS_AGENT:    { label: "同時動 APIs 與 Agent",         description: "兩邊各一張開發、一張測試，共四張" }
+      APIS_AGENT_CS: { label: "同時動 APIs、Agent 與客服",    description: "三邊各一張開發、一張測試，共六張" }
+      BATCH:         { label: "分批進行",                     description: "每一批開發、測試各一張，批號建單前先確認" }
+      PHASED:        { label: "分好幾期的大型改造",           description: "一期一張，沒有測試子任務" }
+      PARENT_ONLY:   { label: "不拆子任務",                   description: "只開主單，之後由 PM 手動拆" }
+      RD_SELF:       { label: "RD 自己做、不需要 QA 驗收",    description: "只開主單並指派給開單的 RD，不建子任務" }
+    # RD_SELF 不在 presets_by_category 裡：只由 rd-ticket-create 的「需要 QA 驗收嗎」選「不需要」時自動帶入，不在本題列出；pm-ticket-create 不會用到
+    # Stage A: present 4 options matching the category (filtered)
+    presets_by_category:
+      A:  [PAYMENT, FULLSTACK, APIS_AGENT, PARENT_ONLY]
+      B:  [GAME_VENDOR, APIS_AGENT, APIS_AGENT_CS, PARENT_ONLY]
+      Bp: [BACKEND, FULLSTACK, APIS_AGENT, PARENT_ONLY]
+      C:  [BACKEND, FRONTEND, FULLSTACK, PARENT_ONLY]
+      D:  [PARENT_ONLY, BACKEND, PHASED, BATCH]
+    valid_values:
+      - BACKEND        # -開發 / -測試
+      - FRONTEND       # -前端 / -測試
+      - FULLSTACK      # -開發 / -前端 / -測試(後端) / -測試(前端)
+      - PAYMENT        # -開發 / -測試 (金流)
+      - GAME_VENDOR    # -開發 / -測試 (遊戲商)
+      - APIS_AGENT     # -APIs開發 / -APIs測試 / -Agent開發 / -Agent測試
+      - APIS_AGENT_CS  # -開發(APIs) / -測試(APIs) / -開發(Agent) / -測試(Agent) / -開發(CS) / -測試(CS)
+      - BATCH          # -開發(批號) / -測試(批號)
+      - PHASED         # 多階段工程案：一期一張、期別全中文、標題不帶 [GFF]（2026-09-02 新增）
+      - PARENT_ONLY    # 不建子任務，之後由 PM 手動拆
+      - RD_SELF        # RD 自己做、不需要 QA 驗收：不建子任務，主單指派給開單的 RD
+
+  - id: Q5_schedule
+    order: 5
+    field: schedule
+    required: false
+    prompt: "開發起訖日？（其餘日期會自動推算）"
+    ask_strategy: single
+    header: "排期"
+    options:
+      - { value: NONE,      label: "暫不設定" }
+      - { value: ASK_DEV_RANGE, label: "輸入開發的開始日與結束日" }
+    # 收到 ASK_DEV_RANGE 之後，再問 Q5b 測試結束日抓哪一種，然後 skill MUST 依 reference/scheduling.md 算出其餘日期：
+    #   測試開始日 = 開發結束日
+    #   測試結束日 = Q5b 的結果
+    #   主單開始日 = 開發開始日
+    #   主單結束日 = 測試結束日的下一個工作日；落在週四~週日則順延到下週一以後的第一個工作日（只套用主單結束日）
+    #   「下一個工作日」用工單小工具 next_workday 查，國定假日與連假都會跳過
+    # 結果與依據 MUST 印在預覽的「排期」區塊。使用者能改的只有開發起訖與 Q5b 的選擇，
+    # 改了就照算法重算其餘日期；主單日期一律照算法，不接受直接改成別的日子。
+    # PHASED：不套本算法，各期與主單的起訖由使用者指定（見 scheduling.md）。
+    # RD_SELF：本題問的開發起訖日直接當主單起訖日，不取下一個工作日、不順延（見 scheduling.md）。
+    # PARENT_ONLY：本題改問主單的起訖日（prompt 換成「主單起訖日？」），結束日照樣套順延規則。
+    # NONE：主單與全部子任務都不設日期，預覽標「⚠ 無排期」。
+    on_answer: |
+      Skill MUST load reference/scheduling.md and derive the remaining dates
+      instead of copying a single due_date onto every work item.
+
+  - id: Q5b_test_due
+    field: test_due_rule
+    required_when: { Q5_schedule: ASK_DEV_RANGE, Q4_subtask_not: [PARENT_ONLY, PHASED, RD_SELF] }
+    prompt: "測試子任務的結束日抓哪一種？"
+    ask_strategy: single
+    header: "測試結束"
+    options:
+      - { value: SAME_DAY, label: "當天（預設，需求規模一般）" }
+      - { value: NEXT_DAY, label: "下一個工作日（需求較大）" }
+      - { value: PM_SET,   label: "自己指定（大系統類，由 PM 評估）" }
+    # 使用者只說「測試某日開始跟結束」時，照字面設同一天，不再追問本題。
+
+  - id: Q6_milestone
+    order: 6
+    field: milestone
+    required: true
+    prompt: "主單要掛哪個里程碑？（子任務不掛）"
+    ask_strategy: single
+    header: "里程碑"
+    options:
+      - { value: TTN,      label: "TTN項目（TTN 的需求）",                title: "TTN項目" }
+      - { value: NEW_AGENT, label: "新代理後台（新後台的修正與優化）",   title: "新代理後台" }
+      - { value: NONE,     label: "不掛" }
+    # preflight 推斷得出來時，把推斷的那一項放第一個並標推薦，仍要使用者點選確認。
+    on_answer: |
+      Skill MUST resolve the milestone's global id by title at runtime
+      (list_milestones on the parent project, title=<title>), and pass that id
+      as create_work_item.milestone_id. Never pass the milestone iid shown in the URL.
+
+  - id: Q7_parent_assignee
+    order: 7
+    field: parent_assignee
+    required_when: { mode: 補拆子任務模式 }
+    # 只在補拆子任務模式問。建新單時不問本題：主單負責人由開單身分決定（見 subtask-patterns.md 的「指派規則與名單」）。
+    # 使用者已在訊息裡指明主單要給誰（例如「這張母單應該指派給 leah」）就不問，直接採用。
+    prompt: "主單的負責人要不要改？"
+    ask_strategy: single
+    header: "主單負責人"
+    options:
+      - { value: KEEP,     label: "不改（預設）" }
+      - { value: REASSIGN, label: "改派給別人" }
+    on_answer: |
+      REASSIGN 時再用 AskUserQuestion 列名單檔的成員讓使用者點選（名單外的人用自填），
+      帳號要先用 list_project_members（主單專案，帶 include_inheritance=true）確認存在並取回數字 id，
+      預覽的「主單要改的」列出負責人改前改後，寫入時用 update_issue 的 assignee_ids。
+
+# Validation rules applied after all answers collected
+validation:
+  - rule: cross_site_subtask_pattern
+    condition: { Q1_station: MULTI, Q4_subtask: APIS_AGENT_CS }
+    action: warn
+    message: |
+      多站姐妹單搭配「同時動 APIs、Agent 與客服」的拆法很少見，每站都會各開六張子任務。
+      請確認每一站都真的要改這三個 repo；某一站只改其中幾個時，那一站只開那幾個 repo 的開發、測試子任務。
+      確定要這樣建嗎？
+
+  - rule: parent_only_with_priority
+    condition: { Q4_subtask: PARENT_ONLY, Q3_priority: INSERT }
+    action: warn
+    message: |
+      插單通常要馬上指派開發和測試人員；不拆子任務的話，就追蹤不到誰負責。
+      確定只開主單、不拆子任務嗎？
+
+# After validation passes, skill loads description-schema/<schema_value>.md
+# (Phase 2 content collection). See the "Phase 2：填工單內文" section of SKILL.md for the contract.

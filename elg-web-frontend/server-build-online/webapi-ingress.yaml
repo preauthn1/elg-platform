@@ -1,0 +1,56 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: frontend-web-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "www-static-ip"    
+spec:
+  tls:
+    - secretName: everluckgames-ingress
+    - secretName: xsgcasino-ingress
+    - secretName: vworld88-ingress
+    - secretName: www-vworld88-ingress
+    - secretName: www-amazingexpo-net-ingress
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port  
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: frontend-web-service
+          servicePort: nginx-port

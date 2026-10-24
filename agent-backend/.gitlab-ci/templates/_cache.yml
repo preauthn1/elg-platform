@@ -1,0 +1,28 @@
+# pnpm store 快取，key 綁 pnpm-lock.yaml（lockfile 不變即命中）。
+# 各 job 內須先 `pnpm config set store-dir .pnpm-store` 讓 store 落在可被快取的工作目錄下。
+#
+# Runner 不比對快取內容：policy 預設 pull-push 會在每支 job 結束時把 .pnpm-store（6 萬多個檔）重新 zip
+# 上傳到同一個 key，實測佔 lint:code 274 秒中的 113 秒，內容卻與剛下載的一模一樣。故拆成兩個模板：
+#   .pnpm_cache       只下載（policy: pull），給所有只讀依賴的 job
+#   .pnpm_cache_push  下載＋上傳，只給 cache:warm 在 pnpm-lock.yaml 有變更時跑
+# unprotect: true 讓 protected 分支（main / develop）與 feature 分支共用同一份 key，feature 不必各自暖一次。
+# 快取沒命中時 pnpm install 會直接向 registry 下載，只是慢、不會錯。
+.pnpm_cache:
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+    policy: pull
+    unprotect: true
+
+.pnpm_cache_push:
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store
+    policy: pull-push
+    unprotect: true

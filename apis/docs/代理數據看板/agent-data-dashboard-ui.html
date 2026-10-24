@@ -1,0 +1,1188 @@
+<title>代理數據看板</title>
+<style>
+/* ============================================================
+   Tokens 與元件尺寸皆量自 example.invalid 登入後的實際頁面
+   （Vben Admin 5.7 + Element Plus，對照 統計報表查詢 > 數據分析 / SR99）
+   ============================================================ */
+.app[data-theme="dark"] {
+  --background: 222.34deg 10.43% 12.27%;
+  --background-deep: 220deg 13.06% 9%;
+  --foreground: 0 0% 95%;
+  --card: 222.34deg 10.43% 12.27%;
+  --muted-foreground: 220 5% 65%;
+  --primary: 212 100% 45%;          /* 面積色：按鈕底、選單選中底 */
+  --primary-text: 212 83% 62%;      /* 文字色：深底上的連結/標記，取 EP 的 primary-dark-2 */
+  --primary-foreground: 0 0% 98%;
+  --accent: 216 5% 19%;
+  --accent-hover: 216 5% 24%;
+  --border: 240 3.7% 22%;
+  --input-bg: 0deg 0% 100% / 5%;
+  --input-border: 0deg 0% 100% / 10%;
+  --placeholder: 218deg 11% 65%;
+  --th-color: 220 5% 65%;
+  --th-bg: 222.34deg 10.43% 12.27%;
+  --row-hover: 216 5% 17%;
+  --success: 144 57% 58%;
+  --warning: 42 84% 61%;
+  --destructive: 348 100% 61%;
+  --body-bg: #14161a;
+  color-scheme: dark;
+}
+.app[data-theme="light"] {
+  --background: 0 0% 100%;
+  --background-deep: 216 20.11% 95.47%;
+  --foreground: 210 6% 21%;
+  --card: 0 0% 100%;
+  --muted-foreground: 240 4% 40%;
+  --primary: 212 100% 45%;
+  --primary-text: 212 100% 36%;
+  --primary-foreground: 0 0% 98%;
+  --accent: 240 5% 96%;
+  --accent-hover: 200deg 10% 90%;
+  --border: 240 5.9% 90%;
+  --input-bg: 0 0% 100%;
+  --input-border: 240deg 5.88% 90%;
+  --placeholder: 217 10.6% 65%;
+  --th-color: 240 4% 40%;
+  --th-bg: 240 4.8% 96.5%;
+  --row-hover: 216 20% 97%;
+  --success: 145 45% 28%;
+  --warning: 40 60% 28%;
+  --destructive: 348 78% 43%;
+  --body-bg: #f1f3f6;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: #14161a;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  -webkit-font-smoothing: antialiased;
+}
+.app {
+  display: flex; min-height: 100vh;
+  background: hsl(var(--background-deep));
+  color: hsl(var(--foreground));
+  font-size: 14px; line-height: 1.5;
+}
+:focus-visible { outline: 2px solid hsl(var(--primary)); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+
+/* ---------- Sidebar：224px、is-rounded、扁平長清單 ---------- */
+.sidebar {
+  width: 224px; flex: 0 0 224px;
+  background: hsl(var(--background));
+  border-right: 1px solid hsl(var(--border));
+  position: sticky; top: 0; height: 100vh;
+  display: flex; flex-direction: column;
+}
+.logo { height: 50px; flex: 0 0 50px; display: flex; align-items: center; gap: 8px;
+  padding: 0 14px; border-bottom: 1px solid hsl(var(--border)); }
+.logo-mark { width: 26px; height: 26px; border-radius: 6px; color: #fff;
+  background: linear-gradient(145deg, hsl(var(--primary)), hsl(212 100% 32%));
+  display: grid; place-items: center; font-size: 13px; font-weight: 700; }
+.logo-text { font-size: 15px; font-weight: 600; }
+.menu { flex: 1; overflow-y: auto; padding: 6px 8px 20px; }
+.menu::-webkit-scrollbar { width: 6px; }
+.menu::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+.menu-item {
+  display: flex; align-items: center; gap: 8px; height: 34px; padding: 0 10px;
+  margin-bottom: 2px; border-radius: 6px; font-size: 14px; cursor: pointer;
+  color: hsl(var(--foreground)); transition: background .18s;
+}
+.menu-item:hover { background: hsl(var(--accent)); }
+.menu-item.is-active { background: hsl(var(--primary)); color: hsl(var(--primary-foreground)); }
+.menu-item .caret { margin-left: auto; font-size: 11px; opacity: .55; }
+.menu-item .bullet { width: 4px; height: 4px; border-radius: 50%;
+  background: currentColor; opacity: .45; flex: 0 0 4px; }
+.menu-sub { padding-left: 12px; }
+.menu-sub .menu-item { height: 32px; font-size: 13px; }
+.menu-item.is-new { position: relative; }
+.menu-item.is-new::after {
+  content: "新"; margin-left: auto; font-size: 10px; padding: 0 5px;
+  border-radius: 8px; background: hsl(var(--destructive)); color: #fff;
+}
+.menu-item.is-active.is-new::after { background: rgba(255,255,255,.25); }
+
+/* ---------- Header 50px + 跑馬燈 ---------- */
+.main { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+.header {
+  height: 50px; flex: 0 0 50px; background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border));
+  display: flex; align-items: center; gap: 6px; padding: 0 12px;
+}
+.header .me { width: 30px; height: 30px; border-radius: 6px; object-fit: cover;
+  background: linear-gradient(140deg, #7c5cff, #ff7ab6); }
+.icon-btn { width: 32px; height: 32px; border-radius: 6px; border: 0; background: transparent;
+  color: hsl(var(--foreground)); display: grid; place-items: center; cursor: pointer;
+  position: relative; transition: background .18s; }
+.icon-btn:hover { background: hsl(var(--accent)); }
+.icon-btn svg { width: 17px; height: 17px; }
+.header-right { margin-left: auto; display: flex; align-items: center; gap: 4px; }
+.tz { display: flex; align-items: center; gap: 5px; font-size: 13px;
+  color: hsl(var(--muted-foreground)); padding: 0 6px; }
+.tz svg { width: 15px; height: 15px; }
+.badge-dot { position: absolute; top: 1px; right: 0; min-width: 17px; height: 15px;
+  padding: 0 4px; border-radius: 8px; background: hsl(348 85% 42%); color: #fff;
+  font-size: 10px; line-height: 15px; text-align: center; }
+.username { font-size: 14px; padding: 0 6px; }
+.marquee { height: 26px; flex: 0 0 26px; display: flex; align-items: center;
+  justify-content: flex-end; padding: 0 16px; font-size: 13px;
+  color: hsl(var(--muted-foreground)); background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border)); }
+
+/* ---------- Tab bar：chrome 樣式 ---------- */
+.tabbar { height: 38px; flex: 0 0 38px; background: hsl(var(--background));
+  border-bottom: 1px solid hsl(var(--border)); display: flex; align-items: flex-end;
+  gap: 2px; padding: 0 10px; }
+.tab { display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px;
+  font-size: 13px; white-space: nowrap; cursor: pointer;
+  color: hsl(var(--muted-foreground)); border-radius: 8px 8px 0 0; }
+.tab:hover { background: hsl(var(--accent)); }
+.tab.is-active { background: hsl(var(--background-deep)); color: hsl(var(--foreground));
+  box-shadow: inset 0 1px 0 hsl(var(--border)), inset 1px 0 0 hsl(var(--border)),
+              inset -1px 0 0 hsl(var(--border)); }
+.tab svg { width: 14px; height: 14px; }
+.tab .x { opacity: .55; font-size: 15px; line-height: 1; }
+.tabbar .grid-btn { margin-left: auto; align-self: center; }
+
+/* ---------- Content ---------- */
+.content { padding: 16px 20px 28px; display: flex; flex-direction: column; gap: 16px; }
+.page-title { font-size: 18px; font-weight: 600; margin: 0 0 -4px; }
+.page-title .crumb-sep { color: hsl(var(--muted-foreground)); font-weight: 400; margin: 0 6px; }
+
+/* el-card */
+.el-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border));
+  border-radius: 8px; overflow: hidden; }
+.el-card__header { padding: 18px 20px; border-bottom: 1px solid hsl(var(--border));
+  font-size: 16px; display: flex; align-items: center; gap: 10px; }
+.el-card__header .hint { font-size: 13px; color: hsl(var(--muted-foreground)); }
+.el-card__header .spacer { margin-left: auto; }
+.el-card__body { padding: 20px; }
+
+/* el-form：label 在左 */
+.form-grid { display: grid; gap: 16px 28px;
+  grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); align-items: center; }
+.form-item { display: flex; align-items: center; min-width: 0; }
+.form-item > .el-form-item__label { flex: 0 0 96px; padding-right: 12px; font-size: 14px;
+  line-height: 32px; color: hsl(var(--foreground)); }
+.form-item > .ctrl-wrap { flex: 1; min-width: 0; display: flex; align-items: center; gap: 8px; }
+.el-input, .el-select {
+  height: 32px; width: 100%; padding: 0 11px; font-size: 14px; font-family: inherit;
+  border-radius: 8px; color: hsl(var(--foreground));
+  background: hsl(var(--input-bg)); border: 1px solid hsl(var(--input-border));
+}
+.el-input::placeholder { color: hsl(var(--placeholder)); }
+.el-select option { background: hsl(var(--card)); color: hsl(var(--foreground)); }
+select.el-select { appearance: none; padding-right: 26px;
+  background-image: linear-gradient(45deg, transparent 50%, hsl(var(--placeholder)) 50%),
+                    linear-gradient(135deg, hsl(var(--placeholder)) 50%, transparent 50%);
+  background-position: right 13px center, right 8px center;
+  background-size: 5px 5px, 5px 5px; background-repeat: no-repeat; }
+.range-sep { color: hsl(var(--muted-foreground)); flex: 0 0 auto; }
+.checkbox { display: flex; align-items: center; gap: 7px; font-size: 14px; cursor: pointer; }
+.checkbox input { width: 14px; height: 14px; accent-color: hsl(var(--primary)); }
+
+/* el-button--small group（今日 / 昨日 …） */
+.btn-group { display: inline-flex; }
+.btn-sm {
+  height: 24px; padding: 0 11px; font-size: 12px; font-weight: 500; font-family: inherit;
+  border: 1px solid hsl(var(--input-border)); background: hsl(var(--card));
+  color: hsl(var(--foreground)); cursor: pointer; margin-left: -1px; transition: all .15s;
+}
+.btn-group .btn-sm:first-child { border-radius: 7px 0 0 7px; margin-left: 0; }
+.btn-group .btn-sm:last-child { border-radius: 0 7px 7px 0; }
+.btn-sm:hover { color: hsl(var(--primary-text)); border-color: hsl(var(--primary) / .6); z-index: 1; }
+.btn-sm[aria-pressed="true"] { background: hsl(var(--primary)); color: #fff;
+  border-color: hsl(var(--primary)); z-index: 2; }
+.el-button { height: 32px; padding: 8px 15px; border-radius: 8px; font-size: 14px;
+  font-weight: 500; font-family: inherit; cursor: pointer; line-height: 1;
+  border: 1px solid transparent; transition: filter .15s, background .15s; }
+.el-button--primary { background: hsl(var(--primary)); border-color: hsl(var(--primary));
+  color: #fff; }
+.el-button--primary:hover { filter: brightness(1.12); }
+.el-button--default { background: hsl(var(--card)); border-color: hsl(var(--input-border));
+  color: hsl(var(--foreground)); }
+.el-button--default:hover { color: hsl(var(--primary-text)); border-color: hsl(var(--primary) / .6); }
+.form-actions { display: flex; justify-content: flex-end; gap: 8px; margin-top: 18px; }
+
+/* ---------- 指標卡 ---------- */
+.group-head { display: flex; align-items: center; gap: 10px; }
+.group-head .n { display: inline-grid; place-items: center; width: 20px; height: 20px;
+  border-radius: 4px; background: hsl(var(--primary) / .15); color: hsl(var(--primary-text));
+  font-size: 11px; font-weight: 700; }
+.tiles { display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(206px, 1fr)); }
+.tile { text-align: left; font-family: inherit; cursor: pointer;
+  color: hsl(var(--foreground));
+  background: hsl(var(--background-deep)); border: 1px solid hsl(var(--border));
+  border-radius: 8px; padding: 12px 14px; display: flex; flex-direction: column; gap: 5px;
+  transition: border-color .18s, transform .18s; }
+.tile:hover { border-color: hsl(var(--primary)); transform: translateY(-1px); }
+.tile .k { font-size: 12px; font-weight: 600; color: hsl(var(--th-color));
+  display: flex; align-items: center; gap: 5px; }
+.tile .k .info { width: 13px; height: 13px; border-radius: 50%; font-size: 9px;
+  display: grid; place-items: center; border: 1px solid currentColor; opacity: .6; }
+/* 不在此設 color：讓 .tile 的顏色「繼承」下來，
+   繼承值輸給任何直接命中的規則，.v-good / .v-cost / .v-out 才蓋得過去 */
+.tile .v { font-size: 21px; font-weight: 600; letter-spacing: -.01em;
+  font-variant-numeric: tabular-nums; }
+.tile .v .unit { font-size: 13px; font-weight: 400; margin-left: 2px;
+  color: inherit; opacity: .65; }
+.tile .f { font-size: 12px; color: hsl(var(--muted-foreground)); display: none;
+  border-top: 1px dashed hsl(var(--border)); padding-top: 6px; }
+.app.show-formula .tile .f { display: block; }
+.ngr-opts { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px;
+  font-size: 13px; color: hsl(var(--muted-foreground)); }
+.ngr-opts .checkbox { font-size: 13px; color: hsl(var(--foreground)); }
+.tile.is-off { border-style: dashed; }
+.tile .off-tag { display: none; margin-left: auto; font-size: 10px; padding: 0 6px;
+  border-radius: 8px; border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground)); white-space: nowrap; }
+.tile.is-off .off-tag { display: inline-block; }
+.v-good { color: hsl(var(--success)); }
+.v-cost { color: hsl(var(--warning)); }
+.v-out { color: hsl(var(--destructive)); }
+
+/* ---------- 留存矩陣 ---------- */
+.matrix { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.matrix th, .matrix td { border: 1px solid hsl(var(--border)); padding: 8px 12px; }
+.matrix thead th { background: hsl(var(--th-bg)); color: hsl(var(--th-color));
+  font-size: 12px; font-weight: 600; text-align: center; height: 32px; }
+.matrix thead th:first-child { text-align: left; }
+.matrix tbody th { text-align: left; font-size: 13px; font-weight: 600;
+  background: hsl(var(--th-bg)); color: hsl(var(--th-color)); }
+.matrix tbody td { text-align: center; cursor: pointer; color: hsl(var(--foreground)); }
+.matrix tbody td:hover { outline: 2px solid hsl(var(--primary)); outline-offset: -2px; }
+.matrix .pct { font-size: 15px; font-weight: 600; }
+/* 熱區底色會吃掉灰字對比，改用前景色降透明度 */
+.matrix .raw { display: block; margin-top: 2px; font-size: 11px;
+  color: hsl(var(--foreground) / .82); }
+.heat-4 { background: hsl(var(--primary) / .26); }
+.heat-3 { background: hsl(var(--primary) / .18); }
+.heat-2 { background: hsl(var(--primary) / .11); }
+.heat-1 { background: hsl(var(--primary) / .05); }
+
+/* ---------- el-table ---------- */
+.table-wrap { overflow-x: auto; }
+table.el-table { width: 100%; border-collapse: collapse; font-size: 12px;
+  font-variant-numeric: tabular-nums; white-space: nowrap; }
+table.el-table thead th { height: 32px; padding: 4px 12px; font-size: 12px; font-weight: 600;
+  color: hsl(var(--th-color)); background: hsl(var(--th-bg)); text-align: left;
+  border-bottom: 1px solid hsl(var(--border)); }
+table.el-table tbody td, table.el-table tfoot td {
+  color: hsl(var(--foreground)); }
+table.el-table tbody td { padding: 9px 12px; text-align: left;
+  border-bottom: 1px solid hsl(var(--border)); }
+table.el-table tbody tr:hover td { background: hsl(var(--row-hover)); }
+table.el-table .num { text-align: right; }
+table.el-table tfoot td { padding: 10px 12px; font-weight: 600;
+  background: hsl(var(--th-bg)); text-align: left; }
+table.el-table tfoot tr.foot-page td { font-weight: 500;
+  background: hsl(var(--th-bg) / .55); border-top: 1px solid hsl(var(--border)); }
+table.el-table tfoot .sub { font-weight: 400; }
+.tree-cell { display: flex; align-items: flex-start; gap: 6px; }
+.caret-btn { width: 16px; height: 16px; flex: 0 0 16px; margin-top: 1px; padding: 0;
+  border: 0; border-radius: 3px; background: transparent; cursor: pointer;
+  font-family: inherit; font-size: 12px; line-height: 16px; text-align: center;
+  color: hsl(var(--muted-foreground)); }
+.caret-btn:hover { background: hsl(var(--accent)); color: hsl(var(--foreground)); }
+.caret-pad { width: 16px; flex: 0 0 16px; }
+.sub { display: block; color: hsl(var(--muted-foreground)); font-size: 11px; margin-top: 1px; }
+.tag { display: inline-block; padding: 0 7px; border-radius: 4px; font-size: 11px;
+  line-height: 18px; border: 1px solid hsl(var(--primary-text) / .5);
+  color: hsl(var(--primary-text)); background: hsl(var(--primary) / .1); }
+.tag.lv2 { border-color: hsl(var(--success) / .55); color: hsl(var(--success));
+  background: hsl(var(--success) / .1); }
+.tag.lv3 { border-color: hsl(var(--muted-foreground) / .45);
+  color: hsl(var(--muted-foreground)); background: hsl(var(--muted-foreground) / .1); }
+.link { color: hsl(var(--primary-text)); cursor: pointer; }
+
+/* el-pagination */
+.pagination { display: flex; align-items: center; justify-content: flex-end; gap: 8px;
+  padding: 14px 20px; font-size: 13px; color: hsl(var(--muted-foreground)); }
+.pg { min-width: 28px; height: 28px; padding: 0 8px; border-radius: 6px; font-size: 13px;
+  font-family: inherit; cursor: pointer; border: 1px solid hsl(var(--input-border));
+  background: hsl(var(--card)); color: hsl(var(--foreground)); }
+.pg[aria-current="true"] { background: hsl(var(--primary)); border-color: hsl(var(--primary));
+  color: #fff; }
+.goto-input { width: 44px; height: 28px; text-align: center; font-size: 13px;
+  font-family: inherit; border-radius: 6px; color: hsl(var(--foreground));
+  background: hsl(var(--input-bg)); border: 1px solid hsl(var(--input-border)); }
+
+/* ---------- 說明 ---------- */
+.notes ul { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.def-rules { margin: 0; padding-left: 20px; display: grid; gap: 7px; font-size: 13.5px; }
+.def-table { white-space: normal; }
+.def-table td:first-child { font-weight: 600; vertical-align: top; }
+.def-table td:nth-child(2) { white-space: nowrap; }
+.def-table tbody td { line-height: 1.6; }
+.notes code { background: hsl(var(--accent)); padding: 1px 5px; border-radius: 4px;
+  font-size: 12.5px; }
+
+/* ---------- 指標下鑽彈窗（el-dialog） ---------- */
+.el-overlay { position: fixed; inset: 0; z-index: 2000; overflow: auto;
+  background: hsl(0 0% 0% / .5); display: flex; align-items: flex-start;
+  justify-content: center; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.el-overlay.open { opacity: 1; pointer-events: auto; }
+.el-dialog { width: min(1040px, 92vw); margin: 8vh 0 6vh; border-radius: 8px;
+  background: hsl(var(--card)); border: 1px solid hsl(var(--border));
+  box-shadow: 0 12px 32px 4px hsl(0 0% 0% / .28), 0 8px 20px hsl(0 0% 0% / .32);
+  color: hsl(var(--foreground)); display: flex; flex-direction: column;
+  transform: translateY(-14px) scale(.985); transition: transform .22s ease; }
+.el-overlay.open .el-dialog { transform: none; }
+.el-dialog__header { display: flex; align-items: center; padding: 16px 20px;
+  border-bottom: 1px solid hsl(var(--border)); }
+.el-dialog__header h3 { margin: 0; font-size: 16px; font-weight: 600; }
+.el-dialog__body { padding: 20px; display: flex; flex-direction: column; gap: 16px; }
+.el-dialog__footer { display: flex; align-items: center; gap: 8px; padding: 12px 20px;
+  border-top: 1px solid hsl(var(--border)); }
+.el-dialog__footer .spacer { margin-left: auto; }
+.toast { position: fixed; left: 50%; top: 22px; z-index: 2100; padding: 9px 16px;
+  border-radius: 8px; font-size: 13px; background: hsl(var(--card));
+  border: 1px solid hsl(var(--success) / .55); color: hsl(var(--foreground));
+  box-shadow: 0 6px 20px hsl(0 0% 0% / .28); opacity: 0; pointer-events: none;
+  transform: translate(-50%, -12px); transition: opacity .2s, transform .2s; }
+.toast.open { opacity: 1; transform: translate(-50%, 0); }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 12px;
+  background: hsl(var(--accent)); border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground)); }
+.formula-box { font-size: 13px; padding: 10px 12px; border-radius: 6px;
+  background: hsl(var(--background-deep)); border: 1px solid hsl(var(--border)); }
+.formula-box b { color: hsl(var(--primary-text)); }
+
+@media (max-width: 1080px) { .sidebar { display: none; } .content { padding: 12px; } }
+</style>
+
+<div class="app" data-theme="dark" id="app">
+  <!-- ================= Sidebar（實際選單順序） ================= -->
+  <aside class="sidebar">
+    <div class="logo"><span class="logo-mark">B</span><span class="logo-text">Ben TesT1</span></div>
+    <nav class="menu">
+      <div class="menu-item"><span class="bullet"></span>刷新排行榜</div>
+      <div class="menu-item"><span class="bullet"></span>打卡活動</div>
+      <div class="menu-item"><span class="bullet"></span>系統管理</div>
+      <div class="menu-item"><span class="bullet"></span>營運商管理</div>
+      <div class="menu-item"><span class="bullet"></span>下線會員管理</div>
+      <div class="menu-item"><span class="bullet"></span>代理自助開洗分</div>
+      <div class="menu-item"><span class="bullet"></span>風控管理</div>
+      <div class="menu-item"><span class="bullet"></span>VIP功能</div>
+
+      <div class="menu-item"><span class="bullet"></span>統計報表查詢<span class="caret">▾</span></div>
+      <div class="menu-sub">
+        <div class="menu-item">數據分析</div>
+        <div class="menu-item is-active is-new">代理數據看板</div>
+        <div class="menu-item">SR02 開洗分明細表</div>
+        <div class="menu-item">SR12 遊戲投注記錄</div>
+        <div class="menu-item">SR14 現金紀錄表</div>
+        <div class="menu-item">SR99 充提明細表</div>
+      </div>
+
+      <div class="menu-item"><span class="bullet"></span>禮碼</div>
+      <div class="menu-item"><span class="bullet"></span>專屬優惠<span class="caret">▸</span></div>
+      <div class="menu-item"><span class="bullet"></span>代理模式管理<span class="caret">▸</span></div>
+      <div class="menu-item"><span class="bullet"></span>自助上分</div>
+      <div class="menu-item"><span class="bullet"></span>自助洗分</div>
+      <div class="menu-item"><span class="bullet"></span>簡訊管理</div>
+      <div class="menu-item"><span class="bullet"></span>電子郵件管理</div>
+      <div class="menu-item"><span class="bullet"></span>遊戲商管理</div>
+      <div class="menu-item"><span class="bullet"></span>分桶管理</div>
+      <div class="menu-item"><span class="bullet"></span>代理限額</div>
+      <div class="menu-item"><span class="bullet"></span>系統維護</div>
+      <div class="menu-item"><span class="bullet"></span>代理結算報表</div>
+      <div class="menu-item"><span class="bullet"></span>代理簡易結算報表</div>
+      <div class="menu-item"><span class="bullet"></span>報表</div>
+      <div class="menu-item"><span class="bullet"></span>用戶管理</div>
+      <div class="menu-item"><span class="bullet"></span>現金錢包</div>
+      <div class="menu-item"><span class="bullet"></span>股東佔成管理</div>
+      <div class="menu-item"><span class="bullet"></span>貨幣管理</div>
+      <div class="menu-item"><span class="bullet"></span>TG機器人管理</div>
+      <div class="menu-item"><span class="bullet"></span>任務管理</div>
+      <div class="menu-item"><span class="bullet"></span>綁定獎勵</div>
+      <div class="menu-item"><span class="bullet"></span>公司佔成管理</div>
+      <div class="menu-item"><span class="bullet"></span>客服</div>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <!-- ================= Header ================= -->
+    <header class="header">
+      <div class="me"></div>
+      <button class="icon-btn" title="收合選單">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+      <button class="icon-btn" title="搜尋">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      </button>
+      <div class="header-right">
+        <span class="tz">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          GMT+8
+        </span>
+        <button class="icon-btn" title="待辦">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3 6-6"/><rect x="3" y="3" width="18" height="18" rx="3"/></svg>
+          <span class="badge-dot">165</span>
+        </button>
+        <button class="icon-btn" title="通知">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 10-12 0c0 7-3 8-3 8h18s-3-1-3-8M13.7 21a2 2 0 01-3.4 0"/></svg>
+        </button>
+        <button class="icon-btn" id="themeBtn" title="切換主題">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+        </button>
+        <span class="username">leo</span>
+      </div>
+    </header>
+    <div class="marquee">代理後台跑馬</div>
+
+    <!-- ================= Tab bar ================= -->
+    <div class="tabbar">
+      <div class="tab">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l9-8 9 8M5 10v10h14V10"/></svg>
+        首頁
+      </div>
+      <div class="tab is-active">代理數據看板<span class="x">×</span></div>
+      <button class="icon-btn grid-btn" title="標籤操作">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      </button>
+    </div>
+
+    <!-- ================= Content ================= -->
+    <main class="content">
+      <h1 class="page-title">統計報表查詢<span class="crumb-sep">&gt;</span>代理數據看板</h1>
+
+      <!-- 查詢 -->
+      <section class="el-card">
+        <div class="el-card__header">
+          查詢
+          <span class="hint">金額單位：站點主幣別</span>
+          <span class="spacer"></span>
+          <label class="checkbox" style="font-size:13px;color:hsl(var(--muted-foreground))">
+            <input type="checkbox" id="formulaChk"> 顯示算法
+          </label>
+        </div>
+        <div class="el-card__body">
+          <div class="form-grid">
+            <div class="form-item">
+              <span class="el-form-item__label">代理商帳號</span>
+              <span class="ctrl-wrap"><input class="el-input" placeholder="請輸入代理商帳號"></span>
+            </div>
+            <div class="form-item">
+              <span class="el-form-item__label">統計範圍</span>
+              <span class="ctrl-wrap">
+                <select class="el-select">
+                  <option value="line" selected title="含自身與所有下級代理帶來的會員">代理線</option>
+                  <option value="self" title="僅計該代理的直屬會員">代理自身</option>
+                </select>
+              </span>
+            </div>
+            <div class="form-item" style="grid-column:1 / -1">
+              <span class="el-form-item__label">期間</span>
+              <span class="ctrl-wrap">
+                <input class="el-input" style="max-width:200px" value="2026-08-11">
+                <span class="range-sep">-</span>
+                <input class="el-input" style="max-width:200px" value="2026-08-17">
+                <span class="btn-group" id="quickRange" style="margin-left:8px">
+                  <button class="btn-sm" type="button" aria-pressed="false">今日</button>
+                  <button class="btn-sm" type="button" aria-pressed="false">昨日</button>
+                  <button class="btn-sm" type="button" aria-pressed="true">近7天</button>
+                  <button class="btn-sm" type="button" aria-pressed="false">近30天</button>
+                  <button class="btn-sm" type="button" aria-pressed="false">本月</button>
+                  <button class="btn-sm" type="button" aria-pressed="false">上月</button>
+                  <button class="btn-sm" type="button" aria-pressed="false">自訂</button>
+                </span>
+              </span>
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="el-button el-button--default">重置</button>
+            <button class="el-button el-button--default" id="exportPage"
+              title="整頁資料匯出成一份 Excel：查詢條件 / 指標總覽 / 留存矩陣 / 代理明細">匯出 Excel</button>
+            <button class="el-button el-button--primary">查詢</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 1 註冊與首充 -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">1</span>註冊與首充
+          <span class="hint">點擊任一指標可下鑽明細</span></div>
+        <div class="el-card__body">
+          <div class="tiles">
+            <button class="tile" data-metric="註冊人數" data-formula="統計該代理名下成功註冊的用戶人數">
+              <span class="k">註冊人數<span class="info">i</span></span><span class="v">12,486</span>
+              <span class="f">該代理名下成功註冊的用戶人數</span></button>
+            <button class="tile" data-metric="首充人數" data-formula="該代理名下第一次充值成功的用戶人數，同一用戶只算一次">
+              <span class="k">首充人數<span class="info">i</span></span><span class="v">3,142</span>
+              <span class="f">第一次充值成功的用戶數，同一用戶只算一次</span></button>
+            <button class="tile" data-metric="註冊轉首充率" data-formula="首充人數 ÷ 註冊人數 × 100%">
+              <span class="k">註冊轉首充率<span class="info">i</span></span><span class="v">25.16<span class="unit">%</span></span>
+              <span class="f">首充人數 ÷ 註冊人數 × 100%</span></button>
+            <button class="tile" data-metric="首充金額" data-formula="所有用戶第一次充值成功金額的總和">
+              <span class="k">首充金額<span class="info">i</span></span><span class="v">1,884,200</span>
+              <span class="f">所有用戶第一次充值成功金額的總和</span></button>
+            <button class="tile" data-metric="真金投注人數" data-formula="使用真實餘額投注過的用戶人數，同一用戶只算一次">
+              <span class="k">真金投注人數<span class="info">i</span></span><span class="v">4,905</span>
+              <span class="f">使用真實餘額投注過的用戶數，去重</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 複充 -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">2</span>複充</div>
+        <div class="el-card__body">
+          <div class="tiles">
+            <button class="tile" data-metric="複充人數" data-formula="完成首充後，再次充值成功的用戶人數，同一用戶只算一次">
+              <span class="k">複充人數<span class="info">i</span></span><span class="v">1,827</span>
+              <span class="f">首充後再次充值成功的用戶數，去重</span></button>
+            <button class="tile" data-metric="複充率" data-formula="複充人數 ÷ 首充人數 × 100%">
+              <span class="k">複充率<span class="info">i</span></span><span class="v">58.15<span class="unit">%</span></span>
+              <span class="f">複充人數 ÷ 首充人數 × 100%</span></button>
+            <button class="tile" data-metric="複充金額" data-formula="第二次及之後所有成功充值金額總和">
+              <span class="k">複充金額<span class="info">i</span></span><span class="v">6,412,880</span>
+              <span class="f">第二次及之後所有成功充值金額總和</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 資金 -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">3</span>充提</div>
+        <div class="el-card__body">
+          <div class="tiles">
+            <button class="tile" data-metric="總充值人數" data-formula="統計週期內至少成功充值一次的用戶人數，同一用戶只算一次">
+              <span class="k">總充值人數<span class="info">i</span></span><span class="v">4,969</span>
+              <span class="f">週期內至少成功充值一次的用戶數，去重</span></button>
+            <button class="tile" data-metric="總充值金額" data-formula="統計週期內所有成功充值金額總和">
+              <span class="k">總充值金額<span class="info">i</span></span><span class="v">8,297,080</span>
+              <span class="f">週期內所有成功充值金額總和</span></button>
+            <button class="tile" data-metric="總提現人數" data-formula="統計週期內至少成功提現一次的用戶人數，同一用戶只算一次">
+              <span class="k">總提現人數<span class="info">i</span></span><span class="v">2,238</span>
+              <span class="f">週期內至少成功提現一次的用戶數，去重</span></button>
+            <button class="tile" data-metric="總提現金額" data-formula="統計週期內所有成功提現金額總和">
+              <span class="k">總提現金額<span class="info">i</span></span><span class="v v-out">5,910,440</span>
+              <span class="f">週期內所有成功提現金額總和</span></button>
+            <button class="tile" data-metric="人均充值金額" data-formula="總充值金額 ÷ 總充值人數">
+              <span class="k">人均充值金額<span class="info">i</span></span><span class="v">1,669.77</span>
+              <span class="f">總充值金額 ÷ 總充值人數</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 投注與 GGR -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">4</span>投注與 GGR</div>
+        <div class="el-card__body">
+          <div class="tiles">
+            <button class="tile" data-metric="總投注金額" data-formula="統計週期內所有有效真實投注金額總和">
+              <span class="k">總投注金額<span class="info">i</span></span><span class="v">62,340,900</span>
+              <span class="f">週期內所有有效真實投注金額總和</span></button>
+            <button class="tile" data-metric="總派獎金額" data-formula="統計週期內所有有效派獎金額總和">
+              <span class="k">總派獎金額<span class="info">i</span></span><span class="v">57,918,700</span>
+              <span class="f">週期內所有有效派獎金額總和</span></button>
+            <button class="tile" data-metric="GGR" data-formula="總投注金額 − 總派獎金額">
+              <span class="k">GGR（毛遊戲收入）<span class="info">i</span></span><span class="v v-good">4,422,200</span>
+              <span class="f">總投注金額 − 總派獎金額</span></button>
+            <button class="tile" data-metric="人均投注金額" data-formula="總投注金額 ÷ 真金投注人數">
+              <span class="k">人均投注金額<span class="info">i</span></span><span class="v">12,709.66</span>
+              <span class="f">總投注金額 ÷ 真金投注人數</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5 成本與 NGR -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">5</span>成本與 NGR
+          <span class="spacer"></span>
+          <span class="ngr-opts">NGR 計入：
+            <label class="checkbox"><input type="checkbox" data-cost="fee" checked> 支付手續費</label>
+            <label class="checkbox"><input type="checkbox" data-cost="rake" checked> 遊戲商盤費</label>
+            <label class="checkbox"><input type="checkbox" data-cost="sms" checked> 簡訊費</label>
+          </span>
+        </div>
+        <div class="el-card__body">
+          <div class="tiles">
+            <button class="tile" data-metric="活動成本" data-formula="發給該代理用戶的活動彩金總額">
+              <span class="k">活動成本<span class="info">i</span></span><span class="v v-cost">486,300</span>
+              <span class="f">發給該代理用戶的活動彩金總額</span></button>
+            <button class="tile" data-metric="返水成本" data-formula="發給該代理用戶的返水總額">
+              <span class="k">返水成本<span class="info">i</span></span><span class="v v-cost">312,750</span>
+              <span class="f">發給該代理用戶的返水總額</span></button>
+            <button class="tile" data-metric="VIP成本" data-formula="發給該代理用戶的 VIP 獎勵總額">
+              <span class="k">VIP 成本<span class="info">i</span></span><span class="v v-cost">128,400</span>
+              <span class="f">發給該代理用戶的 VIP 獎勵總額</span></button>
+            <button class="tile" data-cost="fee" data-metric="支付手續費" data-formula="該代理用戶的充值 / 提現交易所產生的金流商手續費總額">
+              <span class="k">支付手續費<span class="info">i</span><span class="off-tag">未計入 NGR</span></span><span class="v v-cost">165,940</span>
+              <span class="f">充值 / 提現交易的金流商手續費總額</span></button>
+            <button class="tile" data-cost="rake" data-metric="遊戲商盤費" data-formula="該代理用戶投注所產生、需支付給遊戲商的盤費總額">
+              <span class="k">遊戲商盤費<span class="info">i</span><span class="off-tag">未計入 NGR</span></span><span class="v v-cost">623,409</span>
+              <span class="f">投注所產生、需支付給遊戲商的盤費總額</span></button>
+            <button class="tile" data-cost="sms" data-metric="簡訊費" data-formula="發送給該代理用戶的簡訊費用總額">
+              <span class="k">簡訊費<span class="info">i</span><span class="off-tag">未計入 NGR</span></span><span class="v v-cost">18,600</span>
+              <span class="f">發送給該代理用戶的簡訊費用總額</span></button>
+            <button class="tile" id="ngrTile" data-metric="NGR" data-formula="GGR − 活動成本 − 返水成本 − VIP成本 − 支付手續費 − 遊戲商盤費 − 簡訊費">
+              <span class="k">NGR（淨遊戲收入）<span class="info">i</span></span><span class="v v-good" id="ngrVal">2,686,801</span>
+              <span class="f" id="ngrFormula">GGR − 活動 − 返水 − VIP − 支付手續費 − 遊戲商盤費 − 簡訊費</span></button>
+            <button class="tile" data-metric="代理貢獻佔比" data-formula="該代理 NGR ÷ 同一日期範圍的全平台 NGR × 100%">
+              <span class="k">代理貢獻佔比<span class="info">i</span></span><span class="v"><span id="shareVal">12.84</span><span class="unit">%</span></span>
+              <span class="f">該代理 NGR ÷ 同一日期範圍的全平台 NGR × 100%</span></button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6 留存 -->
+      <section class="el-card">
+        <div class="el-card__header group-head"><span class="n">6</span>留存矩陣
+          <span class="hint">依「註冊日期」圈定用戶批次，再判斷 D1 / D7 / D30 行為</span></div>
+        <div class="el-card__body">
+          <div class="table-wrap">
+            <table class="matrix">
+              <thead><tr><th style="width:150px">行為 \ 週期</th><th>D1</th><th>D7</th><th>D30</th></tr></thead>
+              <tbody>
+                <tr><th>登入留存</th>
+                  <td class="heat-4" data-metric="D1登入留存率" data-formula="註冊用戶中，隔天仍有登入人數 ÷ 註冊人數 × 100%"><span class="pct">42.31%</span><span class="raw">5,283 / 12,486</span></td>
+                  <td class="heat-3" data-metric="D7登入留存率" data-formula="註冊用戶中，第 7 天仍有登入人數 ÷ 註冊人數 × 100%"><span class="pct">21.08%</span><span class="raw">2,632 / 12,486</span></td>
+                  <td class="heat-2" data-metric="D30登入留存率" data-formula="註冊用戶中，第 30 天仍有登入人數 ÷ 註冊人數 × 100%"><span class="pct">9.76%</span><span class="raw">1,219 / 12,486</span></td></tr>
+                <tr><th>投注留存</th>
+                  <td class="heat-3" data-metric="D1投注留存率" data-formula="註冊用戶中，隔天有真實投注人數 ÷ 註冊人數 × 100%"><span class="pct">28.64%</span><span class="raw">3,576 / 12,486</span></td>
+                  <td class="heat-2" data-metric="D7投注留存率" data-formula="註冊用戶中，第 7 天有真實投注人數 ÷ 註冊人數 × 100%"><span class="pct">13.52%</span><span class="raw">1,688 / 12,486</span></td>
+                  <td class="heat-1" data-metric="D30投注留存率" data-formula="註冊用戶中，第 30 天有真實投注人數 ÷ 註冊人數 × 100%"><span class="pct">5.91%</span><span class="raw">738 / 12,486</span></td></tr>
+                <tr><th>充值留存</th>
+                  <td class="heat-2" data-metric="D1充值留存率" data-formula="註冊用戶中，隔天再次成功充值人數 ÷ 註冊人數 × 100%"><span class="pct">9.83%</span><span class="raw">1,227 / 12,486</span></td>
+                  <td class="heat-1" data-metric="D7充值留存率" data-formula="註冊用戶中，第 7 天再次成功充值人數 ÷ 註冊人數 × 100%"><span class="pct">4.62%</span><span class="raw">577 / 12,486</span></td>
+                  <td class="heat-1" data-metric="D30充值留存率" data-formula="註冊用戶中，第 30 天再次成功充值人數 ÷ 註冊人數 × 100%"><span class="pct">2.15%</span><span class="raw">268 / 12,486</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 代理明細（樹狀：預設只列第一層，可逐層展開） -->
+      <section class="el-card">
+        <div class="el-card__header">代理明細
+          <span class="hint">預設只列第一層代理，點 ▸ 展開下級</span>
+          <span class="spacer"></span>
+          <span class="hint" id="treeHint"></span>
+        </div>
+        <div class="table-wrap">
+          <table class="el-table">
+            <thead>
+              <tr>
+                <th style="min-width:190px">代理帳號 / 名稱</th><th>上級代理</th><th>層級</th>
+                <th class="num">註冊人數</th><th class="num">首充人數</th><th class="num">轉首充率</th>
+                <th class="num">總充值金額</th><th class="num">總投注金額</th><th class="num">GGR</th>
+                <th class="num">總成本</th><th class="num">NGR</th><th class="num">貢獻佔比</th><th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="agentBody"></tbody>
+            <tfoot>
+              <tr id="agentPageFoot" class="foot-page"></tr>
+              <tr id="agentFoot"></tr>
+            </tfoot>
+          </table>
+        </div>
+        <div class="pagination">
+          <span id="agentCount"></span>
+          <button class="pg">&lsaquo;</button>
+          <button class="pg" aria-current="true">1</button>
+          <button class="pg">&rsaquo;</button>
+          <span>前往</span><input class="goto-input" value="1"><span>頁</span>
+        </div>
+      </section>
+
+      <!-- 指標定義 -->
+      <section class="el-card">
+        <div class="el-card__header">指標定義
+          <span class="hint">共 34 個指標的計算方式</span>
+        </div>
+        <div class="el-card__body" style="display:flex;flex-direction:column;gap:16px">
+          <ul class="def-rules">
+            <li><b>統計範圍</b>：<code>代理自身</code>＝只算該代理的直屬會員；<code>代理線</code>＝該代理自身 ＋ 所有下級代理帶來的會員。</li>
+            <li><b>人數類</b>：同一會員在一次查詢內只計一次；代理線模式須<b>跨代理去重</b>。</li>
+            <li><b>金額類</b>：只計<b>成功、有效</b>狀態的交易或訂單；非主幣別一律<b>換算成站點主幣別</b>後計入。
+              換算匯率取<b>該筆結算當下的匯率</b>（結算時即換算並落庫），查詢只是統計、<b>不以查詢當下匯率重算</b>，
+              因此同一份歷史報表任何時候跑出來的數字都一致。</li>
+            <li><b>留存類</b>：日期範圍用來圈定<b>註冊批次</b>，再往後判斷該批會員在 D1 / D7 / D30 的行為。其餘指標的日期範圍指<b>行為發生日</b>。</li>
+            <li><b>時區</b>：全系統統一 <code>GMT+8</code> 與同一套跨日邊界。</li>
+            <li><b>明細的時間欄一律取「首次」，不取最後一次</b>：
+              人數類同一會員只列一次，時間取該會員在期間內<b>首次</b>符合此指標條件的時間（欄名<code>首次發生時間</code>）；
+              金額類是一筆交易一列，時間即該筆<code>交易時間</code>，同一會員多筆就出現多列；
+              留存類取該會員在 D1 / D7 / D30 <b>當天</b>首次行為的時間（欄名<code>首次回訪時間</code>），未回訪顯示 <code>—</code>；
+              比率類額外帶<code>首次達成時間</code>。代理明細為期間彙總，因此沒有時間欄。</li>
+          </ul>
+
+          <div class="table-wrap">
+            <table class="el-table def-table">
+              <thead><tr><th style="width:110px">分組</th><th style="width:190px">指標</th><th>計算方式</th></tr></thead>
+              <tbody>
+                <tr><td rowspan="5">註冊與首充</td><td>註冊人數</td><td>該代理名下成功註冊的會員人數</td></tr>
+                <tr><td>首充人數</td><td>該代理名下第一次充值成功的會員人數，同一會員只算一次</td></tr>
+                <tr><td>註冊轉首充率</td><td>首充人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>首充金額</td><td>所有會員第一次充值成功金額的總和</td></tr>
+                <tr><td>真金投注人數</td><td>使用真實餘額投注過的會員人數，同一會員只算一次</td></tr>
+
+                <tr><td rowspan="3">複充</td><td>複充人數</td><td>完成首充後、再次充值成功的會員人數，同一會員只算一次</td></tr>
+                <tr><td>複充率</td><td>複充人數 ÷ 首充人數 × 100%</td></tr>
+                <tr><td>複充金額</td><td>第二次及之後所有成功充值金額的總和</td></tr>
+
+                <tr><td rowspan="5">充提</td><td>總充值人數</td><td>期間內至少成功充值一次的會員人數，同一會員只算一次</td></tr>
+                <tr><td>總充值金額</td><td>期間內所有成功充值金額的總和</td></tr>
+                <tr><td>總提現人數</td><td>期間內至少成功提現一次的會員人數，同一會員只算一次</td></tr>
+                <tr><td>總提現金額</td><td>期間內所有成功提現金額的總和</td></tr>
+                <tr><td>人均充值金額</td><td>總充值金額 ÷ <b>總充值人數</b>（＝期間內不重複儲值人數）</td></tr>
+
+                <tr><td rowspan="4">投注與 GGR</td><td>總投注金額</td><td>期間內所有有效真實投注金額的總和</td></tr>
+                <tr><td>總派獎金額</td><td>期間內所有有效派獎金額的總和</td></tr>
+                <tr><td>GGR（毛遊戲收入）</td><td>總投注金額 − 總派獎金額</td></tr>
+                <tr><td>人均投注金額</td><td>總投注金額 ÷ 真金投注人數</td></tr>
+
+                <tr><td rowspan="8">成本與 NGR</td><td>活動成本</td><td>發給該代理會員的活動彩金總額（<b>固定計入</b> NGR）</td></tr>
+                <tr><td>返水成本</td><td>發給該代理會員的返水總額（<b>固定計入</b> NGR）</td></tr>
+                <tr><td>VIP 成本</td><td>發給該代理會員的 VIP 獎勵總額（<b>固定計入</b> NGR）</td></tr>
+                <tr><td>支付手續費</td><td>該代理會員充值 / 提現交易產生的金流商手續費總額（<b>可選計入</b>）</td></tr>
+                <tr><td>遊戲商盤費</td><td>該代理會員投注產生、須支付給遊戲商的盤費總額（<b>可選計入</b>）</td></tr>
+                <tr><td>簡訊費</td><td>發送給該代理會員的簡訊費用總額（<b>可選計入</b>）</td></tr>
+                <tr><td>NGR（淨遊戲收入）</td><td>GGR − 活動成本 − 返水成本 − VIP成本 −〔支付手續費〕−〔遊戲商盤費〕−〔簡訊費〕<br>
+                  〔 〕內三項由看板上的勾選開關決定是否扣除</td></tr>
+                <tr><td>代理貢獻佔比</td><td>該代理 NGR ÷ 全平台 NGR × 100%。分母須套用<b>相同的日期範圍</b>與<b>相同的成本開關組合</b></td></tr>
+
+                <tr><td rowspan="9">留存</td><td>D1 登入留存率</td><td>註冊批次中，隔天仍有登入的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D7 登入留存率</td><td>註冊批次中，第 7 天仍有登入的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D30 登入留存率</td><td>註冊批次中，第 30 天仍有登入的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D1 投注留存率</td><td>註冊批次中，隔天有真實投注的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D7 投注留存率</td><td>註冊批次中，第 7 天有真實投注的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D30 投注留存率</td><td>註冊批次中，第 30 天有真實投注的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D1 充值留存率</td><td>註冊批次中，隔天再次成功充值的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D7 充值留存率</td><td>註冊批次中，第 7 天再次成功充值的人數 ÷ 註冊人數 × 100%</td></tr>
+                <tr><td>D30 充值留存率</td><td>註冊批次中，第 30 天再次成功充值的人數 ÷ 註冊人數 × 100%</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- ================= 指標下鑽彈窗 ================= -->
+  <div class="el-overlay" id="overlay">
+    <div class="el-dialog" role="dialog" aria-modal="true" aria-labelledby="dTitle">
+      <div class="el-dialog__header">
+        <h3 id="dTitle">指標明細</h3>
+        <button class="icon-btn" id="closeDialog" style="margin-left:auto" aria-label="關閉">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"/></svg>
+        </button>
+      </div>
+      <div class="el-dialog__body">
+        <div class="formula-box">算法：<b id="dFormula">—</b></div>
+        <div>
+          <div style="font-size:13px;color:hsl(var(--muted-foreground));margin-bottom:8px">
+            明細頁保留的查詢條件（僅此三項）
+          </div>
+          <div class="chips">
+            <span class="chip">期間：2026-08-11 - 2026-08-17</span>
+            <span class="chip" id="chipAgent">代理商帳號：全部</span>
+            <span class="chip" id="chipScope">統計範圍：代理線</span>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table class="el-table">
+            <thead id="dHead"></thead>
+            <tbody id="dBody"></tbody>
+            <tfoot id="dFoot"></tfoot>
+          </table>
+        </div>
+        <div class="pagination" id="dPager" style="padding:0"></div>
+        <div style="font-size:12px;color:hsl(var(--muted-foreground))" id="dNote"></div>
+      </div>
+      <div class="el-dialog__footer">
+        <span style="font-size:12px;color:hsl(var(--muted-foreground))">每頁 10 筆</span>
+        <span class="spacer"></span>
+        <button class="el-button el-button--default" id="exportXlsx">匯出 Excel</button>
+        <button class="el-button el-button--primary" id="closeDialog2">關閉</button>
+      </div>
+    </div>
+  </div>
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+(function () {
+  var app = document.getElementById('app');
+
+  document.getElementById('themeBtn').addEventListener('click', function () {
+    var next = app.dataset.theme === 'dark' ? 'light' : 'dark';
+    app.dataset.theme = next;
+    document.body.style.background = next === 'dark' ? '#14161a' : '#f1f3f6';
+  });
+
+  document.getElementById('formulaChk').addEventListener('change', function (e) {
+    app.classList.toggle('show-formula', e.target.checked);
+  });
+
+  var quick = document.getElementById('quickRange');
+  quick.addEventListener('click', function (e) {
+    var b = e.target.closest('button');
+    if (!b) return;
+    quick.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', 'false'); });
+    b.setAttribute('aria-pressed', 'true');
+  });
+
+  /* ---- 代理樹：self = 該代理直屬；line = 自身 + 所有下級 ---- */
+  var AGENTS = [
+    { id: 'AG10086', name: '星耀渠道', lv: 1, parent: '—',
+      self: { reg: 4205, fd: 1082, dep: 2810400, bet: 21104300, ggr: 1498100, fixed: 314200, fee: 56219, rake: 211200, sms: 6301 },
+      children: [
+        { id: 'AG10203', name: '南洋聯盟', lv: 2, parent: 'AG10086',
+          self: { reg: 2046, fd: 512, dep: 1318600, bet: 9908400, ggr: 703200, fixed: 147600, fee: 26409, rake: 99213, sms: 2960 },
+          children: [
+            { id: 'AG10427', name: '恆盛推廣', lv: 3, parent: 'AG10203',
+              self: { reg: 908, fd: 224, dep: 656880, bet: 4935900, ggr: 350300, fixed: 73500, fee: 13151, rake: 49405, sms: 1474 },
+              children: [] }
+          ] },
+        { id: 'AG10318', name: '海風工作室', lv: 2, parent: 'AG10086',
+          self: { reg: 1542, fd: 388, dep: 1004300, bet: 7546200, ggr: 535400, fixed: 112400, fee: 20111, rake: 75551, sms: 2254 },
+          children: [] }
+      ] },
+    { id: 'AG10142', name: '雲頂推廣', lv: 1, parent: '—',
+      self: { reg: 3118, fd: 786, dep: 2038900, bet: 15312600, ggr: 1086400, fixed: 228100, fee: 40812, rake: 153323, sms: 4575 },
+      children: [
+        { id: 'AG10554', name: '日月代理', lv: 2, parent: 'AG10142',
+          self: { reg: 667, fd: 150, dep: 468000, bet: 3533500, ggr: 248800, fixed: 51650, fee: 9238, rake: 34717, sms: 1036 },
+          children: [] }
+      ] }
+  ];
+  var KEYS = ['reg', 'fd', 'dep', 'bet', 'ggr', 'fixed', 'fee', 'rake', 'sms'];
+  function lineOf(node) {
+    if (node._line) return node._line;
+    var t = {};
+    KEYS.forEach(function (k) { t[k] = node.self[k]; });
+    node.children.forEach(function (c) {
+      var cl = lineOf(c);
+      KEYS.forEach(function (k) { t[k] += cl[k]; });
+    });
+    node._line = t;
+    return t;
+  }
+  function walkTree(list, fn) { list.forEach(function (n) { fn(n); walkTree(n.children, fn); }); }
+  var GRAND = {};
+  KEYS.forEach(function (k) { GRAND[k] = 0; });
+  walkTree(AGENTS, function (n) { KEYS.forEach(function (k) { GRAND[k] += n.self[k]; }); });
+
+  /* ---- NGR 成本開關：三項可選成本可自由計入 / 排除 ---- */
+  var OPT = ['fee', 'rake', 'sms'];
+  var LABEL = { fee: '支付手續費', rake: '遊戲商盤費', sms: '簡訊費' };
+  /* 全平台同期 NGR（三項成本全計入時），與全平台的三項成本 —
+     開關同時作用於分子與分母，代理貢獻佔比才是同一套算法下的比較 */
+  var PLATFORM_NGR = 20925000;
+  var PLATFORM_COST = { fee: 1292400, rake: 4855200, sms: 144900 };
+  var boxes = {};
+  document.querySelectorAll('.ngr-opts input[data-cost]').forEach(function (b) {
+    boxes[b.dataset.cost] = b;
+    b.addEventListener('change', recalc);
+  });
+  var scopeSel = document.querySelectorAll('.form-item select')[0];
+  scopeSel.addEventListener('change', recalc);
+
+  var expanded = {};
+  var agentBody = document.getElementById('agentBody');
+  var LVTAG = { 1: ['', '一級'], 2: ['lv2', '二級'], 3: ['lv3', '三級'] };
+  var fmt = function (n) { return n.toLocaleString('en-US'); };
+  var pct = function (a, b) { return b ? (a / b * 100).toFixed(2) + '%' : '—'; };
+
+  agentBody.addEventListener('click', function (e) {
+    var t = e.target.closest('.caret-btn');
+    if (t) { expanded[t.dataset.id] = !expanded[t.dataset.id]; recalc(); return; }
+    var l = e.target.closest('.link[data-agent]');
+    if (l) openAgentDetail(l.dataset.agent, l.dataset.name);
+  });
+
+  function recalc() {
+    var on = {};
+    OPT.forEach(function (k) { on[k] = boxes[k].checked; });
+    var mode = scopeSel.value;
+
+    var platform = PLATFORM_NGR;
+    OPT.forEach(function (k) { if (!on[k]) platform += PLATFORM_COST[k]; });
+
+    var costOf = function (v) {
+      var c = v.fixed;
+      OPT.forEach(function (k) { if (on[k]) c += v[k]; });
+      return c;
+    };
+
+    /* 本頁加總：代理線模式下父列已含子列，只能加「父列未同時顯示」的列，否則會重複計算 */
+    var pageSum = { reg: 0, fd: 0, dep: 0, bet: 0, ggr: 0, cost: 0, ngr: 0 };
+    var html = '', shown = 0;
+    (function emit(list, depth) {
+      list.forEach(function (n) {
+        var v = mode === 'line' ? lineOf(n) : n.self;
+        var cost = costOf(v), ngr = v.ggr - cost;
+        if (mode === 'self' || depth === 0) {
+          pageSum.reg += v.reg; pageSum.fd += v.fd; pageSum.dep += v.dep;
+          pageSum.bet += v.bet; pageSum.ggr += v.ggr; pageSum.cost += cost; pageSum.ngr += ngr;
+        }
+        var lv = LVTAG[n.lv];
+        var open = !!expanded[n.id];
+        var caret = n.children.length
+          ? '<button class="caret-btn" data-id="' + n.id + '" aria-expanded="' + open + '" aria-label="展開下級代理">' + (open ? '▾' : '▸') + '</button>'
+          : '<span class="caret-pad"></span>';
+        shown++;
+        html += '<tr>' +
+          '<td><span class="tree-cell" style="padding-left:' + (depth * 18) + 'px">' + caret +
+            '<span>' + n.id + '<span class="sub">' + n.name +
+            (n.children.length ? '　· 下級 ' + n.children.length : '') + '</span></span></span></td>' +
+          '<td>' + n.parent + '</td>' +
+          '<td><span class="tag ' + lv[0] + '">' + lv[1] + '</span></td>' +
+          '<td class="num">' + fmt(v.reg) + '</td>' +
+          '<td class="num">' + fmt(v.fd) + '</td>' +
+          '<td class="num">' + pct(v.fd, v.reg) + '</td>' +
+          '<td class="num">' + fmt(v.dep) + '</td>' +
+          '<td class="num">' + fmt(v.bet) + '</td>' +
+          '<td class="num v-good">' + fmt(v.ggr) + '</td>' +
+          '<td class="num v-cost">' + fmt(cost) + '</td>' +
+          '<td class="num v-good">' + fmt(ngr) + '</td>' +
+          '<td class="num">' + pct(ngr, platform) + '</td>' +
+          '<td><span class="link" data-agent="' + n.id + '" data-name="' + n.name + '">明細</span></td></tr>';
+        if (open) emit(n.children, depth + 1);
+      });
+    })(AGENTS, 0);
+    agentBody.innerHTML = html;
+
+    /* 兩列合計：本頁（當前顯示、已避開重複計算）與全頁（全部代理去重後總計） */
+    var gCost = costOf(GRAND), gNgr = GRAND.ggr - gCost;
+    var footRow = function (label, note, d) {
+      return '<td>' + label + '<span class="sub">' + note + '</span></td><td>—</td><td>—</td>' +
+        '<td class="num">' + fmt(d.reg) + '</td><td class="num">' + fmt(d.fd) + '</td>' +
+        '<td class="num">' + pct(d.fd, d.reg) + '</td>' +
+        '<td class="num">' + fmt(d.dep) + '</td><td class="num">' + fmt(d.bet) + '</td>' +
+        '<td class="num">' + fmt(d.ggr) + '</td><td class="num">' + fmt(d.cost) + '</td>' +
+        '<td class="num">' + fmt(d.ngr) + '</td><td class="num">' + pct(d.ngr, platform) + '</td><td>—</td>';
+    };
+    document.getElementById('agentPageFoot').innerHTML = footRow('本頁加總',
+      mode === 'line' ? '僅加當前頁的最外層代理，避免父子重複計算' : '當前頁所有列相加', pageSum);
+    document.getElementById('agentFoot').innerHTML = footRow('全頁加總',
+      '全部代理、全部頁次，跨代理去重後總計',
+      { reg: GRAND.reg, fd: GRAND.fd, dep: GRAND.dep, bet: GRAND.bet, ggr: GRAND.ggr, cost: gCost, ngr: gNgr });
+
+    document.getElementById('agentCount').textContent = '共 ' + shown + ' 列（第一層 ' + AGENTS.length + ' 個代理）';
+    document.getElementById('treeHint').textContent = mode === 'line'
+      ? '各列＝該代理的「線」（含所有下級），父列已包含子列'
+      : '各列＝該代理的「直屬會員」，父列不含子列';
+
+    document.getElementById('ngrVal').textContent = fmt(gNgr);
+    document.getElementById('shareVal').textContent = (gNgr / platform * 100).toFixed(2);
+
+    var parts = ['活動', '返水', 'VIP'];
+    OPT.forEach(function (k) { if (on[k]) parts.push(LABEL[k]); });
+    var formula = 'GGR − ' + parts.join(' − ');
+    document.getElementById('ngrFormula').textContent = formula;
+    document.getElementById('ngrTile').dataset.formula = formula;
+
+    OPT.forEach(function (k) {
+      var tile = document.querySelector('.tile[data-cost="' + k + '"]');
+      if (tile) tile.classList.toggle('is-off', !on[k]);
+    });
+  }
+
+  /* ---- 指標下鑽彈窗：每頁 10 筆 + 換頁 + 匯出 ---- */
+  var LV = { 1: ['', '一級'], 2: ['lv2', '二級'], 3: ['lv3', '三級'] };
+  var DETAIL = [
+    ['u_882014', 'AG10086', 1, '2026-08-11 09:42', '2026-08-11 10:15', 3200],
+    ['u_882037', 'AG10086', 1, '2026-08-11 11:08', '2026-08-12 20:33', 1500],
+    ['u_882145', 'AG10086', 1, '2026-08-11 13:20', '2026-08-11 14:05', 980],
+    ['u_882308', 'AG10086', 1, '2026-08-11 16:47', '2026-08-13 09:12', 12000],
+    ['u_882540', 'AG10086', 1, '2026-08-11 21:03', '2026-08-12 08:44', 600],
+    ['u_883120', 'AG10142', 1, '2026-08-12 14:26', '2026-08-12 15:02', 800],
+    ['u_883266', 'AG10142', 1, '2026-08-12 15:58', '2026-08-14 11:29', 4500],
+    ['u_883401', 'AG10142', 1, '2026-08-12 18:11', '2026-08-12 19:40', 2750],
+    ['u_883688', 'AG10142', 1, '2026-08-12 22:35', '2026-08-15 10:06', 1200],
+    ['u_884012', 'AG10203', 2, '2026-08-13 07:19', '2026-08-13 08:02', 350],
+    ['u_884556', 'AG10203', 2, '2026-08-13 08:11', '2026-08-14 09:47', 5000],
+    ['u_884703', 'AG10203', 2, '2026-08-13 10:55', '2026-08-13 12:18', 1800],
+    ['u_884961', 'AG10203', 2, '2026-08-13 15:42', '2026-08-16 20:31', 7600],
+    ['u_885188', 'AG10318', 2, '2026-08-14 09:07', '2026-08-14 10:22', 950],
+    ['u_885420', 'AG10318', 2, '2026-08-14 12:33', '2026-08-15 08:59', 3300],
+    ['u_885901', 'AG10318', 2, '2026-08-14 19:55', '2026-08-15 21:30', 2400],
+    ['u_886077', 'AG10318', 2, '2026-08-14 23:12', '2026-08-16 13:47', 15000],
+    ['u_886340', 'AG10427', 3, '2026-08-15 08:26', '2026-08-15 09:14', 420],
+    ['u_886592', 'AG10427', 3, '2026-08-15 11:40', '2026-08-17 10:03', 2100],
+    ['u_886815', 'AG10427', 3, '2026-08-15 17:58', '2026-08-16 09:36', 880],
+    ['u_887103', 'AG10554', 3, '2026-08-16 10:14', '2026-08-16 11:50', 1650],
+    ['u_887459', 'AG10554', 3, '2026-08-16 14:37', '2026-08-17 15:22', 5400],
+    ['u_887702', 'AG10554', 3, '2026-08-17 09:05', '2026-08-17 09:48', 730]
+  ];
+  var PAGE_SIZE = 10;
+  var page = 1;
+  var overlay = document.getElementById('overlay');
+  var dBody = document.getElementById('dBody');
+  var dPager = document.getElementById('dPager');
+  var money = function (n) { return n.toLocaleString('en-US', { minimumFractionDigits: 4, maximumFractionDigits: 4 }); };
+
+  /* 每筆會員記錄補上期間彙總與交易單號，供不同欄位組使用 */
+  var MEMBERS = DETAIL.map(function (r, n) {
+    var dep = r[5];
+    var bet = Math.round(dep * (5 + n % 5) * 1.3);
+    return {
+      id: r[0], agent: r[1], lv: r[2], reg: r[3], act: r[4],
+      amt: dep, dep: dep, bet: bet,
+      ggr: Math.round(bet * (0.05 + (n % 4) * 0.01)),
+      order: 'D' + (20260811 + (n % 7)) + String(100000 + n * 137).slice(-6),
+      hit: n % 3 !== 2,
+      hitAt: n % 3 !== 2 ? r[4] : '—'
+    };
+  });
+  var detailRows = MEMBERS;
+
+  /* 欄位組：key = 欄位名, f = 取值欄, num = 右對齊, kind = 呈現方式 */
+  var COLS = {
+    people: [['用戶帳號', 'id'], ['所屬代理', 'agent'], ['代理層級', 'lv'], ['註冊時間', 'reg'], ['首次發生時間', 'act']],
+    money: [['用戶帳號', 'id'], ['所屬代理', 'agent'], ['代理層級', 'lv'], ['交易時間', 'act'], ['交易單號', 'order'], ['@AMT', 'amt']],
+    rate: [['用戶帳號', 'id'], ['所屬代理', 'agent'], ['代理層級', 'lv'], ['註冊時間', 'reg'], ['是否達成', 'hit'], ['首次達成時間', 'hitAt']],
+    retention: [['用戶帳號', 'id'], ['所屬代理', 'agent'], ['代理層級', 'lv'], ['註冊時間', 'reg'], ['首次回訪時間', 'hitAt'], ['是否留存', 'hit']],
+    agent: [['用戶帳號', 'id'], ['所屬代理', 'agent'], ['代理層級', 'lv'], ['註冊時間', 'reg'], ['總充值金額', 'dep'], ['總投注金額', 'bet'], ['GGR 貢獻', 'ggr']]
+  };
+  var NUMF = { amt: 1, dep: 1, bet: 1, ggr: 1 };
+  var NOTE = {
+    people: '每列＝一位符合條件的會員，同一會員只出現一次。<b>「首次發生時間」＝該會員在期間內首次符合此指標條件的時間</b>；期間內發生多次仍只列一次，時間取首次、不取最後一次。此指標統計人數，因此沒有金額欄。',
+    money: '<b>一筆交易一列，「交易時間」即該筆交易發生時間</b>；同一會員在期間內有多筆就出現多列。金額為單筆金額，單位為站點主幣別，比照現有報表顯示 4 位小數。',
+    rate: '列出<b>分母</b>的完整名單，「是否達成」標記該會員是否計入<b>分子</b>；達成者另帶<b>首次</b>達成時間，未達成顯示「—」。',
+    retention: '以<b>註冊日</b>圈定批次。<b>「首次回訪時間」＝該會員在對應 D 日當天首次發生登入 / 投注 / 充值的時間</b>（D 日是特定一天，不是區間），未回訪顯示「—」。',
+    agent: '每列＝該代理名下一位會員在<b>查詢期間的彙總</b>（總充值 / 總投注 / GGR 貢獻），非單筆交易，因此沒有時間欄。'
+  };
+  var colMode = 'agent', amtLabel = '金額';
+
+  function kindOf(m) {
+    if (/留存率$/.test(m)) return 'retention';
+    if (/率$|佔比$/.test(m)) return 'rate';
+    if (/人數$/.test(m)) return 'people';
+    return 'money';
+  }
+
+  function renderDetail() {
+    var cols = COLS[colMode];
+    document.getElementById('dHead').innerHTML = '<tr>' + cols.map(function (c) {
+      var name = c[0] === '@AMT' ? amtLabel : c[0];
+      return '<th' + (NUMF[c[1]] ? ' class="num"' : '') + '>' + name + '</th>';
+    }).join('') + '</tr>';
+    document.getElementById('dNote').innerHTML = NOTE[colMode];
+
+    var pages = Math.max(1, Math.ceil(detailRows.length / PAGE_SIZE));
+    page = Math.min(Math.max(1, page), pages);
+    var rows = detailRows.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+    dBody.innerHTML = rows.map(function (m) {
+      return '<tr>' + cols.map(function (c) {
+        var k = c[1], v = m[k];
+        if (k === 'lv') { var lv = LV[v]; return '<td><span class="tag ' + lv[0] + '">' + lv[1] + '</span></td>'; }
+        if (k === 'hit') return '<td>' + (v ? '<span class="tag lv2">是</span>' : '<span class="tag lv3">否</span>') + '</td>';
+        if (NUMF[k]) return '<td class="num">' + money(v) + '</td>';
+        return '<td>' + v + '</td>';
+      }).join('') + '</tr>';
+    }).join('');
+
+    /* 金額欄的本頁 / 全頁加總；沒有金額欄的型別（人數 / 比率 / 留存）不顯示 */
+    var moneyCols = cols.filter(function (c) { return NUMF[c[1]]; });
+    var dFoot = document.getElementById('dFoot');
+    if (!moneyCols.length) {
+      dFoot.innerHTML = '';
+    } else {
+      var sum = function (arr, k) { return arr.reduce(function (a, m) { return a + m[k]; }, 0); };
+      var line = function (label, note, arr, cls) {
+        return '<tr' + (cls ? ' class="' + cls + '"' : '') + '><td colspan="' + (cols.length - moneyCols.length) + '">' +
+          label + '<span class="sub">' + note + '</span></td>' +
+          moneyCols.map(function (c) { return '<td class="num">' + money(sum(arr, c[1])) + '</td>'; }).join('') + '</tr>';
+      };
+      dFoot.innerHTML =
+        line('本頁加總', '第 ' + page + ' / ' + pages + ' 頁，' + rows.length + ' 筆', rows, 'foot-page') +
+        line('全頁加總', '符合條件全部 ' + detailRows.length + ' 筆', detailRows, '');
+    }
+
+    var html = '<span>共 ' + detailRows.length + ' 項</span>' +
+      '<button class="pg" data-pg="prev" aria-label="上一頁">&lsaquo;</button>';
+    for (var p = 1; p <= pages; p++) {
+      html += '<button class="pg" data-pg="' + p + '"' + (p === page ? ' aria-current="true"' : '') + '>' + p + '</button>';
+    }
+    html += '<button class="pg" data-pg="next" aria-label="下一頁">&rsaquo;</button>' +
+      '<span>前往</span><input class="goto-input" id="dGoto" value="' + page + '"><span>頁</span>';
+    dPager.innerHTML = html;
+  }
+
+  dPager.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-pg]');
+    if (!b) return;
+    var v = b.dataset.pg;
+    page = v === 'prev' ? page - 1 : v === 'next' ? page + 1 : +v;
+    renderDetail();
+  });
+  dPager.addEventListener('change', function (e) {
+    if (e.target.id !== 'dGoto') return;
+    page = +e.target.value || 1;
+    renderDetail();
+  });
+
+  var toast = document.getElementById('toast');
+  var toastTimer;
+  function showToast(msg) {
+    toast.textContent = msg;
+    toast.classList.add('open');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () { toast.classList.remove('open'); }, 2600);
+  }
+
+  function closeDialog() { overlay.classList.remove('open'); }
+  document.querySelectorAll('[data-metric]').forEach(function (el) {
+    el.addEventListener('click', function () {
+      document.getElementById('dTitle').textContent = el.dataset.metric + ' — 明細';
+      document.getElementById('dFormula').textContent = el.dataset.formula;
+      colMode = kindOf(el.dataset.metric);
+      amtLabel = el.dataset.metric;
+      detailRows = MEMBERS;
+      syncChips('全部');
+      page = 1;
+      renderDetail();
+      overlay.classList.add('open');
+    });
+  });
+  overlay.addEventListener('click', function (e) { if (e.target === overlay) closeDialog(); });
+  document.getElementById('closeDialog').addEventListener('click', closeDialog);
+  document.getElementById('closeDialog2').addEventListener('click', closeDialog);
+  document.getElementById('exportPage').addEventListener('click', function () {
+    showToast('匯出整頁 4 個工作表：查詢條件 / 指標總覽（34 指標）/ 留存矩陣 / 代理明細（示意稿；實際由後端產檔下載）');
+  });
+  document.getElementById('exportXlsx').addEventListener('click', function () {
+    showToast('匯出 ' + detailRows.length + ' 筆為 .xlsx（示意稿；實際由後端產檔下載）');
+  });
+  function syncChips(agentText) {
+    var mode = scopeSel.value;
+    document.getElementById('chipAgent').textContent = '代理商帳號：' + agentText;
+    document.getElementById('chipScope').textContent = '統計範圍：' + (mode === 'line' ? '代理線' : '代理自身');
+  }
+  function findAgent(id) {
+    var hit = null;
+    walkTree(AGENTS, function (n) { if (n.id === id) hit = n; });
+    return hit;
+  }
+  function openAgentDetail(id, name) {
+    var node = findAgent(id);
+    var mode = scopeSel.value;
+    var ids = [id];
+    if (mode === 'line') walkTree(node.children, function (n) { ids.push(n.id); });
+    colMode = 'agent';
+    detailRows = MEMBERS.filter(function (m) { return ids.indexOf(m.agent) >= 0; });
+    document.getElementById('dTitle').textContent =
+      id + '　' + name + ' — 會員明細' + (mode === 'line' ? '（含下級代理）' : '（僅直屬）');
+    document.getElementById('dFormula').textContent = mode === 'line'
+      ? '逐筆列出該代理與其所有下級代理名下的會員'
+      : '逐筆列出該代理直屬的會員（不含下級代理）';
+    syncChips(id);
+    page = 1;
+    renderDetail();
+    overlay.classList.add('open');
+  }
+
+  recalc();
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDialog(); });
+})();
+</script>

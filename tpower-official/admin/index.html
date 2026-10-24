@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>官网内容管理</title>
+<!-- 站方在「全站共用」上传的网站图示；没上传就是后台那张「%SITE_LETTER%」（见 server/index.js 的 /admin/favicon） -->
+<link rel="icon" href="/admin/favicon">
+<link rel="stylesheet" href="./admin.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ========================= SIDEBAR ========================= -->
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">%SITE_LETTER%</div>
+      <div class="name">官网内容管理</div>
+    </div>
+    <nav class="menu" id="menu"></nav>
+  </aside>
+
+  <!-- ========================= MAIN ========================= -->
+  <div class="main">
+    <div class="header">
+      <button class="hbtn" id="collapseBtn" title="收合侧栏">☰</button>
+      <button class="hbtn" id="reloadBtn" title="重新载入目前页面的资料（会舍弃未储存的修改）">↻</button>
+      <div class="spacer"></div>
+      <div class="who"><span class="av" id="avatar">?</span><span id="whoName">…</span>
+        <button class="hbtn" id="logoutBtn" title="登出">⏻</button>
+      </div>
+    </div>
+
+    <div class="content" id="content"></div>
+  </div>
+</div>
+
+<!-- ========================= DIALOG ========================= -->
+<div class="mask" id="mask">
+  <div class="dlg">
+    <div class="dlg-h"><span id="dlgTitle">编辑</span><span class="x" id="dlgClose">✕</span></div>
+    <div class="dlg-b" id="dlgBody"></div>
+    <div class="dlg-f" id="dlgFoot"></div>
+  </div>
+</div>
+
+<div id="imglb">
+  <div class="meta" id="imglbMeta"></div>
+  <img id="imglbImg" alt="素材预览">
+  <div class="close-hint">点任意处或按 Esc 关闭</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<input type="file" id="hiddenFile" accept="image/*" style="display:none">
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>

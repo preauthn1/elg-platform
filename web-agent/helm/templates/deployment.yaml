@@ -1,0 +1,81 @@
+{{- $securityContext := .Values.securityContext }}
+{{- $resources := .Values.resources }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+  labels:
+    {{- include "helm.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "helm.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "helm.selectorLabels" . | nindent 8 }}
+    spec:
+    {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+      serviceAccountName: {{ include "helm.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+        - name: {{ .Release.Name }}
+          configMap:
+            name: {{ .Release.Name }}
+            items:
+              {{- range $key, $val := .Values.configs.data }}
+              - key: {{ $key }}
+                path: {{ $key }}
+              {{- end }}
+      containers:
+        - name: nginx
+          image: nginx:1.16.1
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+            - name: {{ .Release.Name }}
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+          ports:
+            - name: http
+              containerPort: 80
+              protocol: TCP
+        - name: php
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+            - name: {{ .Release.Name }}
+              mountPath: /app/_init.php
+              subPath: _init.php
+              readOnly: true
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html;"]
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+    {{- end }}

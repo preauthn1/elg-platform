@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: ext-webapi-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "external-api-static-ip"    
+spec:
+  tls:
+    - secretName: everluckgames-ingress
+    - secretName: xsgcasino-ingress
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: ext-webapi-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: ext-webapi-service
+          servicePort: nginx-port

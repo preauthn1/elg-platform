@@ -1,0 +1,6 @@
+{
+  "$schema": "https://example.invalid/tsconfig",
+  "extends": "@vben/tsconfig/web.json",
+  "include": ["src", "__tests__"],
+  "exclude": ["node_modules"]
+}

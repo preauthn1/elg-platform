@@ -1,0 +1,51 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "跑全部測試（結果留進歷史報告）",
+      "type": "shell",
+      "command": "npx playwright test",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "focus": false,
+        "panel": "dedicated"
+      },
+      "detail": "跑一輪完整回歸，結束後報告自動存進歷史（最多留 20 次）"
+    },
+    {
+      "label": "開啟測試報告",
+      "type": "shell",
+      "command": "npm run report",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated"
+      },
+      "detail": "開啟上次執行的 Playwright HTML 報告（結束請在終端機按 Ctrl+C）"
+    },
+    {
+      "label": "開啟 UI 模式",
+      "type": "shell",
+      "command": "npm run ui",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "silent",
+        "panel": "dedicated"
+      },
+      "detail": "開啟 Playwright UI 模式，邊挑測試邊跑邊看軌跡"
+    },
+    {
+      "label": "開啟歷史報告",
+      "type": "shell",
+      "command": "npm run report:history",
+      "problemMatcher": [],
+      "presentation": {
+        "reveal": "always",
+        "focus": true,
+        "panel": "dedicated"
+      },
+      "detail": "列出最近 20 次的測試報告，輸入編號開啟（結束請按 Ctrl+C）"
+    }
+  ]
+}

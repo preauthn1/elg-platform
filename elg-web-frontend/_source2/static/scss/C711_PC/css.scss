@@ -1,0 +1,642 @@
+body::-webkit-scrollbar {
+    display: none;
+}
+#C711PC {
+    //背景共用
+    .pageBg {
+        background-image: url(../../../../static/img/C711_PC/BG.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: #2e0d02;
+    }
+    //全部頁面的寬高
+    .CwidthHeight {
+        width: 100%;
+        height: 100%;
+    }
+    .widthHeightvh {
+        width: 100%;
+        height: 100vh;
+    }
+    //Login_header
+    .page {
+        .pageTitle {
+            height: 55px;
+            line-height: 55px;
+            z-index: 100;
+            font-weight: bolder;
+            position: relative;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+        .pageTitleAll {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+        }
+        .loginbarBack {
+            width: 15%;
+            padding: 1px;
+            padding-top: 5px;
+            img {
+                width: 40px;
+                margin-left: 20px;
+            }
+        }
+        .loginbarTitle {
+            width: 50%;
+            padding: 1px;
+            text-align: center;
+            color: #ffd36d;
+            span {
+                font-size: 18px;
+                color: #ffd36d;
+                font-weight: bold;
+            }
+        }
+        .gamePointTransfer {
+            width: 10%;
+            padding: 1px;
+            img {
+                // margin-right: 10px;
+                width: 28px;
+            }
+        }
+        .loginbarright {
+            width: 15%;
+            padding: 1px;
+            .searchPic {
+                margin-right: 10px;
+                width: 20px;
+            }
+            img {
+                margin-right: 10px;
+                width: 35px;
+            }
+            span {
+                color: #fff;
+                font-size: 18px;
+                margin-right: 10px;
+            }
+            .dropdown-item {
+                height: 50px;
+            }
+        }
+        .iconImg {
+            width: 22px;
+        }
+    }
+    .pageCon {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        color: #fff;
+    }
+    .eventsConFont {
+        color: #fff;
+        text-align: left;
+        font-size: 13px;
+        font-weight: bolder;
+        // border: $border;
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+        .eventPr {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+            margin: 10px auto;
+        }
+        .eventPrR {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+            img {
+                // margin-left:20px;
+                width: 25px;
+            }
+        }
+    }
+    //EventDiv
+    .black_EventDiv {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+    .black_Divbg {
+        background: #4a3934; /* Old browsers */
+        background: -moz-linear-gradient(
+            top,
+            #4a3934 1%,
+            #312836 49%,
+            #141418 90%,
+            #141418 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+            top,
+            #4a3934 1%,
+            #312836 49%,
+            #141418 90%,
+            #141418 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+            to bottom,
+            #4a3934 1%,
+            #312836 49%,
+            #141418 90%,
+            #141418 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    .eventsTitle {
+        width: 100%;
+        margin: auto;
+        line-height: 30px;
+        text-align: left;
+        .eventsLogo {
+            width: 12%;
+            img {
+                margin-top: -10px;
+                width: 25px;
+            }
+        }
+        .eventsFont {
+            color: #ffd36d;
+            font-size: 15px;
+            width: 75%;
+            span {
+                color: rgb(126, 124, 124);
+                font-size: 13px;
+            }
+        }
+        .eventTicket {
+            width: 13%;
+
+            img {
+                margin-top: -5px;
+                margin-right: 10px;
+                width: 28px;
+            }
+        }
+    }
+    .eventTime {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 14px;
+        text-align: left;
+        font-weight: normal;
+    }
+    .reddeemTime {
+        width: 100%;
+        margin: auto;
+        color: #fe5f42;
+        font-size: 14px;
+        text-align: left;
+        font-weight: normal;
+    }
+    .remarks {
+        width: 100%;
+        margin: auto;
+        font-size: 14px;
+        text-align: left;
+        font-weight: bolder;
+    }
+    .eventsProgress {
+        width: 100%;
+        margin: 15px auto 8px auto;
+    }
+    .gamer_Btn {
+        width: 100%;
+        margin: auto;
+        // border: $border;
+        display: flex;
+        justify-content: flex-start;
+    }
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+            font-weight: bold;
+        }
+    }
+    .bar_Btn {
+        cursor: pointer;
+    }
+    .eventsPointFont {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+        }
+    }
+    .eventsBtn {
+        width: 100%;
+        margin: 15px auto;
+    }
+    .abreastBtn {
+        width: 46%;
+        margin: auto;
+        text-align: center;
+    }
+    .abreastBtnTwo {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        // border: $border;
+    }
+
+    // event用
+    .yellowcolor {
+        color: #fff;
+        font-weight: bolder;
+        font-size: 15px;
+        border: 1px solid #111217;
+        background: #e6dc97; /* Old browsers */
+        background: -moz-linear-gradient(
+            top,
+            #e6dc97 1%,
+            #d9b23d 39%,
+            #a86100 94%,
+            #a86100 94%,
+            #c5984a 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+            top,
+            #e6dc97 1%,
+            #d9b23d 39%,
+            #a86100 94%,
+            #a86100 94%,
+            #c5984a 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+            to bottom,
+            #e6dc97 1%,
+            #d9b23d 39%,
+            #a86100 94%,
+            #a86100 94%,
+            #c5984a 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    .graycolor {
+        color: gray;
+        font-size: 15px;
+        font-weight: bolder;
+        border: 1px solid #111217;
+        background: #79655f; /* Old browsers */
+        background: -moz-linear-gradient(
+            top,
+            #79655f 1%,
+            #675d6c 39%,
+            #313140 93%,
+            #1a1615 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+            top,
+            #79655f 1%,
+            #675d6c 39%,
+            #313140 93%,
+            #1a1615 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+            to bottom,
+            #79655f 1%,
+            #675d6c 39%,
+            #313140 93%,
+            #1a1615 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    .brown_BtnBg {
+        border: 1px solid #111217;
+        background: #6f411e; /* Old browsers */
+        background: -moz-linear-gradient(
+            top,
+            #6f411e 1%,
+            #844c24 39%,
+            #271407 93%,
+            #0e0804 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+            top,
+            #6f411e 1%,
+            #844c24 39%,
+            #271407 93%,
+            #0e0804 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+            to bottom,
+            #6f411e 1%,
+            #844c24 39%,
+            #271407 93%,
+            #0e0804 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+    //按鈕字體大小顏色
+    .fontsizeBtn {
+        font-size: 15px;
+        color: #fff;
+        font-weight: bolder;
+    }
+    .marginBottom20 {
+        margin-bottom: 10px;
+    }
+    .EventDescriptTitle {
+        color: #ffd36d;
+        font-size: 15px;
+        text-align: left;
+
+        line-height: 30px;
+        .eventPr {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: left;
+        }
+        .eventPrR {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: right;
+            img {
+                margin-top: -5px;
+                margin-left: 20px;
+                width: 25px;
+            }
+        }
+    }
+    .EventDescriptTime {
+        margin: 5px auto;
+        text-align: left;
+    }
+
+    .EventDescriptFont {
+        white-space: pre-wrap;
+        text-align: left;
+        margin: 3px auto;
+        padding-left: 2px;
+    }
+    .EventDescriptProgress {
+        width: 100%;
+        margin: 18px auto 8px auto;
+    }
+    .EventDescriptDate {
+        margin: 2px auto;
+        text-align: left;
+        // padding-left: 5px;
+        span {
+            color: #f8806a;
+        }
+    }
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: left;
+    }
+    .buttonClick {
+        margin-top: 40px;
+    }
+    //輸入框字體大小顏色
+    .fontsizelogin {
+        font-size: 14px;
+        color: #fff;
+    }
+
+    //eventsIframe
+    .iframeHeight {
+        height: 100%;
+        // border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 2px;
+        background: #e6dc97; /* Old browsers */
+        background: -moz-linear-gradient(
+            top,
+            #e6dc97 0%,
+            #e6dc97 50%,
+            #c5984a 100%
+        ); /* FF3.6-15 */
+        background: -webkit-linear-gradient(
+            top,
+            #e6dc97 0%,
+            #e6dc97 50%,
+            #c5984a 100%
+        ); /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(
+            to bottom,
+            #e6dc97 0%,
+            #e6dc97 50%,
+            #c5984a 100%
+        ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .modal {
+        top: 11%;
+    }
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 400px;
+        height: 600px;
+        -webkit-transform: translate3d(-20%, 0, 0);
+        -ms-transform: translate3d(-20%, 0, 0);
+        -o-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+    .closeBtn {
+        position: absolute;
+        top: 31px;
+        right: 15px;
+        z-index: 200;
+        img {
+            width: 51%;
+        }
+    }
+    .modal.right .modal-content {
+        height: 600px;
+        overflow-y: auto;
+        background: none;
+    }
+
+    .modal.right .modal-body {
+        padding: 15px 15px 15px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    /* ----- MODAL STYLE ----- */
+    .modal-content {
+        border-radius: 0;
+        border: none;
+    }
+
+    .modal-header {
+        border-bottom-color: #eeeeee;
+        background-color: #fafafa;
+    }
+    // .talkModal {
+    //     // border: 2px solid red;
+    //     width: 400px;
+    //     height: 600px;
+    //     position: fixed;
+    //     top: 22%;
+    //     right: 4%;
+    //     z-index: 100;
+    // }
+    .iframeChat {
+        height: 100%;
+        // border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 2px;
+        background: #e6dc97; /* Old browsers */
+    }
+    .ScratchCardAll {
+        padding-top: 3px;
+        width: 100%;
+        height: 100vh;
+        margin: auto;
+        position: relative;
+        .scratchCardMask {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            margin: auto;
+            border: 2px solid #fff;
+            z-index: 500;
+            height: 100%;
+            img {
+                margin-top: 35%;
+                width: 340px;
+                height: 340px;
+                // border: 2px solid #fff;
+            }
+        }
+        img {
+            height: 92vh;
+        }
+    }
+    .Lottery {
+        width: 100%;
+        height: 100%;
+    }
+    .Events_bar {
+        width: 100%;
+        height: 44px;
+    }
+    .LotteryAll {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        margin-top: 10px;
+        position: relative;
+        .LotteryBgPic {
+            width: 100%;
+            height: 100vh;
+        }
+        .LotteryTitle {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        .LotteryGo {
+            width: 100%;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            right: 0;
+        }
+    }
+    // RecordList.vue
+    .RecordListCon {
+        margin: 2px auto;
+        width: 100%;
+        thead {
+            color: #fff;
+            font-size: 15px;
+            line-height: 15px;
+            th {
+                vertical-align: middle;
+                border: none;
+            }
+            .number {
+                width: 25%;
+            }
+            .cardnumber {
+                width: 30%;
+            }
+            .date {
+                width: 25%;
+            }
+            .gamer {
+                width: 25%;
+            }
+            .cardgamer {
+                width: 30%;
+            }
+            .point {
+                width: 30%;
+                margin: auto;
+            }
+            .cardpoint {
+                width: 30%;
+            }
+        }
+        tbody {
+            color: #fff;
+            font-size: 13px;
+            th {
+                border: none;
+                vertical-align: middle;
+            }
+            td {
+                border: none;
+                vertical-align: middle;
+            }
+        }
+        .colorR {
+            color: #fe5f00;
+        }
+        .colorG {
+            color: #00c3fe;
+        }
+    }
+    .cursorS {
+        cursor: pointer;
+    }
+    .fontOrange {
+        color: orange;
+    }
+}

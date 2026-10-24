@@ -1,0 +1,70 @@
+<?php
+
+namespace App\Services;
+
+use App\Repositories\Repository;
+
+class Service
+{
+    /**
+     * @var Repository
+     */
+    protected $repository;
+
+    /**
+     * 取得所有集合
+     * @param array $columns
+     * @return \Illuminate\Database\Eloquent\Collection|\Illuminate\Database\Eloquent\Model[]
+     */
+    public function all(array $columns = ['*'])
+    {
+        return $this->repository->all($columns);
+    }
+
+    /**
+     * @param array $columns select 栏位
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function first(array $columns = ['*'])
+    {
+        return $this->repository->first($columns);
+    }
+
+    /**
+     * @param $column string 栏位名称
+     * @param $value string 值
+     * @param array $columns select 栏位
+     * @return \Illuminate\Database\Eloquent\Model
+     */
+    public function firstBy($column, $value, array $columns = ['*'])
+    {
+        return $this->repository->firstBy($column, $value, $columns);
+    }
+
+    /**
+     * @param array $columns select 栏位
+     * @return \Illuminate\Database\Eloquent\Collection
+     */
+    public function get(array $columns = ['*'])
+    {
+        return $this->repository->get($columns);
+    }
+
+    public function getCollectBy($key_id)
+    {
+        return $this->repository->collectBy($key_id);
+    }
+
+    public function getPagination($total, $prePage, $page)
+    {
+        $pagination = array();
+        $pagination['per_page'] = $prePage;
+        $pagination['total'] = $total;
+        $pages = ceil($total / $prePage);
+        $pagination['pages'] = $pages;
+        $pagination['previous'] = ($page != 1 && $total > 0) ? ($page - 1) : '';
+        $pagination['current'] = $page;
+        $pagination['next'] = ($pages > $page) ? ($page + 1) : '';
+        return $pagination;
+    }
+}

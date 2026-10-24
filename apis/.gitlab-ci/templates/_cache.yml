@@ -1,0 +1,24 @@
+.composer_lock_cache:
+  cache: &composer_lock_cache
+    key:
+      files:
+        - composer.lock
+    paths:
+      - /root/.composer/cache
+      - vendor
+
+
+.init_sql_cache:
+  cache: &init_sql_cache
+    key: $MIGRATION_HASH
+    paths:
+      - init.sql
+      - init_log.sql
+      - migration_hash.txt
+
+
+# 定義全局 cache 配置
+.default_cache:
+  cache:
+    - *composer_lock_cache
+    - *init_sql_cache

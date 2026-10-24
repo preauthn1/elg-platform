@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  mysql:
+    restart: always
+    image: mysql:8.0.18
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ./service/mysql/data:/var/lib/mysql
+    environment:
+       MYSQL_ROOT_PASSWORD: [REDACTED]
+       MYSQL_DATABASE: smsdata
+       MYSQL_USER: sa
+       MYSQL_PASSWORD: [REDACTED]
+    networks:
+      - backend
+
+  smsgateway:
+    # restart: always
+    # image: golang:1.13
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+    environment:
+      MYSQL_URL: mysql:3306
+    networks:
+      - backend
+
+networks:
+  backend:

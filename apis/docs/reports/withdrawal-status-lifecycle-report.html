@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代付訂單 status 生命週期報告</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><path d="M12 2 21 7H3z"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16.5v-6"/><path d="m9 13.5 3-3 3 3"/></svg></div><div class="name">Payout&nbsp;Flow</div></div>
+    <div class="menu-label">報告章節</div>
+    <ul class="menu">
+      <li><a href="#states" class="active"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="8" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span> 狀態值總覽</a></li>
+      <li><a href="#lifecycle"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 9"/><path d="M3 21v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 15"/></svg></span> 生命週期狀態機</a></li>
+      <li><a href="#triggers"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> 變更時機明細</a></li>
+      <li><a href="#review"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg></span> 舊後台審核</a></li>
+    </ul>
+    <div class="foot">withdrawal_orders.status<br>· 2026-10-07 ·</div>
+  </aside>
+
+  <div class="content">
+
+    <div class="topbar">
+      <div>
+        <div class="crumb">Reports <b>/</b> Payment <b>/</b> 代付訂單生命週期</div>
+        <h1>代付訂單 status 生命週期</h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg class="ni"><use href="#i-cal"/></svg> 2026-10-07</span>
+        <span class="chip">APIs L13 + API_Agent L5.5</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="stats">
+        <div class="stat"><div class="avatar av-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><div><div class="num">10</div><div class="lbl">列舉狀態值</div></div></div>
+        <div class="stat"><div class="avatar av-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="num">21</div><div class="lbl">追蹤時機（5 不轉態）</div></div></div>
+        <div class="stat"><div class="avatar av-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div><div><div class="num">2</div><div class="lbl">寫入系統來源</div></div></div>
+        <div class="stat"><div class="avatar av-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></div><div><div class="num">3</div><div class="lbl">終態 24 / 2 / 9</div></div></div>
+        <div class="stat"><div class="avatar av-danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><div><div class="num">2</div><div class="lbl">非終態 (4 / 29)</div></div></div>
+      </div>
+
+      <!-- 1 -->
+      <section id="states" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>狀態值總覽（WithdrawalOrderStatusEnum）</h2>
+          <p class="desc">定義於 <code>app/Enums/WithdrawalOrderStatusEnum.php</code>（int backed enum）。代付主流程：<span class="st s21"><span class="n">21</span>提交中</span> → <span class="st s22"><span class="n">22</span>處理中</span> → <span class="st s24"><span class="n">24</span>成功</span> / <span class="st s29"><span class="n">29</span>失敗</span>。<b>2026-08 工單 #4137（代付事務邊界改造）後的三項結構性變更</b>：<span class="cn">①</span><b><span class="st s23"><span class="n">23</span>查證中</span> 已廢除</b>，代付結果未知改為<b>停留 <span class="st s21"><span class="n">21</span></span> 鎖定重送</b>（不再轉 23），線上存量清零後隨收尾 MR 移除；<span class="cn">②</span>同步明確拒絕<b>一律轉 <span class="st s29"><span class="n">29</span></span></b>，不再還原發起前狀態；<span class="cn">③</span><b>29 移出回調放行集合</b>。<b>真終態只有 24 / 2 / 9</b>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th class="center">值</th><th>Enum case</th><th>語意</th><th class="center">終態</th><th>說明</th></tr></thead>
+              <tbody>
+                <tr><td class="center"><span class="st s0">0</span></td><td><code>ORDER_CREATED</code></td><td>訂單建立</td><td class="center"><span class="dash">—</span></td><td><b>目前無任何寫入點</b>——<code>WithdrawalOrder::create</code> 直接寫 1（<code>Frontend/WithdrawalController.php:641</code>，<code>'status' =&gt; 1</code> 於 <code>:656</code>），舊 API_Agent 無建單路徑；僅保留於 enum 與查詢篩選</td></tr>
+                <tr><td class="center"><span class="st s1">1</span></td><td><code>PENDING_REVIEW</code></td><td>待審核</td><td class="center"><span class="dash">—</span></td><td>會員送出提款申請後的預設態</td></tr>
+                <tr><td class="center"><span class="st s2">2</span></td><td><code>FAILED</code></td><td>失敗 / 拒絕</td><td class="center"><span class="tick">✓</span></td><td>審核拒絕，退還金幣</td></tr>
+                <tr><td class="center"><span class="st s3">3</span></td><td><code>APPROVED</code></td><td>通過</td><td class="center"><span class="dash">—</span></td><td>審核通過，可發起代付</td></tr>
+                <tr><td class="center"><span class="st s4">4</span></td><td><code>TRANSFERRED</code></td><td>已轉帳</td><td class="center"><span class="dis">非終態</span></td><td>人工 / 自助洗分轉帳完成；後台可 4→3 退回</td></tr>
+                <tr><td class="center"><span class="st s9">9</span></td><td><code>REFUND</code></td><td>退款</td><td class="center"><span class="tick">✓</span></td><td>退還金幣</td></tr>
+                <tr><td class="center"><span class="st s21">21</span></td><td><code>PAYMENT_SUBMITTED</code></td><td>代付提交中</td><td class="center"><span class="dash">—</span></td><td><b>#4137 後的核心狀態</b>。第一階段短事務即寫入，並於<b>同一筆 UPDATE 原子寫入 attempt token</b>（<code>third_party_response = 'attempt:{uuid}'</code>，<code>WithdrawalPayoutService.php:104</code>），作為本次發起的精確身分標識。三方請求結果未知（逾時／連線例外）時<b>常駐停留於此</b>擋重送；四個出口＝三方回調（21 已納入放行集合）、後台「填寫三方單號」→22、後台「修改為代付失敗」→29、兜底命令 <code>withdrawal:resolve-payout</code></td></tr>
+                <tr><td class="center"><span class="st s22">22</span></td><td><code>PAYMENT_PROCESSING</code></td><td>代付處理中</td><td class="center"><span class="dash">—</span></td><td>三方已受理，等待回調（<code>WithdrawalPayoutService.php:329</code>，同時寫 <code>third_party_order_no</code> 與真實三方回應覆寫 attempt token）</td></tr>
+                <tr><td class="center"><span class="st s23">23</span></td><td><code>THIRD_PARTY_VERIFYING</code>（已刪除）</td><td>三方查證中</td><td class="center"><span class="dis">已移除</span></td><td><b>已移除</b>：#4137 廢除（原「代付結果未知」語意由停留 21 取代，兩者人工處理流程相同），2026-09-16 六站存量實查歸零後刪除 enum case，回調守衛與兜底命令不再放行 23；enum 原位置留註解禁止重用。舊後台 <code>API_Agent</code> 仍保有 #4090 兩支 23 專用端點與 reviewOrder 的 23 禁改守衛，已無訂單可觸發</td></tr>
+                <tr><td class="center"><span class="st s24">24</span></td><td><code>THIRD_PARTY_SUCCESS</code></td><td>三方成功</td><td class="center"><span class="tick">✓</span></td><td>唯一被冪等視為「已處理」的狀態</td></tr>
+                <tr><td class="center"><span class="st s29">29</span></td><td><code>THIRD_PARTY_FAILED</code></td><td>三方失敗</td><td class="center"><span class="dis">非終態</span></td><td>後台可<b>再次發起代付</b>（<code>allowedStatuses=[3,29]</code>，<code>WithdrawalPayoutService.php:84-89</code>）。<b>#4137 起 29 已移出回調放行集合</b>（<code>WithdrawalPayoutTrait.php:71</code> 拒絕並告警）——29 允許重新發起，若放行補送回調將與新一輪發起產生競態；改由 21／22 兩態承接回調定案</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section id="lifecycle" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>生命週期狀態機</h2>
+          <p class="desc">從會員申請到代付完成的完整流轉，分四階段：<b><span class="cn">①</span></b> 後台審核（舊 API_Agent）→ <b><span class="cn">②</span></b> 處理通過 / 三方失敗單（發起代付 / 退款 / 已轉帳）→ <b><span class="cn">③</span></b> 代付執行（<b>#4137 兩階段事務</b>）→ <b><span class="cn">④</span></b> 三方回調 / 人工定案。節點上 <b>↩</b> 為後台手動回退、<b>↻</b> 為再次發起代付、<b>↺</b> 為原地更新不轉態（回邊詳見圖下註記）。</p>
+        </div>
+        <div class="card-body">
+          <div class="fchart">
+            <div class="fcap">會員提款申請 · APIs Frontend</div>
+            <div class="frow">
+              <div class="fnode s1"><span class="fn-n">1</span><span class="fn-t">待審核</span><span class="fn-d">送出後預設態</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l"><span class="cn">①</span> 後台審核 reviewOrder · 舊 API_Agent</span><span class="fc-a"></span></div>
+            <div class="fbranch"><span>1→3 通過</span><span>1→2 拒絕</span></div>
+            <div class="frow">
+              <div class="fnode s3"><span class="fn-n">3</span><span class="fn-t">通過</span><span class="fn-d">可發起代付</span></div>
+              <div class="fnode s2 term"><span class="fn-n">2</span><span class="fn-t">失敗</span><span class="fn-d">退還金幣 · 終態</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l"><span class="cn">②</span> 後台按鈕處理「通過 / 三方失敗」單 · 來源 3 或 29</span><span class="fc-a"></span></div>
+            <div class="fbranch"><span>→9 退款</span><span>→21 發起代付</span><span>→4 已轉帳</span></div>
+            <div class="frow">
+              <div class="fnode s9 term"><span class="fn-n">9</span><span class="fn-t">退款</span><span class="fn-d">退還金幣 · 終態</span></div>
+              <div class="fnode s21"><span class="fn-n">21</span><span class="fn-t">代付提交中</span><span class="fn-d">第一階段短事務 · 鎖單＋attempt token · 結果未知常駐停留</span></div>
+              <div class="fnode s4"><span class="fn-n">4</span><span class="fn-t">已轉帳</span><span class="fn-d">寫 payment_time · ↩ 可退回 3</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l"><span class="cn">③</span> 第二階段事務 · 三方受理→22；明確拒絕→29；<b>結果未知＝不轉態、留在 21</b></span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s22"><span class="fn-n">22</span><span class="fn-t">代付處理中</span><span class="fn-d">等三方回調 · ↩ 可強制解除回 3</span></div>
+              <div class="fnode s23"><span class="fn-n">23</span><span class="fn-t">三方查證中</span><span class="fn-d">#4137 已廢除 · 2026-09-16 已移除</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l"><span class="cn">④</span> 三方回調（放行集合 <b>21 / 22</b>；<b>29 已移出</b>）· 另可由人工按鈕或兜底命令定案</span><span class="fc-a"></span></div>
+            <div class="fbranch"><span>回調成功</span><span>回調失敗</span><span>人工定案 21→22 / 21·22→29</span></div>
+            <div class="frow">
+              <div class="fnode s24 term"><span class="fn-n">24</span><span class="fn-t">三方成功</span><span class="fn-d">終態</span></div>
+              <div class="fnode s29"><span class="fn-n">29</span><span class="fn-t">三方失敗</span><span class="fn-d">非終態 · ↻ 可再次發起代付（送出前先鎖 21）· <b>回調不再放行</b></span></div>
+            </div>
+            <div class="fnotes">
+              <div class="fnote"><svg class="ni"><use href="#i-lock"/></svg> <b><span class="st s21"><span class="n">21</span></span> 的四個出口（#4137 核心設計）</b>：<span class="cn">①</span><b>三方回調</b>自動定案 21→24 / 21→29——21 已納入放行集合（<code>WithdrawalPayoutTrait.php:57</code>，註解明載「結果未明／pod 中斷停留的單，回調正是定案依據」）；<span class="cn">②</span><b>後台「填寫三方單號」</b>21→22（<code>WithdrawalPayoutManualService.php:75</code>，守衛 <code>:67</code> 僅允許 21）；<span class="cn">③</span><b>後台「修改為代付失敗」</b>21/22→29（<code>:131</code>，守衛 <code>:117-118</code>）；<span class="cn">④</span><b>兜底命令</b> <code>withdrawal:resolve-payout</code>（<code>ResolvePayoutOrder.php:142</code>）。另有<b>排程掃描</b>每 5 分鐘掃出停留逾 10 分鐘的 21 單發告警（<code>AlertStuckSubmittedWithdrawal.php:64</code>、<code>routes/console.php:80</code>），本身<b>不改狀態</b>。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-crash"/></svg> <b>兩階段事務與 attempt token</b>：第一階段短事務只做「校驗＋鎖 21＋寫 token」後<b>立即提交</b>（<code>WithdrawalPayoutService.php:104</code>），三方 HTTP 請求在事務<b>外</b>發出；第二階段另開事務寫回結果（<code>:313</code> / <code>:329</code>）。此拆分即 op#2831 的根治——舊設計整段包在單一事務內，發版 rolling update 砍 pod 時整筆 rollback，造成「三方已出款、我方連 payout record 都沒留」。token 用途＝第二階段以「<code>third_party_response</code> 是否仍等於本次 token」判斷這個 21 是否仍屬本次發起（<code>:242-266</code>），不依賴秒級時間戳，同一秒內連續改狀態亦不誤判。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-alert"/></svg> <b>結果未知＝不轉態（#4137 改變點）</b>：三方請求逾時／連線例外時，訂單<b>停留 21</b> 並發 BotNotify 告警（<code>WithdrawalPayoutService.php:302</code>，return 於 <code>:307</code>），<b>不再轉 23</b>。舊行為（21→23）已於 #4137 廢除——21 與 23 的人工處理流程本就相同，兩個狀態沒有額外資訊量。</div>
+              <div class="fnote">↩ <b>三方同步明確拒絕：一律轉 29（#4137 改變點）</b>：白名單制（結構完整＋驗簽通過＋業務碼在該 provider 明確拒絕白名單內＝可證未建單）成立時，<b>不再還原發起前狀態（3 / 29），改為一律寫 29</b>（<code>WithdrawalPayoutService.php:313</code>，同時清空 attempt token），可重新發起。<b>舊 API_Agent 仍是還原原狀態</b>（<code>WithdrawalPayoutController.php:569</code>），兩系統此處行為已分歧。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-repeat"/></svg> <b>29 已移出回調放行集合（#4137 改變點）</b>：<code>WithdrawalPayoutTrait.php:71</code> 對 29 的回調<b>拒絕並告警</b>。理由＝29 允許重新發起代付，若同時放行補送回調，會與新一輪發起產生競態。此舉推翻 <code>fa73933ad</code>（2026-04-30）「29 放行以防營運重發」的舊設計——改由 21／22 兩態承接回調定案，29 不再是回調可寫入的來源。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-search"/></svg> <b>查單擴充點（21→22 的第五條路徑，尚未接入任何 provider）</b>：<code>WithdrawalPayoutQueryService::tryResolveSubmitted()</code> 對停留 21 的單向三方查單，<code>FOUND_ACCEPTED</code> 時補回三方單號並轉 22（<code>:147</code>）。介面為 <code>SupportsPayoutQuery</code>，掛鉤在排程掃描告警之前；逐家 provider 接入屬另案（PayMate <code>/query</code> 為候選首家）。</div>
+              <div class="fnote">↩ <b>後台回退按鈕（→3）</b>：<b>22→3</b> 強制解除代付、<b>4→3</b> 退回通過，同走舊 <code>reviewOrder</code> 的 <code>elseif ($order-&gt;status != 1 &amp;&amp; $request-&gt;status == 3)</code> 分支（<code>:754</code>），<b>並非無副作用</b>：<span class="cn">①</span>該單洗分紀錄 <code>TransactionLog</code> type 5 的 <code>status</code> 改為 <b>9</b>（<code>:757</code>）；<span class="cn">②</span>因 <code>request.status != 4</code>，<code>check_time</code> 為空時補寫 <code>check_time</code>／<code>operator</code>（<code>:643-644</code>）；<span class="cn">③</span><b>22→3 額外</b>清空 <code>third_party_order_no</code>（<code>:639</code>）。狀態本身由 <code>:795</code> <code>$order-&gt;update($data)</code> 寫入。<b>21→3 這條路已不存在</b>——舊系統對 21 的訂單一律拒絕（200205，見「舊後台審核 reviewOrder 深入」一節）。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-flag"/></svg> <b>終態：24 / 2 / 9</b>。<b>4 非終態</b>（可 4→3）、<b>29 非終態</b>（可重試）、<b>23 已移除</b>（只剩舊後台端點認得，已無訂單可觸發）。</div>
+            </div>
+          </div>
+          <div class="callout">
+            <b>新舊系統分工</b>：<b>1 → 2 / 3</b>（待審核 → 拒絕 / 通過）、<b>退款 <span class="st s9">9</span></b>、<b>已轉帳 <span class="st s4">4</span></b> 全部來自舊 <code>API_Agent</code> 的 <code>reviewOrder</code> 單一審核端點（後者兩項是對「通過(<span class="st s3">3</span>) / 三方失敗(<span class="st s29">29</span>)」訂單按鈕觸發，<b>非從 1 直接退款</b>）。代付段 <span class="st s21">21</span>/<span class="st s22">22</span>/<span class="st s24">24</span>/<span class="st s29">29</span> 新舊並存，但<b>兩系統行為已分歧</b>——同步明確拒絕時 APIs 轉 29、舊系統還原原狀態。<b>#4137 的人工定案兩支接口（填寫三方單號／修改為代付失敗）只在 APIs</b>（<code>Agent/WithdrawalController.php:75</code> / <code>:96</code>），後台 <code>WEB_AgentBackend</code> 按鈕已改接這兩支；舊系統 #4090 的 23 兩端點已無訂單可觸發（23 已於 2026-09-16 移除）。<b>舊後台對 21 的訂單一律拒絕操作</b>（200205 守衛，2026-08-20 上線）。
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section id="triggers" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>狀態變更時機明細</h2>
+          <p class="desc">每一個實際寫入 <code>withdrawal_orders.status</code> 的位置，依生命週期排序；<b>另列 5 條「不轉態」路徑</b>（讀得到、但刻意不寫 status）。<span class="badge b-primary">APIs</span> 新系統、<span class="badge b-warning">舊</span> API_Agent、<span class="badge b-info">兩者</span> 並存。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>#</th><th>時機</th><th class="center">狀態變更</th><th class="center">系統</th><th>寫入位置（file:line）/ 觸發</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>會員送出提款申請</td>
+                  <td class="center"><span class="st s1">建立→1</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Frontend/WithdrawalController.php:641</span><span class="trig">會員 App 提款，<code>WithdrawalOrder::create([... 'status'=&gt;1])</code>（<code>'status'</code> 於 <code>:656</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>2</td><td>後台審核「通過」</td>
+                  <td class="center"><span class="st s1">1</span><span class="arrow">→</span><span class="st s3">3</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalController@reviewOrder:795</span><span class="trig"><code>POST withdrawal/reviewOrder</code>，<code>request.status=3</code>；扣稽核流水於 <code>:700</code></span></td>
+                </tr>
+                <tr>
+                  <td>3</td><td>後台審核「拒絕」</td>
+                  <td class="center"><span class="st s1">1</span><span class="arrow">→</span><span class="st s2">2</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalController@reviewOrder:795</span><span class="trig"><code>request.status=2</code> · 退還金幣（<code>:649</code> 起）</span></td>
+                </tr>
+                <tr>
+                  <td>4</td><td>後台退款（對通過 / 三方失敗單）</td>
+                  <td class="center"><span class="st s3">3</span>/<span class="st s29">29</span><span class="arrow">→</span><span class="st s9">9</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalController@reviewOrder:795</span><span class="trig"><code>request.status=9</code> · 退還金幣（非從 1 直接退款）</span></td>
+                </tr>
+                <tr>
+                  <td>5</td><td>後台「已轉帳」（自助洗分 / 人工）</td>
+                  <td class="center"><span class="st s3">3</span>/<span class="st s29">29</span><span class="arrow">→</span><span class="st s4">4</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalController@reviewOrder:795</span><span class="trig"><code>request.status=4</code> · 寫 <code>payment_time</code>（<code>:707</code>）與支付商手續費 <code>payment_cost</code>（<code>:715</code>，套該組別手動渠道的成本）、扣銀行帳戶並寫 <code>BankTransactionLog</code>（<code>:752</code>）、會員最後提款時間（<code>:803</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>6</td><td>後台發起代付（第一階段短事務：鎖單＋attempt token）</td>
+                  <td class="center"><span class="st s3">3</span>/<span class="st s29">29</span><span class="arrow">→</span><span class="st s21">21</span></td>
+                  <td class="center"><span class="badge b-info">兩者</span></td>
+                  <td><span class="mono">WithdrawalPayoutService.php:104</span><br><span class="mono">WithdrawalPayoutController.php:536（舊）</span><span class="trig">送三方 API <b>前</b>先鎖定並提交事務，僅允許來源 3 或 29（<code>allowedStatuses</code> <code>:84-89</code>；舊 <code>availableStatus=[3,29]:521</code>）。APIs 側同筆 UPDATE 原子寫入 <code>third_party_response='attempt:{uuid}'</code>。APIs 在開事務前先檢查通道是否由 APIs 處理（<code>:58</code>，<code>CashFlowScopeEnum::isHandledByApis()</code>，target/tickets#4433）：舊系統範疇的通道直接回錯誤，<b>不轉態</b></span></td>
+                </tr>
+                <tr>
+                  <td>7</td><td><b>三方請求結果未知</b>（逾時／連線例外）</td>
+                  <td class="center">維持 <span class="st s21">21</span><span class="dis">不轉態</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutService.php:300-307</span><span class="trig"><b>#4137 改變點</b>：<code>isIndeterminate=true</code> 時<b>不動 status</b>、停留 21 鎖定重送，發 BotNotify 告警（<code>:302</code>）指引人工「填寫三方單號→22」或「修改為代付失敗→29」。舊行為 21→23 已廢除。另一條同型路徑＝流程例外的告警（<code>:157</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>8</td><td>三方同步明確拒絕（白名單制）</td>
+                  <td class="center"><span class="st s21">21</span><span class="arrow">→</span><span class="st s29">29</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutService.php:313</span><span class="trig"><b>#4137 改變點</b>：結構完整＋驗簽通過＋業務碼在該 provider 明確拒絕白名單（可證未建單）→ <b>一律轉 29</b>（不再還原發起前狀態），同時清空 attempt token；29 可重新發起</span></td>
+                </tr>
+                <tr>
+                  <td>9</td><td>三方同步明確拒絕（舊系統，行為已分歧）</td>
+                  <td class="center"><span class="st s21">21</span><span class="arrow">→</span>原狀態</td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalPayoutController.php:569</span><span class="trig"><code>UpdateOrderStatusToReviewConfirm()</code> 還原為發起前的 3 或 29；舊系統無「一律 29」與「結果未知停留 21」兩項 #4137 行為</span></td>
+                </tr>
+                <tr>
+                  <td>10</td><td>三方受理成功（第二階段事務）</td>
+                  <td class="center"><span class="st s21">21</span><span class="arrow">→</span><span class="st s22">22</span></td>
+                  <td class="center"><span class="badge b-info">兩者</span></td>
+                  <td><span class="mono">WithdrawalPayoutService.php:329</span><br><span class="mono">WithdrawalPayoutController.php:555（舊）</span><span class="trig">同時寫 <code>third_party_order_no</code>，並以真實三方回應覆寫 attempt token</span></td>
+                </tr>
+                <tr>
+                  <td>11</td><td>在途期間已被定案／已有更新的發起（讓路）</td>
+                  <td class="center">維持原狀態<span class="dis">不寫入</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutService.php:242-266</span><span class="trig">第二階段鎖內複核：<span class="cn">①</span><b>stale attempt</b>——出現更新的 payout record，或 <code>third_party_response</code> 已非本次 token（<code>:242</code>，防 21(A)→29→重送 21(B) 後 A 遲到結果覆寫 B 的 ABA）；<span class="cn">②</span>訂單已被回調或人工按鈕搶先定案（<code>:266</code>）。兩者皆<b>不寫 status</b>，受理情境改發告警請人工核對兩邊一致性。<b>例外</b>：在途期間遭人工誤標 29、但三方確實受理時，拉回 22 防重複發起（<code>:268</code> 判定、寫入併於 <code>:329</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>12</td><td>後台「填寫三方單號」（人工定案）</td>
+                  <td class="center"><span class="st s21">21</span><span class="arrow">→</span><span class="st s22">22</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutManualService.php:75</span><br><span class="mono">入口 Agent/WithdrawalController.php:75</span><span class="trig"><code>POST agent/api/withdrawal/fill-third-party-no</code>（#4137 新增）。與支付商核對<b>已出款</b>後補入單號：雙寫訂單 <code>third_party_order_no</code> 與最新 record 的 <code>third_party_transaction_no</code>（<code>:84</code>），轉 22 交回調定案。守衛 <code>:67</code> 僅允許 21；權限 <code>withdrawal_order_verifying_resolve</code>；備註寫入 memo</span></td>
+                </tr>
+                <tr>
+                  <td>13</td><td>後台「修改為代付失敗」（人工定案）</td>
+                  <td class="center"><span class="st s21">21</span>/<span class="st s22">22</span><span class="arrow">→</span><span class="st s29">29</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutManualService.php:131</span><br><span class="mono">入口 Agent/WithdrawalController.php:96</span><span class="trig"><code>POST agent/api/withdrawal/mark-failed</code>（#4137 新增）。與支付商確認<b>查無此單</b>後定案 29，可重新發起。守衛 <code>:117-118</code> 允許 21／22；21 另有 3 分鐘 in-flight 窗保護（<code>:125</code>），避免請求仍在途時被人工搶先標記</span></td>
+                </tr>
+                <tr>
+                  <td>14</td><td>三方查單擴充點（尚未接入 provider）</td>
+                  <td class="center"><span class="st s21">21</span><span class="arrow">→</span><span class="st s22">22</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">WithdrawalPayoutQueryService.php:147</span><span class="trig"><code>tryResolveSubmitted()</code> 對停留 21 的單查三方；<code>FOUND_ACCEPTED</code> 才補單號轉 22（<code>:76</code> 判定），查無只告警不改狀態。介面 <code>SupportsPayoutQuery</code>，掛在排程掃描告警前；<b>逐家 provider 接入為另案</b></span></td>
+                </tr>
+                <tr>
+                  <td>15</td><td>三方回調：成功</td>
+                  <td class="center"><span class="st s21">21</span>/<span class="st s22">22</span><span class="arrow">→</span><span class="st s24">24</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/WithdrawalCallbackTrait.php:248</span><span class="trig">32/32 provider 統一走 <code>updateWithdrawalOrderStatus($order, $outcome, $payoutRecord)</code>（AntzPay、TtPay 為空殼，分別繼承 Kira、DgPay）；<code>:248</code> <b>只看 outcome、不看來源狀態</b>，來源集合由入口守衛 <code>WithdrawalPayoutTrait.php:49-92</code> 決定＝<b>21 / 22</b>。連帶 <code>payment_time</code> 冪等回填（<code>:239</code>）＋支付商手續費 <code>payment_cost</code>（<code>:245</code>，有金流商回報的實際值就用實際值）＋TransactionLog→1000（<code>:257</code>）＋Observer 觸發會員小時匯總（<code>WithdrawalOrderObserver.php:62</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>16</td><td>三方回調：失敗</td>
+                  <td class="center"><span class="st s21">21</span>/<span class="st s22">22</span><span class="arrow">→</span><span class="st s29">29</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/WithdrawalCallbackTrait.php:248</span><span class="trig"><code>$outcome = FAILURE</code>；<span class="st s29">29</span> 非終態，後台可再次發起代付。<b>來源不含 29</b>——#4137 起 29 的回調在入口即被拒絕（<code>WithdrawalPayoutTrait.php:71</code>）</span></td>
+                </tr>
+                <tr>
+                  <td>17</td><td>三方回調：結果不明 / 非最新 record</td>
+                  <td class="center">維持原狀態<span class="dis">不寫入</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/WithdrawalCallbackTrait.php:201 · :211</span><span class="trig"><code>resolveWithdrawalOutcome</code>（<code>:160</code>）未命中成功／失敗碼集 → <code>INDETERMINATE</code> → <b>提前 return、不動 status</b>（<code>:201</code>），訂單留在 21 或 22 等下一次回調。另一條＝歸屬守衛 <code>isStalePayoutRecord</code>（<code>:211</code>／<code>:269</code>），非最新 payout record 的遲到回調不寫（op#2638 缺陷 A 修復）</span></td>
+                </tr>
+                <tr>
+                  <td>18</td><td>兜底命令人工定案</td>
+                  <td class="center"><span class="st s21">21</span>/<span class="st s22">22</span><span class="arrow">→</span><span class="st s24">24</span>/<span class="st s29">29</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Commands/Order/ResolvePayoutOrder.php:142</span><span class="trig"><code>withdrawal:resolve-payout --outcome=success|resend</code>（<code>:37</code>；舊名 <code>withdrawal:resolve-verifying</code> 保留為 alias，<code>:43</code>）。可處理狀態 <code>RESOLVABLE_STATUSES=[21,22]</code>（<code>:48-51</code>；23 已於 2026-09-16 移除，命令會拒絕 23）。dry-run＋confirm＋鎖內複核（回調先到則讓路）；21 另有 3 分鐘 in-flight 窗＋「狀態＋updated_at」雙比對；success 鏡射 <code>payment_time</code>＋TransactionLog→1000</span></td>
+                </tr>
+                <tr>
+                  <td>19</td><td>排程掃描停留單（只告警）</td>
+                  <td class="center">維持 <span class="st s21">21</span><span class="dis">不轉態</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Schedule/AlertStuckSubmittedWithdrawal.php:64</span><br><span class="mono">routes/console.php:80</span><span class="trig"><code>withdrawal:alert-stuck-submitted --minutes=10</code>，每 5 分鐘執行（<code>onOneServer</code>＋<code>withoutOverlapping</code>）。掃出停留逾門檻的 21 單發 BotNotify，附去重；<b>不改任何狀態</b>，純為「兩階段事務落地後無人處理」的兜底哨兵</span></td>
+                </tr>
+                <tr>
+                  <td>20</td><td>舊後台「補三方單號」（僅 23，已無訂單可觸發）· 工單 #4090</td>
+                  <td class="center"><span class="st s23">23</span><span class="arrow">→</span><span class="st s23">23</span><span class="dis">狀態不變</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalPayoutController@editVerifyingPayoutTransactionNo:302</span><br><span class="mono">record :349 / order :363</span><span class="trig"><code>POST withdrawal/payout/edit-transaction-no</code>。雙寫 record 與訂單三方單號，<b>刻意不動 status</b>——留在 23 由回調定案。<b>23 已於 2026-09-16 移除，已無訂單可觸發</b>，新單走 APIs 的 #12</span></td>
+                </tr>
+                <tr>
+                  <td>21</td><td>舊後台「定案為代付回應失敗」（僅 23，已無訂單可觸發）· 工單 #4090</td>
+                  <td class="center"><span class="st s23">23</span><span class="arrow">→</span><span class="st s29">29</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">WithdrawalPayoutController@markVerifyingPayoutAsFailed:443</span><br><span class="mono">賦值 :462 / 寫入 :473</span><span class="trig"><code>POST withdrawal/payout/mark-response-failed</code>。轉 29、清空 <code>third_party_order_no</code>、寫 <code>change_logs</code>。<code>lockForUpdate</code>＋僅允許 <code>status==23</code>。<b>23 已於 2026-09-16 移除，已無訂單可觸發</b>，新單走 APIs 的 #13</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="legend">
+            <span><span class="badge b-primary">APIs</span> 新系統 (PHP 8.4)</span>
+            <span><span class="badge b-warning">舊</span> API_Agent (PHP 7.3)</span>
+            <span><span class="badge b-info">兩者</span> 新舊並存</span>
+          </div>
+          <div class="callout">
+            <b>#4137 前後對照（工單 target/tickets#4137，源自 op_tickets#2831）</b>
+            <ul class="clean">
+              <li><b>事務邊界</b>：舊＝「鎖單→送三方→寫結果」整段包在單一事務內，發版 rolling update 砍 pod 時整筆 rollback，三方已出款而我方<b>連 payout record 都沒留</b>。新＝拆兩階段短事務，21 與 attempt token 先落地（#6），HTTP 在事務外，結果另開事務寫回（#8 / #10）。</li>
+              <li><b>結果未知的承接狀態</b>：舊＝21→<span class="st s23">23</span>（#7 舊行為）。新＝<b>停留 21 不轉態</b>，23 整個廢除。</li>
+              <li><b>同步明確拒絕</b>：舊＝還原發起前狀態（3 或 29）。新＝<b>一律 29</b>（#8）；舊系統仍是還原（#9），兩邊行為分歧。</li>
+              <li><b>回調放行集合</b>：舊＝<b>22 / 23 / 29</b>。新＝<b>21 / 22</b>（23 的存量過渡已於 2026-09-16 移除），<b>29 移出</b>（#15 / #16）。</li>
+              <li><b>人工定案位置</b>：舊＝API_Agent 的 #4090 兩端點（只處理 23）。新＝APIs 兩支接口（#12 / #13，處理 21／22），後台按鈕已改接；舊端點降為存量過渡（#20 / #21），23 已於 2026-09-16 移除後不再有訂單可觸發。</li>
+              <li><b>兜底</b>：命令更名 <code>withdrawal:resolve-verifying</code> → <code>withdrawal:resolve-payout</code>（舊名留 alias），對象擴至 21/22/23（#18；23 已於 2026-09-16 移除，現為 21/22）；新增每 5 分鐘的停留單掃描告警（#19）與三方查單擴充點（#14）。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section id="review" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>舊後台審核 <code>reviewOrder</code> 深入</h2>
+          <p class="desc">後台所有審核 / 退款 / 已轉帳 / 強制解除動作都來自此單一端點 — <code>API_Agent/_release/app/Http/Controllers/WithdrawalController.php:579</code>，路由 <code>POST withdrawal/reviewOrder</code>，包在 <code>DB::beginTransaction()</code> + <code>lockForUpdate()</code>。新狀態取自 <code>request.status</code>，<b>無白名單驗證</b>（2/3/4/9 各有專屬副作用分支，其餘值落通用寫入），於 <span class="mono">:792</span> 賦值、<span class="mono">:795</span> <code>$order-&gt;update()</code> 寫入。</p>
+        </div>
+        <div class="card-body">
+          <h3>前置守衛（樂觀鎖 + 防併發，:597–617）</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>條件</th><th>結果</th><th class="center">錯誤碼</th></tr></thead>
+              <tbody>
+                <tr><td>現狀態已是 <span class="st s2">2</span> 或 <span class="st s9">9</span></td><td>拒絕：終態禁止再操作</td><td class="center"><code>200201</code></td></tr>
+                <tr><td>現狀態是 <span class="st s23">23</span>（三方查證中）</td><td>拒絕：結果未定，任何操作都可能造成重複出款（<code>:604</code>；23 已於 2026-09-16 移除，此守衛已無訂單可觸發）</td><td class="center"><code>200204</code></td></tr>
+                <tr><td>現狀態是 <span class="st s21">21</span>（代付請求中）</td><td><b>拒絕（2026-08-20 上線）</b>：#4137 事務拆分後 21 成為常駐停留態，後台退款 / 退回會解鎖重送，三方實際已出款時即<b>重複出款</b>（<code>:609</code>）</td><td class="center"><code>200205</code></td></tr>
+                <tr><td>傳入 status == 現狀態</td><td>拒絕：疑似兩人同時操作</td><td class="center"><code>200202</code></td></tr>
+                <tr><td>現狀態 ≠ 傳入的 <code>original_status</code></td><td>拒絕：訂單已被他人異動</td><td class="center"><code>200203</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="desc" style="margin-top:10px">故任一狀態轉換僅在「現狀態非終態 2/9、<b>現狀態非 21</b>、現狀態非 23、目標 ≠ 現狀態、<code>original_status</code> 等於現狀態（樂觀鎖）」<b>五條</b>同時成立時放行——<b>並不限定現狀態必為 1</b>。因無 target 白名單，<b>1→9</b> / <b>3→2</b> 等 source 層面亦可寫入，僅後台 UI 不提供此類按鈕。<b><span class="st s21">21</span> 與 <span class="st s23">23</span> 的訂單在 <code>reviewOrder</code> 完全不可操作</b>——定案路徑全在 APIs：<span class="st s21">21</span> 走人工兩支接口（「狀態變更時機明細」#12 / #13）、兜底命令（#18）或三方回調（#15 / #16）；存量 <span class="st s23">23</span> 另有舊系統 #4090 兩支專用端點（#20 / #21），各自帶獨立守衛與行鎖，不共用本表五道 guard。</p>
+
+          <div class="callout">
+            <svg class="ni"><use href="#i-alert"/></svg> <b>本報告已是線上現況</b>——#4137（MR !1962，merge <code>c99180897</code>）含於 tag <code>release_202608201117</code>，該版 pipeline <code>43701</code> 全綠並經 <code>release-prod</code> 觸發 gff-cicd（pipeline <code>43703</code> success），<b>2026-08-20 UTC 03:30 六站同時 rollout 完成</b>。部署實證＝#4137 新增的排程 <code>withdrawal:alert-stuck-submitted</code> 自該時點起於各站 <code>command_logs</code> 每 5 分鐘持續執行（TPower／Yes2Win／VWorld 三站首次執行同分鐘、至今未斷）。<br><br><b>200205 守衛的先後順序</b>：API_Agent 的 21 守衛於同日合入 master（<code>9d01ca470</code>）並推上全部 9 支 prod 分支，刻意排在 APIs 之前，避免出現「21 可被舊後台退款 / 退回而解鎖重送」的窗口。
+          </div>
+
+          <h3>各目標狀態的副作用</h3>
+          <div class="risk low">
+            <div class="rh"><span class="sev">1 → 3</span><span class="rt">通過</span></div>
+            <p>若該會員所屬代理開啟 <code>WITHDRAWAL_CLEAR_FLOW_LIMIT</code>，扣除稽核流水 <code>deductFlowLimit()</code>（<code>:700</code>）。若來源為 <span class="st s22">22</span>→3（強制解除代付狀態），清空 <code>third_party_order_no</code>（<code>:639</code>）。寫 <code>CustomerAuditTime</code>（<code>:830</code>）。</p>
+          </div>
+          <div class="risk mid">
+            <div class="rh"><span class="sev">1 → 2</span><span class="rt">拒絕（退還金幣）</span></div>
+            <p>會員：<code>balance + point</code>，寫 <code>TransactionLog</code>（type 12 / status 1000），自 <code>:649</code> 起。代理：<code>balance + point</code>，寫 <code>TransactionLogAgent</code>（<code>WITHDRAWAL_REFUND</code>，<code>:680</code>）。洗分紀錄 type 5 → <code>-9</code>（<code>:770</code>）。寫 <code>CustomerAuditTime</code>。</p>
+          </div>
+          <div class="risk mid">
+            <div class="rh"><span class="sev">3/29 → 9</span><span class="rt">退款（退還金幣）</span></div>
+            <p>同樣走 <code>request.status∈{2,9}</code> 的退還金幣分支（<code>:649</code>）。洗分紀錄落在<b>最後的 <code>else</code></b>（<code>:782</code>）：type 5 僅更新 <code>operator</code>／<code>admin</code>，<b><code>status</code> 不變</b>。（<code>:757</code> 那條「type 5 → <code>9</code>」屬 <b>非 1 → 3 的回退</b>分支，不是退款，見「生命週期狀態機」的後台回退註記。）</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">3/29 → 4</span><span class="rt">已轉帳（後台按鈕，同端點）</span></div>
+            <p>寫 <code>payment_time</code>（<code>:707</code>）與 <code>payment_cost</code>（<code>:715</code>）、洗分 log type 5 → <code>1000</code>（<code>:723</code>）、自助洗分扣銀行帳戶金額並寫 <code>BankTransactionLog</code>（<code>:752</code>）。</p>
+          </div>
+
+          <div class="callout">
+            <b>共同尾段</b>
+            <ul class="clean">
+              <li><code>:793</code> <code>change_logs</code> 追加 <code>from {舊} to {新} by {operator}</code>。</li>
+              <li><code>:795</code> <code>$order-&gt;update($data)</code> 為唯一狀態寫入；失敗拋 <code>200/2002</code> 並 rollback。</li>
+              <li><code>:817</code> 寫代理操作紀錄（改前、改後狀態）。</li>
+              <li><code>:828</code> 審核完 redis 減少未處理訂單數；status 2/3 寫 <code>CustomerAuditTime(type 2)</code>（<code>:830</code>）、status 4 寫 <code>type 3</code>（<code>:833</code>）。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <p style="text-align:center; color:var(--faint); font-size:12px; margin:34px 0 10px">
+        代付訂單 status 生命週期報告 · 產生於 2026-10-07 · 資料源：APIs（Frontend WithdrawalController、WithdrawalPayoutService、WithdrawalPayoutManualService、WithdrawalPayoutQueryService、WithdrawalCallbackTrait、WithdrawalPayoutTrait、ResolvePayoutOrder、AlertStuckSubmittedWithdrawal）+ API_Agent（reviewOrder、WithdrawalPayoutController 含工單 #4090 兩端點）原始碼追蹤
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const links=[...document.querySelectorAll('.menu a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('active')); map.get(e.target.id)?.classList.add('active'); }});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

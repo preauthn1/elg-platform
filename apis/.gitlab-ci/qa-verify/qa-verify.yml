@@ -1,0 +1,58 @@
+# QA 驗收檢查：合進預設分支（master）的 MR，需求主單底下的每張測試子單，都要由測試組的人
+# 在 MR 最後一次推 commit 之後關閉。推了新 commit，QA 測過的就不是最新的程式，要重新驗收。
+# 判定規則（哪些算測試子單、誰關的、什麼時候關的）見 .gitlab-ci/qa-verify/lib/qa-verify.php 開頭；
+# 豁免條件、收集工單、團隊名單格式、最後一次推 commit 的時間和其他合併關卡共用，見 .gitlab-ci/lib/merge-gate.php 開頭。
+#
+# 生效開關：專案 CI 變數 QA_VERIFY_ENFORCE。"true" 是正式模式（沒通過不能合併）；
+# 其他值或沒設是試行模式（只顯示警告）。切換只改變數，不必發 MR。
+# 模式在建立 pipeline 時就決定：切換前建好的 pipeline 重試仍是原本的模式，要推新 commit 或按「Run pipeline」另開新 pipeline 才會換。
+# 權杖：專案 CI 變數 PM_CONFIRM_TOKEN（與 PM 確認檢查共用的唯讀 read_api 機器人權杖），CI_JOB_TOKEN 讀不到 target/tickets、target/ticket_tasks。
+#
+# job 名稱刻意用中文白話：MR 頁面只顯示 job 名稱與成敗、不顯示 log。
+
+.qa_verify_base:
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  tags:
+    - php8
+  variables:
+    # 安裝 git 時不要嘗試開互動介面，否則 log 會多一串 debconf 警告
+    DEBIAN_FRONTEND: noninteractive
+    # 完整歷史：淺層 clone 走不到與目標分支的共同祖先時，origin/master..HEAD 會把 master 的舊 commit 也算進來
+    GIT_DEPTH: "0"
+  before_script:
+    # 檢查要用 git 列出 commit；映像檔沒有 git 時才安裝
+    - command -v git > /dev/null || (apt-get update -qq && apt-get install -y -qq git > /dev/null)
+
+# 檢查程式或共用程式（.gitlab-ci/lib/）有改動時，跑判定測試：這道檢查是合併關卡，改壞了會誤擋或誤放行。
+QA 驗收檢查測試:
+  extends: .qa_verify_base
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - .gitlab-ci/qa-verify/**/*
+        - .gitlab-ci/lib/**/*
+  script:
+    - php .gitlab-ci/qa-verify/qa-verify-check-test.php
+
+# 每次 MR pipeline 都自動跑，不用 rules: changes：子單關在工單上、不在 repo 裡，
+# 測試組關閉子單後在 MR 頁面按「Run pipeline」開新的 pipeline 就會重新查。
+# needs: [] — 不等測試跑完，驗收的結果越早看到越好。
+QA 驗收檢查:
+  extends: .qa_verify_base
+  stage: approval
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $QA_VERIFY_ENFORCE == "true"
+      allow_failure: false
+      # 讓腳本的提示跟這條 pipeline 實際的模式一致，不在執行時重讀 QA_VERIFY_ENFORCE
+      variables:
+        QA_VERIFY_BLOCKING: "true"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+      allow_failure: true
+      variables:
+        QA_VERIFY_BLOCKING: "false"
+  script:
+    # 列出 MR 的 commit 要用 origin/<目標分支>，先抓下來（與 PM 確認檢查同做法）
+    - git fetch --quiet origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - php .gitlab-ci/qa-verify/qa-verify-check.php

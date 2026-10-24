@@ -1,0 +1,22 @@
+FROM node:12 as node-build
+COPY ./_source/package*.json /src/
+WORKDIR /src
+RUN npm install&&npm update
+RUN npm audit fix
+RUN mkdir /dist
+COPY ./_source /src
+
+ENV NODE_ENV=production
+RUN npm run build
+RUN mv dist /dist/production
+RUN rm -rf dist
+
+ENV NODE_ENV=development
+RUN npm run build
+RUN mv dist /dist/development
+RUN rm -rf dist
+
+ENV NODE_ENV=local-development
+RUN npm run build
+RUN mv dist /dist/local-development
+RUN rm -rf dist

@@ -1,0 +1,17 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: webapi-ingress
+spec:
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - path: /example.invalid/
+        backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+      - path: /
+        backend:
+          serviceName: webapi-service
+          servicePort: nginx-port

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Redirecting...</title>
+</head>
+
+<body>
+<form id="autoForm" method="post" action="https://api-demo.mxpay.asia/WebForm/Deposit.aspx">
+    <input type="hidden" name="MerchantCode" value="TES507251" />
+    <input type="hidden" name="TransNum" value="202507291372760332" />
+    <input type="hidden" name="Currency" value="MYR" />
+    <input type="hidden" name="Amount" value="100" />
+    <input type="hidden" name="PaymentDesc" value="" />
+    <input type="hidden" name="FirstName" value="rbvntest" />
+    <input type="hidden" name="Country" value="MYS" />
+    <input type="hidden" name="MerchantRemark" value="" />
+    <input type="hidden" name="RedirectUrl" value="https://example.invalid/Deposit#result" />
+    <input type="hidden" name="Signature" value="885e8573fdee25bc18d125d54c0c24a36709988d8d925ce09e2bfc10c6a17e06" />
+</form>
+<script>
+    window.onload = function(){
+        setTimeout(() => {
+            document.getElementById("autoForm").submit();
+        }, 500);
+    };
+</script>
+</body>
+
+</html>

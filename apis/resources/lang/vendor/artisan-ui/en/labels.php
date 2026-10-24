@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'artisan_ui' => 'Artisan UI',
+    'ready' => 'Ready',
+    'commands' => 'Commands',
+    'browse_and_run_commands' => 'Browse and run artisan commands.',
+    'namespaces' => 'Namespaces',
+    'global_namespace' => '(global)',
+    'all_commands' => 'All commands',
+    'search_commands_placeholder' => 'Search commands...',
+    'no_commands_match' => 'No commands match',
+    'arguments' => 'Arguments',
+    'options' => 'Options',
+    'command_execution' => 'Command execution',
+    'run_command' => 'Run command',
+    'running' => 'Running...',
+    'completed_successfully' => 'Completed successfully',
+    'command_failed' => 'Command failed',
+    'output' => 'Output',
+    'clear' => 'Clear',
+    'no_output' => '(no output)',
+    'something_went_wrong' => 'Something went wrong',
+    'required' => 'Required',
+    'array' => 'Array',
+    'enter_value' => 'Enter value...',
+    'remove' => 'Remove',
+    'enabled' => 'Enabled',
+    'disabled' => 'Disabled',
+    'toggle_option' => 'Toggle :name',
+    'activates_option' => 'Activates the ":name" option.',
+    'confirm_before_run' => 'Review your parameters, then click the button below to run the command.',
+    'confirm_execute_prompt' => 'Are you sure you want to run this command?',
+    'confirm' => 'Confirm',
+    'cancel' => 'Cancel',
+];

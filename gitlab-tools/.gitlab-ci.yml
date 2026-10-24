@@ -1,0 +1,24 @@
+# ticket_tasks 看板 — 定時產生靜態快照並發佈到 GitLab Pages
+# 需先在專案設定一個 masked、protected 的 CI 變數 GITLAB_READ_TOKEN（read_api 權限）
+pages:
+  stage: deploy
+  # 舊版 Kubernetes runner 不支援新版 python image 的 OCI manifest。
+  image: google/cloud-sdk:522.0.0
+  tags:
+    - docker
+  script:
+    - python3 -m py_compile gitlab_api.py tw_holidays.py generate_board.py generate_op.py
+    - python3 -m unittest discover -v
+    - python3 generate_board.py          # 產生 public/index.html
+    - python3 generate_op.py             # 產生 public/op.html
+  artifacts:
+    paths:
+      - public
+  rules:
+    # 推到預設分支時重建
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+    # 排程 pipeline 觸發時重建（定時刷新資料）
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+  # 可選：指定目標專案（預設 target/ticket_tasks）
+  variables:
+    BOARD_PROJECT: "target/ticket_tasks"

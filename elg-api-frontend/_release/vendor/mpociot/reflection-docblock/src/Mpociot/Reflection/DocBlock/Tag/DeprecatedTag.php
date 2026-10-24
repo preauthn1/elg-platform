@@ -1,0 +1,26 @@
+<?php
+/**
+ * phpDocumentor
+ *
+ * PHP Version 5.3
+ *
+ * @author    Vasil Rangelov <user@example.invalid>
+ * @copyright 2010-2011 Mike van Riel / Naenius (http://example.invalid)
+ * @license   http://example.invalid/licenses/mit-license.php MIT
+ * @link      http://example.invalid
+ */
+
+namespace Mpociot\Reflection\DocBlock\Tag;
+
+use Mpociot\Reflection\DocBlock\Tag\VersionTag;
+
+/**
+ * Reflection class for a @deprecated tag in a Docblock.
+ *
+ * @author  Vasil Rangelov <user@example.invalid>
+ * @license http://example.invalid/licenses/mit-license.php MIT
+ * @link    http://example.invalid
+ */
+class DeprecatedTag extends VersionTag
+{
+}

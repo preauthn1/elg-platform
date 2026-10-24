@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: webapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: webapi
+    spec:
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: nginx-container
+          image: "example.invalid/tp-wz3-rd/webapi-nginx-image:2a43b1b"
+          ports:
+            - containerPort: 80
+            - containerPort: 6001
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle: # graceful stop
+            preStop:
+              exec:
+                command: ["/bin/bash","-c","/bin/sleep 1; /usr/sbin/nginx -s quit"]
+        - name: fluentd-container
+          image: "example.invalid/tp-wz3-rd/webapi-fluentd-image:2a43b1b"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: webapi-container
+          image: "example.invalid/tp-wz3-rd/webapi-image:2a43b1b"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; php artisan migrate; chmod -R 777 storage"]
+            preStop:
+              exec:
+                command: ["/bin/bash","-c","/bin/sleep 30; kill -QUIT 1"] # 等 php-fpm process_control_timeout  改成 30 只需要sleep 1 秒

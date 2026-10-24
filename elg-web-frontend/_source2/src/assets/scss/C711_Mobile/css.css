@@ -1,0 +1,4566 @@
+@charset "UTF-8";
+html body {
+  overscroll-behavior-y: contain;
+  height: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體", sans-serif;
+  background-color: #2d0d02;
+}
+
+body:-webkit-scrollbar {
+  display: none;
+}
+
+#C711Mobile {
+  /*代理相關頁面*/
+  /*end of agentPage*/
+  /*end of agentRule*/
+}
+
+#C711Mobile .up225 {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 50px;
+  right: 0;
+  z-index: 9998;
+  background-color: #1217a6;
+}
+
+#C711Mobile .up225 .upfont {
+  width: 80%;
+  border: 1px dashed #ffd378;
+  padding: 15px;
+  border-radius: 10px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  top: 20%;
+  font-weight: bold;
+  font-size: 14px;
+  background-color: black;
+}
+
+#C711Mobile .up225 .upfont .title {
+  font-weight: bold;
+  font-size: 16px;
+  margin: 10px auto;
+}
+
+#C711Mobile .up225 .upfont .con {
+  border-bottom: 1px solid #ffd378;
+}
+
+#C711Mobile .loadingiframeGame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  width: 100px;
+  margin: auto;
+  border-radius: 10px;
+  padding: 25px;
+  color: #fff;
+}
+
+#C711Mobile div {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#C711Mobile .allBackground {
+  background-color: #2e0d02;
+}
+
+#C711Mobile .directionMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000;
+}
+
+#C711Mobile .directionMask .directionPic {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .directionMask .directionPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .shortcutMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000;
+}
+
+#C711Mobile .shortcutMask .shortcutPic {
+  position: relative;
+  top: 0%;
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .shortcutMask .shortcutPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .has_pc_mobileMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000;
+}
+
+#C711Mobile .has_pc_mobileMask .has_pc_mobilePic {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .has_pc_mobileMask .has_pc_mobilePic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .wechatMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#C711Mobile .wechatMask .closeBtn {
+  position: relative;
+  top: 3%;
+  left: 15px;
+}
+
+#C711Mobile .wechatMask .closeBtn img {
+  width: 30px;
+}
+
+#C711Mobile .wechatMask .wechatPic {
+  position: relative;
+  top: 3%;
+  margin: auto;
+  z-index: 9999;
+  width: 80%;
+}
+
+#C711Mobile .wechatMask .wechatPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .login {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#C711Mobile .login .loginBg {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .login .specialT {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 0%;
+  left: 0;
+  z-index: 9;
+}
+
+#C711Mobile .login .C711_Msignin {
+  position: absolute;
+  top: 17%;
+  right: 0;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  z-index: 10;
+}
+
+#C711Mobile .login .C711_Msignin .loginLogo {
+  width: 100%;
+}
+
+#C711Mobile .login .C711_Msignin .loginLogo img {
+  width: 80%;
+  height: 78px;
+}
+
+#C711Mobile .login .C711_Msignin .signData {
+  width: 85%;
+  margin: 40px auto;
+}
+
+#C711Mobile .login .loginFooter {
+  margin: auto;
+  width: 100%;
+  height: 50px;
+  line-height: 25px;
+  color: #fff;
+  font-size: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+#C711Mobile .login div.selectWapper {
+  width: 150px;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  margin: 3px 0px;
+  height: 40px;
+  line-height: 40px;
+  color: #aaa;
+  background: #1f0909;
+  border-radius: 16px;
+  border: solid 1px #b67612;
+  padding-left: 7px;
+}
+
+#C711Mobile .login .selectIcon {
+  height: 14px !important;
+  width: 14px !important;
+  margin-left: 5px;
+  margin-top: 0px;
+}
+
+#C711Mobile .login select {
+  padding: 0px 4px 0px 0px;
+  width: 110px;
+  border: 0px solid white;
+  color: #ffd36d;
+  margin: 1px;
+  font-size: 14px;
+  background: transparent;
+}
+
+#C711Mobile .login select option {
+  color: #ffd36d;
+}
+
+#C711Mobile .login select:hover {
+  background: #1f0909;
+  padding: 0px 4px 0px 0px;
+  -webkit-appearance: none;
+  max-height: 90%;
+}
+
+#C711Mobile .login option:hover {
+  background-color: #1f0909;
+  padding: 0px 4px 0px 0px;
+  -webkit-appearance: none;
+}
+
+#C711Mobile .yellow_borderInput {
+  border-radius: 10px;
+  padding: 1px;
+  background: #81500b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .marginTop20 {
+  margin-top: 20px;
+}
+
+#C711Mobile .marginTop10 {
+  margin-top: 10px;
+}
+
+#C711Mobile .marginBottom20 {
+  margin-bottom: 10px;
+}
+
+#C711Mobile .black_InputAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 40px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .lockHeight {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_inputbg {
+  background: #4a3934;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 94%, #621919 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 94%, #621919 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 94%, #621919 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .orange_inputbg {
+  background: #f95c01;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #f95c01 1%, #b42d0d 49%, #8b1a13 90%, #8b1a13 94%, #922012 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #f95c01 1%, #b42d0d 49%, #8b1a13 90%, #8b1a13 94%, #922012 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #f95c01 1%, #b42d0d 49%, #8b1a13 90%, #8b1a13 94%, #922012 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gameListBgAll {
+  margin: auto;
+  padding: 5px;
+  width: 90px;
+  height: 100%;
+  border: 1px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .gameListBg {
+  background-image: url(../../img/C711_Mobile/ListMenuBg.png);
+}
+
+#C711Mobile .gameListBg_s {
+  background-image: url(../../img/C711_Mobile/ListOpenAppBg.png);
+  color: #fff;
+  font-weight: bold;
+}
+
+#C711Mobile .gameJokerBg {
+  background-image: url(../../img/C711_Mobile/ListOpenAppBg.png);
+}
+
+#C711Mobile .point_PAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .point_Pbg {
+  background: #4a3934;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #4a3934 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #4a3934 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #4a3934 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .black_DivAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  min-height: 120px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_EventDiv {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_Divbg {
+  background: #4a3934;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .purple_Divbg {
+  background: #561d2d;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #561d2d 0%, #501b2a 30%, #15070b 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #561d2d 0%, #501b2a 30%, #15070b 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #561d2d 0%, #501b2a 30%, #15070b 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .red_Btnbg {
+  border: 1px solid #111217;
+  background: #d50f0c;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .abreastBtn {
+  width: 46%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .abreastBtnTwo {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .yellow_Btnbg {
+  border: 1px solid #111217;
+  font-weight: bolder;
+  background: #e6dc97;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gray_BtnBg {
+  border: 1px solid #111217;
+  background: #79655f;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .yellowcolor {
+  color: #fff;
+  font-weight: bolder;
+  font-size: 15px;
+  border: 1px solid #111217;
+  background: #e6dc97;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .graycolor {
+  color: gray;
+  font-size: 15px;
+  font-weight: bolder;
+  border: 1px solid #111217;
+  background: #79655f;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .brown_BtnBg {
+  border: 1px solid #111217;
+  background: #6f411e;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #6f411e 1%, #844c24 39%, #271407 93%, #0e0804 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #6f411e 1%, #844c24 39%, #271407 93%, #0e0804 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #6f411e 1%, #844c24 39%, #271407 93%, #0e0804 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .blue_BtnBg {
+  border: 1px solid #111217;
+  background: #1e83d8;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #1e83d8 1%, #004f91 39%, #141418 93%, #004884 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #1e83d8 1%, #004f91 39%, #141418 93%, #004884 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #1e83d8 1%, #004f91 39%, #141418 93%, #004884 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .fontsizelogin {
+  font-size: 14px;
+  color: #fff;
+}
+
+#C711Mobile .fontsizeBtn {
+  font-size: 15px;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .fontsizeLock {
+  font-size: 9px;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .blackInput {
+  font-size: 14px;
+  color: #fff;
+  text-align: right;
+  position: relative;
+}
+
+#C711Mobile .blackInput .inputFontLeft {
+  position: absolute;
+  left: 7px;
+  top: 2;
+}
+
+#C711Mobile .blackInput .inputFontCenter {
+  position: absolute;
+  top: 2;
+  left: 0;
+  right: 0;
+}
+
+#C711Mobile .blackInput .inputFontRight {
+  position: absolute;
+  right: 7px;
+  top: 2;
+}
+
+#C711Mobile .blackInput .appFontLeft {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+#C711Mobile .blackInput .appFontLeft img {
+  margin-top: -5px;
+  width: 20px;
+}
+
+#C711Mobile .blackInput .appFontRight {
+  position: absolute;
+  right: 7px;
+  top: 50%;
+  margin-top: -10px;
+}
+
+#C711Mobile .blackInput .appFontRight img {
+  width: 10px;
+}
+
+#C711Mobile .mask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#C711Mobile .mask .eventModal {
+  position: relative;
+  top: 1%;
+  width: 97%;
+  margin: auto;
+  z-index: 9999;
+  height: 98%;
+}
+
+#C711Mobile .mask .eventModal .closeBtn {
+  position: absolute;
+  top: 0;
+  right: 2px;
+}
+
+#C711Mobile .mask .eventModal .closeBtn img {
+  width: 30px;
+}
+
+#C711Mobile .mask.mask-dark-grey {
+  background-color: #1e1e1e;
+}
+
+#C711Mobile .firework {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .Popups_full {
+  color: #fff;
+  width: 300px;
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  position: absolute;
+  text-align: center;
+  height: 90vh;
+  padding: 10px auto;
+}
+
+#C711Mobile .Popups_Modal {
+  color: #fff;
+  width: 300px;
+  border-radius: 8px;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#C711Mobile .Popups_Modal .PopupsTitle {
+  height: 50px;
+  line-height: 50px;
+  font-weight: bolder;
+  border-radius: 8px 8px 0px 0px;
+  background: #ab2800;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ab2800 0%, #6e0819 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ab2800 0%, #6e0819 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ab2800 0%, #6e0819 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .Popups_Modal .PopupsTitle .modalClose {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  width: 25px;
+}
+
+#C711Mobile .Popups_Modal .PopupsConAll {
+  background-color: #2b2c33;
+  height: 250px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .Popups_Modal .PopupsConNoBtn {
+  background-color: #2b2c33;
+  height: 180px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .Popups_Modal .PopupsCon {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 60%;
+  background-color: #151622;
+  border-bottom: 1px solid #50515b;
+  border-radius: 5px;
+}
+
+#C711Mobile .Popups_Modal .PopupsConNo {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 80%;
+  background-color: #151622;
+  border-bottom: 1px solid #50515b;
+  border-radius: 5px;
+}
+
+#C711Mobile .Popups_Modal .popupsConFont {
+  padding-top: 30px;
+  font-size: 15px;
+}
+
+#C711Mobile .Popups_Modal .popupsBank {
+  padding-top: 20px;
+  font-size: 15px;
+}
+
+#C711Mobile .Popups_Modal .PopupsBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  width: 80%;
+  margin: auto;
+}
+
+#C711Mobile .lottery_Modal {
+  color: #fff;
+  width: 300px;
+  border-radius: 8px;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#C711Mobile .lottery_Modal .PopupsTitle {
+  height: 50px;
+  line-height: 50px;
+  font-weight: bolder;
+  border-radius: 8px 8px 0px 0px;
+  background: #ff6000;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ff6000 0%, #e95104 50%, #a8250f 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ff6000 0%, #e95104 50%, #a8250f 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ff6000 0%, #e95104 50%, #a8250f 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .lottery_Modal .PopupsTitle .modalClose {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  width: 25px;
+}
+
+#C711Mobile .lottery_Modal .PopupsConAll {
+  background: #981817;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #981817 0%, #8d0002 35%, #141418 95%, #880000 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #981817 0%, #8d0002 35%, #141418 95%, #880000 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #981817 0%, #8d0002 35%, #141418 95%, #880000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  height: 250px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .lottery_Modal .PopupsConNoBtn {
+  background-color: #2b2c33;
+  height: 180px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .lottery_Modal .PopupsCon {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 60%;
+  background-color: #310f12;
+  border-bottom: 1px solid #955a2d;
+  border-radius: 5px;
+}
+
+#C711Mobile .lottery_Modal .PopupsConNo {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 80%;
+  background-color: #151622;
+  border-bottom: 1px solid #50515b;
+  border-radius: 5px;
+}
+
+#C711Mobile .lottery_Modal .popupsConFont {
+  padding-top: 30px;
+  font-size: 15px;
+}
+
+#C711Mobile .lottery_Modal .popupsBank {
+  padding-top: 20px;
+  font-size: 15px;
+}
+
+#C711Mobile .lottery_Modal .PopupsBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  width: 80%;
+  margin: auto;
+}
+
+#C711Mobile .pageBg {
+  background-image: url(../../img/C711_Mobile/BGL.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2d0d02;
+}
+
+#C711Mobile .CwidthHeight {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .widthHeightvh {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .fontFamily {
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體", sans-serif;
+}
+
+#C711Mobile .fontColor {
+  color: #fff;
+  font-size: 15px;
+}
+
+#C711Mobile .contentAll {
+  position: relative;
+  min-height: 100%;
+  background-color: #04020c;
+  width: 100%;
+}
+
+#C711Mobile .contentAll .ys-float-btn {
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #666666;
+  z-index: 1050;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 20vw;
+}
+
+#C711Mobile .contentAll .eventbtn {
+  position: relative;
+}
+
+#C711Mobile .contentAll .eventbtn .specialButton {
+  position: absolute;
+  top: -14px;
+  bottom: 0;
+  right: 18%;
+  width: 100%;
+}
+
+#C711Mobile .contentAll .eventbtn .eventBtnT {
+  position: absolute;
+  top: -8px;
+  bottom: 0;
+  right: 0;
+  width: 45%;
+}
+
+#C711Mobile .contentAll .eventbtn .eventFont {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-size: 8px;
+  text-align: center;
+}
+
+#C711Mobile .contentAll .eventbtn img {
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 3px;
+}
+
+#C711Mobile .contentAll .eventbtn p {
+  font-size: 7px;
+}
+
+#C711Mobile .contentAll .modal {
+  top: 1%;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content {
+  background: none;
+  border: none;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .closeBtn {
+  position: absolute;
+  top: 14px;
+  right: -5px;
+  z-index: 200;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .closeBtn img {
+  width: 51%;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body {
+  display: inline-block;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body,
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body iframe,
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body iframe {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .isDisabled {
+  color: currentColor;
+  cursor: not-allowed;
+  opacity: 0.5;
+  text-decoration: none;
+}
+
+#C711Mobile footer {
+  position: fixed;
+  padding: 5px 0;
+  bottom: -6px;
+  height: 64px;
+  box-sizing: border-box;
+  width: 100%;
+  z-index: 100;
+}
+
+#C711Mobile footer .specialINB {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 110;
+}
+
+#C711Mobile footer .C711_MlobbyMenu {
+  background-image: url(../../img/C711_Mobile/footerBg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn {
+  width: 180px;
+  height: 66px;
+  position: relative;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a {
+  display: block;
+  height: 66px;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 66px;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomBtn {
+  height: 30px;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomBtn img {
+  width: 85px;
+  max-width: 100%;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomFont {
+  height: 30px;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomFont span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .fontColorWhite {
+  color: #ffffff;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .fontColorGray {
+  color: #7b7a7a;
+}
+
+#C711Mobile .page .pageTitle {
+  height: 55px;
+  line-height: 55px;
+  z-index: 100;
+  font-weight: bolder;
+  position: relative;
+}
+
+#C711Mobile .page .pageTitle .pagePic {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .page .speciallogT {
+  position: absolute;
+  bottom: -17px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+#C711Mobile .page .pageTitleAll {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+}
+
+#C711Mobile .page .loginbarBack {
+  width: 10%;
+  padding: 1px;
+  padding-top: 5px;
+  text-align: left;
+}
+
+#C711Mobile .page .loginbarBack img {
+  width: 40px;
+  margin-left: 20px;
+}
+
+#C711Mobile .page .loginbarTitle {
+  width: 60%;
+  padding: 1px;
+  text-align: center;
+  color: #ffd36d;
+}
+
+#C711Mobile .page .loginbarTitle span {
+  font-size: 18px;
+  color: #ffd36d;
+  font-weight: bold;
+}
+
+#C711Mobile .page .gamePointTransfer {
+  width: 10%;
+  text-align: center;
+  padding: 1px;
+}
+
+#C711Mobile .page .gamePointTransfer img {
+  width: 28px;
+}
+
+#C711Mobile .page .loginbarright {
+  width: 10%;
+  text-align: center;
+  padding: 1px;
+}
+
+#C711Mobile .page .loginbarright .searchPic {
+  margin-right: 10px;
+  width: 20px;
+}
+
+#C711Mobile .page .loginbarright img {
+  margin-right: 10px;
+  width: 35px;
+}
+
+#C711Mobile .page .loginbarright span {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+#C711Mobile .page .loginbarright .dropdown-item {
+  height: 50px;
+}
+
+#C711Mobile .page .iconImg {
+  width: 22px;
+}
+
+#C711Mobile .PointHeader {
+  width: 100%;
+  height: 8%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+#C711Mobile .PointHeader .PointImgBg {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+#C711Mobile .PointHeader .PointImgBg img {
+  width: 100%;
+  height: 60px;
+}
+
+#C711Mobile .PointHeader .PointImgBg div.searchIcon {
+  position: absolute;
+  left: 4.5%;
+  top: 16px;
+  z-index: 99999;
+}
+
+#C711Mobile .PointHeader .PointImgBg img.searchIcon {
+  width: 26px;
+  height: 26px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .specialINT {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  height: 72px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .backBtn {
+  position: absolute;
+  left: 7%;
+  top: 11px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .backBtn img {
+  width: 40px;
+  height: 40px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .blackPointBg {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 17px;
+  text-align: center;
+}
+
+#C711Mobile .PointHeader .PointImgBg .blackPointBg img {
+  width: 46%;
+  height: 27px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointRe {
+  position: absolute;
+  left: 27.5%;
+  top: 16px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointRe img {
+  width: 22px;
+  height: 22px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointFont {
+  position: absolute;
+  left: 34%;
+  top: 21px;
+  color: #ffe16a;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointAddBtn {
+  position: absolute;
+  right: 27%;
+  top: 17px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointAddBtn img {
+  height: 31px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointLockBtn {
+  position: absolute;
+  right: 27%;
+  top: 14px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointLockBtn img {
+  height: 31px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .marquee_Pos {
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  color: red;
+  margin: auto;
+  width: 50%;
+  font-size: 10px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .fixed-settingBtn {
+  position: absolute;
+  right: 15px;
+  top: 16px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .fixed-settingBtn img {
+  height: 26px;
+  width: 26px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn {
+  position: absolute;
+  right: 8%;
+  top: 16px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn img {
+  width: 25px;
+  height: 25px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn .homeBtn {
+  width: 25px;
+  height: 22px;
+}
+
+#C711Mobile .pointHeight {
+  height: 60px;
+}
+
+#C711Mobile .pageFull {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+}
+
+#C711Mobile .LobbyBg {
+  background-image: url(../../img/C711_Mobile/LobbyBg2.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #330908;
+  background-position: 0px 50px;
+}
+
+#C711Mobile .LobbyBgPoints {
+  background-image: url(../../img/C711_Mobile/LobbyBg1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #330908;
+}
+
+#C711Mobile .LobbyBgColor {
+  background-color: #330908;
+}
+
+#C711Mobile .LobbySetting {
+  width: 100%;
+  margin: auto;
+  height: 100%;
+}
+
+#C711Mobile .marqueeRun {
+  width: 100%;
+  margin: auto;
+  margin-top: 1px;
+}
+
+#C711Mobile .marqueeRun .marquee {
+  width: 100%;
+  font-size: 10px;
+  font-weight: bolder;
+  color: #ff9614;
+  height: 25px;
+  line-height: 25px;
+  overflow: hidden;
+}
+
+#C711Mobile .scrollBar {
+  overflow: hidden;
+}
+
+#C711Mobile .pageCon {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+}
+
+#C711Mobile .qrfont {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+}
+
+#C711Mobile .inputvalidate {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 30px;
+  height: 55px;
+  position: relative;
+  margin: 15px auto;
+}
+
+#C711Mobile .noValidate {
+  height: 40px;
+}
+
+#C711Mobile .validateDiv {
+  width: 100%;
+  margin: 2px auto;
+  text-align: right;
+  color: #ffd36d;
+  font-size: 14px;
+}
+
+#C711Mobile .InputMain {
+  position: relative;
+}
+
+#C711Mobile .InputMain .InputLeft {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput {
+  border-radius: 10px;
+  padding: 1px;
+  background: #b67612;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%;
+}
+
+#C711Mobile .ListborderInput .settingShare {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#C711Mobile .ListborderInput .personPic {
+  position: absolute;
+  left: 15px;
+  top: 9px;
+  width: 20px;
+}
+
+#C711Mobile .ListborderInput .ShareCodeFont {
+  position: absolute;
+  left: 40px;
+  top: 9px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .ShareCodeFont2 {
+  position: absolute;
+  right: 115px;
+  top: 9px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .ListInputAllL {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .ListborderInput .ListInputAllR {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 2.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .ListInputAllRSetting {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  display: inline-block;
+  padding: 0.5em 2.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .ListInputRightS {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .Listinputbg {
+  border: none;
+  background: #000;
+  /*1f0909e0*/
+  color: #fff;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .inputClose {
+  position: absolute;
+  width: 13px;
+  top: 14px;
+  right: 8px;
+}
+
+#C711Mobile .ListborderInput .forgetphoneCode {
+  position: absolute;
+  width: 55px;
+  top: 8px;
+  left: 10px;
+  font-size: 15px;
+  text-align: left;
+}
+
+#C711Mobile .ListborderInput .setNewPw {
+  width: 90px;
+  font-size: 14px;
+  padding-left: 3px;
+}
+
+#C711Mobile .inputInBtn {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  cursor: pointer;
+}
+
+#C711Mobile .shareFont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+#C711Mobile .sendBtn {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 35%;
+  height: 46px;
+  line-height: 37px;
+  font-weight: bolder;
+  margin: 50px auto;
+  font-size: 13px;
+}
+
+#C711Mobile .sendBtn button {
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .BigBlueBtn {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 62%;
+  height: 82px;
+  line-height: 82px;
+  font-weight: bolder;
+  margin: 50px auto;
+}
+
+#C711Mobile .BigBlueBtn button {
+  color: #fff;
+  font-weight: bold;
+}
+
+#C711Mobile .margin20 {
+  margin: 20px auto;
+}
+
+#C711Mobile .BtnShare {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 115px;
+  height: 40px;
+  line-height: 40px;
+  margin: auto;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .blueBtnShare {
+  background-image: url(../../img/C711_Mobile/blueBtn.png);
+}
+
+#C711Mobile .OrangeBtnShare {
+  background-image: url(../../img/C711_Mobile/OrangeBtn.png);
+}
+
+#C711Mobile .nicknameBg {
+  margin: auto;
+  width: 80%;
+  position: relative;
+}
+
+#C711Mobile .nicknameBg .nicknameBG {
+  width: 100%;
+  margin: 10px auto;
+}
+
+#C711Mobile .nicknameBg .userPic {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 12%;
+  height: 61%;
+  margin-top: -20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+#C711Mobile .nicknameBg .userPic img {
+  width: 90%;
+  margin: auto;
+}
+
+#C711Mobile .nicknameBg .userPic .lobbyUserPic {
+  transform: scale(1.2);
+}
+
+#C711Mobile .nicknameBg .nickname {
+  position: absolute;
+  top: 34%;
+  left: 17%;
+  color: #ffd36d;
+  font-size: 14px;
+  width: 79%;
+  height: 25px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#C711Mobile .CLobbyContent {
+  width: 100%;
+  height: 90%;
+  margin: auto;
+  justify-content: space-around;
+  padding-left: 3px;
+  padding-bottom: 50px;
+  overflow-y: auto;
+}
+
+#C711Mobile .CLobbyContent .lobbyGameBg {
+  height: 100%;
+  margin: 3px 4px;
+  width: 31%;
+}
+
+#C711Mobile .swiperPadding {
+  width: 99%;
+  margin: auto;
+}
+
+#C711Mobile .disPic {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#C711Mobile .disGray {
+  -webkit-filter: grayscale(1);
+}
+
+#C711Mobile .NodisGray {
+  -webkit-filter: grayscale(0) !important;
+}
+
+#C711Mobile .GameIconAll {
+  position: relative;
+  text-align: center;
+}
+
+#C711Mobile .filter-lable {
+  color: #ccc;
+  padding: 20px 0px 0px 20px;
+  font-size: 12px;
+}
+
+#C711Mobile .golden-search {
+  padding: 20px 20px 0px 20px;
+}
+
+#C711Mobile .golden-search .golden-input {
+  border: solid #b67612 1px;
+  display: flex;
+  width: 100%;
+  border-radius: 10px;
+  height: 40px;
+  line-height: 40px;
+  padding-left: 10px;
+  color: #ffd36d;
+  background: #27080c;
+}
+
+#C711Mobile .golden-search .golden-input .left {
+  flex: 0 0 85%;
+}
+
+#C711Mobile .golden-search .golden-input .right {
+  width: 100%;
+  text-align: center;
+  border-left: solid 1px #b67612;
+  padding-right: 10px;
+  padding-left: 10px;
+}
+
+#C711Mobile .golden-search .golden-input img {
+  width: 19px;
+  height: 19px;
+}
+
+#C711Mobile input.hideInput {
+  border: none;
+  background: transparent;
+  outline: none;
+  color: #ffd36d;
+  width: 95%;
+}
+
+#C711Mobile .gameCategoryWrapper {
+  padding-top: 16px;
+  overflow-x: auto;
+  padding-left: 16px;
+  padding-bottom: 16px;
+  white-space: nowrap;
+}
+
+#C711Mobile .gameCardWrapper {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#C711Mobile .gameCardWrapper .gameCard {
+  flex: 0 0 33.3%;
+  max-width: 33.3%;
+  padding: 5px;
+  margin-bottom: 6px;
+}
+
+#C711Mobile .gameCardWrapper .gameNameText {
+  font-size: 13px;
+  color: #f2e3ff;
+  text-align: center;
+}
+
+#C711Mobile .gameCardWrapper img.newTag {
+  position: absolute;
+  left: 1px;
+  top: 1px;
+  height: 25px;
+  border-top-left-radius: 15px;
+}
+
+#C711Mobile .gameCardWrapper img.hotTag {
+  position: absolute;
+  right: 1px;
+  top: 1px;
+  height: 25px;
+  border-top-right-radius: 15px;
+}
+
+#C711Mobile .gameCardWrapper .imgBG {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  border: solid 2px #D84B4B;
+  border-radius: 17px;
+  background: linear-gradient(to bottom, #382B27 0%, #211B24 15%, #070708 100%);
+}
+
+#C711Mobile .gameCardWrapper .gameImg {
+  border-radius: 15px;
+  width: 100%;
+  height: 104px;
+  margin: auto;
+  border: solid 2px #FFCCCC;
+}
+
+#C711Mobile .styleFontHeader {
+  text-align: center;
+  color: #ffd36d;
+  font-size: 16px;
+  padding-top: 25px;
+  height: 60px;
+  background-size: 100% 100%;
+  background-image: url("../../img/C711_Mobile/Points_header.png");
+}
+
+#C711Mobile .styleFontHeader img.logoImg {
+  width: 100px;
+  height: 30px;
+}
+
+#C711Mobile .eventContent {
+  padding-top: 65px;
+  padding-bottom: 65px;
+}
+
+#C711Mobile .eventCards {
+  width: 90%;
+  margin: auto;
+}
+
+#C711Mobile .eventPageBanner {
+  height: 126px;
+  width: 100%;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
+}
+
+#C711Mobile .filterCard {
+  display: inline-block;
+  margin-right: 10px;
+  color: #FFF;
+  font-size: 12px;
+  text-align: center;
+  font-weight: 100;
+}
+
+#C711Mobile .filterIcon {
+  height: 48px;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
+#C711Mobile .GameIconBg {
+  padding-top: 1px;
+  max-width: 100%;
+  width: 100%;
+  max-height: 100%;
+}
+
+#C711Mobile .GameIcon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#C711Mobile .GameIcon a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#C711Mobile .GameIcon a .gameImage {
+  max-height: 95%;
+  max-width: 95%;
+}
+
+#C711Mobile .GameIcon .newHotPic {
+  position: absolute;
+  z-index: 2;
+  width: 50px;
+}
+
+#C711Mobile .GameIcon .hotPic {
+  top: -1px;
+  right: -2px;
+}
+
+#C711Mobile .GameIcon .newPic {
+  top: -1px;
+  left: -2px;
+}
+
+#C711Mobile .GameIcon .lockPic {
+  position: absolute;
+  top: -1px;
+  right: -4px;
+  z-index: 2;
+  width: 40px;
+}
+
+#C711Mobile .GameIcon .maintain {
+  bottom: 5px;
+  left: -3px;
+  width: 85%;
+  z-index: 88;
+}
+
+#C711Mobile .GameIcon .maintainfont {
+  position: absolute;
+  z-index: 98;
+  bottom: 4px;
+  left: 2px;
+  font-size: 11px;
+  font-weight: bolder;
+  color: #af1f00;
+  width: 72%;
+  height: 23%;
+  text-align: left;
+  display: inline-block;
+}
+
+#C711Mobile #noSwiper {
+  width: 33%;
+}
+
+#C711Mobile #noSwiper .GameIconAll {
+  position: relative;
+  text-align: center;
+  margin: 3px 2px;
+}
+
+#C711Mobile #noSwiper .GameIconBg {
+  padding-top: 1px;
+  max-width: 97%;
+  max-height: 100%;
+}
+
+#C711Mobile #noSwiper .GameIcon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#C711Mobile #noSwiper .GameIcon a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#C711Mobile #noSwiper .GameIcon a .gameImage {
+  max-height: 95%;
+  max-width: 95%;
+}
+
+#C711Mobile #noSwiper .GameIcon .newHotPic {
+  position: absolute;
+  z-index: 2;
+  width: 50px;
+}
+
+#C711Mobile #noSwiper .GameIcon .hotPic {
+  top: -1px;
+  right: -2px;
+}
+
+#C711Mobile #noSwiper .GameIcon .newPic {
+  top: -1px;
+  left: -2px;
+}
+
+#C711Mobile #noSwiper .GameIcon .maintain {
+  bottom: 5px;
+  left: -3px;
+  width: 85%;
+  z-index: 88;
+}
+
+#C711Mobile #noSwiper .GameIcon .maintainfont {
+  position: absolute;
+  z-index: 98;
+  bottom: 4px;
+  left: 2px;
+  font-size: 11px;
+  font-weight: bolder;
+  color: #af1f00;
+  width: 72%;
+  height: 23%;
+  text-align: left;
+  display: inline-block;
+}
+
+#C711Mobile .C711_Mcarousel {
+  height: 120px;
+  width: 100%;
+}
+
+#C711Mobile .carouselPic {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+  height: 120px;
+  margin-top: -1px;
+}
+
+#C711Mobile .carouselPic .bannerImg {
+  width: 400px;
+  /*圖片寬度*/
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  max-height: 100%;
+  margin-left: -200px;
+  /*圖片寬度一半*/
+  overflow: hidden;
+  behavior: expression(this.style.width=document.documentElement.offsetWidth);
+}
+
+#C711Mobile .carouselPic .bannerImg img {
+  max-height: 100%;
+  height: 100%;
+}
+
+#C711Mobile .bannerLobby {
+  height: 120px;
+  width: 100%;
+  position: fixed;
+  bottom: 52px;
+}
+
+#C711Mobile .forgetTitleFont {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .forgetFont {
+  margin: 20px auto;
+  font-size: 10px;
+  text-align: right;
+  color: #a8bac9;
+}
+
+#C711Mobile .yellow_borderDropdown {
+  border-radius: 0px 0px 10px 10px;
+  padding: 1px;
+  background: #81500b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gray_dropdownBg {
+  background-color: #312836;
+  color: #fff;
+  border-radius: 0px 0px 10px 10px;
+  width: 100%;
+  margin-top: 0px;
+}
+
+#C711Mobile .gray_dropdownBg a {
+  color: #fff;
+  font-size: 15px;
+}
+
+#C711Mobile .yellowBorder {
+  border: #81500b 1px solid;
+}
+
+#C711Mobile .dropdown-menu.show {
+  width: 100%;
+}
+
+#C711Mobile .appFontTitle {
+  font-size: 15px;
+  text-align: left;
+  margin-left: 3px;
+}
+
+#C711Mobile .OpenFont {
+  margin: 10px auto;
+}
+
+#C711Mobile .OpenBtn {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .OpenBtn .androIosBtn {
+  padding: 1px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 110px;
+  height: 40px;
+  margin: 10px 8px;
+}
+
+#C711Mobile .OpenBtn .AndroidBtn {
+  background-image: url("../../img/C711_Mobile/Android.png");
+}
+
+#C711Mobile .OpenBtn .IosBtn {
+  background-image: url("../../img/C711_Mobile/IOS.png");
+}
+
+#C711Mobile .iconPic {
+  width: 80%;
+  margin: 15px auto;
+}
+
+#C711Mobile .iconPic .picLeft {
+  width: 30%;
+}
+
+#C711Mobile .iconPic .picLeft img {
+  width: 50%;
+}
+
+#C711Mobile .iconPic .fontLeft {
+  width: 70%;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .pwFont {
+  width: 85%;
+  text-align: left;
+}
+
+#C711Mobile .ctrlCPic {
+  width: 10%;
+}
+
+#C711Mobile .iosOpenFont {
+  margin: auto;
+  width: 95%;
+  text-align: left;
+  font-size: 15px;
+}
+
+#C711Mobile .iosOpenFont .pwrule {
+  font-size: 13px;
+  color: #ffd36d;
+}
+
+#C711Mobile .modalBalance {
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: bolder;
+}
+
+#C711Mobile .pointFont {
+  color: #fe5f00;
+  font-weight: bolder;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .bankPic {
+  position: relative;
+}
+
+#C711Mobile .bankPic .PicD {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+#C711Mobile .bankPic .PicD img {
+  width: 13px;
+}
+
+#C711Mobile .StoredValueBank {
+  width: 100%;
+  margin: auto 20px;
+  text-align: left;
+}
+
+#C711Mobile .StoredValueBank .Bank {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+#C711Mobile .StoredValueBank .BankName {
+  color: #ffe992;
+  margin: 5px auto;
+}
+
+#C711Mobile .oneWalletPrompt {
+  width: 90%;
+  margin: 20px auto;
+  font-size: 14px;
+  text-align: left;
+}
+
+#C711Mobile .DategaryFont {
+  color: #a8bac9;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#C711Mobile .dateSelect {
+  margin: 10px auto;
+  width: 80%;
+  font-size: 15px;
+  font-weight: bolder;
+  line-height: 30px;
+}
+
+#C711Mobile .datepicker {
+  width: 100%;
+  margin: 10px auto;
+}
+
+#C711Mobile .datepicker input {
+  width: 100%;
+  box-shadow: 1px 1px 3px 2px #000 inset;
+  /**/
+  border-radius: 10px;
+  border: #b67612;
+  background: #4a3934;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  color: #fff;
+  font-size: 14px;
+}
+
+#C711Mobile .datepicker > input {
+  color: #fff !important;
+  border: 1px solid #b67612 !important;
+}
+
+#C711Mobile .datepicker > input.focus {
+  border-color: #b67612;
+}
+
+#C711Mobile .datepicker-popup {
+  background-color: #312836 !important;
+  color: #fff;
+  border-radius: 0px 0px 10px 10px;
+  margin: auto;
+  border: 1px solid #b67612 !important;
+  margin-top: -1px;
+}
+
+#C711Mobile .RecordListCon {
+  margin: 2px auto;
+  width: 100%;
+}
+
+#C711Mobile .RecordListCon thead {
+  color: #fff;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+#C711Mobile .RecordListCon thead th {
+  vertical-align: middle;
+  border: none;
+}
+
+#C711Mobile .RecordListCon thead .number {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .cardnumber {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon thead .date {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .gamer {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .cardgamer {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon thead .point {
+  width: 30%;
+  margin: auto;
+}
+
+#C711Mobile .RecordListCon thead .cardpoint {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon tbody {
+  color: #fff;
+  font-size: 13px;
+}
+
+#C711Mobile .RecordListCon tbody th {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711Mobile .RecordListCon tbody td {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711Mobile .RecordListCon .colorR {
+  color: #fe5f00;
+}
+
+#C711Mobile .RecordListCon .colorG {
+  color: #00c3fe;
+}
+
+#C711Mobile .setPic {
+  position: relative;
+}
+
+#C711Mobile .setPic .SettingNameLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#C711Mobile .setPic .SettingNameRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#C711Mobile .setPic .SettingInputLeft {
+  position: absolute;
+  top: 8px;
+  left: 11px;
+}
+
+#C711Mobile .setPic .SettingInputRight {
+  position: absolute;
+  top: 8px;
+  right: 35px;
+}
+
+#C711Mobile .setPic .redEnvelLogo {
+  width: 14px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .recordLogoPic {
+  width: 16px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .logoPic {
+  width: 18px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .Lpic {
+  width: 8px;
+}
+
+#C711Mobile img.editIcon {
+  width: 12px;
+  height: 12px;
+}
+
+#C711Mobile .infoPanel {
+  padding: 33px 25px 25px 25px;
+  background: #1f0909;
+  border-radius: 0px 0px 20px 20px;
+  border: solid 1px #b67612;
+  border-top: none;
+}
+
+#C711Mobile .walletInfo .pointRow {
+  text-align: center;
+  color: #fff;
+  position: relative;
+}
+
+#C711Mobile .walletInfo .pointRow .refreshBtn {
+  position: absolute;
+  right: 10px;
+  top: -3px;
+}
+
+#C711Mobile .walletInfo .pointRow .refreshBtn img {
+  width: 25px;
+  height: 25px;
+}
+
+#C711Mobile .walletInfo .amountRow {
+  text-align: center;
+  color: #ffd36d;
+  font-size: 40px;
+}
+
+#C711Mobile .walletInfo .pointAddBtn {
+  margin-top: 10px;
+  text-align: center;
+}
+
+#C711Mobile .walletInfo .pointAddBtn img {
+  margin-right: 15px;
+  width: 48px;
+  height: 25px;
+}
+
+#C711Mobile .setting-link-panel {
+  padding: 25px 25px 25px 25px;
+}
+
+#C711Mobile .setting-link-panel .yellow_borderInput {
+  margin-bottom: 18px;
+}
+
+#C711Mobile .setting-link-panel img.logoPic {
+  width: 16px;
+}
+
+#C711Mobile .Listinputbg.editInputBG,
+#C711Mobile .editInputBG {
+  background-color: #27080c;
+}
+
+#C711Mobile .personalPic {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+#C711Mobile .personalPic .circlePic {
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 7px;
+  width: 100px;
+  height: 100px;
+  border: 2px solid blue;
+  border: 1px solid #b67612;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#C711Mobile .personalPic .circlePic img {
+  max-width: 100%;
+  max-height: 100%;
+  transform: scale(1.1);
+}
+
+#C711Mobile .personalPic .camera {
+  position: absolute;
+  right: 55px;
+  bottom: -15px;
+  width: 50px;
+}
+
+#C711Mobile .transition {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+}
+
+#C711Mobile .fadeMenu {
+  width: 90%;
+  margin: 5px auto;
+  border-radius: 10px;
+  border: #aa6402 1px solid;
+  color: #ffd36d;
+  background: #6c1a1b;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #6c1a1b 0%, #360d0e 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #6c1a1b 0%, #360d0e 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #6c1a1b 0%, #360d0e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .fadeMenu .fadeBottomBorder {
+  border-bottom: gray 1px solid;
+}
+
+#C711Mobile .fadeMenu .fadeFont {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#C711Mobile .about button[aria-expanded="true"] {
+  border: 1px solid #111217;
+  background: #d50f0c;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .about .termsAndConditions {
+  transform: translate3d(1px, 40px, 0px) !important;
+}
+
+#C711Mobile .about .aboutCon {
+  padding: 10px;
+  font-size: 13px;
+}
+
+#C711Mobile .eventsConFont {
+  color: #fff;
+  text-align: left;
+  font-size: 13px;
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .eventsConFont .eventPr {
+  width: 100%;
+  text-align: left;
+  margin: 10px auto;
+}
+
+#C711Mobile .eventsConFont .eventPrR {
+  width: 100%;
+  text-align: left;
+}
+
+#C711Mobile .eventsConFont .eventPrR img {
+  width: 25px;
+}
+
+#C711Mobile .eventsTitle {
+  width: 100%;
+  margin: auto;
+  line-height: 30px;
+  text-align: left;
+}
+
+#C711Mobile .eventsTitle .eventsLogo {
+  width: 12%;
+}
+
+#C711Mobile .eventsTitle .eventsLogo img {
+  margin-top: -10px;
+  width: 25px;
+}
+
+#C711Mobile .eventsTitle .eventsFont {
+  color: #ffd36d;
+  font-size: 15px;
+  width: 75%;
+}
+
+#C711Mobile .eventsTitle .eventsFont span {
+  color: #7e7c7c;
+  font-size: 13px;
+}
+
+#C711Mobile .eventsTitle .eventTicket {
+  width: 13%;
+}
+
+#C711Mobile .eventsTitle .eventTicket img {
+  margin-top: -5px;
+  margin-right: 10px;
+  width: 28px;
+}
+
+#C711Mobile .eventTime {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711Mobile .reddeemTime {
+  width: 100%;
+  margin: auto;
+  color: #fe5f42;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711Mobile .remarks {
+  width: 100%;
+  margin: auto;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bolder;
+}
+
+#C711Mobile .eventsProgress {
+  width: 100%;
+  margin: 15px auto 8px auto;
+}
+
+#C711Mobile .gamer_Btn {
+  width: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+}
+
+#C711Mobile .slotGameFont {
+  color: #6dd8ff;
+  text-align: left;
+  font-weight: bolder;
+}
+
+#C711Mobile .dateFont {
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .dateFont span {
+  color: #fe5f42;
+  font-weight: bold;
+}
+
+#C711Mobile .bar_Btn {
+  cursor: pointer;
+}
+
+#C711Mobile .eventsPointFont {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .eventsPointFont span {
+  color: #fe5f42;
+}
+
+#C711Mobile .eventsBtn {
+  width: 100%;
+  margin: 15px auto;
+}
+
+#C711Mobile .EventDescriptTitle {
+  color: #ffd36d;
+  font-size: 15px;
+  text-align: left;
+  line-height: 30px;
+}
+
+#C711Mobile .EventDescriptTitle .eventPr {
+  width: 50%;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptTitle .eventPrR {
+  width: 50%;
+  text-align: right;
+}
+
+#C711Mobile .EventDescriptTitle .eventPrR img {
+  margin-top: -5px;
+  margin-left: 20px;
+  width: 25px;
+}
+
+#C711Mobile .eventDesGame {
+  transform: translate3d(1px, 42px, 0px) !important;
+}
+
+#C711Mobile .EventDescriptTime {
+  margin: 5px auto;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptFont {
+  white-space: pre-wrap;
+  text-align: left;
+  margin: 3px auto;
+  padding-left: 2px;
+}
+
+#C711Mobile .EventDescriptProgress {
+  width: 100%;
+  margin: 18px auto 8px auto;
+}
+
+#C711Mobile .EventDescriptDate {
+  margin: 2px auto;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptDate span {
+  color: #f8806a;
+}
+
+#C711Mobile .dateFont {
+  color: #fff;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+}
+
+#C711Mobile .buttonClick {
+  margin-top: 40px;
+}
+
+#C711Mobile .company {
+  width: 80%;
+  line-height: 25px;
+  margin: 20px auto;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+#C711Mobile .ticketTitle {
+  color: #ffd36d;
+  font-size: 15px;
+  text-align: left;
+  margin: 10px;
+}
+
+#C711Mobile .ticketNumAll {
+  width: 100%;
+  margin: auto;
+}
+
+#C711Mobile .ticketNumAll .ticketNum {
+  text-align: left;
+  margin: 8px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #ae6a07;
+}
+
+#C711Mobile .ticketNumAll .ticketNum img {
+  margin-top: -5px;
+  margin-left: 5px;
+  width: 18px;
+}
+
+#C711Mobile .ticketNumAll .ticketNum span {
+  margin-left: 8px;
+}
+
+#C711Mobile .ticketNumAll .ticketNum .ticketUser {
+  margin-top: 5px;
+  text-align: right;
+  margin-right: 5px;
+  color: gray;
+}
+
+#C711Mobile .GamePlay {
+  width: 100%;
+  height: 100%;
+  padding-top: 3px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  position: relative;
+}
+
+#C711Mobile .vendorID4 {
+  width: 85%;
+  margin: auto;
+  text-align: center;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+#C711Mobile .vendorID4 .closeBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50px;
+}
+
+#C711Mobile .vendorID4 img {
+  width: 75%;
+}
+
+#C711Mobile .eventBtnD {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  z-index: 999999;
+}
+
+#C711Mobile .btnFixedBg {
+  width: 100%;
+  margin: auto;
+  height: 60px;
+  text-align: center;
+  position: fixed;
+  z-index: 10;
+}
+
+#C711Mobile .btnFixedBg .pointBtn {
+  width: 90%;
+  height: 60px;
+  margin: auto;
+  padding-top: 10px;
+}
+
+#C711Mobile .btnFixedBg .pointBtn .pointBtnLeftRight {
+  position: relative;
+}
+
+#C711Mobile .btnFixedBg .pointBtn .pointBtnLeftRight .pointBtnBg {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  font-size: 15px;
+  color: #ffe992;
+  font-weight: bold;
+}
+
+#C711Mobile .PointsItem {
+  width: 100%;
+  margin: auto;
+  padding-top: 60px;
+  padding-bottom: 66px;
+}
+
+#C711Mobile .PointsItem .pointSelect {
+  width: 50%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint {
+  width: 85%;
+  margin: 10px auto;
+  position: relative;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint img {
+  width: 100%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointTitle {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  height: 22%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg {
+  position: relative;
+  text-align: left;
+  margin-left: 8px;
+  margin-top: 9px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg img {
+  width: 82%;
+  height: 25px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg .pointdigital {
+  position: absolute;
+  top: 3px;
+  right: 25%;
+  font-size: 10px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg .pointdigitalsmall {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  left: 2px;
+  font-size: 8px;
+  text-align: center;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .reBtn {
+  position: absolute;
+  top: 9px;
+  right: 0;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .reBtn img {
+  width: 55%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .PointsImg {
+  position: absolute;
+  top: 21%;
+  left: 0;
+  right: 0;
+  height: 54%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .PointsImg img {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton {
+  position: absolute;
+  top: 76%;
+  left: 0;
+  right: 0;
+  height: 24%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton .ButtonInOut {
+  width: 50%;
+  margin: 8px auto;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton .ButtonInOut img {
+  width: 33%;
+}
+
+#C711Mobile .PointModalBg {
+  margin: auto;
+  width: 100%;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #fff;
+  font-weight: bolder;
+  text-align: center;
+}
+
+#C711Mobile .PointModalBg img {
+  width: 95%;
+}
+
+#C711Mobile .PointModalBg .pointModalTitle {
+  position: absolute;
+  top: 1%;
+  left: 0;
+  right: 0;
+  height: 9%;
+  line-height: 45px;
+}
+
+#C711Mobile .PointModalBg .pointModalClose {
+  position: absolute;
+  top: 25%;
+  right: 25px;
+  width: 25px;
+}
+
+#C711Mobile .PointModalBg .pointModalInput {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  height: 24%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO {
+  width: 70%;
+  margin: 20px auto;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToFont {
+  width: 40%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToImg {
+  width: 20%;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToImg img {
+  width: 15px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber {
+  position: absolute;
+  top: 34%;
+  left: 0;
+  right: 0;
+  height: 38%;
+  width: 78%;
+  margin: auto;
+  padding: 1px 2px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber .pointBtnMargin {
+  width: 30%;
+  margin: 1.5%;
+  padding: auto 1px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber .pointBtnMargin .pointBtnSize {
+  text-align: center;
+  color: #f3d84d;
+  height: 2.5em;
+}
+
+#C711Mobile .PointModalBg .pointModalBtn {
+  position: absolute;
+  top: 72%;
+  left: 0;
+  right: 0;
+  height: 24%;
+}
+
+#C711Mobile .GameMenu {
+  width: 100%;
+  margin: auto;
+  height: 60px;
+}
+
+#C711Mobile .GameMenu .ListMenu {
+  width: 100%;
+  margin: auto;
+  padding-top: 15px;
+  position: relative;
+  height: 60px;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 115px;
+  height: 90%;
+  overflow: hidden;
+  z-index: 9;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixBg img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixedBtn {
+  position: absolute;
+  top: 10px;
+  left: 2%;
+  z-index: 10;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixedBtn .allgames {
+  font-size: 12px;
+}
+
+#C711Mobile .GameMenu .ListMenu .gametype {
+  position: absolute;
+  top: 9px;
+  left: 31%;
+  display: inline-block;
+  width: 75%;
+  font-size: 12px;
+}
+
+#C711Mobile .GameMenu .ListMenu .listBg {
+  margin: auto 5px;
+  display: inline-block;
+  height: 35px;
+  color: #ffe992;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#C711Mobile .GameItemAll .Gift {
+  position: absolute;
+  bottom: -2px;
+  left: -2.5%;
+  z-index: 10;
+  width: 38%;
+}
+
+#C711Mobile .gameList {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll {
+  width: 93%;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .GameItemB {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .NewHotBtn {
+  position: absolute;
+  top: -2px;
+  left: -2.5%;
+  z-index: 10;
+  width: 35%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .Gift {
+  position: absolute;
+  bottom: -2px;
+  left: -2.5%;
+  z-index: 10;
+  width: 35%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .ListLockPic {
+  position: absolute;
+  top: -2px;
+  right: -6px;
+  z-index: 20;
+  width: 50px;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .gameListCon {
+  position: absolute;
+  top: 2px;
+  left: 2.5%;
+  width: 96%;
+  height: 96%;
+  border-radius: 15px;
+  overflow: hidden;
+  align-items: center;
+  justify-content: center;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .gamePic {
+  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .gamePTpic {
+  max-width: 100%;
+  min-height: 100%;
+  min-width: 100%;
+}
+
+#C711Mobile .gameList .swiperPic .gameName {
+  width: 88%;
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffe992;
+  overflow: hidden;
+}
+
+#C711Mobile .GameItemAll {
+  width: 100%;
+  margin: auto;
+  margin-top: 6px;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic {
+  width: 100%;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll {
+  width: 93%;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .GameItemBG {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .GiftS {
+  position: absolute;
+  bottom: -1px;
+  left: -4px;
+  z-index: 9;
+  width: 45px;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .ListLockPicS {
+  position: absolute;
+  top: -1px;
+  right: -4px;
+  width: 40px;
+  z-index: 9;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .gameListItemCon {
+  position: absolute;
+  top: 3px;
+  left: 2%;
+  width: 96%;
+  height: 95%;
+  border-radius: 13px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .gameListItemCon .gameItemPic {
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gameItemName {
+  width: 90%;
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 11px;
+  color: #ffe992;
+  height: 40px;
+  overflow: hidden;
+}
+
+#C711Mobile .bannerGameList {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#C711Mobile .chatIframe {
+  width: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto;
+}
+
+#C711Mobile .iframeChat {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .specialB {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 25px;
+  z-index: 9;
+  width: 100%;
+}
+
+#C711Mobile .bottomIcon {
+  z-index: 9;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  display: flex;
+  justify-content: space-between;
+  width: 60%;
+  margin: auto;
+}
+
+#C711Mobile .bottomIcon .whatapp {
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappPic {
+  width: 50px;
+  margin: auto;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappFont {
+  font-size: small;
+  color: #fff;
+  font-weight: bold;
+  line-height: 23px;
+}
+
+#C711Mobile .ScratchCardAll {
+  padding-top: 5px;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardGIF {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 500;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardGIF img {
+  width: 100%;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardPIC {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardPIC img {
+  width: 100%;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardMask {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 500;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardMask img {
+  margin-top: 35%;
+  width: 340px;
+  height: 340px;
+}
+
+#C711Mobile .ScratchCardAll img {
+  height: 92vh;
+}
+
+#C711Mobile .Lottery {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+#C711Mobile .Events_bar {
+  width: 100%;
+  height: 44px;
+}
+
+#C711Mobile .LotteryAll {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 10px;
+  position: relative;
+}
+
+#C711Mobile .LotteryAll .LotteryBgPic {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .LotteryAll .LotteryTitle {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#C711Mobile .LotteryAll .LotteryGo {
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+#C711Mobile .displayNone {
+  display: none;
+}
+
+#C711Mobile .displayBlock {
+  display: block;
+}
+
+#C711Mobile .displayFlex {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+#C711Mobile .btn-blue {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+  cursor: pointer;
+  background: linear-gradient(#b9e0ff 0%, #0c63bc 50%, #1a6cbe 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-blue button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 30px;
+  border-radius: 10px;
+  background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-lottery {
+  width: 125px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+}
+
+#C711Mobile .btn-lottery button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-grey {
+  width: 140px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: linear-gradient(#414141 0%, #504a59 50%, #2a2832 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-grey button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 45px;
+  border-radius: 10px;
+  background: linear-gradient(#766361, #504a59 50%, #2a2832 90%, #19181c);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+#C711Mobile .btn-orangeSetting {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+}
+
+#C711Mobile .btn-orangeSetting button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-orange {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+}
+
+#C711Mobile .btn-orange button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 30px;
+  border-radius: 10px;
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-blueTwo {
+  width: 110px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
+  background: linear-gradient(#b9e0ff 0%, #0c63bc 50%, #1a6cbe 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-blueTwo button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-orangeTwo {
+  width: 110px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+}
+
+#C711Mobile .btn-orangeTwo button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .fullad {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid red;
+  padding: 5px;
+  background-color: #000;
+}
+
+#C711Mobile .closead {
+  position: absolute;
+  top: 25px;
+  right: 0;
+  width: 25px;
+  z-index: 10;
+}
+
+#C711Mobile .Congratulations {
+  position: absolute;
+  top: 43px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  margin: auto;
+}
+
+#C711Mobile .Congratulations img {
+  width: 98%;
+}
+
+#C711Mobile .fullYoutube {
+  padding: 15px;
+  width: 100%;
+  font-size: 15px;
+  color: #fff;
+}
+
+#C711Mobile .fullYoutube .fullgamer {
+  margin: 5px auto;
+}
+
+#C711Mobile .fullYoutube .fullgamer span {
+  font-weight: bolder;
+  font-size: 17px;
+}
+
+#C711Mobile .fullYoutube .fullgame {
+  width: 90%;
+  margin: 5px auto;
+  color: orange;
+  font-size: 16px;
+  font-weight: bolder;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .fullYoutube .fullgame img {
+  height: 23px;
+  margin-right: 5px;
+  margin-top: -8px;
+}
+
+#C711Mobile .fullYoutube .fullgame .fullPicFont {
+  height: 23px;
+  line-height: 25px;
+  font-size: 17px;
+}
+
+#C711Mobile .fullYoutube .fullgame .fullRedFont {
+  height: 23px;
+  line-height: 25px;
+  font-size: 19px;
+  color: red;
+}
+
+#C711Mobile .fullYoutube .fullSe {
+  width: 90%;
+  text-align: left;
+  margin: 5px auto;
+}
+
+#C711Mobile .homeFullEvent {
+  width: 100%;
+}
+
+#C711Mobile .homeFullClose {
+  position: absolute;
+  top: 6%;
+  right: 15px;
+  width: 22px;
+}
+
+#C711Mobile .homeFullFont {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  width: 90%;
+  margin: auto;
+  margin-top: -40px;
+}
+
+#C711Mobile .homeFullFont p {
+  color: #ffd36d;
+  font-weight: bold;
+}
+
+#C711Mobile .homeFullFont span {
+  font-size: 15px;
+}
+
+#C711Mobile .homeFullPic {
+  position: absolute;
+  bottom: -2%;
+  right: 10px;
+}
+
+#C711Mobile .homeFullPic img {
+  width: 50px;
+}
+
+#C711Mobile .eventModebtn {
+  width: 80%;
+  margin: auto;
+}
+
+#C711Mobile .popUp_block {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99999;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+#C711Mobile .popUp_block .wrap {
+  width: 90%;
+  position: absolute;
+  top: 2%;
+  left: 50%;
+  transform: translateY(-50%) translateX(-50%);
+  background-color: #2b2c33;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .popUp_block .wrap .case_wrapIframe {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  text-align: center;
+  border: 3px solid #8c4d0e;
+  border-radius: 20px;
+}
+
+#C711Mobile .popUp_block .wrap .case_wrapIframe > div {
+  border: 3px solid #a4252b;
+  border-radius: 17px;
+  background: linear-gradient(#880b1b 0%, #640606 12%, #480419 18%, #480419 85%, #520a45 100%);
+}
+
+#C711Mobile .popUp_block .wrap .case_wrapIframe .title {
+  font-size: 1.1rem;
+  padding: 15px;
+  position: relative;
+  color: #efbc61;
+  font-weight: 600;
+}
+
+#C711Mobile .popUp_block .wrap .case_wrapIframe .title .close_icon {
+  width: 20px;
+  position: absolute;
+  transform: translateY(-50%);
+  top: 50%;
+  right: 15px;
+  cursor: pointer;
+}
+
+#C711Mobile .form {
+  border-top: 2px solid #73101d;
+  border-bottom: 1px solid #73101d;
+  font-size: 14px;
+  width: 90%;
+  margin: auto;
+  padding-top: 10px;
+  color: #fff;
+  text-align: left;
+}
+
+#C711Mobile .form .orangeTitle {
+  margin: 5px auto;
+}
+
+#C711Mobile .form .orangeTitle span {
+  color: red;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+#C711Mobile .form .orangeTitle img {
+  width: 90%;
+}
+
+#C711Mobile .form .orangeTitle .forceFont {
+  font-size: 14px;
+  line-height: 28px;
+}
+
+#C711Mobile .form .orangeTitle .orcolor {
+  color: #fd7e14;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#C711Mobile .form .redFont {
+  margin: 10px auto;
+  color: red;
+  font-size: 15px;
+  font-weight: bolder;
+}
+
+#C711Mobile .form .formTitle {
+  margin-left: -5px;
+  font-size: 15px;
+  font-weight: bolder;
+  color: #fd7e14;
+}
+
+#C711Mobile .footer {
+  padding: 10px;
+}
+
+#C711Mobile .footer div {
+  margin: auto;
+}
+
+#C711Mobile .goldBorder {
+  width: 85%;
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #c3692f 0%, #f6cb39 10%, #fdf4b3 30%, #f6cb39 50%, #c3692f 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #c3692f 0%, #f6cb39 10%, #fdf4b3 30%, #f6cb39 50%, #c3692f 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #c3692f 0%, #f6cb39 10%, #fdf4b3 30%, #f6cb39 50%, #c3692f 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .pointbtnBorder_all {
+  margin: 24px auto;
+  border-radius: 9px;
+}
+
+#C711Mobile .eventDiv {
+  margin: 1px;
+  width: 99.5%;
+  border: 1px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 14px;
+}
+
+#C711Mobile .eventDivbg {
+  background: #211d23;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #211d23 0%, #2b2c33 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #211d23 0%, #2b2c33 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #211d23 1%, #2b2c33 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .eventlottyDiv {
+  background: #383838;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #383838 0%, #5c5c5c 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #383838 0%, #5c5c5c 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #383838 0%, #5c5c5c 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .silverBorder {
+  width: 40%;
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #848484 0%, #f8f8f8 10%, #ededed 30%, #bcbcbc 50%, #848484 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #848484 0%, #f8f8f8 10%, #ededed 30%, #bcbcbc 50%, #848484 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #848484 0%, #f8f8f8 10%, #ededed 30%, #bcbcbc 50%, #848484 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .btnBorder_all {
+  margin: 24px auto;
+  padding: 1px;
+  border-radius: 9px;
+}
+
+#C711Mobile .blueBtn {
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #ffffff 0%, #8ca8f1 10%, #4a79c9 30%, #093e6a 50%, #0041b7 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #ffffff 0%, #8ca8f1 10%, #4a79c9 30%, #093e6a 50%, #0041b7 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #ffffff 0%, #8ca8f1 10%, #4a79c9 30%, #093e6a 50%, #0041b7 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .blueBtn:hover {
+  color: #d5d5d5;
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #b1b1b1 0%, #6879a8 10%, #315184 30%, #072d4d 50%, #001a4a 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #b1b1b1 0%, #6879a8 10%, #315184 30%, #072d4d 50%, #001a4a 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #b1b1b1 0%, #6879a8 10%, #315184 30%, #072d4d 50%, #001a4a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .yellowBtn {
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #b1b1b1 0%, #fbf9af 10%, #e99a00 30%, #934d00 50%, #ea9000 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #b1b1b1 0%, #fbf9af 10%, #e99a00 30%, #934d00 50%, #ea9000 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #b1b1b1 0%, #fbf9af 10%, #e99a00 30%, #934d00 50%, #ea9000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .yellowBtn:hover {
+  color: #d5d5d5;
+  background: #093e6a;
+  /* Old browsers */
+  background: -moz-linear-gradient(top, #b1b1b1 0%, #d1b023 10%, #a77005 30%, #5a2f00 50%, #9f6200 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #b1b1b1 0%, #d1b023 10%, #a77005 30%, #5a2f00 50%, #9f6200 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #b1b1b1 0%, #d1b023 10%, #a77005 30%, #5a2f00 50%, #9f6200 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .btn_all {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 32px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border: 1px #000 solid;
+  border-radius: 9px;
+  color: #fff;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-align: center;
+  line-height: 16px;
+  position: relative;
+}
+
+#C711Mobile .epidemicPic {
+  width: 95%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+#C711Mobile .epid_pic {
+  width: 100%;
+  margin: 20px auto;
+  color: #fff;
+  text-align: left;
+  font-size: 15px;
+  font-weight: bold;
+}
+
+#C711Mobile .epid_pic span {
+  margin: 5px auto;
+}
+
+#C711Mobile .epid_pic img {
+  width: 100%;
+}
+
+#C711Mobile #agentPage {
+  color: #fff;
+  font-size: 12px;
+}
+
+#C711Mobile #agentPage .scrollDiv {
+  overflow-y: scroll;
+  padding-bottom: 40px;
+}
+
+#C711Mobile #agentPage .summaryWrapper {
+  width: 100%;
+  padding: 10px 15px 65px 15px;
+}
+
+#C711Mobile #agentPage .bottom-fixed-img {
+  margin-top: 15px;
+  z-index: 99;
+  padding: 0px 15px;
+}
+
+#C711Mobile #agentPage .bottom-fixed-img img {
+  border-radius: 5px;
+  width: 100%;
+  max-height: 105%;
+  border: solid 3px #fff;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#C711Mobile #agentPage .topTable {
+  width: 100%;
+  color: #fff;
+}
+
+#C711Mobile #agentPage .topTable tr {
+  text-align: center;
+}
+
+#C711Mobile #agentPage .topTable th {
+  line-height: 14px;
+  background: #222;
+  padding: 10px 5px;
+}
+
+#C711Mobile #agentPage .topTable td {
+  padding: 5px 5px;
+}
+
+#C711Mobile #agentPage .topTable td,
+#C711Mobile #agentPage .topTable th {
+  border: solid 1px #fdd04e;
+}
+
+#C711Mobile #agentPage .topTable .border-top-left {
+  border-top-left-radius: 7px;
+}
+
+#C711Mobile #agentPage .topTable .border-top-right {
+  border-top-right-radius: 7px;
+}
+
+#C711Mobile #agentPage .topTable .border-btm-left {
+  border-bottom-left-radius: 7px;
+}
+
+#C711Mobile #agentPage .topTable .border-btm-right {
+  border-bottom-right-radius: 7px;
+}
+
+#C711Mobile #agentPage table.topTable {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+#C711Mobile #agentPage #qrcode {
+  text-align: center;
+}
+
+#C711Mobile #agentPage #qrcode img {
+  display: none !important;
+}
+
+#C711Mobile #agentPage #qrcode canvas {
+  display: inline-block !important;
+}
+
+#C711Mobile #agentPage #qrcode img,
+#C711Mobile #agentPage #qrcode canvas {
+  height: 75px;
+  border: solid 5px #fff;
+}
+
+#C711Mobile #agentPage .qr-share-title {
+  text-align: center;
+  margin-top: 20%;
+  font-size: 16px;
+}
+
+#C711Mobile #agentPage .q-img-button {
+  float: right;
+  height: 35px;
+  margin-top: -5px;
+}
+
+#C711Mobile #agentPage .logo-img {
+  max-width: 200px;
+  width: 60%;
+}
+
+#C711Mobile #agentPage .ad-small-img {
+  width: 80%;
+  margin-right: 7px;
+}
+
+#C711Mobile #agentPage #qrcodeBig img {
+  display: none !important;
+}
+
+#C711Mobile #agentPage #qrcodeBig canvas {
+  display: inline-block !important;
+}
+
+#C711Mobile #agentPage #qrcodeBig img,
+#C711Mobile #agentPage #qrcodeBig canvas {
+  height: 255px;
+  border: solid 10px #fff;
+}
+
+#C711Mobile #agentPage .flexDiv {
+  display: flex;
+  width: 100%;
+}
+
+#C711Mobile #agentPage .ad_popup {
+  margin-top: 33%;
+  width: 100%;
+}
+
+#C711Mobile #agentPage .ad_popup .imgWrapper {
+  width: 100%;
+  position: relative;
+  z-index: 100;
+}
+
+#C711Mobile #agentPage .ad_popup .closeBtn {
+  position: absolute;
+  width: 26px;
+  top: 5px;
+  right: 5px;
+}
+
+#C711Mobile #agentPage .ad_popup .adImgBox {
+  position: relative;
+}
+
+#C711Mobile #agentPage .ad_popup .adImgBox .info-btn {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 100;
+}
+
+#C711Mobile #agentPage .innerText {
+  width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#C711Mobile #agentPage .flexDiv input,
+#C711Mobile #agentPage .flexDiv .fakeInput {
+  width: 100%;
+  position: relative;
+  margin: 3px 0px;
+  border-radius: 10px;
+  height: 40px;
+  line-height: 40px;
+  color: #aaa;
+  background: #222;
+  border: solid 1px #c3b626;
+  padding-left: 7px;
+}
+
+#C711Mobile #agentPage .flexDiv input .innerText,
+#C711Mobile #agentPage .flexDiv .fakeInput .innerText {
+  width: 85%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#C711Mobile #agentPage .flexDiv input .copyBtn,
+#C711Mobile #agentPage .flexDiv .fakeInput .copyBtn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  height: 15px;
+  width: 15px;
+}
+
+#C711Mobile #agentPage .float-r {
+  float: right;
+}
+
+#C711Mobile #agentPage .f25 {
+  width: 25%;
+}
+
+#C711Mobile #agentPage .f30 {
+  width: 25%;
+}
+
+#C711Mobile #agentPage .f40 {
+  width: 40%;
+}
+
+#C711Mobile #agentPage .f50 {
+  width: 50%;
+}
+
+#C711Mobile #agentPage .f60 {
+  width: 60%;
+}
+
+#C711Mobile #agentPage .f70 {
+  width: 70%;
+}
+
+#C711Mobile #agentPage .f75 {
+  width: 75%;
+}
+
+#C711Mobile #agentPage button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  height: 38px;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 16px;
+}
+
+#C711Mobile #agentPage button.orange {
+  background: -webkit-gradient(linear, left top, left bottom, from(#f95c01), color-stop(50%, #c93b09), to(#991a11));
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+}
+
+#C711Mobile #agentPage button.yellow {
+  background: #e6dc97;
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6dc97), color-stop(39%, #d9b23d), color-stop(94%, #a86100), color-stop(94%, #a86100), to(#c5984a));
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+}
+
+#C711Mobile #agentPage button.blue {
+  background: -webkit-gradient(linear, left top, left bottom, from(#0087fb), color-stop(50%, #0c63bc), to(#12468d));
+  background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+}
+
+#C711Mobile #agentPage input[type="search"]::-webkit-search-cancel-button {
+  /* Remove default */
+  height: 10px;
+  width: 10px;
+  font-size: 30px;
+  background: #000;
+}
+
+#C711Mobile #agentPage .gameListBgAll {
+  height: 34px;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: center;
+  margin-right: 5px;
+  width: auto;
+}
+
+#C711Mobile #agentPage .tabRow {
+  padding: 15px;
+}
+
+#C711Mobile #agentPage .table-bg {
+  background-image: url(../../img/agent/agent_table_background3.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+#C711Mobile #agentPage .test12 {
+  width: 15px;
+}
+
+#C711Mobile #agentPage table.layout5050 {
+  width: 100%;
+  table-layout: fixed;
+}
+
+#C711Mobile #agentPage table.layout5050 td {
+  width: 50%;
+  min-width: 50%;
+}
+
+#C711Mobile #agentPage table.agent_data {
+  min-height: 300px;
+}
+
+#C711Mobile #agentPage table.agent_data td {
+  text-align: center;
+  min-width: 125px;
+  min-height: 65px;
+  height: 65px;
+  padding: 5px;
+  border-bottom: solid 1px #ae6a07;
+}
+
+#C711Mobile #agentPage table.agent_data td.full {
+  min-width: 400px;
+}
+
+#C711Mobile #agentPage table.agent_data td.dark-bg {
+  font-size: 14px;
+  background: rgba(0, 0, 0, 0.5);
+  white-space: break-spaces;
+}
+
+#C711Mobile #agentPage div.scrollmenu {
+  background-color: #333;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+#C711Mobile #agentPage .lastTime {
+  margin-top: 10px;
+  color: #ccc;
+  font-size: 12px;
+}
+
+#C711Mobile #agentPage button.m-size {
+  width: auto;
+  min-width: 150px;
+}
+
+#C711Mobile #agentRules {
+  color: #fff;
+  overflow-y: scroll;
+  max-height: 750px;
+  padding-bottom: 250px;
+}
+
+#C711Mobile #agentRules .coin-icon {
+  margin-top: 0px !important;
+  height: 18px;
+  width: 18px;
+}
+
+#C711Mobile #agentRules .bigTitleRow {
+  display: flex;
+  position: relative;
+}
+
+#C711Mobile #agentRules .bigTitleRow .r-img {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
+
+#C711Mobile #agentRules .bigTitle {
+  width: 70%;
+  font-size: 14px;
+  color: #ffd36d;
+  margin: 0px 10px;
+}
+
+#C711Mobile #agentRules .wrapper-d {
+  border-radius: 10px;
+  background: linear-gradient(#4a3934 0%, #312836 33%, #141418 66% #621919 100%);
+  border: solid 1px #c58014;
+  padding: 10px;
+  font-size: 12px;
+}
+
+#C711Mobile #agentRules table.ruleLevels {
+  width: 100%;
+  margin-top: 15px;
+}
+
+#C711Mobile #agentRules table.ruleLevels th,
+#C711Mobile #agentRules table.ruleLevels td {
+  text-align: right;
+  border-bottom: solid 1px #817348;
+}
+
+#C711Mobile #agentRules table.ruleLevels th {
+  border-top: solid 1px #817348;
+  color: #f7c11a;
+  font-weight: 700;
+  height: 40px;
+  padding: 2px;
+  text-align: center;
+}
+
+#C711Mobile #agentRules table.ruleLevels td {
+  font-weight: 100;
+  color: #ccc;
+  text-align: center;
+}
+
+#C711Mobile #agentRules .eachQ {
+  margin-bottom: 25px;
+}
+
+#C711Mobile #agentRules .eachQ .Question {
+  font-weight: 700;
+}
+
+#C711Mobile #agentRules .eachQ .Answer {
+  font-weight: 100;
+  color: #ccc;
+}
+
+#C711Mobile #agentRules .eachQ .Answer ol {
+  display: inline-block;
+}
+
+#C711Mobile #agentRules .eachQ .Answer ol li {
+  padding: 1px 20px;
+  list-style-type: decimal;
+}
+
+#C711Mobile #agentRules .eachQ img {
+  margin-top: 20px;
+}
+
+#C711Mobile .text-c {
+  text-align: center;
+}
+
+#C711Mobile .text-c .button {
+  display: inline-block;
+}
+
+#C711Mobile .popup-red {
+  width: 95%;
+  margin-top: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  background-image: url(../../img/C711_Mobile/bg/popup-red-bg.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  padding: 15px;
+  position: relative;
+}
+
+#C711Mobile .popup-red .closeBtn-yellow {
+  background-image: url(../../img/C711_Mobile/icon/close_btn_yellow.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  display: inline-block;
+  position: absolute;
+  margin-right: 10px;
+  top: 15px;
+  right: 10px;
+  width: 25px;
+  height: 25px;
+}
+
+#C711Mobile .popup-red .formatText {
+  position: absolute;
+  min-width: 13px;
+  top: 10px;
+  right: 8px;
+}
+
+#C711Mobile .popup-red .ListInputAllR {
+  padding: 0.5em 1.25em;
+}
+
+#C711Mobile .popup-red .labelText {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 14px;
+}
+
+#C711Mobile .popup-red .box {
+  height: 40px;
+}
+
+#C711Mobile .popup-red .box .v-middle {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+#C711Mobile .popup-red .box:before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 0;
+  height: 100%;
+}
+
+#C711Mobile .popup-red .title_row {
+  text-align: center;
+  font-size: 16px;
+}
+
+#C711Mobile .popup-red .panel-purple {
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 95%;
+  background: #1f041a;
+  padding: 10px;
+  height: 300px;
+  text-align: center;
+  font-weight: 100;
+  font-size: 14px;
+  border: solid 2px #74101e;
+}
+
+#C711Mobile .popup-red .panel-black {
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 30px;
+  width: 95%;
+  background: rgba(0, 0, 0, 0.7);
+  height: 200px;
+}
+
+#C711Mobile .flex-layout {
+  display: flex;
+}
+
+#C711Mobile .popup-red.medium {
+  height: 375px;
+}
+
+#C711Mobile .rightBottomPopup {
+  position: absolute;
+  right: 15px;
+  bottom: 25px;
+  color: #fff;
+  font-weight: 700;
+  z-index: 99999;
+  background: #58a378;
+  border: solid 2px #286a27;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#C711Mobile .rightBottomPopup.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 0.65s linear;
+}
+
+#C711Mobile .rightBottomPopup.hidden-effect {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.65s, opacity 0.65s linear;
+}

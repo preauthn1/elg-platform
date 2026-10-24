@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(*migrate:fresh*)",
+      "Bash(*migrate:refresh*)",
+      "Bash(*migrate:reset*)",
+      "Bash(*db:wipe*)"
+    ],
+    "ask": [
+      "Bash(*migrate:rollback*)",
+      "Bash(*db:seed*)"
+    ]
+  }
+}

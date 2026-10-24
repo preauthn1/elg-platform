@@ -1,0 +1,10 @@
+{
+  "browser": {
+    "launchOptions": {
+      "args": [
+        "--disable-features=PasswordLeakDetection,PasswordManagerOnboarding,SafetyHubServicesOnStartUp",
+        "--disable-save-password-bubble"
+      ]
+    }
+  }
+}

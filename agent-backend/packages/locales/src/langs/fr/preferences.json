@@ -1,0 +1,233 @@
+{
+  "title": "Préférences",
+  "subtitle": "Personnalisez les préférences et prévisualisez en temps réel",
+  "enableStickyPreferencesNavigationBar": "Activer la barre de navigation fixe des préférences",
+  "disableStickyPreferencesNavigationBar": "Désactiver la barre de navigation fixe des préférences",
+  "resetTip": "Les données ont changé, cliquez pour réinitialiser",
+  "resetTitle": "Réinitialiser les préférences",
+  "resetSuccess": "Préférences réinitialisées avec succès",
+  "appearance": "Apparence",
+  "layout": "Disposition",
+  "content": "Contenu",
+  "other": "Autre",
+  "wide": "Fluide",
+  "compact": "Largeur fixe",
+  "followSystem": "Suivre le système",
+  "vertical": "Vertical",
+  "verticalTip": "Mode menu vertical latéral",
+  "horizontal": "Horizontal",
+  "horizontalTip": "Mode menu horizontal, tous les menus affichés en haut",
+  "twoColumn": "Deux colonnes",
+  "twoColumnTip": "Mode menu vertical à deux colonnes",
+  "headerSidebarNav": "En-tête vertical",
+  "headerSidebarNavTip": "En-tête pleine largeur, mode navigation latérale",
+  "headerTwoColumn": "En-tête deux colonnes",
+  "headerTwoColumnTip": "Coexistence de la navigation en en-tête et du menu latéral à deux colonnes",
+  "mixedMenu": "Menu mixte",
+  "mixedMenuTip": "Coexistence des menus vertical et horizontal",
+  "fullContent": "Contenu plein écran",
+  "fullContentTip": "Afficher uniquement le contenu, masquer tous les menus",
+  "normal": "Normal",
+  "plain": "Sobre",
+  "rounded": "Arrondi",
+  "copyPreferences": "Copier les préférences",
+  "enableCopyPreferences": "Afficher le bouton de copie des préférences",
+  "copyPreferencesSuccessTitle": "Copie réussie",
+  "copyPreferencesSuccess": "Copie réussie, veuillez effectuer le remplacement dans `src/preferences.ts` sous app",
+  "clearAndLogout": "Vider le cache et se déconnecter",
+  "mode": "Mode",
+  "general": "Général",
+  "language": "Langue",
+  "timezone": "Fuseau horaire",
+  "dynamicTitle": "Titre dynamique",
+  "watermark": "Filigrane",
+  "watermarkContent": "Veuillez saisir le contenu du filigrane",
+  "checkUpdates": "Vérification périodique des mises à jour",
+  "position": {
+    "title": "Position des préférences",
+    "header": "En-tête",
+    "auto": "Automatique",
+    "fixed": "Fixe",
+    "userDropdown": "Menu déroulant utilisateur"
+  },
+  "sidebar": {
+    "buttons": "Afficher les boutons",
+    "buttonFixed": "Fixe",
+    "buttonCollapsed": "Réduit",
+    "title": "Barre latérale",
+    "width": "Largeur",
+    "visible": "Afficher la barre latérale",
+    "draggable": "Glisser-déposer le menu latéral",
+    "collapsed": "Réduire le menu",
+    "collapsedShowTitle": "Afficher le titre du menu",
+    "autoActivateChild": "Activer automatiquement le sous-menu",
+    "autoActivateChildTip": "`Activé` pour activer automatiquement le sous-menu lors du clic sur le menu.",
+    "expandOnHover": "Déployer au survol",
+    "expandOnHoverTip": "Lorsque la souris survole le menu, \n `Activé` pour déployer les sous-menus \n `Désactivé` pour déployer toute la barre latérale."
+  },
+  "tabbar": {
+    "title": "Barre d'onglets",
+    "enable": "Activer la barre d'onglets",
+    "icon": "Afficher les icônes de la barre d'onglets",
+    "showMore": "Afficher le bouton Plus",
+    "showMaximize": "Afficher le bouton Agrandir",
+    "persist": "Conserver les onglets",
+    "visitHistory": "Historique de visite",
+    "visitHistoryTip": "Lorsque cette option est activée, la barre d'onglets enregistre l'historique de visite des onglets. \nLa fermeture de l'onglet actuel sélectionne automatiquement le dernier onglet ouvert.",
+    "maxCount": "Nombre maximal d'onglets",
+    "maxCountTip": "Lorsque le nombre d'onglets dépasse le maximum,\nl'onglet le plus ancien est fermé.\n Définissez 0 pour désactiver la vérification du nombre.",
+    "draggable": "Activer le tri par glisser-déposer",
+    "wheelable": "Prendre en charge la molette de la souris",
+    "middleClickClose": "Fermer l'onglet au clic du bouton central de la souris",
+    "wheelableTip": "Lorsque cette option est activée, la zone de la barre d'onglets répond aux événements de défilement vertical de la molette.",
+    "styleType": {
+      "title": "Style des onglets",
+      "chrome": "Chrome",
+      "card": "Carte",
+      "plain": "Sobre",
+      "brisk": "Dynamique"
+    },
+    "contextMenu": {
+      "reload": "Recharger",
+      "close": "Fermer",
+      "pin": "Épingler",
+      "unpin": "Détacher",
+      "closeLeft": "Fermer les onglets à gauche",
+      "closeRight": "Fermer les onglets à droite",
+      "closeOther": "Fermer les autres onglets",
+      "closeAll": "Fermer tous les onglets",
+      "openInNewWindow": "Ouvrir dans une nouvelle fenêtre",
+      "maximize": "Agrandir",
+      "restoreMaximize": "Restaurer"
+    }
+  },
+  "navigationMenu": {
+    "title": "Menu de navigation",
+    "style": "Style du menu de navigation",
+    "accordion": "Menu latéral en accordéon",
+    "split": "Séparation du menu de navigation",
+    "splitTip": "Lorsque cette option est activée, la barre latérale affiche le sous-menu de la barre supérieure"
+  },
+  "breadcrumb": {
+    "title": "Fil d'Ariane",
+    "home": "Afficher le bouton Accueil",
+    "enable": "Activer le fil d'Ariane",
+    "icon": "Afficher les icônes du fil d'Ariane",
+    "background": "Arrière-plan",
+    "style": "Style du fil d'Ariane",
+    "hideOnlyOne": "Masquer s'il n'y en a qu'un"
+  },
+  "animation": {
+    "title": "Animation",
+    "loading": "Chargement de la page",
+    "transition": "Transition de page",
+    "progress": "Barre de progression de la page"
+  },
+  "theme": {
+    "title": "Thème",
+    "radius": "Arrondi des angles",
+    "fontSize": "Taille de police",
+    "fontSizeTip": "Ajustez la taille de police globale avec un aperçu en temps réel",
+    "light": "Clair",
+    "dark": "Sombre",
+    "darkSidebar": "Barre latérale semi-sombre",
+    "darkSidebarTip": "Peut être activé lorsque le thème est clair et que la disposition n'est ni 'Horizontal' ni 'Contenu plein écran'.",
+    "darkSidebarSub": "Sous-barre latérale semi-sombre",
+    "darkSidebarSubTip": "Peut être activé lorsque le thème est clair, que la barre latérale semi-sombre est activée et que la disposition utilise le mode menu 'Deux colonnes'.",
+    "darkHeader": "En-tête semi-sombre",
+    "weakMode": "Mode daltonien",
+    "grayMode": "Mode niveaux de gris",
+    "builtin": {
+      "title": "Intégré",
+      "default": "Par défaut",
+      "violet": "Violet",
+      "pink": "Rose",
+      "rose": "Framboise",
+      "skyBlue": "Bleu ciel",
+      "deepBlue": "Bleu foncé",
+      "green": "Vert",
+      "deepGreen": "Vert foncé",
+      "orange": "Orange",
+      "yellow": "Jaune",
+      "zinc": "Zinc",
+      "neutral": "Neutre",
+      "slate": "Ardoise",
+      "gray": "Gris",
+      "custom": "Personnalisé"
+    }
+  },
+  "header": {
+    "title": "En-tête",
+    "visible": "Afficher l'en-tête",
+    "modeStatic": "Statique",
+    "modeFixed": "Fixe",
+    "modeAuto": "Masquer et afficher automatiquement",
+    "modeAutoScroll": "Masquer et afficher au défilement",
+    "menuAlign": "Alignement du menu",
+    "menuAlignStart": "Début",
+    "menuAlignEnd": "Fin",
+    "menuAlignCenter": "Centre"
+  },
+  "footer": {
+    "title": "Pied de page",
+    "visible": "Afficher le pied de page",
+    "fixed": "Fixe en bas"
+  },
+  "copyright": {
+    "title": "Droits d'auteur",
+    "enable": "Activer les droits d'auteur",
+    "companyName": "Nom de l'entreprise",
+    "companySiteLink": "Lien du site de l'entreprise",
+    "date": "Date",
+    "icp": "Numéro de licence ICP",
+    "icpLink": "Lien du site ICP"
+  },
+  "shortcutKeys": {
+    "title": "Raccourcis clavier",
+    "global": "Global",
+    "search": "Recherche globale",
+    "logout": "Déconnexion",
+    "escape": "Fermer la fenêtre actuelle",
+    "preferences": "Préférences"
+  },
+  "widget": {
+    "title": "Widget",
+    "globalSearch": "Activer la recherche globale",
+    "fullscreen": "Activer le plein écran",
+    "themeToggle": "Activer le changement de thème",
+    "languageToggle": "Activer le changement de langue",
+    "notification": "Activer les notifications",
+    "sidebarToggle": "Activer le basculement de la barre latérale",
+    "lockScreen": "Activer le verrouillage de l'écran",
+    "refresh": "Activer l'actualisation",
+    "timezone": "Activer le fuseau horaire"
+  },
+  "antd": {
+    "tabLabel": "Extension Antd",
+    "title": "Préférences métier",
+    "fields": {
+      "enableFormFullscreen": {
+        "label": "Activer le mode plein écran des formulaires",
+        "tip": "Les sous-projets peuvent lire cette configuration d'extension dans leurs propres scénarios métier."
+      },
+      "tenantMode": {
+        "label": "Mode locataire",
+        "options": {
+          "single": {
+            "label": "Locataire unique"
+          },
+          "multi": {
+            "label": "Multi-locataire"
+          }
+        }
+      },
+      "defaultTableSize": {
+        "label": "Taille de page par défaut"
+      },
+      "reportTitle": {
+        "label": "Titre de rapport par défaut",
+        "placeholder": "Veuillez saisir le titre de rapport par défaut"
+      }
+    }
+  }
+}

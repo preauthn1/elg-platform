@@ -1,0 +1,9 @@
+<span class="hljs-attr">moo</span>=[<span class="hljs-string">"foo"</span>]
+
+<span class="hljs-attr">KNOWN_PEERS</span> = [
+    <span class="hljs-string">"example.invalid:11625"</span>,
+    <span class="hljs-string">"example.invalid:11625"</span>,
+    <span class="hljs-string">"example.invalid:11625"</span>,
+    <span class="hljs-number">32</span>,
+    <span class="hljs-literal">true</span>
+]

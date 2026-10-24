@@ -1,0 +1,1095 @@
+/* 首頁（templates/pages/home.njk）。漸層角度與色標是照設計稿實際看到的顏色換算，不是稿上標註的字面值。 */
+
+/* ========== 1. 首屏 ========== */
+.home-hero {
+  /* 交錯大字的單位：手機剛好是電腦的 0.445 倍，所以只換這個 */
+  --lk: var(--u);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  min-height: calc(964 * var(--u));
+  background: #000;
+}
+
+/* 背景圖已照設計稿裁好、26% 已烤進檔案 */
+.home-hero-bg {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+}
+.home-hero-bg picture { display: contents; }
+.home-hero-bg img {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: max(100%, calc(1920 * var(--u)));
+  max-width: none;
+  height: auto;
+  transform: translateX(-50%);
+}
+
+/* 手機主視覺（pages[home].bg） */
+.home-hero-media {
+  position: absolute;
+  z-index: -2;
+  top: calc(15 * var(--u));
+  left: calc(50% + 28 * var(--u));
+  width: calc(988 * var(--u));
+  pointer-events: none;
+}
+.home-hero-media img { width: 100%; max-width: none; }
+
+/* 壓暗：左側＋底部兩層，都蓋在主視覺上 */
+.home-hero::before,
+.home-hero::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  pointer-events: none;
+}
+.home-hero::before {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: calc(50% + 32 * var(--u));
+  background: linear-gradient(277.3deg, transparent 10.6%, #000 79.5%);
+}
+.home-hero::after {
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: calc(440 * var(--u));
+  background:
+    linear-gradient(180deg, transparent 28.8%, #000 100%) left bottom / 100% calc(333 * var(--u)) no-repeat,
+    linear-gradient(180deg, rgb(0 0 0 / .004) 20.3%, #000 100%);
+}
+
+/* 內容框 */
+.home-hero-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: min(calc(1736.2 * var(--u)), 100% - 9.6vw);
+  margin-inline: auto;
+  padding: calc(100 * var(--u)) 0 calc(70.3 * var(--u));
+}
+.home-hero .hero-copy {
+  max-width: none;
+  padding-left: calc(78.1 * var(--u));
+}
+/* 行高固定，下面的大字位置不跟著動 */
+.home-hero .hero-copy .eyebrow {
+  font-size: max(13px, calc(30 * var(--u)));
+  line-height: calc(43 * var(--u));
+}
+
+/* ---- 交錯大字：YES 是选择 ／ WIN 才是结果 ----
+   列高由關鍵字的 line-height 決定；短句 line-height:0 + vertical-align 往下錯開，不撐高列。 */
+.hero-copy h1.hero-lockup {
+  margin-top: calc(2.3 * var(--lk));
+  font-size: 0;
+  line-height: 0;
+  letter-spacing: 0;
+  white-space: nowrap;
+  text-wrap: nowrap;
+  color: #fff;
+}
+.lk-row { display: block; line-height: 0; }
+.lk-2 { margin-top: calc(11.8 * var(--lk)); }
+.lk-key {
+  display: inline-block;
+  vertical-align: baseline;
+  width: calc(306 * var(--lk));
+  margin-left: calc(-33 * var(--lk));
+  font-family: var(--font-sj);
+  letter-spacing: 0;
+  text-align: center;
+}
+/* line-height 照稿（列高不變），只用 position 微調位置 */
+.lk-key { position: relative; white-space: nowrap; }   /* 英馬文（可換行模式）不能被拆成 YE／S */
+.lk-1 .lk-key { font-size: calc(137 * var(--lk)); line-height: calc(112 * var(--lk)); color: #fff; left: calc(var(--lk-dx1, 0) * var(--lk)); top: calc(var(--lk-dy1, 0) * var(--lk)); }
+.lk-2 .lk-key { font-size: calc(104 * var(--lk)); line-height: calc(106 * var(--lk)); color: var(--c-neon); left: calc(var(--lk-dx2, 31) * var(--lk)); top: calc(var(--lk-dy2, 0) * var(--lk)); }
+.lk-rest {
+  display: inline;
+  font-family: var(--font-sj);
+  font-weight: 400;
+  line-height: 0;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+.lk-1 .lk-rest {
+  margin-left: calc(23 * var(--lk));
+  vertical-align: calc(-35.5 * var(--lk));
+  font-size: calc(144 * var(--lk));
+  text-shadow: 0 calc(3 * var(--lk)) calc(3 * var(--lk)) #000;
+}
+/* 「是选择」是空心字：用 layout.njk 的 SVG 濾鏡（只留最外圈，英文才不會畫出重疊筆畫的線），陰影接在後面 */
+.lk-1 .lk-rest {
+  text-shadow: none;
+  filter: url(#y2w-outline-1) drop-shadow(0 calc(3 * var(--lk)) calc(1.5 * var(--lk)) #000);
+}
+/* 選取時不畫反白色塊（會被濾鏡挖成框、蓋掉字），改成外框變綠 */
+.lk-1 .lk-rest::selection,
+.lk-1 .lk-rest *::selection { background: transparent; color: var(--c-neon); }
+.lk-2 .lk-rest {
+  margin-left: calc(-14 * var(--lk));
+  vertical-align: calc(-23 * var(--lk));
+  font-size: calc(83 * var(--lk));
+  text-shadow: 0 calc(3 * var(--lk)) calc(10 * var(--lk)) #000;
+  /* 「才」疊在 WIN 的 N 上面（短句在上層，連陰影一起壓住 N） */
+  position: relative;
+  z-index: 1;
+}
+.hero-lockup em { font-style: normal; color: var(--c-neon); }
+.hero-lockup .hero-brand { color: inherit; }
+
+/* 英文／馬來文：短句是好幾個字，照中文字級會衝出畫面 → 縮小、可換行 */
+.home-hero.is-latin .lk-row {
+  display: flex;
+  align-items: baseline;
+  line-height: normal;
+}
+.home-hero.is-latin .hero-copy h1.hero-lockup { white-space: normal; text-wrap: wrap; }
+/* 英馬文的框加寬（中心不變），後面的短句才不會貼到 S */
+.home-hero.is-latin .lk-key { flex: none; width: calc(334 * var(--lk)); margin-left: calc(-47 * var(--lk)); }
+.home-hero.is-latin .lk-rest {
+  display: block;
+  min-width: 0;
+  max-width: calc(560 * var(--lk));
+  margin-left: calc(26 * var(--lk));
+  vertical-align: baseline;
+  font-family: var(--font-sj);
+  line-height: 1;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+}
+.home-hero.is-latin .lk-1 .lk-rest { font-size: calc(76 * var(--lk)); }
+.home-hero.is-latin .lk-2 .lk-rest { margin-left: calc(26 * var(--lk)); font-size: calc(64 * var(--lk)); }
+
+.home-hero .hero-copy > p {
+  margin-top: calc(36 * var(--u));
+  max-width: 22.6em;
+  font-size: max(13px, calc(26 * var(--u)));
+  line-height: 1.3077;
+}
+.home-hero.is-latin .hero-copy > p { max-width: 28em; }
+.home-hero .hero-actions { margin-top: calc(60 * var(--u)); }
+.home-hero .hero-actions .btn-lime { --btn-h: calc(61 * var(--u)); font-weight: 400; }
+
+/* ---- 四格導覽卡 ---- */
+.hero-shortcuts {
+  display: grid;
+  grid-template-columns: minmax(0, 654.5fr) minmax(0, 1067.6fr);
+  gap: calc(14.1 * var(--u));
+  margin-top: auto;
+  padding-top: calc(40 * var(--u));
+}
+.hero-shortcuts a {
+  position: relative;
+  display: flex;
+  min-height: calc(150.3 * var(--u));
+  border-radius: var(--r-8);
+  border: 1px solid #000;
+  color: #fff;
+  transition: filter .2s;
+}
+.hero-shortcuts a:hover { filter: brightness(1.18); }
+.hero-shortcut-main {
+  align-items: center;
+  padding: calc(8 * var(--u)) calc(24 * var(--u)) 0 calc(39.3 * var(--u));
+  background: linear-gradient(93.4deg, #005200 2.1%, #000 104.4%);
+}
+/* 主卡上緣的亮條（只有主卡有） */
+.hero-shortcut-main::before {
+  content: "";
+  position: absolute;
+  top: calc(-1.4 * var(--u));
+  left: calc(14.1 * var(--u));
+  width: calc(106 * var(--u));
+  height: max(3px, calc(6 * var(--u)));
+  background: var(--c-neon);
+}
+.hero-shortcut-main .sc-no {
+  flex: none;
+  width: calc(128.6 * var(--u));
+  font-family: var(--font-latin);
+  font-size: calc(95 * var(--u));
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -.02em;
+}
+.sc-text { display: flex; flex-direction: column; min-width: 0; }
+.sc-text b {
+  font-size: max(16px, calc(42 * var(--u)));
+  font-weight: 700;
+  line-height: 1.05;
+}
+.sc-text small {
+  margin-top: calc(4 * var(--u));
+  font-family: var(--font-latin);
+  font-size: max(12px, calc(26 * var(--u)));
+  font-weight: 500;
+  line-height: 1.1;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
+.hero-shortcut-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(14.1 * var(--u));
+}
+.hero-shortcut-grid a {
+  flex-direction: column;
+  padding: calc(13 * var(--u)) calc(19.2 * var(--u)) calc(14 * var(--u));
+  background: linear-gradient(91.8deg, #005200 -39.7%, #000 102.1%);
+}
+.hero-shortcut-grid a:nth-child(3) { background: linear-gradient(90.7deg, #005200 -38.7%, #004f00 -34.2%, #000 102.6%); }
+.hero-shortcut-grid .sc-no {
+  margin-bottom: auto;
+  padding-bottom: calc(8 * var(--u));
+  font-family: var(--font-latin);
+  font-size: calc(48 * var(--u));
+  font-weight: 800;
+  line-height: 1;
+}
+.hero-shortcut-grid b {
+  font-size: max(14px, calc(29 * var(--u)));
+  font-weight: 700;
+  line-height: 1.1;
+}
+.hero-shortcut-grid small {
+  margin-top: calc(3 * var(--u));
+  font-family: var(--font-latin);
+  font-size: max(11px, calc(15 * var(--u)));
+  font-weight: 500;
+  line-height: 1.15;
+  text-transform: uppercase;   /* 照設計稿全大寫 */
+  color: var(--c-neon);
+}
+
+/* ========== 2. 平台核心數據 PLATFORM AT A GLANCE ========== */
+.home-stats {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: calc(210 * var(--u)) calc(133.7 * var(--u));
+  background: linear-gradient(175.3deg, #000 61.2%, #005200 154.1%);
+}
+/* 大浮水印 YES2WIN，上面再蓋一層往上淡出的黑 */
+.home-stats::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(660 * var(--u));
+  background: linear-gradient(0deg, #000 40.6%, transparent 86.3%);
+  pointer-events: none;
+}
+.home-stats-mark {
+  position: absolute;
+  z-index: -2;
+  top: calc(var(--mark-top, 0) * var(--u));
+  left: calc(50% - 890.5 * var(--u));
+  font-family: var(--font-sj);
+  font-size: calc(311 * var(--u));
+  line-height: 1;
+  letter-spacing: 0;
+  white-space: nowrap;
+  color: rgb(255 255 255 / .35);
+  pointer-events: none;
+  user-select: none;
+}
+/* 浮水印是空心字 */
+.home-stats-mark { color: var(--c-neon); filter: url(#y2w-outline-2); opacity: .35; }
+@media (max-width: 767px) { .home-stats-mark { filter: url(#y2w-outline-1); } }
+.home-stats .section-title { margin-bottom: calc(50 * var(--u)); }
+.home-stats .section-title > span + h2 { margin-top: calc(8 * var(--u)); }
+.home-stats .section-title h2 strong {
+  margin-top: calc(11 * var(--u));
+  font-size: max(18px, calc(48 * var(--u)));
+}
+
+/* 卡片 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(16.8 * var(--u)) calc(12.1 * var(--u));
+  width: min(calc(1355.8 * var(--u)), 100%);
+  margin-inline: auto;
+}
+.stat-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-height: calc(333 * var(--u));
+  padding: calc(29.7 * var(--u)) calc(30 * var(--u)) calc(40 * var(--u)) calc(44.5 * var(--u));
+  border-radius: var(--r-17);
+  border: 1px solid var(--c-line);
+  background: linear-gradient(173.4deg, #005200 -51.5%, #000 45.3%);
+}
+/* 左側直向光條 */
+.stat-card::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: calc(23 * var(--u));
+  bottom: calc(23 * var(--u));
+  left: 0;
+  width: max(2px, calc(6.7 * var(--u)));
+  background: var(--g-glow-bar);
+  pointer-events: none;
+}
+/* 小卡：3D 圖上面蓋一層「左實右透」，讓圖只在右半邊透出來 */
+.stat-card::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: linear-gradient(270.2deg, rgb(13 12 14 / 0) 17.6%, #0b0a0c 56.2%);
+  pointer-events: none;
+}
+.stat-card:nth-child(3)::after { background: linear-gradient(270deg, rgb(13 12 14 / 0) 24.1%, #0b0a0c 55.4%); }
+.stat-card:nth-child(4)::after { background: linear-gradient(270deg, rgb(13 12 14 / 0) 30.5%, #0b0a0c 56.3%); }
+
+/* 3D 插圖（裝飾）：被卡片圓角裁切 */
+.stat-art {
+  position: absolute;
+  z-index: -2;
+  top: calc(-22 * var(--u));
+  left: calc(136.9 * var(--u));
+  width: calc(376 * var(--u));
+  max-width: none;
+  opacity: .32;
+  pointer-events: none;
+}
+.stat-card:nth-child(3) .stat-art { top: calc(-41 * var(--u)); left: calc(139.9 * var(--u)); width: calc(428 * var(--u)); opacity: .31; }
+.stat-card:nth-child(4) .stat-art { top: calc(-41 * var(--u)); left: calc(159 * var(--u)); width: calc(408 * var(--u)); opacity: .27; }
+
+.stat-no {
+  font-family: var(--font-latin);
+  font-size: max(14px, calc(40 * var(--u)));
+  font-weight: 500;
+  line-height: 1;
+  color: var(--c-neon);
+}
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: calc(23 * var(--u));
+  max-width: 100%;
+  margin-top: calc(31 * var(--u));
+  white-space: nowrap;
+}
+/* 數字依位數縮字級：--num-len 是等效位數（逗號算半個），小卡 5.4 位以上開始縮 */
+.stat-value-num {
+  font-family: var(--font-latin);
+  font-size: calc(82 * var(--u) * min(1, 5.4 / var(--num-len, 1)));
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.06em;
+  color: #fff;
+}
+.stat-value b {
+  font-size: max(13px, calc(30 * var(--u)));
+  font-weight: 700;
+  line-height: 1;
+  color: var(--c-neon);
+}
+.stat-card h3 {
+  margin-top: calc(37.5 * var(--u));
+  font-size: max(16px, calc(32 * var(--u)));
+  font-weight: 700;
+  line-height: 1.1;
+}
+.stat-desc-val { white-space: nowrap; }
+.stat-card p {
+  margin-top: calc(7 * var(--u));
+  font-size: max(12px, calc(19 * var(--u)));
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--c-muted-2);
+}
+
+/* 大卡（第一張） */
+.stat-card.is-feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: calc(425 * var(--u)) minmax(0, 1fr);
+  grid-template-areas: "no value" "title value" "desc value";
+  align-content: center;
+  align-items: start;
+  padding: calc(6 * var(--u)) calc(40 * var(--u)) 0 calc(71 * var(--u));
+  background: linear-gradient(180deg, #005200 -121.4%, #0b0a0c 59.3%);
+}
+.stat-card.is-feature::before { width: max(2px, calc(6 * var(--u))); }
+.stat-card.is-feature::after {
+  inset: calc(23 * var(--u)) 0 calc(23 * var(--u)) auto;
+  z-index: 1;
+  width: max(2px, calc(6 * var(--u)));
+  background: var(--g-glow-bar);
+}
+.stat-card.is-feature .stat-art {
+  top: calc(-46.2 * var(--u));
+  left: calc(943.9 * var(--u));
+  width: calc(438 * var(--u));
+  opacity: .42;
+}
+.stat-card.is-feature .stat-no { grid-area: no; font-size: max(16px, calc(50 * var(--u))); }
+.stat-card.is-feature h3 { grid-area: title; margin-top: calc(-4.3 * var(--u)); font-size: max(18px, calc(57 * var(--u))); }
+.stat-card.is-feature p { grid-area: desc; margin-top: calc(-9.9 * var(--u)); font-size: max(12px, calc(26 * var(--u))); }
+.stat-card.is-feature .stat-value {
+  grid-area: value;
+  align-self: center;
+  gap: calc(50 * var(--u));
+  margin: calc(-16 * var(--u)) 0 0;
+}
+/* 大卡字級是照三位數排的；超過 3.2 位等比縮，免得擠到單位與右側 3D 圖 */
+.stat-card.is-feature .stat-value-num { font-size: calc(183 * var(--u) * min(1, 3.2 / var(--num-len, 1))); }
+.stat-card.is-feature .stat-value b { font-size: max(16px, calc(65 * var(--u))); }
+/* 負邊距是照中文抓的；英文／馬來文標題常斷成兩行，下伸部會壓到說明 → 非中文改成正的間距 */
+@media (min-width: 768px) {
+  :root:not(:lang(zh)) .stat-card.is-feature p { margin-top: calc(10 * var(--u)); }
+}
+
+/* ========== 3. 發展歷史 OUR JOURNEY ========== */
+.home-journey {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: calc(137.6 * var(--u)) calc(114 * var(--u));
+  background: linear-gradient(195.6deg, #000 62.9%, #005200 135%);
+}
+/* 綠色山脈（不是滿版 cover，位置照設計稿） */
+.home-journey::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-41.6 * var(--u));
+  left: calc(50% - 992.9 * var(--u));
+  width: calc(2347.4 * var(--u));
+  height: calc(1075.5 * var(--u));
+  background: url('../../img/home/journey-bg.webp') center / 100% 100% no-repeat;
+  opacity: .26;
+  pointer-events: none;
+}
+.home-journey .section-title,
+.home-sponsors .section-title { padding-left: calc(60 * var(--u)); }
+.home-journey .section-title > span,
+.home-sponsors .section-title > span { font-size: max(13px, calc(33 * var(--u))); }
+.home-journey .section-title h2 { font-size: max(36px, calc(92 * var(--u))); }
+.home-journey .section-title h2 strong,
+.home-sponsors .section-title h2 strong {
+  font-size: max(18px, calc(51 * var(--u)));
+  font-weight: 600;
+}
+.home-journey .section-title { margin-bottom: calc(108 * var(--u)); }
+.home-journey .section-title > span + h2 { margin-top: calc(10.5 * var(--u)); }
+.home-journey .section-title h2 strong { margin-top: calc(15 * var(--u)); }
+
+/* 外框 */
+.home-journey .journey-list {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-auto-rows: 1fr;          /* 每列等高 → 連接線（每列往下畫「列高＋間距」）剛好接到下一個節點 */
+  row-gap: calc(28 * var(--u));
+  padding: calc(40 * var(--u)) calc(44 * var(--u)) calc(46 * var(--u));
+  border: 1px solid var(--c-neon);
+  border-radius: var(--r-17);
+  background: #000;
+}
+.journey-row {
+  position: relative;
+  min-height: calc(307 * var(--u));
+  padding: calc(44 * var(--u)) calc(290 * var(--u)) calc(46 * var(--u)) calc(51.7 * var(--u));
+  border-radius: var(--r-17);
+  border: 1px solid var(--c-line);
+  background: linear-gradient(180deg, #004300 -112.6%, #0b0a0c 62.1%);
+}
+.journey-no.num-tile {
+  --tile: calc(83.8 * var(--u));
+  border-radius: calc(9 * var(--u));
+  border: 1px solid rgb(0 82 0 / .5);
+  background: linear-gradient(330.5deg, #005200 -9.5%, #00ff00 94.2%);
+  font-size: max(16px, calc(49 * var(--u)));
+  font-weight: 500;
+}
+.journey-row h3 {
+  margin-top: calc(19.5 * var(--u));
+  font-family: var(--font-display);
+  font-size: max(18px, calc(50 * var(--u)));
+  font-weight: 900;
+  line-height: 1.1;
+}
+.journey-row p {
+  max-width: calc(640 * var(--u));
+  margin-top: calc(14.6 * var(--u));
+  font-size: max(12px, calc(17 * var(--u)));
+  font-weight: 600;
+  line-height: 1.235;
+  color: var(--c-muted-2);
+}
+.journey-row .glow-line {
+  left: calc(41 * var(--u));
+  right: calc(41 * var(--u));
+  bottom: -1px;
+  height: max(2px, calc(5 * var(--u)));
+}
+
+/* 時間軸節點 */
+.journey-node {
+  --node: calc(94 * var(--u));
+  position: absolute;
+  z-index: 2;
+  top: 50%;
+  right: calc(185 * var(--u) - var(--node) / 2);
+  display: grid;
+  place-items: center;
+  width: var(--node);
+  height: var(--node);
+  margin-top: calc(var(--node) / -2);
+  border: max(2px, calc(3 * var(--u))) solid var(--c-neon);
+  background: #000;
+  transform: rotate(45deg);
+}
+.journey-node::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: calc(76.5 * var(--u));
+  height: calc(76.5 * var(--u));
+  border: 1px solid var(--c-neon);
+}
+.journey-node svg {
+  width: calc(39.2 * var(--u));
+  height: calc(27.4 * var(--u));
+  color: var(--c-neon);
+  transform: rotate(-45deg);
+}
+/* 最後一個節點：實心圓點 */
+.journey-row:last-child .journey-node::after {
+  content: "";
+  width: calc(28 * var(--u));
+  height: calc(28 * var(--u));
+  border-radius: 50%;
+  background: var(--c-neon);
+}
+/* 連接線：從這一列節點中心往下畫到下一列節點中心（列高＋間距），壓在節點底下 */
+.journey-row:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  right: calc(185 * var(--u) - max(2px, calc(3 * var(--u))) / 2);
+  width: max(2px, calc(3 * var(--u)));
+  height: calc(100% + 28 * var(--u));
+  background: var(--c-neon);
+  pointer-events: none;
+}
+
+/* ========== 4. 品牌代言陣容（淺色區） ========== */
+.home-ambassador {
+  padding-block: calc(119.6 * var(--u)) calc(140 * var(--u));
+  background: linear-gradient(146.5deg, #fff 35.3%, #9ecf7e 133.4%);
+}
+/* 絲綢紋理：本區塊高度跟共用值不同，另外換算；手機跟共用值相同，不另外覆寫 */
+@media (min-width: 768px) {
+  .home-ambassador::before {
+    top: calc(-367.2 * var(--u));
+    left: calc(50% - 1001.1 * var(--u));
+    width: calc(2863.4 * var(--u));
+    height: calc(1636.4 * var(--u));
+  }
+}
+.home-ambassador .section-title { margin-bottom: calc(86.3 * var(--u)); }
+.home-ambassador .section-title > span + h2 { margin-top: calc(10 * var(--u)); }
+.home-ambassador .section-title h2 { font-size: max(36px, calc(115 * var(--u))); }
+.home-ambassador .section-title h2 strong {
+  margin-top: calc(10 * var(--u));
+  font-size: max(18px, calc(49 * var(--u)));
+}
+
+/* 卡片 */
+.amb-card {
+  display: grid;
+  grid-template-columns: minmax(0, 711fr) minmax(0, 734fr);
+  column-gap: calc(38.4 * var(--u));
+  width: min(calc(1535 * var(--u)), 100%);
+  margin-inline: auto;
+  padding: calc(26 * var(--u));
+  border-radius: calc(34 * var(--u));
+  border: 1px solid var(--c-neon);
+  background: linear-gradient(177.3deg, #005200 -12.3%, #000 120.6%);
+  color: #fff;
+}
+.amb-img {
+  width: 100%;
+  aspect-ratio: 711 / 530;
+  object-fit: cover;
+  border-radius: var(--r-21);
+  border: 1px solid var(--c-gray);
+}
+.amb-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  padding: calc(50.5 * var(--u)) 0 calc(34.8 * var(--u));
+}
+.amb-copy h3 {
+  font-size: max(24px, calc(71 * var(--u)));
+  font-weight: 700;
+  line-height: .831;
+}
+.amb-copy p {
+  max-width: calc(660 * var(--u));
+  margin-top: calc(32.9 * var(--u));
+  font-size: max(13px, calc(26 * var(--u)));
+  line-height: 1.27;
+}
+.amb-copy .btn-lime {
+  margin-top: auto;
+  font-weight: 400;
+}
+/* 按鈕貼欄底；文字很長時至少隔開 24 */
+.amb-copy p { margin-bottom: calc(24 * var(--u)); }
+
+/* ========== 5. 贊助 SPONSORSHIP HIGHLIGHTS ========== */
+.home-sponsors {
+  position: relative;
+  padding-block: calc(144.5 * var(--u)) calc(145.5 * var(--u));
+  background: linear-gradient(2.2deg, #000 57.2%, #005200 112.8%);
+}
+.home-sponsors .section-title h2 { font-size: max(36px, calc(101 * var(--u))); }
+.home-sponsors .section-title { margin-bottom: calc(61 * var(--u)); }
+.home-sponsors .section-title > span + h2 { margin-top: calc(9.5 * var(--u)); }
+.home-sponsors .section-title h2 strong { margin-top: calc(15.8 * var(--u)); }
+
+/* 平行四邊形卡：卡片整個斜切；圖片與標題反向 skew 回正，圖片左右各多出 tanθ×圖高/2 才蓋得滿斜邊 */
+.sponsor-cards { --skew: 9.47deg; }
+/* ⚠ 格線只寫在 ≥768：≤767 由共用的 .h-scroll-m 改成橫向捲動（display:flex），寫在外面會蓋掉它 */
+@media (min-width: 768px) {
+  .sponsor-cards {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, calc(513 * var(--u))));
+    justify-content: center;
+    gap: calc(48 * var(--u)) calc(26 * var(--u));
+    /* 三張卡（含斜邊）比容器寬 → 左右各往外借 74 */
+    margin-inline: calc(-74 * var(--u));
+    padding-inline: calc(46.5 * var(--u));
+  }
+}
+.sponsor-card {
+  position: relative;
+  display: block;
+  overflow: hidden;
+  aspect-ratio: 513 / 557.5;
+  border: 2px solid var(--c-neon);
+  border-radius: calc(16 * var(--u));
+  background: #000;
+  color: #fff;
+  transform: skewX(calc(-1 * var(--skew)));
+  transition: box-shadow .2s;
+}
+.sponsor-card:hover { box-shadow: 0 0 calc(24 * var(--u)) rgb(0 255 0 / .35); }
+.sponsor-card-media {
+  position: absolute;
+  top: 0;
+  left: -7%;
+  right: -7%;
+  height: 73.8%;
+  transform: skewX(var(--skew));
+  background: #0b0a0c;
+}
+.sponsor-card-media img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transition: transform .4s;
+}
+.sponsor-card:hover .sponsor-card-media img { transform: scale(1.04); }
+.sponsor-card b {
+  position: absolute;
+  top: 73.8%;
+  bottom: 0;
+  left: 9%;
+  right: 9%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 calc(20 * var(--u)) calc(6 * var(--u)) 0;
+  font-size: max(15px, calc(34 * var(--u)));
+  font-weight: 700;
+  line-height: 1.2;
+  transform: skewX(var(--skew));
+}
+
+/* ========== 6. 768–1279：--u 固定，格線改用比例；平板再降欄 ========== */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .sponsor-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  /* 畫面比 1280 窄時：主視覺往右讓開大字，浮水印改貼左緣 */
+  .home-hero-media { left: calc(50% + 100 * var(--u)); }
+  .home-stats-mark { left: 2vw; font-size: min(calc(311 * var(--u)), 15.5vw); }
+  /* 卡片隨欄寬變窄、--u 卻固定，英馬文標題會被卡片裁掉 → 字級改跟畫面寬走 */
+  .sponsor-card b { font-size: clamp(14px, 1.75vw, 22px); padding-top: calc(8 * var(--u)); }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hero-shortcuts { grid-template-columns: minmax(0, 1fr); }
+  /* 平板：大字會疊到主視覺上 → 主視覺再往右、淡一點 */
+  .home-hero-media { left: calc(50% + 150 * var(--u)); opacity: .7; }
+  .stat-card.is-feature .stat-art { left: auto; right: calc(-60 * var(--u)); }
+  .journey-row { padding-right: calc(300 * var(--u)); }
+  .amb-card { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .sponsor-cards { margin-inline: 0; }
+}
+
+/* ========== 7. 手機（≤767） ========== */
+@media (max-width: 767px) {
+  /* ---- 首屏 ---- */
+  .home-hero { --lk: calc(.445 * var(--u)); min-height: calc(870 * var(--u)); }
+  .home-hero-bg img { left: 0; width: 100%; transform: none; }
+  .home-hero-media { top: calc(297 * var(--u)); left: calc(10 * var(--u)); width: calc(526 * var(--u)); }
+  /* 左上壓暗＋底部 */
+  .home-hero::before {
+    right: 0;
+    width: auto;
+    background: linear-gradient(117.2deg, #000 23.3%, transparent 76.3%);
+  }
+  .home-hero::after {
+    height: calc(290 * var(--u));
+    background: linear-gradient(180deg, rgb(0 0 0 / .004) 20.3%, #000 100%);
+  }
+  .home-hero-inner {
+    width: calc(100% - 29 * var(--u));
+    margin-inline: auto;
+    padding: calc(96.4 * var(--u)) 0 calc(15.3 * var(--u));
+  }
+  .home-hero .hero-copy { padding-left: calc(32.3 * var(--u)); }
+  .home-hero .hero-copy .eyebrow { font-size: max(12px, calc(13 * var(--u))); font-weight: 600; line-height: calc(19 * var(--u)); }
+  .home-hero .hero-copy > p {
+    margin-top: calc(17 * var(--u));
+    font-size: max(12px, calc(11 * var(--u)));
+    line-height: 1.36;
+  }
+  .home-hero .hero-actions { margin-top: calc(26 * var(--u)); }
+  .home-hero .hero-actions .btn-lime { --btn-h: calc(48.7 * var(--u)); --btn-px: calc(29.9 * var(--u)); --btn-gap: calc(21 * var(--u)); }
+  .home-hero.is-latin .lk-rest { max-width: calc(600 * var(--lk)); }
+  .lk-1 .lk-rest { margin-left: calc(32 * var(--lk)); }
+  .lk-2 .lk-rest { margin-left: calc(-5 * var(--lk)); }
+
+  /* 導覽卡 */
+  .hero-shortcuts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(8 * var(--u));
+    padding-top: calc(30 * var(--u));
+  }
+  .hero-shortcuts a { border-radius: var(--r-6); }
+  .hero-shortcuts .hero-shortcut-main {
+    min-height: calc(91.6 * var(--u));
+    padding: calc(4 * var(--u)) calc(14 * var(--u)) 0 calc(23.9 * var(--u));
+  }
+  .hero-shortcut-main::before {
+    top: calc(-.9 * var(--u));
+    left: calc(8.6 * var(--u));
+    width: calc(64.6 * var(--u));
+    height: calc(3.7 * var(--u));
+  }
+  .hero-shortcut-main .sc-no { width: calc(78.4 * var(--u)); font-size: calc(55 * var(--u)); font-weight: 500; }
+  .sc-text b { font-size: max(16px, calc(23 * var(--u))); font-weight: 400; }
+  .sc-text small { margin-top: calc(2 * var(--u)); font-size: max(12px, calc(15 * var(--u))); }
+  .hero-shortcut-grid { gap: calc(5.3 * var(--u)); }
+  .hero-shortcut-grid a {
+    min-height: calc(56.2 * var(--u));
+    padding: calc(6 * var(--u)) calc(7 * var(--u)) calc(6 * var(--u)) calc(7.2 * var(--u));
+  }
+  .hero-shortcut-grid .sc-no { padding-bottom: calc(3 * var(--u)); font-size: max(14px, calc(16 * var(--u))); font-weight: 500; }
+  .hero-shortcut-grid b { font-size: max(12px, calc(10 * var(--u))); font-weight: 400; }
+  .hero-shortcut-grid small { margin-top: 1px; font-size: 11px; line-height: 1.1; overflow-wrap: anywhere; }
+
+  /* ---- 數據 ---- */
+  .home-stats {
+    padding-block: calc(70 * var(--u)) calc(82 * var(--u));
+    background: linear-gradient(168.7deg, #000 61.2%, #005200 154.1%);
+  }
+  .home-stats::before { height: calc(149 * var(--u)); }
+  .home-stats-mark {
+    top: calc(12 * var(--u));
+    left: calc(20.5 * var(--u));
+    font-size: calc(75 * var(--u));
+  }
+  .home-stats .section-title { margin-bottom: calc(49 * var(--u)); }
+  .home-stats .section-title > span + h2 { margin-top: calc(4 * var(--u)); }
+  .home-stats .section-title h2 strong { margin-top: calc(8 * var(--u)); font-size: max(18px, calc(22 * var(--u))); }
+
+  .stats-grid { grid-template-columns: minmax(0, 1fr); gap: calc(6.9 * var(--u)); }
+  .stat-card,
+  .stat-card.is-feature {
+    grid-column: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: "no value" "title value" "desc value";
+    align-content: center;
+    align-items: start;
+    column-gap: calc(10 * var(--u));
+    min-height: calc(95.1 * var(--u));
+    padding: calc(14 * var(--u)) calc(115.6 * var(--u)) calc(14 * var(--u)) calc(20.3 * var(--u));
+    border-radius: var(--r-6);
+    background: linear-gradient(180deg, #005200 -121.4%, #0b0a0c 59.3%);
+  }
+  .stat-card::before,
+  .stat-card.is-feature::before { top: calc(6.5 * var(--u)); bottom: calc(6.5 * var(--u)); width: max(1.5px, calc(1.7 * var(--u))); }
+  .stat-card::after,
+  .stat-card:nth-child(n)::after,
+  .stat-card.is-feature::after {
+    inset: calc(6.5 * var(--u)) 0 calc(6.5 * var(--u)) auto;
+    z-index: 1;
+    width: max(1.5px, calc(1.7 * var(--u)));
+    background: var(--g-glow-bar);
+  }
+  .stat-art,
+  .stat-card:nth-child(n) .stat-art,
+  .stat-card.is-feature .stat-art {
+    top: calc(-13.2 * var(--u));
+    left: auto;
+    right: calc(-7.9 * var(--u));
+    width: calc(125.1 * var(--u));
+    opacity: .42;
+  }
+  .stat-no,
+  .stat-card.is-feature .stat-no { grid-area: no; font-size: 13px; }
+  .stat-card h3,
+  .stat-card.is-feature h3 { grid-area: title; margin-top: calc(4 * var(--u)); font-size: 15px; }
+  .stat-card p,
+  .stat-card.is-feature p { grid-area: desc; margin-top: calc(2 * var(--u)); font-size: 11px; line-height: 1.25; }
+  .stat-value,
+  .stat-card.is-feature .stat-value {
+    grid-area: value;
+    align-self: end;
+    gap: 0;
+    margin: 0 0 calc(2 * var(--u));
+  }
+  .stat-value-num,
+  .stat-card.is-feature .stat-value-num { font-size: calc(40 * var(--u) * min(1, 3.2 / var(--num-len, 1))); }
+  /* 單位固定寬、靠左（數字靠右對齊於同一條線） */
+  .stat-value b,
+  .stat-card.is-feature .stat-value b {
+    width: calc(45 * var(--u));
+    margin-left: calc(8 * var(--u));
+    font-size: max(13px, calc(15 * var(--u)));
+  }
+
+  /* ---- 發展歷史 ---- */
+  .home-journey {
+    padding-block: calc(197.4 * var(--u)) calc(102 * var(--u));
+    background: linear-gradient(215.6deg, #000 62.9%, #005200 135%);
+  }
+  .home-journey::before {
+    top: calc(-25.4 * var(--u));
+    left: calc(-532.3 * var(--u));
+    width: calc(1344.6 * var(--u));
+    height: calc(616 * var(--u));
+  }
+  .home-journey .section-title,
+  .home-sponsors .section-title { padding-left: calc(24.5 * var(--u)); }
+  .home-journey .section-title > span,
+  .home-sponsors .section-title > span { font-size: max(13px, calc(16 * var(--u))); }
+  /* 不用共用層的 balance（會切成 5＋5） */
+  .home-journey .section-title h2 { font-size: max(36px, calc(50 * var(--u))); text-wrap: wrap; }
+  .home-journey .section-title h2 strong,
+  .home-sponsors .section-title h2 strong { font-size: max(18px, calc(22 * var(--u))); }
+  .home-journey .section-title { margin-bottom: calc(46.5 * var(--u)); }
+  .home-journey .section-title > span + h2,
+  .home-sponsors .section-title > span + h2 { margin-top: calc(2.9 * var(--u)); }
+  .home-sponsors .section-title > span + h2 { margin-top: calc(7 * var(--u)); }
+  .home-journey .section-title h2 strong { margin-top: calc(18.7 * var(--u)); }
+  .home-sponsors .section-title h2 strong { margin-top: calc(11.7 * var(--u)); }
+  .home-sponsors .section-title h2 strong { font-weight: 400; }
+  .home-stats .section-title h2,
+  .home-journey .section-title h2,
+  .home-ambassador .section-title h2,
+  .home-sponsors .section-title h2 { font-weight: 400; }
+
+  .home-journey .journey-list {
+    row-gap: calc(28 * var(--u));
+    padding: calc(16 * var(--u)) calc(18 * var(--u)) calc(28 * var(--u));
+    border-radius: var(--r-12);
+  }
+  .journey-row {
+    min-height: calc(121 * var(--u));
+    padding: calc(17.5 * var(--u)) calc(64 * var(--u)) calc(16 * var(--u)) calc(20.6 * var(--u));
+    border-radius: var(--r-8);
+  }
+  .journey-no.num-tile {
+    --tile: calc(33.1 * var(--u));
+    border-radius: calc(4 * var(--u));
+    font-size: 16px;
+  }
+  /* 說明 11px 才排得回兩行 */
+  .journey-row h3 { margin-top: calc(12 * var(--u)); font-size: max(16px, calc(17 * var(--u))); font-weight: 400; }
+  .journey-row p { margin-top: calc(5 * var(--u)); font-size: 11px; line-height: 1.3; }
+  .journey-row .glow-line { left: calc(16 * var(--u)); right: calc(16 * var(--u)); height: 2px; }
+  .journey-node {
+    --node: calc(29.1 * var(--u));
+    right: calc(37.4 * var(--u) - var(--node) / 2);
+    border-width: 1px;
+  }
+  .journey-node::before { width: calc(23.7 * var(--u)); height: calc(23.7 * var(--u)); border-color: rgb(0 255 0 / .7); }
+  .journey-node svg { width: calc(12.1 * var(--u)); height: calc(8.5 * var(--u)); }
+  .journey-row:last-child .journey-node::after { width: calc(7.8 * var(--u)); height: calc(7.8 * var(--u)); }
+  .journey-row:not(:last-child)::after {
+    right: calc(37.4 * var(--u) - 1.5px);
+    width: 3px;
+    height: calc(100% + 28 * var(--u));
+  }
+
+  /* ---- 代言 ---- */
+  .home-ambassador {
+    padding-block: calc(71.4 * var(--u)) calc(82 * var(--u));
+    background: linear-gradient(120deg, #fff 35.3%, #9ecf7e 133.4%);
+  }
+  .home-ambassador .section-title { margin-bottom: calc(38 * var(--u)); }
+  .home-ambassador .section-title > span + h2 { margin-top: calc(2.9 * var(--u)); }
+  .home-ambassador .section-title h2 { font-size: max(36px, calc(50 * var(--u))); }
+  .home-ambassador .section-title h2 strong { margin-top: calc(8.7 * var(--u)); font-size: max(18px, calc(22 * var(--u))); font-weight: 600; }
+
+  .amb-card {
+    grid-template-columns: minmax(0, 1fr);
+    width: auto;
+    margin-inline: calc(9.5 * var(--u));
+    padding: calc(10 * var(--u)) calc(10 * var(--u)) calc(17.8 * var(--u));
+    border-radius: var(--r-12);
+    background: linear-gradient(172.7deg, #005200 -12.3%, #000 120.6%);
+  }
+  .amb-img { aspect-ratio: 349 / 235; border-radius: var(--r-10); }
+  .amb-copy { padding: calc(17 * var(--u)) calc(10.6 * var(--u)) 0; }
+  .amb-copy h3 { font-size: max(20px, calc(25 * var(--u))); line-height: 1; }
+  .amb-copy p { margin-top: calc(6 * var(--u)); margin-bottom: 0; font-size: 12px; line-height: 1.33; }
+  .amb-copy .btn-lime.is-pill {
+    --btn-h: max(40px, calc(33.7 * var(--u)));
+    --btn-px: calc(22 * var(--u));
+    min-width: calc(147.3 * var(--u));
+    margin-top: calc(9 * var(--u));
+  }
+
+  /* ---- 贊助：橫向捲動 ---- */
+  .home-sponsors {
+    padding-block: calc(78.8 * var(--u)) calc(125 * var(--u));
+    background: linear-gradient(5.7deg, #000 57.2%, #005200 112.8%);
+  }
+  .home-sponsors .section-title h2 { font-size: max(36px, calc(50 * var(--u))); }
+  .home-sponsors .section-title { margin-bottom: calc(31.8 * var(--u)); }
+  .sponsor-cards.h-scroll-m {
+    --h-item: calc(296 * var(--u));
+    --h-gap: calc(17 * var(--u));
+    /* 斜邊往左右各凸出：左右多留這麼多，第一張的左下角才不會被捲動框切掉 */
+    padding-inline: calc(var(--gutter) + 27 * var(--u));
+    scroll-padding-inline: calc(var(--gutter) + 27 * var(--u));
+  }
+  .sponsor-card { border-radius: calc(12 * var(--u)); }
+  .sponsor-card b { padding: calc(18 * var(--u)) 0 0; font-size: max(15px, calc(19 * var(--u))); font-weight: 400; }
+}
+
+/* ========== 字型指派：放檔尾蓋過上面同特異度的規則；電腦才有的字重包在 ≥768，免得蓋掉手機段 ========== */
+/* 統計數字是兰亭，數字比 Montserrat 窄，不必再收字距 */
+.stat-value-num { font-family: var(--font-lt); font-weight: 600; letter-spacing: 0; }
+@media (min-width: 768px) {
+  .home-hero .hero-copy > p,
+  .home-hero .hero-actions .btn-lime { font-family: var(--font-lt); font-weight: 400; }
+  .sc-text b,
+  .hero-shortcut-grid b,
+  .sponsor-card b { font-family: var(--font-ph); font-weight: 700; }
+  .home-stats .section-title > span,
+  .home-ambassador .section-title > span { font-family: var(--font-lt); font-weight: 600; }
+  .home-stats .section-title h2,
+  .home-ambassador .section-title h2 { font-weight: 600; }
+  /* 兰亭沒有 700 */
+  .stat-value b,
+  .stat-card h3,
+  .amb-copy h3 { font-weight: 600; }
+  .amb-copy .btn-lime { font-family: var(--font-lt); font-weight: 400; }
+}
+@media (max-width: 767px) {
+  .stat-value b,
+  .stat-card h3 { font-weight: 600; }
+  .amb-copy h3 { font-weight: 400; }
+  .home-stats .section-title > span { font-family: var(--font-sj); }
+  .sc-text b,
+  .hero-shortcut-grid b,
+  .sponsor-card b { font-family: var(--font-lt); font-weight: 400; }
+}
+/* Lantinghei SC Heavy → 400（見 site.css 檔尾） */
+.journey-row h3 { font-weight: 400; }
+/* 電腦 · 是窄的；手機 · 是全形寬，不改 */
+@media (min-width: 768px) { .journey-row h3 { font-family: var(--font-lt-narrowdot); } }
+
+@media (min-width: 768px) {
+  .sponsor-card b { font-weight: 500; }
+  .amb-copy .btn-lime { position: relative; left: calc(16 * var(--u)); top: calc(7 * var(--u)); }
+}
+
+/* ========== 個別調整（放檔尾，蓋過上面的規則） ========== */
+/* 文案裡的換行（樣板換成 <br>）：有 <br> 時不再用寬度斷行 */
+.journey-row p:has(br) { max-width: none; }
+.amb-copy p:has(br) { max-width: none; }
+
+@media (min-width: 768px) {
+  .home-hero .hero-copy .eyebrow { position: relative; top: calc(-3 * var(--u)); }
+  .home-hero .hero-copy > p { margin-top: calc(45 * var(--u)); }
+  .home-hero .hero-actions { margin-top: calc(58 * var(--u)); }
+  .sc-text small { font-size: calc(24 * var(--u)); letter-spacing: -.04em; }
+  .hero-shortcut-grid small { font-size: max(11px, calc(14 * var(--u))); letter-spacing: -.05em; }
+}
+
+@media (max-width: 767px) {
+  .home-hero .hero-copy > p { margin-top: calc(23 * var(--u)); }
+  .home-hero .hero-actions { margin-top: calc(25 * var(--u)); }
+  .hero-shortcuts .sc-no { font-family: var(--font-lt); font-weight: 400; letter-spacing: 0; }
+  .hero-shortcut-main .sc-text { margin-top: calc(5 * var(--u)); }
+  /* 三格：號碼在上，名稱與英文貼在下緣 */
+  .hero-shortcut-grid a {
+    min-height: calc(56.2 * var(--u));
+    padding: calc(7 * var(--u)) calc(7 * var(--u)) calc(3 * var(--u)) calc(7.2 * var(--u));
+  }
+  .hero-shortcut-grid .sc-no { padding-bottom: 0; line-height: 1; }
+  .hero-shortcut-grid b { line-height: 1; }
+  .hero-shortcut-grid small { margin-top: 1px; line-height: 1; }
+
+  /* 發展歷史大標換行：中文限寬，英馬文照常 */
+  html[lang="zh-CN"] .home-journey .section-title h2 { max-width: calc(330 * var(--u)); }
+  /* 時間軸列：手機換行跟電腦不同 → 藏掉 <br>，每列給剛好的寬度 */
+  .home-journey .journey-list { row-gap: calc(28 * var(--u)); }
+  .journey-row {
+    min-height: calc(121 * var(--u));
+    padding-bottom: calc(7 * var(--u));
+  }
+  /* 英馬文標題長，維持 64 才不會壓到節點 */
+  html[lang="zh-CN"] .journey-row { padding-right: calc(40 * var(--u)); }
+  .journey-row p { line-height: 13px; }
+  .journey-row p br { display: none; }
+  .journey-row p:has(br) { max-width: 24.6em; }
+  .journey-row:nth-child(odd) p:has(br) { max-width: 25.2em; }
+}
+@media (max-width: 767px) {
+  .home-journey .section-title > span,
+  .home-ambassador .section-title > span { font-family: var(--font-sj); font-weight: 400; }
+  .amb-copy .btn-lime.is-pill { --btn-h: calc(33.7 * var(--u)); }
+}
+@media (max-width: 767px) {
+  .home-ambassador { padding-bottom: calc(79 * var(--u)); }
+  .home-sponsors { padding-bottom: calc(127 * var(--u)); }
+}
+@media (max-width: 767px) {
+  /* 大標往下 4，時間軸外框位置不變（下距同步收 4） */
+  .home-journey .section-title > span + h2 { margin-top: calc(6.9 * var(--u)); }
+  .home-journey .section-title { margin-bottom: calc(42.5 * var(--u)); }
+}

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: frontend-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend-web
+    spec:    
+      terminationGracePeriodSeconds: 10    
+      containers:
+        - name: frontend-nginx-container
+          image: "example.invalid/tp-wz3-online/frontend-web-nginx-image:ab5e302"
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 100Mi
+            requests:
+              cpu: 100m

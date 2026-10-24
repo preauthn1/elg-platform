@@ -1,0 +1,64 @@
+# rd-ticket-create 自己的題目
+#
+# 路由題（站台、分類、優先級、子任務模式、排期、里程碑）沿用
+# ../../pm-ticket-create/reference/questions.yaml，本檔只放 RD 開單才問的題目。
+# 問使用者時一律用 label 與 description 顯示，畫面上不出現代碼。
+
+version: 1
+
+preflight:
+  infer:
+    - field: rd_mode
+      # 從使用者第一句話判斷要走哪個模式；判斷得出來就用一句話確認，判斷不出來才問 R0_mode
+      hints:
+        BUGFIX:  ["修復單", "修 bug", "bug", "修正", "壞掉", "錯誤", "fix"]
+        FEATURE: ["功能單", "新功能", "需求單", "新增", "優化"]
+        FILL:    ["補開發子單", "補測試子單", "補寫子單", "寫開發子單", "寫測試步驟", "子單內容", "幫 #"]
+    - field: qa_needed
+      # 命中任一條，R1_qa_needed 就把「不需要 QA 驗收」排第一並標推薦，仍要 RD 點選
+      # Olympus 的單走主單加子單、主單給 PM，一律推薦「需要 QA 驗收」，不套用下面兩條
+      no_qa_hints:
+        internal_tool: "站台題選了 GM（GM 的單）"
+        docs_only: "使用者表明這張單只改說明文件（skill 文件、README、操作說明等），不動程式或設定；畫面上的文字（按鈕、標籤、提示文案）算畫面變動，不算說明文件"
+
+# 修復單不問分類，所以 questions.yaml 子任務題的 presets_by_category 對不到。
+# 修復單的子任務選項改用這一組，問法與其他分類相同（列 4 個，選項文字用 questions.yaml 的 display）。
+bugfix_subtask_presets: [BACKEND, FRONTEND, FULLSTACK, APIS_AGENT]
+
+questions:
+  - id: R0_mode
+    order: 0
+    field: rd_mode
+    required_when: { rd_mode: unresolved }
+    prompt: "這次要做哪一件事？"
+    ask_strategy: single
+    header: "要做什麼"
+    options:
+      - { value: BUGFIX,  label: "開修復單",            description: "自己發現的 bug，驗收條件已經知道" }
+      - { value: FEATURE, label: "開新功能單",          description: "RD 提的需求，主單沿用 PM 的分類骨架" }
+      - { value: FILL,    label: "補寫既有子單的內容",  description: "主單已經開好，替開發子單、測試子單寫內容" }
+
+  - id: R1_qa_needed
+    order: 3.5
+    field: qa_needed
+    required_when: { rd_mode: [BUGFIX, FEATURE] }
+    # 排在路由題的優先級之後、子任務之前
+    prompt: "這張單需要 QA 驗收嗎？"
+    ask_strategy: single
+    header: "QA 驗收"
+    options:
+      - { value: NEED_QA, label: "需要 QA 驗收",   description: "主單指派給 PM，拆開發與測試子任務" }
+      - { value: NO_QA,   label: "不需要 QA 驗收", description: "主單指派給你自己；只改一個 repo 時不建子任務，改兩個以上 repo 時每個 repo 各建一張開發子任務" }
+    on_answer: |
+      NO_QA → subtask_pattern = RD_SELF，跳過子任務題與「測試結束日」那一題；仍要確認要改哪幾個 repo，兩個以上時每個 repo 各建一張開發子任務。
+      NEED_QA → 照常問子任務題，並問 R2_parent_pm 主單要給哪位 PM。
+
+  - id: R2_parent_pm
+    order: 3.6
+    field: parent_assignee
+    required_when: { qa_needed: NEED_QA }
+    # 需要 QA 驗收時，主單歸 PM 追蹤。選項是名單檔的 PM 組成員，照名單順序列出
+    prompt: "主單要指派給哪位 PM？"
+    ask_strategy: single
+    header: "主單 PM"
+    options_from: "名單檔 team-roster.yaml 的 PM 組（讀法見 ../../pm-ticket-create/SKILL.md 名詞表的「名單檔」）"

@@ -1,0 +1,39 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Facades\SchemaMonitor;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        SchemaMonitor::create('lfc888_bet_records', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('bet_id', 191)->default('0')->unique()->comment('注單唯一Id, ThemeId');
+            $table->string('username', 30)->index()->comment('玩家帳號');
+            $table->string('game_code', 50)->index()->comment('遊戲 ID');
+            $table->dateTime('bet_time')->index()->comment('投注時間(UTC)');
+            $table->dateTime('payout_time')->index()->comment('派彩、結算時間(UTC)');
+            $table->decimal('bet', 18, 4)->default(0)->comment('下注金額');
+            $table->decimal('valid_bet', 18, 4)->default(0)->comment('有效投注金額');
+            $table->decimal('win_lose', 18, 4)->default(0)->comment('輸贏金額');
+            $table->text('info')->comment('response data');
+            $table->timestamp('created_at')->useCurrent()->comment('建立日期');
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent()->index()->comment('更新日期');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        SchemaMonitor::dropIfExists('lfc888_bet_records');
+    }
+};

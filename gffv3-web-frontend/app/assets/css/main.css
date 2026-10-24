@@ -1,0 +1,374 @@
+@import "tailwindcss";
+/* 設計用字（Plus Jakarta Sans + Inter），自架 woff2，理由見 fonts.css 檔頭。
+   在 theme.css 之前載入，字體名字才有東西可以對上。 */
+@import "./fonts.css";
+/* 皮的設計 token。目前只有 C17，之後由 skins 模組依站台解析結果載入對應那一份 */
+@import "../../../skins/C17/theme.css";
+
+/**
+ * 語意色階：頁面與共用元件**只能用這一層的名字**（bg-surface / text-muted /
+ * text-danger …），不准再出現 bg-white、text-red-700 這種寫死的顏色，
+ * 也不用再寫 bg-[var(--wf-xxx)] 的任意值語法。
+ *
+ * 每個名字的值來自皮定義的 `--wf-*`；皮沒給就用這裡的 fallback（等同 _base 調色盤）。
+ * 換皮＝換一份 theme.css，頁面一行都不用改。
+ */
+@theme {
+  /* ---- 版面 ---- */
+  --color-page: var(--wf-page, #f6f7f5);
+  --color-surface: var(--wf-surface, #ffffff);
+  --color-surface-2: var(--wf-surface-2, #f1f3f2);
+  /* 頁面外殼（頂部列、內容、底部導覽）的最大寬度 → max-w-shell。對齊舊前台 C13 的 800px */
+  --container-shell: 800px;
+
+  /* ---- 文字 ---- */
+  --color-ink: var(--wf-ink, #1a2321);
+  --color-muted: var(--wf-muted, #5f6b68);
+  --color-faint: var(--wf-faint, #9aa5a2);
+  /* 深色或彩色底上的文字（按鈕、遮罩、深色標題列） */
+  --color-inverse: var(--wf-inverse, #ffffff);
+
+  /* ---- 線條 ---- */
+  --color-line: var(--wf-line, #d9e0dd);
+  --color-line-strong: var(--wf-line-strong, #b9c4c0);
+
+  /* ---- 主色 ---- */
+  --color-accent: var(--wf-accent, #0b6e63);
+  --color-accent-hover: var(--wf-accent-hover, var(--wf-accent, #0b6e63));
+  --color-accent-soft: var(--wf-accent-soft, #e3f0ee);
+  /* 螢光高亮：勾選態的填色、主要按鈕 hover 的字色。
+     **不要用 bg-accent 代替**——那是藍色主色，用錯勾選框就會是藍的（設計是螢光黃）。 */
+  --color-highlight: var(--wf-highlight, #d8ff1a);
+  --color-accent-hover-ink: var(--wf-accent-hover-ink, var(--wf-inverse, #ffffff));
+  /* 連結字色（條款連結那一類） */
+  --color-link: var(--wf-link, var(--wf-accent, #0b6e63));
+
+  /* ---- 狀態色：soft 是底色，同名的實色當文字與框線 ---- */
+  --color-success: var(--wf-success, #15803d);
+  --color-success-soft: var(--wf-success-soft, #ecfdf3);
+  --color-danger: var(--wf-danger, #b91c1c);
+  --color-danger-soft: var(--wf-danger-soft, #fef2f2);
+  --color-warning: var(--wf-warning, #92400e);
+  --color-warning-soft: var(--wf-warning-soft, #fffbeb);
+  --color-info: var(--wf-info, #0369a1);
+  --color-info-soft: var(--wf-info-soft, #f0f9ff);
+
+  /* ---- 表單：輸入框四態的邊框色，見 skins/C17/theme.css ---- */
+  --color-field: var(--wf-field, #ffffff);
+  --color-field-muted: var(--wf-field-muted, #eef1f0);  /* 未勾選核取方塊的底 */
+  --color-field-line: var(--wf-field-line, #d9e0dd);
+  --color-field-line-focus: var(--wf-field-line-focus, var(--wf-accent, #0b6e63));
+  --color-field-line-done: var(--wf-field-line-done, var(--wf-success, #15803d));
+  --color-field-line-error: var(--wf-field-line-error, var(--wf-danger, #b91c1c));
+  --color-placeholder: var(--wf-placeholder, #9aa5a2);
+  --color-disabled: var(--wf-disabled, #eef1f0);
+  --color-disabled-ink: var(--wf-disabled-ink, #9aa5a2);
+
+  /* ---- 彈窗遮罩：已含透明度，不要再加 /40 這種修飾 ---- */
+  --color-scrim: var(--wf-scrim, rgb(0 0 0 / 45%));
+}
+
+body {
+  margin: 0;
+  background: var(--color-page);
+  color: var(--color-ink);
+  font-family: var(--wf-font, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", sans-serif);
+}
+
+/**
+ * Chrome 的自動填入會把輸入框底色換成自己的淡黃／淡藍，蓋掉欄位的白底——
+ * 設計稿的欄位一律是白底 + 1px 邊框。用 inset 的 box-shadow 把底色蓋回去
+ * （沒有別的方法能覆寫 -webkit-autofill 的背景），文字顏色也要跟著指定。
+ */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-text-fill-color: var(--wf-ink);
+  -webkit-box-shadow: 0 0 0 1000px var(--wf-field) inset;
+  caret-color: var(--wf-ink);
+  transition: background-color 9999s ease-in-out 0s;
+}
+
+/**
+ * 進場動畫，做法照 bc.game：直接在元素上掛一個 CSS animation，不用 Vue 的
+ * <Transition>（為什麼，見 app/utils/motion.ts 的 ENTER_ANIMATIONS）。
+ * 名字清單也在那裡，兩邊有沒有對上由 tests/unit/motion.spec.ts 擋著。
+ *
+ * 值全部走 --wf-motion-*；皮沒給就用這裡的 fallback，所以沒載皮也不會沒有動畫。
+ * 這裡不寫顏色，換皮不用動。
+ */
+.wf-in-fade,
+.wf-in-slide-up,
+.wf-in-slide-down,
+.wf-in-scale {
+  animation-duration: var(--wf-motion-enter, 220ms);
+  animation-timing-function: var(--wf-motion-ease-enter, cubic-bezier(0.36, 0.66, 0.04, 1));
+  /* both：動畫開始前就先套上起始幀，元素不會先閃一下完成態 */
+  animation-fill-mode: both;
+}
+
+.wf-in-fade {
+  animation-name: wf-in-fade;
+}
+
+.wf-in-slide-up {
+  animation-name: wf-in-slide-up;
+}
+
+.wf-in-slide-down {
+  animation-name: wf-in-slide-down;
+}
+
+.wf-in-scale {
+  animation-name: wf-in-scale;
+}
+
+@keyframes wf-in-fade {
+  from { opacity: 0; }
+}
+
+@keyframes wf-in-slide-up {
+  from { opacity: 0; transform: translateY(var(--wf-motion-shift, 10px)); }
+}
+
+@keyframes wf-in-slide-down {
+  from { opacity: 0; transform: translateY(calc(var(--wf-motion-shift, 10px) * -1)); }
+}
+
+@keyframes wf-in-scale {
+  from { opacity: 0; transform: scale(var(--wf-motion-scale, 0.96)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-in-fade,
+  .wf-in-slide-up,
+  .wf-in-slide-down,
+  .wf-in-scale {
+    animation: none;
+  }
+}
+
+/**
+ * 轉圈（UiSpinner）與換頁時把舊內容壓暗，兩個都照 bc.game 的做法：
+ * 轉速 1s linear，壓暗到 0.42 並用一段過渡淡進去（bc.game 的 .mx-refresh-dim）。
+ *
+ * reduced-motion 時**不能把轉圈關掉**——它是「還在載入」的唯一訊號，不是裝飾，
+ * 關掉就變成一個不會動的圖示。改成放慢一倍。
+ */
+.wf-spin {
+  animation: wf-spin var(--wf-motion-spin, 1s) linear infinite;
+}
+
+@keyframes wf-spin {
+  to { transform: rotate(360deg); }
+}
+
+.wf-dim {
+  opacity: var(--wf-motion-dim, 0.42);
+}
+
+.wf-dim-transition {
+  transition: opacity var(--wf-motion-enter, 220ms) var(--wf-motion-ease-enter, cubic-bezier(0.36, 0.66, 0.04, 1));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-spin {
+    animation-duration: calc(var(--wf-motion-spin, 1s) * 2);
+  }
+
+  .wf-dim-transition {
+    transition: none;
+  }
+}
+
+/**
+ * 載入骨架，做法照 bc.game：底一層，上面再疊一層同系但深一點的色，
+ * 只讓上層的不透明度在 0.6 ↔ 1 之間來回（2.5s linear），不用左右掃光的漸層。
+ *
+ * 換掉掃光的兩個理由：掃光每一幀都要重畫 background-position，
+ * 一個畫面同時九塊骨架（遊戲列表）就吃得到掉幀；而且它比內容還搶眼。
+ * 疊層只動 opacity，交給合成器，translateZ(0) 讓它自己成一層，不連累父層重繪。
+ *
+ * 放這裡而不是元件的 <style>：這個專案的元件一律不寫 style 區塊。
+ * 顏色走 --wf-skeleton-*，不寫死色值。
+ * prefers-reduced-motion 時停在中間亮度——這是裝飾動畫，不是資訊。
+ */
+.wf-skeleton {
+  position: relative;
+  overflow: hidden;
+  transform: translateZ(0);
+  background-color: var(--wf-skeleton-base, rgb(127 127 127 / 10%));
+}
+
+.wf-skeleton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  background-color: var(--wf-skeleton-top, rgb(127 127 127 / 22%));
+  animation: wf-skeleton-fade var(--wf-motion-skeleton, 2.5s) linear infinite;
+}
+
+@keyframes wf-skeleton-fade {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-skeleton::after {
+    animation: none;
+    opacity: 0.8;
+  }
+}
+
+/**
+ * 每日活動彈窗（紅包／敲蛋／輪盤）的過場。設計稿只給了「開始」與「開完」兩張圖，
+ * 中間的幀都沒有，所以用 CSS 補（規格見 docs/daily-red-packet-spec.md §4.2、
+ * docs/golden-smash-spec.md §4.2）。放這裡而不是頁面的 <style>，理由同上。
+ *
+ * 開獎後的兩段是三個活動共用的：獎品放大淡入，接著獎項文字彈一下。
+ */
+.wf-prize-reveal {
+  animation: wf-prize-reveal 0.3s ease-out;
+}
+
+.wf-prize-pop {
+  animation: wf-prize-pop 0.4s 0.3s backwards cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes wf-prize-reveal {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes wf-prize-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.1); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 紅包：可以拆的時候會呼吸，按下去搖一下 */
+.wf-red-packet {
+  animation: wf-red-packet-breathe 2.4s ease-in-out infinite;
+}
+
+.wf-red-packet:active {
+  animation: wf-red-packet-shake 0.3s ease-in-out;
+}
+
+@keyframes wf-red-packet-breathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+@keyframes wf-red-packet-shake {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-4deg); }
+  75% { transform: rotate(4deg); }
+}
+
+/**
+ * 敲蛋的一次敲擊（總長 0.6s，與 prize/draw 並行）：
+ *
+ *   0–0.29s   槌子舉起再落下          .wf-hammer-swing
+ *   0.29s     撞擊：白光在蛋上炸開    .wf-smash-flash ＋ 舞台一頓 .wf-stage-hit
+ *   0.3–0.38s 蛋左右震三下            .wf-egg-hit 前段
+ *   0.38–0.6s 蛋撐大後碎掉            .wf-egg-hit 後段
+ *
+ * 可以敲的時候三顆蛋輪流上下浮動（差 0.2s 起跳，不要三顆一起動）。
+ * 槌子的旋轉軸心在握把末端的中心（89% 87.7%），設計稿沒標，是從切出來的圖量的。
+ */
+.wf-egg {
+  animation: wf-egg-bob 2.4s ease-in-out infinite;
+}
+
+.wf-egg-hit {
+  animation: wf-egg-hit 0.6s ease-in forwards;
+}
+
+.wf-hammer-swing {
+  transform-origin: 89% 87.7%;
+  animation: wf-hammer-swing 0.6s cubic-bezier(0.4, 0, 0.3, 1);
+}
+
+.wf-stage-hit {
+  animation: wf-stage-hit 0.3s 0.28s ease-out;
+}
+
+/**
+ * 撞擊的白光。**只在被敲的那顆蛋上炸開**，不是整個舞台蓋一層白——
+ * 蓋整片的話 0.4 秒看起來不像閃光，像畫面被灰白色的遮罩罩住（實際被回報過）。
+ * 亮的時間也縮短到 0.2 秒：閃光要短到「感覺到」而不是「看清楚」。
+ */
+.wf-smash-flash {
+  background: radial-gradient(closest-side, rgb(255 255 255 / 92%), rgb(255 255 255 / 0%) 70%);
+  animation: wf-smash-flash 0.2s 0.26s ease-out backwards;
+}
+
+@keyframes wf-egg-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4%); }
+}
+
+/* 前 45% 是不動的——那段時間槌子還在落下，蛋要等被打到才震 */
+@keyframes wf-egg-hit {
+  0%, 45% { transform: translateX(0) scale(1); }
+  52% { transform: translateX(-6%) scale(1.02); }
+  58% { transform: translateX(6%) scale(1.02); }
+  64% { transform: translateX(-4%) scale(1.05); }
+  74% { transform: translateX(0) scale(1.15); opacity: 1; }
+  100% { transform: translateX(0) scale(0.2); opacity: 0; }
+}
+
+/* 軸心在握把末端（右下），槌頭在左上方：**逆時針才是往蛋的方向落下**，
+   順時針會把槌頭往上甩，看起來像在收槌不是在敲 */
+@keyframes wf-hammer-swing {
+  0% { transform: rotate(0deg); }
+  28% { transform: rotate(16deg); }
+  48% { transform: rotate(-26deg); }
+  62% { transform: rotate(-16deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes wf-stage-hit {
+  0%, 100% { transform: translateY(0); }
+  35% { transform: translateY(1.5%); }
+}
+
+@keyframes wf-smash-flash {
+  from { opacity: 1; transform: scale(0.5); }
+  to { opacity: 0; transform: scale(2.4); }
+}
+
+/**
+ * 輪盤：盤面轉、外框與指針不動。停幾度由後端回的獎項決定（頁面算），
+ * 這裡只管怎麼轉——起步快、尾巴慢慢收，最後幾度幾乎是滑進去的。
+ * 轉多久走 WHEEL_SPIN_MS（app/utils/motion.ts），CSS 與解鎖用同一個值。
+ */
+.wf-wheel {
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.15, 0.6, 0.2, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wf-prize-reveal,
+  .wf-prize-pop,
+  .wf-red-packet,
+  .wf-egg,
+  .wf-stage-hit,
+  .wf-smash-flash,
+  .wf-hammer-swing {
+    animation: none;
+  }
+
+  /* 蛋敲掉還是要消失，不然畫面停在沒敲的樣子；只把過程縮成一瞬間 */
+  .wf-egg-hit {
+    animation-duration: 0.1s;
+  }
+
+  /* 轉盤同理：結果要看得到，但不用轉三秒 */
+  .wf-wheel {
+    transition-duration: 0.4s !important;
+  }
+}

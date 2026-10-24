@@ -1,0 +1,622 @@
+body::-webkit-scrollbar {
+  display: none;
+}
+
+#C711PC {
+  /*Right*/
+  /* ----- MODAL STYLE ----- */
+}
+
+#C711PC .pageBg {
+  background-image: url(../../../../static/img/C711_PC/BG.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2e0d02;
+}
+
+#C711PC .CwidthHeight {
+  width: 100%;
+  height: 100%;
+}
+
+#C711PC .widthHeightvh {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711PC .page .pageTitle {
+  height: 55px;
+  line-height: 55px;
+  z-index: 100;
+  font-weight: bolder;
+  position: relative;
+}
+
+#C711PC .page .pageTitle img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711PC .page .pageTitleAll {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+}
+
+#C711PC .page .loginbarBack {
+  width: 15%;
+  padding: 1px;
+  padding-top: 5px;
+}
+
+#C711PC .page .loginbarBack img {
+  width: 40px;
+  margin-left: 20px;
+}
+
+#C711PC .page .loginbarTitle {
+  width: 50%;
+  padding: 1px;
+  text-align: center;
+  color: #ffd36d;
+}
+
+#C711PC .page .loginbarTitle span {
+  font-size: 18px;
+  color: #ffd36d;
+  font-weight: bold;
+}
+
+#C711PC .page .gamePointTransfer {
+  width: 10%;
+  padding: 1px;
+}
+
+#C711PC .page .gamePointTransfer img {
+  width: 28px;
+}
+
+#C711PC .page .loginbarright {
+  width: 15%;
+  padding: 1px;
+}
+
+#C711PC .page .loginbarright .searchPic {
+  margin-right: 10px;
+  width: 20px;
+}
+
+#C711PC .page .loginbarright img {
+  margin-right: 10px;
+  width: 35px;
+}
+
+#C711PC .page .loginbarright span {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+#C711PC .page .loginbarright .dropdown-item {
+  height: 50px;
+}
+
+#C711PC .page .iconImg {
+  width: 22px;
+}
+
+#C711PC .pageCon {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+}
+
+#C711PC .eventsConFont {
+  color: #fff;
+  text-align: left;
+  font-size: 13px;
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#C711PC .eventsConFont .eventPr {
+  width: 100%;
+  text-align: left;
+  margin: 10px auto;
+}
+
+#C711PC .eventsConFont .eventPrR {
+  width: 100%;
+  text-align: left;
+}
+
+#C711PC .eventsConFont .eventPrR img {
+  width: 25px;
+}
+
+#C711PC .black_EventDiv {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711PC .black_Divbg {
+  background: #4a3934;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #4a3934), color-stop(49%, #312836), color-stop(90%, #141418), to(#141418));
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711PC .eventsTitle {
+  width: 100%;
+  margin: auto;
+  line-height: 30px;
+  text-align: left;
+}
+
+#C711PC .eventsTitle .eventsLogo {
+  width: 12%;
+}
+
+#C711PC .eventsTitle .eventsLogo img {
+  margin-top: -10px;
+  width: 25px;
+}
+
+#C711PC .eventsTitle .eventsFont {
+  color: #ffd36d;
+  font-size: 15px;
+  width: 75%;
+}
+
+#C711PC .eventsTitle .eventsFont span {
+  color: #7e7c7c;
+  font-size: 13px;
+}
+
+#C711PC .eventsTitle .eventTicket {
+  width: 13%;
+}
+
+#C711PC .eventsTitle .eventTicket img {
+  margin-top: -5px;
+  margin-right: 10px;
+  width: 28px;
+}
+
+#C711PC .eventTime {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711PC .reddeemTime {
+  width: 100%;
+  margin: auto;
+  color: #fe5f42;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711PC .remarks {
+  width: 100%;
+  margin: auto;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bolder;
+}
+
+#C711PC .eventsProgress {
+  width: 100%;
+  margin: 15px auto 8px auto;
+}
+
+#C711PC .gamer_Btn {
+  width: 100%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#C711PC .dateFont {
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711PC .dateFont span {
+  color: #fe5f42;
+  font-weight: bold;
+}
+
+#C711PC .bar_Btn {
+  cursor: pointer;
+}
+
+#C711PC .eventsPointFont {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711PC .eventsPointFont span {
+  color: #fe5f42;
+}
+
+#C711PC .eventsBtn {
+  width: 100%;
+  margin: 15px auto;
+}
+
+#C711PC .abreastBtn {
+  width: 46%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711PC .abreastBtnTwo {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711PC .yellowcolor {
+  color: #fff;
+  font-weight: bolder;
+  font-size: 15px;
+  border: 1px solid #111217;
+  background: #e6dc97;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6dc97), color-stop(39%, #d9b23d), color-stop(94%, #a86100), color-stop(94%, #a86100), to(#c5984a));
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711PC .graycolor {
+  color: gray;
+  font-size: 15px;
+  font-weight: bolder;
+  border: 1px solid #111217;
+  background: #79655f;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #79655f), color-stop(39%, #675d6c), color-stop(93%, #313140), to(#1a1615));
+  background: linear-gradient(to bottom, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711PC .brown_BtnBg {
+  border: 1px solid #111217;
+  background: #6f411e;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #6f411e), color-stop(39%, #844c24), color-stop(93%, #271407), to(#0e0804));
+  background: linear-gradient(to bottom, #6f411e 1%, #844c24 39%, #271407 93%, #0e0804 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711PC .fontsizeBtn {
+  font-size: 15px;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711PC .marginBottom20 {
+  margin-bottom: 10px;
+}
+
+#C711PC .EventDescriptTitle {
+  color: #ffd36d;
+  font-size: 15px;
+  text-align: left;
+  line-height: 30px;
+}
+
+#C711PC .EventDescriptTitle .eventPr {
+  width: 50%;
+  text-align: left;
+}
+
+#C711PC .EventDescriptTitle .eventPrR {
+  width: 50%;
+  text-align: right;
+}
+
+#C711PC .EventDescriptTitle .eventPrR img {
+  margin-top: -5px;
+  margin-left: 20px;
+  width: 25px;
+}
+
+#C711PC .EventDescriptTime {
+  margin: 5px auto;
+  text-align: left;
+}
+
+#C711PC .EventDescriptFont {
+  white-space: pre-wrap;
+  text-align: left;
+  margin: 3px auto;
+  padding-left: 2px;
+}
+
+#C711PC .EventDescriptProgress {
+  width: 100%;
+  margin: 18px auto 8px auto;
+}
+
+#C711PC .EventDescriptDate {
+  margin: 2px auto;
+  text-align: left;
+}
+
+#C711PC .EventDescriptDate span {
+  color: #f8806a;
+}
+
+#C711PC .dateFont {
+  color: #fff;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+}
+
+#C711PC .buttonClick {
+  margin-top: 40px;
+}
+
+#C711PC .fontsizelogin {
+  font-size: 14px;
+  color: #fff;
+}
+
+#C711PC .iframeHeight {
+  height: 100%;
+  border-radius: 5px;
+  padding: 2px;
+  background: #e6dc97;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#e6dc97), color-stop(50%, #e6dc97), to(#c5984a));
+  background: linear-gradient(to bottom, #e6dc97 0%, #e6dc97 50%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711PC .modal {
+  top: 11%;
+}
+
+#C711PC .modal.right .modal-dialog {
+  position: fixed;
+  margin: auto;
+  width: 400px;
+  height: 600px;
+  -webkit-transform: translate3d(-20%, 0, 0);
+  transform: translate3d(-20%, 0, 0);
+}
+
+#C711PC .closeBtn {
+  position: absolute;
+  top: 31px;
+  right: 15px;
+  z-index: 200;
+}
+
+#C711PC .closeBtn img {
+  width: 51%;
+}
+
+#C711PC .modal.right .modal-content {
+  height: 600px;
+  overflow-y: auto;
+  background: none;
+}
+
+#C711PC .modal.right .modal-body {
+  padding: 15px 15px 15px;
+}
+
+#C711PC .modal.right.fade .modal-dialog {
+  right: 0px;
+  -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+  transition: opacity 0.3s linear, right 0.3s ease-out;
+}
+
+#C711PC .modal.right.fade.in .modal-dialog {
+  right: 0;
+}
+
+#C711PC .modal-content {
+  border-radius: 0;
+  border: none;
+}
+
+#C711PC .modal-header {
+  border-bottom-color: #eeeeee;
+  background-color: #fafafa;
+}
+
+#C711PC .iframeChat {
+  height: 100%;
+  border-radius: 5px;
+  padding: 2px;
+  background: #e6dc97;
+  /* Old browsers */
+}
+
+#C711PC .ScratchCardAll {
+  padding-top: 3px;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  position: relative;
+}
+
+#C711PC .ScratchCardAll .scratchCardMask {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  border: 2px solid #fff;
+  z-index: 500;
+  height: 100%;
+}
+
+#C711PC .ScratchCardAll .scratchCardMask img {
+  margin-top: 35%;
+  width: 340px;
+  height: 340px;
+}
+
+#C711PC .ScratchCardAll img {
+  height: 92vh;
+}
+
+#C711PC .Lottery {
+  width: 100%;
+  height: 100%;
+}
+
+#C711PC .Events_bar {
+  width: 100%;
+  height: 44px;
+}
+
+#C711PC .LotteryAll {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 10px;
+  position: relative;
+}
+
+#C711PC .LotteryAll .LotteryBgPic {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711PC .LotteryAll .LotteryTitle {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#C711PC .LotteryAll .LotteryGo {
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+}
+
+#C711PC .RecordListCon {
+  margin: 2px auto;
+  width: 100%;
+}
+
+#C711PC .RecordListCon thead {
+  color: #fff;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+#C711PC .RecordListCon thead th {
+  vertical-align: middle;
+  border: none;
+}
+
+#C711PC .RecordListCon thead .number {
+  width: 25%;
+}
+
+#C711PC .RecordListCon thead .cardnumber {
+  width: 30%;
+}
+
+#C711PC .RecordListCon thead .date {
+  width: 25%;
+}
+
+#C711PC .RecordListCon thead .gamer {
+  width: 25%;
+}
+
+#C711PC .RecordListCon thead .cardgamer {
+  width: 30%;
+}
+
+#C711PC .RecordListCon thead .point {
+  width: 30%;
+  margin: auto;
+}
+
+#C711PC .RecordListCon thead .cardpoint {
+  width: 30%;
+}
+
+#C711PC .RecordListCon tbody {
+  color: #fff;
+  font-size: 13px;
+}
+
+#C711PC .RecordListCon tbody th {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711PC .RecordListCon tbody td {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711PC .RecordListCon .colorR {
+  color: #fe5f00;
+}
+
+#C711PC .RecordListCon .colorG {
+  color: #00c3fe;
+}
+
+#C711PC .cursorS {
+  cursor: pointer;
+}
+
+#C711PC .fontOrange {
+  color: orange;
+}
+/*# sourceMappingURL=css.css.map */

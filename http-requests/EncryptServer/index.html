@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <title>API 測試工具</title>
+    <script src="https://example.invalid/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://example.invalid/ajax/libs/require.js/2.3.6/require.min.js"></script>
+    <script>
+      window.MonacoEnvironment = {
+        getWorkerUrl: function () {
+          return (
+            "data:text/javascript;charset=utf-8," +
+            encodeURIComponent(`
+            self.MonacoEnvironment = {
+              baseUrl: 'https://example.invalid/monaco-editor@0.34.1/min/'
+            };
+            importScripts('https://example.invalid/monaco-editor@0.34.1/min/vs/base/worker/workerMain.js');
+          `)
+          );
+        },
+      };
+    </script>
+    <script src="https://example.invalid/monaco-editor@0.34.1/min/vs/loader.js"></script>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 20px;
+        background-color: #1f1f1f;
+        color: #ffffff;
+      }
+      #editor {
+        width: 100%;
+        height: 300px;
+        border: 1px solid #333333;
+        margin-top: 10px;
+      }
+      textarea {
+        width: 100%;
+        height: 100px;
+        margin-top: 10px;
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #333333;
+        border-radius: 5px;
+        padding: 10px;
+      }
+      select,
+      button,
+      label {
+        margin-top: 10px;
+        padding: 5px;
+        background-color: #1e1e1e;
+        color: #ffffff;
+        border: 1px solid #333333;
+        border-radius: 5px;
+      }
+      #customConfig {
+        display: none;
+        margin-top: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>加密 / 解密工具</h1>
+    <select id="configSelector">
+      <option value="default">Default</option>
+      <option value="tpower">TPower</option>
+      <option value="wintoto">WinToto</option>
+      <option value="alfawin77">AlfaWin77</option>
+      <option value="yes2win">Yes2Win</option>
+      <option value="vwb2c">VWB2C</option>
+      <option value="vplus33">VPlus33</option>
+      <option value="custom">自定義</option>
+    </select>
+    <label> <input type="checkbox" id="autoCopyToggle" /> 自動複製 </label>
+    <div style="display: none" id="customConfig">
+      <label>MD5: <input type="text" id="custom_md5" value="" /></label>
+      <label>AES: <input type="text" id="custom_aes" value="" /></label>
+      <label>IV: <input type="text" id="custom_iv" value="" /></label>
+    </div>
+    <div id="editor"></div>
+    <textarea id="resultOutput"></textarea>
+    <button id="copyButton">複製</button>
+    <p id="status"></p>
+
+    <script>
+      const arr = {
+        default: {
+          md5: "&zSMvVTK4gbDvCcU",
+          aes: "M53B?xKnTVtVnjM^",
+          iv: "3579653693526433",
+        },
+        tpower: {
+          md5: "&W7e1vRWRH02jZIB",
+          aes: "M53B?gQhkRtSeQZ^",
+          iv: "4339794120398193",
+        },
+        wintoto: {
+          md5: "&b3andSWm4NpVRCF",
+          aes: "pn6f?8PsHjqT5AK^",
+          iv: "9700687906992452",
+        },
+        alfawin77: {
+          md5: "&ZhPsS9jRT6A4yVz",
+          aes: "b6tZEAWcjUmP72f^",
+          iv: "1055672522457459",
+        },
+        yes2win: {
+          md5: "&zxqftAdX3wgS5Kr",
+          aes: "jyQ2xmUFd8WbVuN^",
+          iv: "2545277171549821",
+        },
+        vwb2c: {
+          md5: "&QmvpjLcT7nhA2Yw",
+          aes: "KfRzYaQNt6JpXwH^",
+          iv: "8094635217902485",
+        },
+        vplus33: {
+          md5: "U7zrO7baZpil8Y7B",
+          aes: "41XO3vcS87hVZ5do",
+          iv: "5150080462393118",
+        },
+      };
+
+      let env = "default";
+      let current = arr[env];
+
+      function updateCustomConfig() {
+        current = {
+          md5: document.getElementById("custom_md5").value,
+          aes: document.getElementById("custom_aes").value,
+          iv: document.getElementById("custom_iv").value,
+        };
+      }
+
+      function encrypt(data) {
+        if (env === "custom") {
+          updateCustomConfig();
+        }
+
+        const key_hash = CryptoJS.MD5(current.aes).toString();
+        const key = CryptoJS.enc.Utf8.parse(key_hash);
+        const iv = CryptoJS.enc.Utf8.parse(current.iv);
+        const encrypted = CryptoJS.AES.encrypt(data, key, {
+          iv: iv,
+          mode: CryptoJS.mode.CBC,
+          padding: CryptoJS.pad.Pkcs7,
+        });
+        return encrypted.toString();
+      }
+
+      function decrypt(encrypted) {
+        if (env === "custom") {
+          updateCustomConfig();
+        }
+
+        try {
+          const key_hash = CryptoJS.MD5(current.aes).toString();
+          const key = CryptoJS.enc.Utf8.parse(key_hash);
+          const iv = CryptoJS.enc.Utf8.parse(current.iv);
+          const decrypted = CryptoJS.AES.decrypt(encrypted, key, {
+            iv: iv,
+            mode: CryptoJS.mode.CBC,
+            padding: CryptoJS.pad.Pkcs7,
+          });
+          return decrypted.toString(CryptoJS.enc.Utf8);
+        } catch (error) {
+          console.error("解密失敗：", error);
+          return "解密失敗";
+        }
+      }
+
+      let disableAutoCopy = false;
+
+      require.config({
+        paths: { vs: "https://example.invalid/monaco-editor@0.34.1/min/vs" },
+      });
+      require(["vs/editor/editor.main"], function () {
+        const editor = monaco.editor.create(document.getElementById("editor"), {
+          value: `{
+  "domain": "example.invalid"
+}`,
+          language: "json",
+          theme: "vs-dark",
+          automaticLayout: true,
+        });
+
+        const resultOutput = document.getElementById("resultOutput");
+        const copyButton = document.getElementById("copyButton");
+        const autoCopyToggle = document.getElementById("autoCopyToggle");
+        const statusDisplay = document.getElementById("status");
+
+        // 複製按鈕功能
+        copyButton.addEventListener("click", () => {
+          navigator.clipboard
+            .writeText(resultOutput.value)
+            .then(() => {
+              statusDisplay.innerText = "已複製到剪貼簿";
+            })
+            .catch((err) => {
+              console.error("複製失敗：", err);
+              statusDisplay.innerText = "複製失敗";
+            });
+        });
+
+        document
+          .getElementById("configSelector")
+          .addEventListener("change", (event) => {
+            env = event.target.value;
+            current = arr[env];
+            document.getElementById("customConfig").style.display =
+              env === "custom" ? "block" : "none";
+            statusDisplay.innerText = `已切換到配置：${env}`;
+            makeAndRefreshEncrypt();
+          });
+
+        editor.onDidChangeModelContent(() => {
+          makeAndRefreshEncrypt();
+        });
+
+        function makeAndRefreshEncrypt() {
+          if (disableAutoCopy) {
+            disableAutoCopy = false;
+            return;
+          }
+
+          statusDisplay.innerText = "";
+          const data = editor.getValue();
+          const params = encrypt(data);
+          const key = CryptoJS.MD5(params + current.md5).toString();
+          const payload = JSON.stringify({ params, key });
+
+          resultOutput.value = payload;
+
+          if (autoCopyToggle.checked) {
+            navigator.clipboard
+              .writeText(payload)
+              .then(() => {
+                statusDisplay.innerText = "已複製到剪貼簿";
+              })
+              .catch((err) => {
+                console.error("自動複製失敗：", err);
+                statusDisplay.innerText = "自動複製失敗";
+              });
+          }
+        }
+
+        resultOutput.addEventListener("input", () => {
+          statusDisplay.innerText = "";
+          try {
+            const input = resultOutput.value;
+            const parsed = JSON.parse(input);
+            const decrypted = decrypt(parsed.params);
+            disableAutoCopy = true;
+            editor.setValue(decrypted);
+            disableAutoCopy = true;
+            editor.getAction("editor.action.formatDocument").run();
+            statusDisplay.innerText = "解密成功";
+          } catch (error) {
+            console.error("解析或解密失敗：", error);
+            statusDisplay.innerText = "解密失敗";
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

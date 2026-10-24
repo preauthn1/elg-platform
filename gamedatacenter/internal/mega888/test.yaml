@@ -1,0 +1,16 @@
+database:
+  read:
+    - host: "0.0.0.0"
+      port: 3306
+      username: developer
+      password: [REDACTED]"
+    - host: "0.0.0.0"
+      port: 3306
+      username: developer
+      password: [REDACTED]"
+  write:
+    host: "0.0.0.0"
+    port: 3306
+    username: developer
+    password: [REDACTED]"
+  dbname: xsgcasino

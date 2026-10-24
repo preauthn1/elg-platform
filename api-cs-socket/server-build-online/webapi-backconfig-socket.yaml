@@ -1,0 +1,6 @@
+apiVersion: example.invalid/v1beta1
+kind: BackendConfig
+metadata:
+  name: socket-backend-config
+spec:
+  timeoutSec: 86400

@@ -1,0 +1,99 @@
+image: google/cloud-sdk:522.0.0
+
+services:
+  - name: docker:18-dind
+    command: ["--mtu=1400"]
+
+variables:
+  DOCKER_HOST: tcp://localhost:2375
+  REGISTRY: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+  IMAGE_PATH: $REGISTRY/${CI_PROJECT_PATH}
+  BUILD_DOCKERFILE: .gitlab-ci/build/Dockerfile
+
+stages:
+  - Build
+  - Deploy
+
+tgbot-build:
+  stage: Build
+  tags:
+    - php
+  before_script:
+    - docker info
+    - docker version
+    - docker buildx version
+    - docker buildx ls
+    - gcloud --version && docker --version && kubectl version --client
+    # 將 gcr-key.json 存到臨時目錄避免被包含在 build image 中
+    - mkdir -p /tmp/gcr
+    - echo "${GCR_RW_KEY_BASE64}" | base64 -d > /tmp/gcr/gcr-key.json
+    - gcloud auth activate-service-account --key-file /tmp/gcr/gcr-key.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < /tmp/gcr/gcr-key.json
+    - docker pull ${IMAGE_PATH}:latest || true
+    - echo "IMAGE_PATH = ${IMAGE_PATH}"
+    - echo "TAG_NAME = ${CI_COMMIT_SHA:0:8}"
+    # 清理臨時檔案
+    - rm -rf /tmp/gcr
+  script:
+    - |
+      echo "{
+        \"CI_PROJECT_PATH\": \"${CI_PROJECT_PATH}\",
+        \"CI_COMMIT_REF_NAME\": \"${CI_COMMIT_REF_NAME}\",
+        \"CI_COMMIT_SHA\": \"${CI_COMMIT_SHA}\",
+        \"CI_COMMIT_SHORT_SHA\": \"${CI_COMMIT_SHORT_SHA}\",
+        \"CI_COMMIT_TIMESTAMP\": \"${CI_COMMIT_TIMESTAMP}\",
+        \"CI_PIPELINE_ID\": \"${CI_PIPELINE_ID}\",
+        \"CI_PIPELINE_CREATED_AT\": \"${CI_PIPELINE_CREATED_AT}\"
+      }" > version.json
+    # Pin BuildKit image：浮動 tag buildx-stable-1 自 v0.31.0 起內建 runc 1.3.6，
+    # 其 masked paths tmpfs(nr_inodes=1) 遮蔽在 runner 主機舊 kernel(4.15) 上回 EINVAL，
+    # 所有 RUN 步驟於 container init 即失敗（opencontainers/runc#5348）。
+    # 待 BuildKit 綁上含 fallback 修復的 runc（>=1.5.1 或 1.3.7）後再改 pin 新版。
+    - docker buildx create --name pinned-bk --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    - docker buildx build --platform linux/amd64 --progress=plain --provenance=false --push -f ${BUILD_DOCKERFILE} --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from ${IMAGE_PATH}:latest -t ${IMAGE_PATH}:${CI_COMMIT_SHORT_SHA} -t ${IMAGE_PATH}:latest .
+    - ls
+
+tgbot-deploy:
+  image: alpine:3.12.12
+  stage: Deploy
+  only:
+    - dev
+    - /^release_\d+$/
+  variables:
+    DEPLOY_PROJECT_ID: 530
+    PRIVATE_TOKEN: [REDACTED]
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/${DEPLOY_PROJECT_ID}/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - apk add --update --no-cache curl jq bash
+  script:
+    # SRC_PROJECT_PATH, SRC_COMMIT_REF_NAME, Message ,SRC_COMMIT_SHA, SRC_COMMIT_SHORT_SHA
+    # 變數一律加雙引號：commit 標題含空白與引號（例「Merge branch 'x' into 'main'」），
+    # 不加引號會被 shell 拆成多個詞，多出來的詞會被 curl 當成額外的 URL。
+    # 不用 --fail：它讓 curl 丟掉回應內容，失敗時 log 只剩 exit 22，查不出原因。
+    # 改成先存檔、印出 HTTP 狀態碼與回應全文，非 2xx 才中止。
+    - |
+      http_code=$(curl -s -o /tmp/trigger.json -w '%{http_code}' -X POST \
+        -F token=[REDACTED]" \
+        -F ref=main \
+        -F "variables[SRC_PROJECT_PATH]=${CI_PROJECT_PATH}" \
+        -F "variables[SRC_COMMIT_REF_NAME]=${CI_COMMIT_REF_NAME}" \
+        -F "variables[Message]=${CI_COMMIT_TITLE}" \
+        -F "variables[SRC_COMMIT_SHA]=${CI_COMMIT_SHA}" \
+        -F "variables[SRC_COMMIT_SHORT_SHA]=${CI_COMMIT_SHORT_SHA}" \
+        "${REPO_ENV_URL}")
+      echo "trigger HTTP ${http_code}"
+      cat /tmp/trigger.json
+      echo
+      case "${http_code}" in
+        2*) ;;
+        *) echo "觸發下游 pipeline 失敗，上面是 GitLab 回的內容"; exit 1 ;;
+      esac
+      pipeline_id=$(jq .id /tmp/trigger.json)
+    - echo $pipeline_id;
+    - chmod +x checkstatus.sh
+    - ./checkstatus.sh $pipeline_id
+  tags:
+    - golang

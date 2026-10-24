@@ -1,0 +1,17 @@
+{
+  "name": "magic-mirror",
+  "version": "1.0.0",
+  "description": "魔鏡 (Magic Mirror) — Slack bot that answers questions using the MCP memory service",
+  "main": "src/index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.1",
+    "@slack/bolt": "^4.4.1",
+    "dotenv": "^17.4.2"
+  }
+}

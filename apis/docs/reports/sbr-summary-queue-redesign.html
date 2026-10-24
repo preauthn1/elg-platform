@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SBR 整點彙總 Queue 化改造 — 新舊設計對照簡報（target/tickets#4257）</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></symbol>
+  <symbol id="i-book" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></symbol>
+  <symbol id="i-clip" viewBox="0 0 24 24"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+  <symbol id="i-branch" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg></div><div class="name">SBR&nbsp;Redesign</div></div>
+    <div class="menu-label">章節</div>
+    <ul class="menu">
+      <li><a href="#summary"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-zap"/></svg></span><span class="mn">1</span> 一分鐘摘要</a></li>
+      <li><a href="#glossary"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span><span class="mn">2</span> 名詞對照</a></li>
+      <li><a href="#incident"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-alert"/></svg></span><span class="mn">3</span> 為什麼要改</a></li>
+      <li><a href="#old"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg></span><span class="mn">4</span> 改動前設計</a></li>
+      <li><a href="#new"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg></span><span class="mn">5</span> 改動後設計</a></li>
+      <li><a href="#diff"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-clip"/></svg></span><span class="mn">6</span> 逐項差異對照</a></li>
+      <li><a href="#tradeoff"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-sliders"/></svg></span><span class="mn">7</span> 優劣勢分析</a></li>
+      <li><a href="#residual"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg></span><span class="mn">8</span> 殘餘風險與部署前置</a></li>
+      <li><a href="#verify"><span class="ic"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span><span class="mn">9</span> 驗證足跡</a></li>
+    </ul>
+    <div class="foot">target/tickets#4257<br>· 新舊設計對照簡報 ·</div>
+  </aside>
+
+  <div class="content">
+
+    <div class="topbar">
+      <div>
+        <div class="crumb">Reports <b>/</b> SBR <b>/</b> 設計對照</div>
+        <h1>SBR 整點彙總 Queue 化改造 — 新舊設計對照</h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg class="ni"><use href="#i-cal"/></svg> 2026-08-31 產生</span>
+        <span class="chip">tickets#4257</span>
+        <span class="chip">MR !2080 審查中・未部署</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="callout" style="margin-bottom:18px">
+        <svg class="ni"><use href="#i-alert"/></svg> <b>本頁狀態：MR !2080 審查中（含審查意見的完成標記表通用化與圓桌複審修正），dev 驗收演練通過、正式未部署。</b>
+        內容描述分支 <code>feature/4257-sbr-queue-backfill</code> 的設計，供合併前的團隊溝通使用；「改動前」一律指 master 現行線上行為。
+      </div>
+
+      <section id="summary" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-zap"/></svg></span>一分鐘摘要</h2>
+          <p class="desc">只想快速掌握這次改造的讀者看這一節就夠；依據與細節在後續章節。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:130px">面向</th><th>重點</th></tr></thead>
+              <tbody>
+                <tr><td><b>為什麼要改</b></td><td>2026-08-28 TPower 因 K8s 節點汰換使排程遲到 4 分鐘，整小時的注單彙總（SBR）<b>永久跳過且全程零告警</b>——排程、框架、應用三層各自「沒有錯」，所以沒有任何一層叫出來。這型事故（節點汰換）無法避免再發生，只能讓系統自己補回來。</td></tr>
+                <tr><td><b>改動前作法</b></td><td>整點排程在 cron pod 內<b>同步做完全部工作</b>（全部排程啟用廠商的彙總＋三支結算 SP，事故當時 19 家、現約 20 家）；觸發那一分鐘錯過，這一小時就沒了，事後也查不到「沒跑」的紀錄。</td></tr>
+                <tr><td><b>改動後作法</b></td><td>排程只負責<b>派發 queue job</b>；job 每次執行都回看近 6 小時，凡缺「完成標記」的（廠商 × 小時）一律補跑——任何一輪觸發缺失都由下一個整點自動治癒。另加每日稽核命令掃 48 小時標記缺口，與三段告警（結算失敗即時通知、重試耗盡通知、稽核缺口通知）。三支結算 SP 同步忠實移植為 PHP，行為以等值測試與生產資料對照鎖住。</td></tr>
+                <tr><td><b>最關鍵差異</b></td><td>舊設計把「有沒有做完」寄託在「排程有沒有準時跑」；新設計把它落地成<b>資料庫裡的完成標記</b>——漏了看得見、看見了補得回、補了有紀錄。</td></tr>
+                <tr><td><b>代價</b></td><td>組件變多（佇列、標記表、稽核命令），並新增 Redis／Horizon 依賴（由不依賴它們的每日稽核兜底）；部署有一項前置作業（預塞近 52 小時完成標記，避免上線首日誤補與誤報）。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="avatar av-primary"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg></div><div><div class="num">6 小時</div><div class="lbl">每整點回看自癒視窗</div></div></div>
+            <div class="stat"><div class="avatar av-info"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg></div><div><div class="num">48 小時</div><div class="lbl">每日稽核視窗（每段掃兩次）</div></div></div>
+            <div class="stat"><div class="avatar av-warning"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg></div><div><div class="num">600 秒</div><div class="lbl">job 執行超時上限</div></div></div>
+            <div class="stat"><div class="avatar av-success"><svg viewBox="0 0 24 24"><use href="#i-db"/></svg></div><div><div class="num">46 秒</div><div class="lbl">實測最大單次結算耗時（六站近 30 天約 140 萬筆）</div></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="glossary" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-book"/></svg></span>名詞對照</h2>
+          <p class="desc">先統一用語，避免誤讀。工程符號（類別名、資料表名）收在「工程對應」欄，非工程讀者可略過該欄。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table class="terms">
+              <thead><tr><th>名詞</th><th>本文的定義</th><th>工程對應</th></tr></thead>
+              <tbody>
+                <tr><td><b>SBR／注單彙總</b></td><td>每小時把各遊戲廠商的注單匯總成報表用的統計列（Summary Bet Record）。</td><td><code>summary_bet_records</code></td></tr>
+                <tr><td><b>bucket／小時格</b></td><td>一個「廠商 × UTC 整點小時」的彙總單位；漏一格＝該廠商該小時的統計缺失。</td><td>彙總表 <code>vendor_id × summary_time</code>；完成標記側對應 <code>work_key × bucket_time</code></td></tr>
+                <tr><td><b>結算</b></td><td>廠商彙總完成後的第二段匯總：代理團隊面（team）與滾碼（含滾碼活動）三種報表的刪除重建。</td><td><code>SP/</code> 目錄下與 SP 同名的三支移植類</td></tr>
+                <tr><td><b>SP／預存程序</b></td><td>存放在資料庫內的 SQL 程式。舊設計的結算由三支 SP 執行；程式碼看不到內容、測試也蓋不到。</td><td><code>SP_summary_bet_record_team</code> 等三支</td></tr>
+                <tr><td><b>完成標記</b></td><td>新設計引入的「這一格做完了」的資料庫紀錄，與彙總資料同一交易寫入——資料在標記就在。表設計為通用（審查意見）：所有 queue job 都可用 <code>job_key</code> 區分寫入各自的完成標記，SBR 是首個使用者。</td><td><code>queue_job_runs</code></td></tr>
+                <tr><td><b>回看補洞</b></td><td>每個整點 job 往回檢查近 6 小時，缺標記的格子補跑。</td><td><code>LOOKBACK_HOURS = 6</code></td></tr>
+                <tr><td><b>佇列／Horizon</b></td><td>把工作丟進 Redis 佇列、由常駐 worker 執行的機制；失敗可自動重試。</td><td>connection <code>redis-long-running</code></td></tr>
+                <tr><td><b>雙軌</b></td><td>SBR 遷移過渡期：舊系統（RD-Studio-01）與 APIs 同時在寫同一批彙總表，舊系統仍每小時呼叫原 SP。</td><td>見第 8 節雙軌約束</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="incident" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-alert"/></svg></span>為什麼要改：08-28 事故機轉</h2>
+          <p class="desc">GKE 事件紀錄實證到最底層的因果鏈。重點不是哪一層寫錯——而是三層各自都「正確」，仍然合力漏掉一整個小時。</p>
+        </div>
+        <div class="card-body">
+          <div class="fchart">
+            <div class="fcap">2026-08-28（UTC）事故因果鏈</div>
+            <div class="fnode n-warning"><span class="fn-n">1</span><div class="fn-t">節點汰換</div><div class="fn-d">GKE 自動修復換機，叢集短暫 CPU 吃緊</div></div>
+            <div class="fconn"><div class="fc-l">cron pod 被調度到頂替的新節點</div><div class="fc-a"></div></div>
+            <div class="fnode n-warning"><span class="fn-n">2</span><div class="fn-t">新節點無 image 快取</div><div class="fn-d">拉 317 MB image 花了 4 分 9 秒</div></div>
+            <div class="fconn"><div class="fc-l">schedule:run 12:34 才執行，30 分整點已過期</div><div class="fc-a"></div></div>
+            <div class="fnode n-danger"><span class="fn-n">3</span><div class="fn-t">Laravel 判定「不到期」</div><div class="fn-d">框架沒有 catch-up 機制，這一輪直接不執行</div></div>
+            <div class="fconn"><div class="fc-l">沒有任何一層出錯，所以沒有任何告警</div><div class="fc-a"></div></div>
+            <div class="fnode n-danger"><span class="fn-n">4</span><div class="fn-t">整小時彙總永久跳過</div><div class="fn-d">四家啟用排程的廠商該小時統計全漏，靠營運對帳才發現</div></div>
+            <div class="fnotes">
+              <div class="fnote bad"><b>三層各自無錯＝完全靜默</b>：K8s job 成功、Laravel 判斷正確、應用無例外——執行紀錄表裡連一列「失敗」都沒有，因為根本沒有人執行。</div>
+              <div class="fnote"><b>每分鐘型排程會自癒，釘整點的排程不會</b>：下一分鐘的 pod 一切正常，但「30 分」這一刻已經過去。這正是舊設計的結構性弱點，不是某段程式的 bug。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="old" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-clock"/></svg></span>改動前設計：cron 同步直跑</h2>
+          <p class="desc">master 現行版：排程觸發即是全部——彙總、結算都在同一個 cron pod 內同步完成，做完不留完成紀錄。</p>
+        </div>
+        <div class="card-body">
+          <div class="fchart">
+            <div class="fcap">改動前流程（每小時一輪）</div>
+            <div class="fnode n-grey"><span class="fn-n"><svg class="ni"><use href="#i-clock"/></svg></span><div class="fn-t">K8s 排程 pod</div><div class="fn-d">每分鐘拉起 <code>schedule:run</code></div></div>
+            <div class="fconn"><div class="fc-l">該分鐘恰為每小時 30 分才觸發（單機執行、防重疊 60 分鐘）</div><div class="fc-a"></div></div>
+            <div class="fnode n-primary"><span class="fn-n">同步</span><div class="fn-t">summary_bet_record --prev-hour</div><div class="fn-d">上一小時彙總，於 cron pod 內同步執行到完為止</div></div>
+            <div class="fconn"><div class="fc-l">逐廠商執行（廠商 × 小時 named lock；單一廠商失敗即時通知、不中斷其他廠商）</div><div class="fc-a"></div></div>
+            <div class="fnode n-info"><span class="fn-n">19</span><div class="fn-t">啟用排程的廠商彙總</div><div class="fn-d">寫入／沖銷 <code>summary_bet_records</code>（冪等覆蓋）</div></div>
+            <div class="fconn"><div class="fc-l">廠商全部跑完後</div><div class="fc-a"></div></div>
+            <div class="fnode n-warning"><span class="fn-n">SP</span><div class="fn-t">三支結算 SP</div><div class="fn-d">team／滾碼／滾碼活動，資料庫內刪除重建（鎖 TTL 120 秒）</div></div>
+            <div class="fconn"><div class="fc-l">結束</div><div class="fc-a"></div></div>
+            <div class="fnode n-grey term"><span class="fn-n">完</span><div class="fn-t">本輪結束</div><div class="fn-d">不留任何「這一小時做完了」的紀錄</div></div>
+            <div class="fnotes">
+              <div class="fnote bad"><b>觸發即終點</b>：排程那一分鐘錯過（節點汰換、pod 調度延遲、image 拉取），這一小時<b>永久漏掉且零告警</b>——08-28 事故走的正是這條。</div>
+              <div class="fnote bad"><b>同步綁死 cron pod</b>：彙總＋結算全程在排程 pod 內跑，pod 被回收＝整批中斷，沒有重試機制，只能人工用 CLI 補跑。</div>
+              <div class="fnote"><b>告警只蓋「跑了但失敗」</b>：單一廠商彙總失敗、SP 失敗都有即時通知（這部分舊設計並不差）；蓋不到的是「整輪根本沒跑」。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="new" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-refresh"/></svg></span>改動後設計：Queue 化＋完成標記＋回看補洞</h2>
+          <p class="desc">排程降級成「觸發器」，工作交給佇列；「做完了沒」落地成資料庫標記，漏了由後續整點自動補。</p>
+        </div>
+        <div class="card-body">
+
+          <div class="fchart">
+            <div class="fcap">改動後主流程（每小時一輪）</div>
+            <div class="fnode n-grey"><span class="fn-n"><svg class="ni"><use href="#i-clock"/></svg></span><div class="fn-t">K8s 排程 pod</div><div class="fn-d">每分鐘拉起 <code>schedule:run</code></div></div>
+            <div class="fconn"><div class="fc-l">每小時 30 分觸發 <code>summary_bet_record:dispatch</code>（只派發、秒級結束）</div><div class="fc-a"></div></div>
+            <div class="fnode n-info"><span class="fn-n"><svg class="ni"><use href="#i-layers"/></svg></span><div class="fn-t">Horizon 長時佇列</div><div class="fn-d">connection <code>redis-long-running</code>；job 超時 600 秒、全域單飛防重疊</div></div>
+            <div class="fconn"><div class="fc-l">帶明確 bucket 起點入列，worker 撿起執行</div><div class="fc-a"></div></div>
+            <div class="fnode n-primary"><span class="fn-n">JOB</span><div class="fn-t">SummarizeBetRecordHour</div><div class="fn-d">回看近 6 小時 × 全部排程啟用廠商（現約 20 家），對 <code>queue_job_runs</code> 判缺</div></div>
+            <div class="fconn"><div class="fc-l">只補缺標記的格子（已完成的直接跳過；取鎖後再二次確認）</div><div class="fc-a"></div></div>
+            <div class="fnode n-info"><span class="fn-n">補</span><div class="fn-t">缺格廠商彙總</div><div class="fn-d">冪等覆蓋重算；完成標記與彙總資料<b>同一交易</b>寫入</div></div>
+            <div class="fconn"><div class="fc-l">觸發 bucket 一律重跑結算（保底）；有補算的回看 bucket 也重跑</div><div class="fc-a"></div></div>
+            <div class="fnode n-warning"><span class="fn-n">PHP</span><div class="fn-t">彙總結算（PHP writer）</div><div class="fn-d">team／滾碼／滾碼活動，逐列行為與原 SP 等值（鎖 TTL 660 秒）</div></div>
+            <div class="fsplit">
+              <div class="fpath">
+                <span class="fp-l">結算成功</span>
+                <div class="fp-a"></div>
+                <div class="fnode n-success term"><span class="fn-n">完</span><div class="fn-t">本輪結束</div><div class="fn-d">每格都有可稽核的完成標記</div></div>
+              </div>
+              <div class="fpath">
+                <span class="fp-l">結算失敗</span>
+                <div class="fp-a"></div>
+                <div class="fnode n-danger"><span class="fn-n"><svg class="ni"><use href="#i-bell"/></svg></span><div class="fn-t">即時告警＋重置標記</div><div class="fn-d">重置該輪相關格子的完成標記後拋錯，重試整格重算——結算失敗不會被下一次重試「洗成成功」</div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fchart">
+            <div class="fcap">三道防線：不同型態的中斷各有接手者</div>
+            <div class="fnode n-grey"><span class="fn-n"><svg class="ni"><use href="#i-alert"/></svg></span><div class="fn-t">某一環出事了</div><div class="fn-d">依中斷型態走不同防線</div></div>
+            <div class="fsplit">
+              <div class="fpath">
+                <span class="fp-l">漏一輪觸發<br>（節點汰換、dispatch 失敗、Redis 抖動）</span>
+                <div class="fp-a"></div>
+                <div class="fnode n-primary"><span class="fn-n">1</span><div class="fn-t">回看補洞</div><div class="fn-d">下一整點 job 回看 6 小時，缺格自動補跑，零人工介入</div></div>
+              </div>
+              <div class="fpath">
+                <span class="fp-l">執行中失敗<br>（單廠例外、結算例外）</span>
+                <div class="fp-a"></div>
+                <div class="fnode n-warning"><span class="fn-n">2</span><div class="fn-t">重試＋告警</div><div class="fn-d">真實例外最多重試 3 次（退避 120／660 秒）；結算失敗即時通知，重試耗盡再通知一次</div></div>
+              </div>
+              <div class="fpath">
+                <span class="fp-l">整條佇列靜默中斷<br>（Horizon 沒起來、佇列塞死超過回看視窗）</span>
+                <div class="fp-a"></div>
+                <div class="fnode n-danger"><span class="fn-n">3</span><div class="fn-t">每日稽核</div><div class="fn-d"><code>summary_bet_record:audit</code> 每日掃 48 小時標記缺口，不依賴 Redis／Horizon，缺口即通知人工補跑</div></div>
+              </div>
+            </div>
+            <div class="fnotes">
+              <div class="fnote good"><b>防線 3 是唯一不依賴佇列體系的防線</b>：直接掃資料庫標記表，佇列整條掛掉也叫得出來；48 小時視窗讓每段被掃兩次，稽核自己漏跑一輪仍由下一輪兜底。</div>
+            </div>
+          </div>
+
+          <h3>三支結算 SP 忠實移植 PHP</h3>
+          <p>結算邏輯從資料庫預存程序移進版控的 PHP writer，佇列 job 直接呼叫。移植是<b>逐列等值</b>的搬運，不是重寫——禁止任何計算行為差異（含「順手優化」）。三支移植類集中在 <code>app/Console/Commands/SummaryBetRecord/SP/</code>，<b>檔名與類名直接沿用原 SP 名</b>，一眼可對照。</p>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>原 SP</th><th>PHP 移植類（SP/ 目錄下，與 SP 同名）</th><th>等值保證</th></tr></thead>
+              <tbody>
+                <tr><td><code>SP_summary_bet_record_team</code></td><td><code>SP/SP_summary_bet_record_team.php</code></td><td rowspan="3">同一組測試資料先跑 SP、再跑 PHP，逐列比對輸出完全相同（含三層代理滾算、聯集去重、刪除足跡）；另以生產一小時快照在本地對照，五個彙總面 byte 級全同（ALL MATCH）。</td></tr>
+                <tr><td><code>SP_summary_rolling_chip_record</code></td><td><code>SP/SP_summary_rolling_chip_record.php</code></td></tr>
+                <tr><td><code>SP_summary_event_record_by_rolling_chip</code></td><td><code>SP/SP_summary_event_record_by_rolling_chip.php</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn" style="margin-top:14px">
+            <svg class="ni"><use href="#i-branch"/></svg> <b>雙軌約束：三支 SP 的定義檔與資料庫本體都不可刪。</b>
+            舊系統（RD-Studio-01）每小時仍呼叫原 SP 對同一格刪除重建；PHP 版若與 SP 有任何計算差異，雙軌會互相覆蓋造成報表數值閃爍。收斂（擇一停用）已登記為獨立待辦，不在本次範圍。
+          </div>
+        </div>
+      </section>
+
+      <section id="diff" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-clip"/></svg></span>逐項差異對照</h2>
+          <p class="desc">同一面向下新舊行為的直接對比。<span class="tick">✓</span>＝有此能力、<span style="color:var(--danger);font-weight:800">✗</span>＝沒有。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:150px">面向</th><th style="width:38%">改動前（cron 同步直跑）</th><th>改動後（Queue 化＋完成標記）</th></tr></thead>
+              <tbody>
+                <tr><td><b>排程的角色</b></td><td>做完全部工作（彙總＋結算同步跑到完）</td><td>只派發 job，秒級結束；工作由 Horizon worker 執行</td></tr>
+                <tr><td><b>漏一輪觸發</b></td><td><span style="color:var(--danger);font-weight:800">✗</span> 該小時永久漏、全程靜默（08-28 事故）</td><td><span class="tick">✓</span> 下一整點回看 6 小時自動補齊，零人工</td></tr>
+                <tr><td><b>完成紀錄</b></td><td><span style="color:var(--danger);font-weight:800">✗</span> 無；「沒跑」不留任何痕跡</td><td><span class="tick">✓</span> 每格寫 <code>queue_job_runs</code> 完成標記，與資料同交易</td></tr>
+                <tr><td><b>超出回看視窗的靜默中斷</b></td><td><span style="color:var(--danger);font-weight:800">✗</span> 唯一防線是營運對帳</td><td><span class="tick">✓</span> 每日稽核掃 48 小時標記缺口並通知（不依賴佇列體系）</td></tr>
+                <tr><td><b>失敗重試</b></td><td><span style="color:var(--danger);font-weight:800">✗</span> 無；告警後人工用 CLI 補跑</td><td><span class="tick">✓</span> 自動重試最多 3 次（退避 120／660 秒），重試只補殘餘缺格</td></tr>
+                <tr><td><b>結算失敗的後果</b></td><td>告警後該小時結算缺失，等人工補</td><td>即時告警＋重置該輪標記，重試整格重算；失敗不會被洗成成功</td></tr>
+                <tr><td><b>結算實作</b></td><td>三支資料庫 SP：版控外、黑盒、測試蓋不到</td><td>PHP writer：進版控、可單元測試，行為以等值測試鎖住與 SP 相同</td></tr>
+                <tr><td><b>超時保護</b></td><td>無明確上限（僅排程防重疊 60 分鐘）</td><td>job 超時 600 秒；各層鎖 TTL 660 秒 &gt; 超時，被砍後鎖可自行過期</td></tr>
+                <tr><td><b>併發防護</b></td><td>廠商 × 小時 named lock 一層</td><td>三層：job 全域單飛 → 廠商 × 小時鎖 → 取鎖後標記二次確認</td></tr>
+                <tr><td><b>對外依賴</b></td><td>只靠 K8s cron</td><td>增加 Redis／Horizon（其失效情境由每日稽核兜底）</td></tr>
+                <tr><td><b>人工補跑介面</b></td><td colspan="2">兩者相同：<code>php artisan summary_bet_record --vendor= --date= --hour=</code> 保留不變，後台指定補跑不受影響</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="tradeoff" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-sliders"/></svg></span>優劣勢分析</h2>
+          <p class="desc">兩個設計各自站得住的地方與付出的代價——新設計不是「全面都好」，它是用複雜度換韌性。</p>
+        </div>
+        <div class="card-body">
+
+          <div class="grp">改動前（cron 同步直跑）<span class="grp-d">簡單，但脆弱</span></div>
+          <div class="fnotes">
+            <div class="fnote good"><b>結構簡單、路徑單一</b>：一條同步流程從頭跑到尾，出問題時好推理、好追查。</div>
+            <div class="fnote good"><b>零額外依賴</b>：不需要 Redis 佇列與 Horizon worker 活著，cron 在就能跑。</div>
+            <div class="fnote good"><b>結算在資料庫內執行</b>：SP 單次耗時低，不佔應用層資源。</div>
+            <div class="fnote bad"><b>觸發即終點</b>：排程分鐘錯過＝永久漏，且三層各自無錯所以零告警——結構性弱點，修不掉只能繞開。</div>
+            <div class="fnote bad"><b>無完成紀錄、無重試</b>：「有沒有做完」無從稽核，補救全靠營運對帳發現後人工補跑。</div>
+            <div class="fnote bad"><b>SP 黑盒</b>：結算邏輯在版控之外，改動無法 code review、測試蓋不到，行為只能靠人讀 SQL。</div>
+          </div>
+
+          <div class="grp">改動後（Queue 化＋完成標記）<span class="grp-d">韌性，換來複雜度</span></div>
+          <div class="fnotes">
+            <div class="fnote good"><b>自癒</b>：漏一輪觸發由下一整點自動補，08-28 型事故從「人工對帳止損」變成「系統自己好」。</div>
+            <div class="fnote good"><b>可稽核</b>：完成標記落資料庫，任何時點都能回答「哪一格沒做」；每日稽核再掃 48 小時兜底。</div>
+            <div class="fnote good"><b>失敗可見</b>：結算失敗即時通知、重試耗盡通知、稽核缺口通知——三段告警覆蓋「跑了但失敗」與「根本沒跑」兩型。</div>
+            <div class="fnote good"><b>可測試</b>：結算進 PHP 後由 39 個單元測試＋SP 等值測試＋生產資料對照三層鎖住，改壞會被測試接住。</div>
+            <div class="fnote bad"><b>組件變多</b>：佇列、標記表、稽核命令、三道防線——理解與維運成本高於一條同步流程。</div>
+            <div class="fnote bad"><b>新增 Redis／Horizon 依賴</b>：佇列體系本身可能掛；緩解＝防線 3 的每日稽核完全不依賴它們。</div>
+            <div class="fnote bad"><b>結算仍無自己的完成標記</b>：靠「觸發 bucket 保底重跑＋失敗重置標記」補位；worker 於結算中被強制終止（無 catch 可走）仍是殘餘缺口，詳見第 8 節。</div>
+            <div class="fnote bad"><b>雙軌期束縛</b>：SP 不可刪、PHP 禁任何行為差異——優化空間被凍結到雙軌收斂為止。</div>
+          </div>
+
+        </div>
+      </section>
+
+      <section id="residual" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-shield"/></svg></span>殘餘風險與部署前置</h2>
+          <p class="desc">誠實列出新設計沒有解掉的部分，以及上線前必須做的事。</p>
+        </div>
+        <div class="card-body">
+          <div class="risk mid">
+            <div class="rh"><span class="sev">殘餘</span><span class="rt">worker 於結算中被強制終止，該格結算會漏</span></div>
+            <p>結算失敗的補救靠 catch 內重置標記；worker 被硬砍（OOM、部署回收超過寬限）時沒有 catch 可走，標記不會重置。<b>實測評估風險極低</b>：六站近 30 天約 140 萬筆結算紀錄，最大單次僅 46 秒，離 600 秒超時與 130 秒終止寬限都極遠，超時型硬砍實質不成立。根治＝為結算建立自己的完成標記體系，已登記雙軌收斂待辦（<code>docs/未完成計劃/RB/TODO.md</code>「SBR 排程 Queue 化的雙軌收斂待辦」）。</p>
+          </div>
+          <div class="risk mid">
+            <div class="rh"><span class="sev">殘餘</span><span class="rt">SP 內容漂移偵測不足</span></div>
+            <p>既有測試只驗 SP「存在」不驗「內容」；若有人直接改資料庫內的 SP，等值測試比的是改後版本，察覺不到與版控定義檔的漂移。已登記待辦，雙軌期內以「SP 禁改」紀律約束。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">前置</span><span class="rt">部署前必須預塞近 52 小時完成標記</span></div>
+            <p>標記表上線時是空的；不預塞的話，首輪 job 會把部署前 6 小時全部當缺格重算（冪等、無害但多餘），首次稽核更會把 48 小時視窗內的舊格子全數誤判缺口而誤發告警。預塞 52 小時（涵蓋稽核視窗＋安全時差）即可讓兩者都乾淨起步。此前置已登記於待辦，開 MR 時會寫進 description。</p>
+          </div>
+          <div class="risk low">
+            <div class="rh"><span class="sev">建議</span><span class="rt">Horizon pod 終止寬限調整降為低優先</span></div>
+            <p>原評估希望把終止寬限調到 660 秒以上（大於各層鎖 TTL）；耗時實測後（最大 46 秒）此項從「上線前必做」降為「有排程再做」的維運優化。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="verify" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24"><use href="#i-check"/></svg></span>驗證足跡</h2>
+          <p class="desc">以下為本地與 dev 環境驗證足跡（develop CI 綠、dev 驗收演練通過）；正式環境行為另依發布流程驗證。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:220px">驗證手段</th><th>結果</th></tr></thead>
+              <tbody>
+                <tr><td><b>單元測試</b></td><td>本次新增／改寫 39 個測試全數通過，外圍既有 18 個測試不受影響；含「結算失敗 → 重試整格重算」的連續兩次執行狀態轉移測試。</td></tr>
+                <tr><td><b>SP ↔ PHP 等值測試</b></td><td>同一組測試資料先跑 SP、再跑 PHP，逐列比對輸出（含三層代理滾算、聯集去重、刪除足跡與關鍵列錨定）完全相同。</td></tr>
+                <tr><td><b>生產資料對照</b></td><td>取生產一小時快照於本地實跑：team 彙總（含三層滾算負值列）、滾碼、滾碼活動五個面 byte 級全同（ALL MATCH）。</td></tr>
+                <tr><td><b>多視角程式審查</b></td><td>四位審查 agent（金流慣例／舊系統對照／可維護性／安全應變）＋Codex 全面審查共兩輪；三項嚴重發現與一項告警降級缺陷全數修復，其中「回看格結算失敗會被重試洗成成功」由 Codex 抓出並以測試鎖住。</td></tr>
+                <tr><td><b>靜態檢查</b></td><td>Pint（格式）與 PHPStan（靜態分析）通過。</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout success" style="margin-top:14px">
+            <svg class="ni"><use href="#i-check"/></svg> <b>結論</b>：SP 移植保真度由「等值測試＋生產資料對照＋兩輪人工級審查」三方獨立掛保證；佇列化行為由狀態轉移測試鎖住。合併前尚餘：開 MR（description 需涵蓋結算失敗重置標記與部署前置）→ CI → 部署（含預塞標記前置）。
+          </div>
+        </div>
+      </section>
+
+      <footer class="foot-note">
+        本頁由 AI 依分支 <code>feature/4257-sbr-queue-backfill</code> 的實作內容、審查紀錄與生產量測結果生成（2026-08-31）；「改動前」描述以 master 當日版本為準。
+      </footer>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

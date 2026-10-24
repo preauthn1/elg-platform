@@ -1,0 +1,22 @@
+{
+    "preset": "laravel",
+    "exclude": [
+        "_ide_helper.php",
+        "_ide_helper_macro.php",
+        "_ide_helper_models.php",
+        "app/Http/Controllers/External/SingleWallets",
+        "app/Http/Controllers/External/TransferWallets"
+    ],
+    "rules": {
+        "align_multiline_comment": true,
+        "combine_consecutive_issets": true,
+        "combine_consecutive_unsets": true,
+        "fully_qualified_strict_types": true,
+        "not_operator_with_successor_space": false,
+        "concat_space": {
+            "spacing": "one"
+        },
+        "php_unit_method_casing": false,
+        "declare_strict_types": true
+    }
+}

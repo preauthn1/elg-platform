@@ -1,0 +1,595 @@
+/* 代理招募 /partners（templates/pages/partners.njk） */
+
+/* ---------- A. 首屏（共用 hero-no-media） ---------- */
+.agent-page .hero-copy > p { max-width: calc(840 * var(--u)); }
+.agent-page .hero-actions { margin-top: calc(34 * var(--u)); }
+@media (min-width: 768px) {
+  .agent-page .hero-no-media .hero-copy > p { margin-left: calc(8 * var(--u)); }
+}
+
+/* ---------- 卡片共用：編號、右側淡化插圖、插圖上的暗色遮罩（角度依卡片長寬比，用 --veil-deg） ---------- */
+.agent-page .agent-card-no {
+  display: block;
+  font-family: var(--font-lt);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: .01em;
+  color: var(--c-neon);
+}
+.agent-benefit-card,
+.agent-step-card {
+  --veil-deg: 190.6deg;
+  display: flex;
+  flex-direction: column;
+}
+.agent-benefit-card .glow-card-art,
+.agent-step-card .glow-card-art {
+  right: auto;
+  object-fit: cover;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+.agent-benefit-card::after,
+.agent-step-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(var(--veil-deg), rgb(13 12 14 / 0) 24%, #0b0a0c 70.5%);
+  pointer-events: none;
+}
+.agent-benefit-card h3,
+.agent-step-card h3 {
+  margin-top: auto;
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.1;
+  color: #fff;
+  overflow-wrap: break-word;
+}
+.agent-benefit-card p,
+.agent-step-card p {
+  font-weight: 300;
+  color: var(--c-muted-2);
+  overflow-wrap: break-word;
+}
+
+/* ========== B. BECOME A YES2WIN AGENT：2×2 發光卡 ========== */
+.agent-benefits { padding-block: calc(115 * var(--u)) calc(125 * var(--u)); }
+.agent-benefits .section-title h2 strong { font-weight: 600; }
+
+/* ul[class] 的 reset（margin:0）比單一 class 具體，所以多帶一層 */
+.agent-benefits .agent-benefit-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: calc(35.9 * var(--u)) calc(34.7 * var(--u));
+  max-width: calc(1383 * var(--u));
+  margin-inline: auto;
+}
+.agent-benefit-card {
+  min-height: calc(319.5 * var(--u));
+  padding: calc(31.2 * var(--u)) calc(40 * var(--u)) calc(35.6 * var(--u)) calc(45 * var(--u));
+}
+.agent-benefit-card::before {
+  top: calc(22.2 * var(--u));
+  bottom: calc(20.2 * var(--u));
+  width: max(2px, calc(6.4 * var(--u)));
+}
+.agent-benefit-card .glow-card-art {
+  top: calc(-28.2 * var(--u));
+  left: calc(310.8 * var(--u));
+  width: calc(375.3 * var(--u));
+  height: calc(365.4 * var(--u));
+}
+.agent-benefit-card:first-child .glow-card-art {
+  top: calc(-18.2 * var(--u));
+  left: calc(306.9 * var(--u));
+}
+.agent-benefit-card .agent-card-no {
+  margin-bottom: calc(24 * var(--u));
+  font-size: max(18px, calc(33 * var(--u)));
+}
+.agent-benefit-card h3 {
+  font-size: max(18px, calc(45 * var(--u)));
+  line-height: 1;
+}
+.agent-benefit-card p {
+  margin-top: calc(16.5 * var(--u));
+  max-width: calc(345 * var(--u));
+  font-size: max(12px, calc(24 * var(--u)));
+  line-height: 1.17;
+}
+/* 英文／馬來文放寬一點，免得斷成四五行 */
+.agent-page:not(:lang(zh)) .agent-benefit-card p { max-width: calc(440 * var(--u)); }
+
+/* ========== C. PLATFORM SUPPORT：淺綠大卡 ========== */
+.agent-support { padding-bottom: calc(155 * var(--u)); }
+
+.agent-support-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, calc(699 * var(--u)));
+  align-items: center;
+  column-gap: calc(40 * var(--u));
+  padding: calc(69 * var(--u)) calc(103 * var(--u)) calc(69 * var(--u)) calc(101 * var(--u));
+  border: 1px solid var(--c-lime-2);
+  border-radius: var(--r-17);
+  background: linear-gradient(196deg, var(--c-lime-1) 20%, var(--c-lime-2) 98%);
+  color: #000;
+}
+/* 文案沿用區塊標題（is-light），只有大標是白色 */
+.agent-support-panel .section-title.agent-support-copy {
+  position: relative;
+  top: calc(-11 * var(--u));
+  margin-bottom: 0;
+}
+.agent-support-panel .section-title.agent-support-copy h2 { color: #fff; }
+.agent-support-panel .section-title.agent-support-copy h2 strong { font-weight: 600; }
+.agent-support-panel .section-title.agent-support-copy p { max-width: calc(670 * var(--u)); }
+
+.agent-support-list {
+  display: grid;
+  gap: calc(9 * var(--u));
+}
+.agent-support-list > li {
+  display: grid;
+  grid-template-columns: calc(113 * var(--u)) minmax(0, 1fr) calc(70 * var(--u));
+  grid-template-areas: "no text icon";
+  align-items: center;
+  min-height: calc(106 * var(--u));
+  padding: calc(12 * var(--u)) calc(40 * var(--u)) calc(12 * var(--u)) calc(32 * var(--u));
+  border: 1px solid var(--c-lime-2);
+  border-radius: calc(9 * var(--u));
+  background: #fff;
+}
+.agent-support-no {
+  grid-area: no;
+  padding-top: calc(5 * var(--u));
+  font-family: var(--font-lt);
+  font-size: max(20px, calc(52 * var(--u)));
+  font-weight: 400;
+  line-height: 1;
+  color: var(--c-green);
+}
+.agent-support-text { grid-area: text; min-width: 0; }
+.agent-support-text h3 {
+  font-size: max(16px, calc(39 * var(--u)));
+  font-weight: 700;
+  line-height: 1.1;
+  color: #000;
+  overflow-wrap: break-word;
+}
+.agent-support-text p {
+  margin-top: calc(5 * var(--u));
+  font-size: max(12px, calc(15 * var(--u)));
+  line-height: 1.27;
+  color: #000;
+}
+.agent-support-icon {
+  grid-area: icon;
+  display: grid;
+  place-items: center;
+  color: var(--c-green);
+}
+.agent-support-icon svg { height: auto; }
+.agent-support-icon .icon-partner-product { width: calc(57.7 * var(--u)); }
+.agent-support-icon .icon-partner-assets { width: calc(64.2 * var(--u)); }
+.agent-support-icon .icon-partner-service { width: calc(46 * var(--u)); }
+.agent-support-icon .icon-partner-settlement { width: calc(36.5 * var(--u)); }
+
+/* ========== D. HOW TO START：三張卡，卡間 > 箭頭被前一張卡蓋住左段 ========== */
+.agent-process {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding-block: calc(103 * var(--u)) calc(107.8 * var(--u));
+  background: linear-gradient(180deg, #002700 0%, #000 59.7%);
+}
+/* 握手圖：steps-bg.webp 已照設計稿取景裁好，cover 剛好填滿；手機沒有這張圖 */
+.agent-process::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: url('../../img/partners/steps-bg.webp') center / cover no-repeat;
+  opacity: .4;
+  pointer-events: none;
+}
+.agent-process::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(41.4deg, #000 50%, rgb(0 0 0 / 0) 69.7%);
+  pointer-events: none;
+}
+.agent-process-inner {
+  width: min(calc(1674 * var(--u)), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.agent-process .section-title {
+  padding-left: calc(78 * var(--u));
+  margin-bottom: calc(79 * var(--u));
+}
+.agent-process .section-title h2 strong { font-weight: 600; }
+
+.agent-process-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: calc(62.1 * var(--u));
+}
+.agent-step {
+  position: relative;
+  isolation: isolate;          /* 箭頭（z-index:-1）壓在自己這張卡底下，不會跑到區塊背景後面 */
+  display: flex;
+}
+/* > 箭頭 */
+.agent-step::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: calc(100% - 23.6 * var(--u));
+  width: calc(75 * var(--u));
+  height: calc(210 * var(--u));
+  transform: translateY(-50%);
+  background: #fff;
+  clip-path: polygon(0 0, 100% 50%, 0 100%, 0 87.95%, 75.9% 50%, 0 12.05%);
+  pointer-events: none;
+}
+.agent-step:last-child::after,
+.agent-step:nth-child(3n)::after { content: none; }
+
+.agent-step-card {
+  --veil-deg: 191.8deg;
+  flex: 1;
+  min-width: 0;
+  min-height: calc(273.6 * var(--u));
+  padding: calc(27.3 * var(--u)) calc(36 * var(--u)) calc(32.2 * var(--u)) calc(38.5 * var(--u));
+}
+.agent-step-card::before {
+  top: calc(19 * var(--u));
+  bottom: calc(17.4 * var(--u));
+  width: max(2px, calc(5.5 * var(--u)));
+}
+.agent-step-card .glow-card-art {
+  top: calc(-15.6 * var(--u));
+  left: calc(235.2 * var(--u));
+  width: calc(287.7 * var(--u));
+  height: calc(279.8 * var(--u));
+}
+.agent-step-card .agent-card-no {
+  margin-bottom: calc(24 * var(--u));
+  font-size: max(16px, calc(27.5 * var(--u)));
+}
+.agent-step-card h3 {
+  font-size: max(17px, calc(38 * var(--u)));
+  line-height: 1;
+}
+.agent-step-card p {
+  margin-top: calc(14.9 * var(--u));
+  max-width: calc(350 * var(--u));
+  font-size: max(12px, calc(20 * var(--u)));
+  line-height: 1.15;
+}
+.agent-page:not(:lang(zh)) .agent-step-card p { max-width: none; }
+
+/* ========== E. BECOME OUR PARTNER：共用淺色收尾帶（partials/cta-band.njk，bandMod = agent-final） ========== */
+.agent-final .cta-band-inner {
+  padding-top: calc(100 * var(--u));
+  padding-bottom: calc(106 * var(--u));
+  padding-left: calc(27 * var(--u));
+}
+.agent-final .section-title { margin-bottom: calc(67 * var(--u)); }
+.agent-final .section-title h2 strong {
+  margin-top: calc(8 * var(--u));
+  font-size: max(24px, calc(76 * var(--u)));
+  font-weight: 600;
+}
+.agent-final .section-title p { margin-top: calc(28.5 * var(--u)); }
+.agent-page:lang(zh) .agent-final .section-title p { max-width: calc(712 * var(--u)); }
+
+/* ========== 768–1279：支援卡改上下排，四列改 2×2 ========== */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .agent-support-panel {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: calc(56 * var(--u));
+    padding-inline: calc(70 * var(--u));
+  }
+  .agent-support-panel .section-title.agent-support-copy { top: 0; }
+  .agent-support-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .agent-support-list > li {
+    grid-template-columns: calc(90 * var(--u)) minmax(0, 1fr) calc(70 * var(--u));
+    padding-inline: calc(28 * var(--u)) calc(24 * var(--u));
+  }
+}
+
+/* 768–1023：支援四列回到單欄（2×2 會把英文標題擠成兩行）；流程卡間距收窄、箭頭縮小 */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .agent-support-list { grid-template-columns: minmax(0, 1fr); }
+  .agent-process-grid { gap: calc(48 * var(--u)); }
+  .agent-step::after { left: calc(100% - 16 * var(--u)); width: calc(56 * var(--u)); height: calc(156 * var(--u)); }
+  .agent-step-card { padding-inline: calc(30 * var(--u)) calc(24 * var(--u)); }
+}
+
+/* ========== ≤767：手機稿 ========== */
+@media (max-width: 767px) {
+  /* 首屏字比共用小（共用的副標會斷成兩行） */
+  .agent-page .hero-copy h1 { font-size: max(40px, calc(60 * var(--u))); }
+  .agent-page .hero-copy h1 strong { font-size: max(30px, calc(40 * var(--u))); }
+  .agent-page .hero-copy > p { max-width: none; text-wrap: balance; font-size: max(12px, calc(12 * var(--u))); }
+  .agent-page .hero-no-media { padding-top: calc(73 * var(--u)); }
+  .agent-page .hero-no-media > .shell-wide { padding-left: calc(6.5 * var(--u)); }
+  .agent-page .hero-copy h1 { margin-left: calc(-3 * var(--u)); }
+  .agent-page .hero-copy h1 strong { margin-left: calc(3 * var(--u)); }
+  .agent-page .hero-copy .eyebrow {
+    font-size: max(12px, calc(12 * var(--u)));
+    font-weight: 600;
+  }
+  .agent-page .hero-actions { margin-top: calc(59.5 * var(--u)); margin-left: calc(15.6 * var(--u)); }
+  .agent-page .hero-actions .cta,
+  .agent-final .btn-lime { font-weight: 400; }
+  .agent-benefits .section-title h2,
+  .agent-process .section-title h2,
+  .agent-final .section-title h2 { font-weight: 600; }
+  .agent-process .section-title > span,
+  .agent-final .section-title > span { font-weight: 600; }
+
+  /* ---- B. 合作優勢 ---- */
+  .agent-benefits { padding-block: calc(44.4 * var(--u)) calc(56 * var(--u)); }
+  .agent-benefits .section-title { margin-bottom: calc(31 * var(--u)); }
+  .agent-benefits .section-title > span { font-weight: 400; line-height: 1.2; }
+  .agent-benefits .section-title > span + h2 { margin-top: 0; }
+  .agent-benefits .section-title h2 { line-height: 1; }
+  .agent-benefits .section-title h2 strong {
+    margin-top: calc(7.6 * var(--u));
+    font-size: max(14px, calc(16 * var(--u)));
+    font-weight: 400;
+  }
+  .agent-benefits .section-title p { margin-top: 0; font-size: max(12px, calc(12 * var(--u))); }
+
+  .agent-benefits .agent-benefit-grid {
+    max-width: calc(380 * var(--u));
+    gap: calc(17 * var(--u)) calc(22 * var(--u));
+  }
+  .agent-benefit-card {
+    --veil-deg: 198.2deg;
+    min-height: calc(148 * var(--u));
+    padding: calc(13.5 * var(--u)) calc(9 * var(--u)) calc(12 * var(--u)) calc(13 * var(--u));
+  }
+  .agent-benefit-card::before {
+    top: calc(22.2 * var(--u));
+    bottom: calc(20.3 * var(--u));
+    width: max(2px, calc(3 * var(--u)));
+  }
+  .agent-benefit-card .glow-card-art,
+  .agent-benefit-card:first-child .glow-card-art {
+    top: calc(-8.5 * var(--u));
+    left: calc(81.5 * var(--u));
+    width: calc(109.5 * var(--u));
+    height: calc(106.2 * var(--u));
+  }
+  .agent-benefit-card .agent-card-no {
+    margin-bottom: calc(14 * var(--u));
+    font-size: max(14px, calc(18 * var(--u)));
+  }
+  .agent-benefit-card h3 {
+    font-size: max(16px, calc(21 * var(--u)));
+    font-weight: 400;
+    line-height: 1.1;
+  }
+  .agent-benefit-card p,
+  .agent-page:not(:lang(zh)) .agent-benefit-card p {
+    margin-top: calc(4 * var(--u));
+    max-width: none;
+    font-size: max(12px, calc(9 * var(--u)));
+    font-weight: 400;
+    line-height: 1.25;
+  }
+  /* 卡片說明的手動換行是電腦稿的；手機照自然斷行 */
+  .agent-benefit-card p br,
+  .agent-step-card p br { display: none; }
+
+  /* ---- C. 支援大卡 ---- */
+  .agent-support {
+    /* 卡片後面那條綠色漸層帶，在卡片下緣露出 */
+    padding-bottom: calc(86 * var(--u));
+    background: linear-gradient(171.7deg, #000 70%, #002400 100%) left bottom / 100% calc(367 * var(--u)) no-repeat;
+  }
+  .agent-support-panel {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: calc(21 * var(--u));
+    margin-inline: calc(10.5 * var(--u));
+    padding: calc(23.5 * var(--u)) calc(20 * var(--u)) calc(19 * var(--u));
+    background: linear-gradient(334deg, var(--c-lime-1) 2%, var(--c-lime-2) 82%);
+  }
+  .agent-support-panel .section-title.agent-support-copy { top: 0; padding-left: calc(10 * var(--u)); }
+  .agent-support-copy > span {
+    font-size: max(11px, calc(11 * var(--u)));
+    line-height: 1.73;
+  }
+  .agent-support-panel .section-title.agent-support-copy h2 {
+    margin-top: calc(4.6 * var(--u));
+    font-size: max(30px, calc(40 * var(--u)));
+    font-weight: 400;
+    line-height: 1;
+  }
+  .agent-support-panel .section-title.agent-support-copy h2 strong {
+    margin-top: calc(6.6 * var(--u));
+    font-size: max(15px, calc(17 * var(--u)));
+    line-height: 1;
+  }
+  .agent-support-panel .section-title.agent-support-copy p {
+    margin-top: calc(18.5 * var(--u));
+    max-width: none;
+    font-size: max(12px, calc(12 * var(--u)));
+    line-height: 1.33;
+    color: var(--c-green);
+  }
+
+  .agent-support-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(9 * var(--u));
+  }
+  .agent-support-list > li {
+    grid-template-columns: calc(43 * var(--u)) minmax(0, 1fr);
+    grid-template-areas: "icon no" "icon text";
+    grid-template-rows: auto 1fr;
+    align-items: start;
+    position: relative;
+    overflow: hidden;
+    min-height: calc(82 * var(--u));
+    padding: calc(13 * var(--u)) calc(6 * var(--u)) calc(5 * var(--u)) calc(10 * var(--u));
+  }
+  /* 每格右上角的淡紅光 */
+  .agent-support-list > li::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(calc(70 * var(--u)) calc(55 * var(--u)) at calc(100% - 12 * var(--u)) calc(4 * var(--u)), rgb(236 89 90 / .08), rgb(236 89 90 / 0));
+    pointer-events: none;
+  }
+  .agent-support-list > li > * { position: relative; }
+  .agent-support-no {
+    padding-top: 0;
+    font-size: max(13px, calc(15 * var(--u)));
+  }
+  .agent-support-text { margin-top: calc(8 * var(--u)); }
+  .agent-support-text h3 {
+    font-size: max(15px, calc(17 * var(--u)));
+    font-weight: 600;
+    line-height: 1;
+  }
+  .agent-support-text p {
+    margin-top: calc(1 * var(--u));
+    font-size: max(11px, calc(7 * var(--u)));
+    line-height: 1.15;
+  }
+  .agent-support-icon {
+    align-self: center;
+    justify-items: start;
+  }
+  .agent-support-icon .icon-partner-product { width: calc(30.6 * var(--u)); }
+  .agent-support-icon .icon-partner-assets { width: calc(30 * var(--u)); }
+  .agent-support-icon .icon-partner-service { width: calc(30 * var(--u)); }
+  .agent-support-icon .icon-partner-settlement { width: calc(24.7 * var(--u)); }
+  /* 英文／馬來文：圖示左欄會把文字擠成一字一行 → 圖示與編號排一列，文字用滿整格寬 */
+  .agent-page:not(:lang(zh)) .agent-support-list > li {
+    grid-template-columns: calc(43 * var(--u)) minmax(0, 1fr);
+    grid-template-areas: "icon no" "text text";
+    align-items: center;
+  }
+  .agent-page:not(:lang(zh)) .agent-support-text { align-self: start; }
+  .agent-page:not(:lang(zh)) .agent-support-text p { margin-top: calc(3 * var(--u)); line-height: 1.25; }
+
+  /* ---- D. 流程 ---- */
+  .agent-process {
+    padding-block: calc(55 * var(--u)) calc(35.7 * var(--u));
+    background: #000;
+  }
+  .agent-process::before,
+  .agent-process::after { content: none; }
+  .agent-process-inner { width: min(calc(369 * var(--u)), 100% - 2 * var(--gutter)); }
+  .agent-process .section-title {
+    padding-left: calc(4.5 * var(--u));
+    margin-bottom: calc(16.6 * var(--u));
+  }
+  .agent-process .section-title > span {
+    font-size: max(13px, calc(14 * var(--u)));
+    line-height: 1.71;
+  }
+  .agent-process .section-title > span + h2 { margin-top: calc(7 * var(--u)); }
+  .agent-process .section-title h2 { font-size: max(32px, calc(45 * var(--u))); line-height: 1; }
+  .agent-process .section-title h2 strong {
+    margin-top: calc(13 * var(--u));
+    font-size: max(18px, calc(23 * var(--u)));
+    font-weight: 400;
+    line-height: 1;
+  }
+
+  .agent-process-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: calc(24.7 * var(--u));
+  }
+  .agent-step::after,
+  .agent-step:nth-child(3n)::after {
+    content: "";
+    z-index: 1;
+    top: 100%;
+    left: 50%;
+    width: calc(56 * var(--u));
+    height: calc(21 * var(--u));
+    transform: translate(-50%, calc(1.85 * var(--u)));
+    clip-path: polygon(0 0, 50% 100%, 100% 0, 87.95% 0, 50% 75.9%, 12.05% 0);
+  }
+  .agent-step:last-child::after { content: none; }
+
+  .agent-step-card {
+    --veil-deg: 186.3deg;
+    min-height: calc(101.3 * var(--u));
+    padding: calc(12.5 * var(--u)) calc(14 * var(--u)) calc(14 * var(--u)) calc(18 * var(--u));
+  }
+  .agent-step-card::before {
+    top: calc(9.5 * var(--u));
+    bottom: calc(7.8 * var(--u));
+    width: max(2px, calc(3 * var(--u)));
+  }
+  .agent-step-card .glow-card-art {
+    top: calc(-12.8 * var(--u));
+    left: calc(244.1 * var(--u));
+    width: calc(124.9 * var(--u));
+    height: calc(121.8 * var(--u));
+  }
+  .agent-step-card .agent-card-no {
+    margin-bottom: calc(14 * var(--u));
+    font-size: max(14px, calc(18 * var(--u)));
+  }
+  .agent-step-card h3 { font-size: max(17px, calc(22 * var(--u))); }
+  .agent-step-card p {
+    margin-top: calc(4 * var(--u));
+    max-width: none;
+    font-size: max(12px, calc(10 * var(--u)));
+    font-weight: 400;
+    line-height: 1.25;
+  }
+
+  /* ---- E. 收尾帶 ---- */
+  .agent-final .cta-band-inner {
+    padding-top: calc(35 * var(--u));
+    padding-bottom: calc(58 * var(--u));
+    padding-left: calc(11.5 * var(--u));
+  }
+  .agent-final .section-title { margin-bottom: calc(40 * var(--u)); }
+  .agent-final .section-title > span {
+    font-size: max(14px, calc(19 * var(--u)));
+    line-height: 1.68;
+  }
+  .agent-final .section-title > span + h2 { margin-top: calc(10 * var(--u)); }
+  .agent-final .section-title h2 { font-size: max(40px, calc(57 * var(--u))); line-height: 1; }
+  .agent-final .section-title h2 strong {
+    margin-top: calc(6.3 * var(--u));
+    font-size: max(28px, calc(41 * var(--u)));
+    line-height: 1;
+  }
+  .agent-final .section-title p {
+    margin-top: calc(19 * var(--u));
+    font-size: max(13px, calc(13 * var(--u)));
+    line-height: 1.31;
+  }
+  .agent-final .btn-lime.is-pill {
+    --btn-h: calc(47.2 * var(--u));
+    --btn-fs: max(14px, calc(14 * var(--u)));
+    min-width: calc(197.6 * var(--u));
+  }
+}
+
+/* ========== 字型指派 ========== */
+@media (min-width: 768px) {
+  /* 兰亭沒有 700，寫 700 會變特黑 */
+  .agent-support-text h3 { font-weight: 600; }
+}
+@media (max-width: 767px) {
+  .agent-support-copy > span { font-family: var(--font-sj); }
+}
+/* Lantinghei SC Extralight → 400（見 site.css 檔尾） */
+.agent-benefit-card p,
+.agent-step-card p { font-weight: 400; }

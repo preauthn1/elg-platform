@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: agent-backend-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: agent-backend-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: agent-backend-web
+    spec:  
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: agent-backend-nginx-container
+          image: "example.invalid/tp-wz3-rd/agent-backend-web-nginx-image:6e00775"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: agent-backend-web-container
+          image: "example.invalid/tp-wz3-rd/agent-backend-web-image:6e00775"
+          resources:
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html;"]

@@ -1,0 +1,6 @@
+{
+  "name": "codegraph-mcp",
+  "description": "CodeGraph 符號知識圖 MCP server（一次查回相關符號原始碼、呼叫路徑與影響範圍）。不含業務 skill；附一支開 session 時自動增量同步索引的 hook。各專案需自行 codegraph init 建索引。",
+  "author": { "name": "rb" },
+  "keywords": ["codegraph", "mcp", "symbol", "call-graph", "callers", "callees", "impact", "code-intelligence", "團隊基礎"]
+}

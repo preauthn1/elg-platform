@@ -1,0 +1,149 @@
+# 白標 metadata registry（非機密平面，可進 git）
+# 機密（DB host/port/user/password）永不寫此檔——見 ../README.md 雙平面契約。
+# schema：見 ../README.md 與 ../scripts/check-registry.php（結構/型別驗證，CI/pre-commit/本機同一支）。
+# CI 硬閘走 ../../scripts/validate.sh §8（直接調用 check-registry.php）。
+# 本檔服務 DB connection 面與白標查詢範疇（rootAgentId＝業務子樹 root agent）；
+# gcp-log-troubleshoot 的白標→GCP project 對照內嵌於該 skill、各自獨立維護。
+#
+# 每白標 schema：
+#   canonical          標準名（= key）
+#   aliases[]          口語 / 拼錯別名
+#   connectionId       Laravel connection 識別名
+#   env                production | test
+#   rootAgentId        業務子樹 root agent id（int；env=test 為 null）——查詢一律以此切 hierarchy 範疇
+#   rootAgentUsername  對應 agents.username（DB 反查/顯示依據；env=test 為 null）
+#   testRootAgentId    測試代理 id（int；env=test 為 null）——金流/遊戲商戶配置的測試掛點：正式環境先配此代理供驗收，正式代理後開。必直接掛在正式代理下（agents.parent==rootAgentId）
+#   testRootAgentUsername 對應測試代理 agents.username（env=test 為 null）
+#   sharesConnection   connectionId 是否被 ≥2 白標共用（bool；須與實況一致，checker 驗）
+#   dbcPort            dbc 本機代理 port（int，取自 sre/dbc 的 instances.yaml：34xx 從庫、35xx 主庫）；
+#                      null＝dbc 尚未涵蓋，mysql-mcp.js 退回容器 config / secrets.env 舊路徑。
+#                      非機密：port 是公開常數、host 固定 0.0.0.0、無密碼（IAM 由 dbc 代理層完成）。
+#                      同 connectionId 的白標必須同 port（checker 驗）。
+#   database           該 connection 的 DB 名稱（safe-token）；非機密：dbc 的 IAM 使用者 SHOW DATABASES 即可見。
+#   note               選填人類備註
+
+whitelabels:
+  VWorld:
+    canonical: VWorld
+    aliases: [VW, V-World]
+    connectionId: VWorld
+    env: production
+    rootAgentId: 66829
+    rootAgentUsername: Acompany
+    testRootAgentId: 37898
+    testRootAgentUsername: VWMTEST
+    sharesConnection: true
+    dbcPort: 3403
+    database: xsgcasino
+    note: "VWorld 營運子樹 root 為 Acompany(66829)、掛在名義總代 vworldmy(33893) 下（rootAgentId 非 Admin 直屬）；DB 為多子樹（污染樹清單見 whitelabel-db-query/SKILL.md 範疇規則段），與 WTT、VWSG 共用 VWorld connection，查詢一律以 rootAgentId 切子樹範疇"
+  WTT:
+    canonical: WTT
+    aliases: [Wintoto, wt]
+    connectionId: VWorld
+    env: production
+    rootAgentId: 59457
+    rootAgentUsername: wintoto
+    testRootAgentId: 59610
+    testRootAgentUsername: wintototest
+    sharesConnection: true
+    dbcPort: 3403
+    database: xsgcasino
+    note: "DB 共用 VWorld；查詢一律以 rootAgentId 切子站範疇（對帳另可用 vendor_info_id，見 whitelabel-db-query/SKILL.md 範疇規則的 Scoped template 段）"
+  VWSG:
+    canonical: VWSG
+    aliases: [VWorldSG, vworldsg]
+    connectionId: VWorld
+    env: production
+    rootAgentId: 49726
+    rootAgentUsername: vworldsg
+    testRootAgentId: 53614
+    testRootAgentUsername: VWSTEST
+    sharesConnection: true
+    dbcPort: 3403
+    database: xsgcasino
+    note: "DB 共用 VWorld（同 WTT）；VWorld 新加坡總代；查詢一律以 rootAgentId 切子站範疇。GCP log 共用 VWorld project tp-wz3-online（GCP 層不分子站）"
+  TPower:
+    canonical: TPower
+    aliases: [TP]
+    connectionId: TPower
+    env: production
+    rootAgentId: 71541
+    rootAgentUsername: T-POWER
+    testRootAgentId: 71561
+    testRootAgentUsername: TPWTTEST01
+    sharesConnection: false
+    dbcPort: 3404
+    database: xsgcasino
+  Yes2Win:
+    canonical: Yes2Win
+    aliases: [Y2W, yes2win]
+    connectionId: Yes2Win
+    env: production
+    rootAgentId: 100003
+    rootAgentUsername: Yes2Win
+    testRootAgentId: 100004
+    testRootAgentUsername: Yes2Wintest
+    sharesConnection: false
+    dbcPort: 3405
+    database: xsgcasino
+  Alfawin77:
+    canonical: Alfawin77
+    aliases: [AlphaWin77, alpha77, AW77]
+    connectionId: Alfawin77
+    env: production
+    rootAgentId: 100003
+    rootAgentUsername: AlfaWin77
+    testRootAgentId: 100004
+    testRootAgentUsername: alfawin77test
+    sharesConnection: false
+    dbcPort: 3511
+    database: xsgcasino
+  Me77:
+    canonical: Me77
+    aliases: []
+    connectionId: Me77
+    env: production
+    rootAgentId: 100005
+    rootAgentUsername: me77
+    testRootAgentId: 100006
+    testRootAgentUsername: me77test
+    sharesConnection: false
+    dbcPort: 3406
+    database: xsgcasino
+  VPlus33:
+    canonical: VPlus33
+    aliases: [VP, VP33, vplus]
+    connectionId: VPlus33
+    env: production
+    rootAgentId: 100006
+    rootAgentUsername: VPLUS33
+    testRootAgentId: 100007
+    testRootAgentUsername: VPLUS33TEST
+    sharesConnection: false
+    dbcPort: 3701
+    database: xsgcasino
+  mysql:
+    canonical: mysql
+    aliases: []
+    connectionId: mysql
+    env: test
+    rootAgentId: null
+    rootAgentUsername: null
+    testRootAgentId: null
+    testRootAgentUsername: null
+    sharesConnection: false
+    dbcPort: 3402
+    database: xsgcasino
+  Dev:
+    canonical: Dev
+    aliases: []
+    connectionId: Dev
+    env: test
+    rootAgentId: null
+    rootAgentUsername: null
+    testRootAgentId: null
+    testRootAgentUsername: null
+    sharesConnection: false
+    dbcPort: 3402
+    database: xsgcasino
+    note: "mysql 別名；保留字面、禁止互轉"

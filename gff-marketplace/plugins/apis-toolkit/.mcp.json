@@ -1,0 +1,39 @@
+{
+  "mcpServers": {
+    "mysql-vworld": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "VWorld" }
+    },
+    "mysql-tpower": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "TPower" }
+    },
+    "mysql-yes2win": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "Yes2Win" }
+    },
+    "mysql-alfawin77": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "Alfawin77" }
+    },
+    "mysql-me77": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "Me77" }
+    },
+    "mysql-vplus33": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "VPlus33" }
+    },
+    "mysql-dev": {
+      "command": "node",
+      "args": ["${CLAUDE_PLUGIN_ROOT}/bin/mysql-mcp.js"],
+      "env": { "WHITELABEL": "Dev" }
+    }
+  }
+}

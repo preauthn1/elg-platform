@@ -1,0 +1,9 @@
+# pnpm store 快取，key 綁 pnpm-lock.yaml（lockfile 不變即命中）。
+# 各 job 內須先 `pnpm config set store-dir .pnpm-store` 讓 store 落在可被快取的工作目錄下。
+.pnpm_cache:
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store

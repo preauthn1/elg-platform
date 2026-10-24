@@ -1,0 +1,18 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class AgentDomain extends Model
+{
+    protected $guarded = [
+        'id',
+        'created_at',
+        'updated_at'
+    ];
+
+    public $rules_search = [
+        'domain' => 'required|domain'
+    ];
+}

@@ -1,0 +1,47 @@
+# ──────────────────────────────────────────────────────────────────────────
+# build stage：DinD buildx build → push 到 Artifact Registry
+# 移植自 agent-backend/.gitlab-ci/build/build.yml；Dockerfile 用 repo 根目錄那份（Nitro 單進程）。
+#
+# 產出 image：
+#   ${AR_PATH}/${CI_PROJECT_PATH}:latest        （= .../target/gffv3/web-frontend:latest）
+#   ${AR_PATH}/${CI_PROJECT_PATH}:<commit sha8>
+#
+# 需要的 CI/CD Variable：
+#   GCR_RW_KEY_BASE64  — base64 GCP SA key（與 apis / agent-backend 共用），登入 AR push image
+# ──────────────────────────────────────────────────────────────────────────
+build:
+  image: google/cloud-sdk:522.0.0
+  stage: build
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_TAG =~ /^release_\d+$/
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "cicd/stage-build"
+      when: manual
+  tags:
+    - php8
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: [--mtu=1400]
+  before_script:
+    - docker info
+    - docker buildx version
+    # gcr-key.json 放臨時目錄，避免被帶進 build context
+    - mkdir -p /tmp/gcr
+    - echo "${GCR_RW_KEY_BASE64}" | base64 -d > /tmp/gcr/gcr-key.json
+    - gcloud auth activate-service-account --key-file /tmp/gcr/gcr-key.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < /tmp/gcr/gcr-key.json
+    - rm -rf /tmp/gcr
+    - echo "IMAGE_NAME = ${AR_PATH}/${CI_PROJECT_PATH}"
+    - echo "TAG_NAME   = ${CI_COMMIT_SHA:0:8}"
+  script:
+    # BuildKit pin 在 v0.30.0：runner 主機 kernel 4.15 跑不動新版內建的 runc 1.3.6
+    # （原因見 agent-backend/.gitlab-ci/build/build.yml）
+    - docker buildx create --name pinned-bk --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    - >
+      docker buildx build --platform linux/amd64 -f Dockerfile
+      -t ${AR_PATH}/${CI_PROJECT_PATH}:latest
+      -t ${AR_PATH}/${CI_PROJECT_PATH}:${CI_COMMIT_SHA:0:8}
+      --cache-from ${AR_PATH}/${CI_PROJECT_PATH}:latest
+      --build-arg BUILDKIT_INLINE_CACHE=1 --provenance=false --push .

@@ -1,0 +1,102 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {
+            "name": "API Support",
+            "email": "user@example.invalid"
+        },
+        "license": {}
+    },
+    "paths": {
+        "/verification_code/send": {
+            "post": {
+                "description": "SMS 發送驗證碼",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "SMSGateway"
+                ],
+                "summary": "send verification code",
+                "parameters": [
+                    {
+                        "description": "發送驗證碼",
+                        "name": "sendCode",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/model.SendVerificationCode"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/controller.Message"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/httputil.HTTPError"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "controller.Message": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 0
+                }
+            }
+        },
+        "httputil.HTTPError": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "integer",
+                    "example": 400
+                },
+                "message": {
+                    "type": "string",
+                    "example": "status bad request"
+                }
+            }
+        },
+        "model.SendVerificationCode": {
+            "type": "object",
+            "required": [
+                "code",
+                "name",
+                "phone"
+            ],
+            "properties": {
+                "code": {
+                    "type": "string",
+                    "example": "123456"
+                },
+                "name": {
+                    "type": "string",
+                    "example": "user name"
+                },
+                "phone": {
+                    "type": "string",
+                    "example": "886932xxxxxx"
+                }
+            }
+        }
+    },
+    "x-extension-openapi": {
+        "SMSGateway": "value on a json format"
+    }
+}

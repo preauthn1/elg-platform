@@ -1,0 +1,69 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: webapi-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "api-betmonster-static-ip"  
+spec:
+  tls:
+    - secretName: api-everluckgames-com-nginx-0922141224
+    - secretName: vworld88-20210330
+    - secretName: api-tm66s-com-nginx-0728175938
+    - secretName: example.invalid-20210322
+    - secretName: example.invalid-20210428
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - path: /example.invalid/
+        backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+      - path: /*
+        backend:
+          serviceName: webapi-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+        path: /example.invalid/
+      - backend:
+          serviceName: webapi-service
+          servicePort: nginx-port
+        path: /*
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+        path: /example.invalid/
+      - backend:
+          serviceName: webapi-service
+          servicePort: nginx-port
+        path: /*
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+        path: /example.invalid/
+      - backend:
+          serviceName: webapi-service
+          servicePort: nginx-port
+        path: /*
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: webapi-service2
+          servicePort: socket-port
+        path: /example.invalid/
+      - backend:
+          serviceName: webapi-service
+          servicePort: nginx-port
+        path: /*

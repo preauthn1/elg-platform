@@ -1,0 +1,11 @@
+from centos:centos7.6.1810
+
+FROM example.invalid/tp-wz3-rd/php-base:23fdc1e2f2a2246b0c8a86d4f61e9a8c7bd60b43
+
+RUN mkdir /app
+COPY _release /app
+COPY _release/_init.php.rd /app/_init.php
+WORKDIR /app
+#RUN composer install
+
+CMD ["php-fpm", "--nodaemonize"]

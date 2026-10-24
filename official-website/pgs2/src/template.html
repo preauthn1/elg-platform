@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pegasus</title>
+    <link rel="icon" type="/image/png" href="/images/favicon.ico" />
+    <link
+      href="https://example.invalid/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <link
+      href="https://example.invalid/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://example.invalid/icon?family=Material+Icons+Round"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://example.invalid/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link href="https://example.invalid/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <nav>
+      <img src="/images/logo.png" class="logo" />
+      <div class="ms-auto"></div>
+      <ul class="d-none d-md-flex nav-ul">
+        <li><a href="#section1">{{home}}</a></li>
+        <li><a href="#section2">{{about}}</a></li>
+        <li><a href="#section4">{{games}}</a></li>
+      </ul>
+
+      <div class="dropdown promo-dropdown me-md-0">
+        <button
+          class="me-3"
+          type="button"
+          id="promoDropdownMenu"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          <span class="promo-text">{{promo}}</span>
+          <span class="material-icons-round arrow-icon">expand_more</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="promoDropdownMenu">
+          <li><a class="dropdown-item promo-text" href="pe-x-pegasus">PE X Pegasus</a></li>
+        </ul>
+      </div>
+
+      <div class="dropdown language-dropdown me-3 me-md-0">
+        <button
+          type="button"
+          id="languageDropdownMenu"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          {{currentLanguage}}
+          <span class="material-icons-round arrow-icon">expand_more</span>
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="languageDropdownMenu">
+          <li><a class="dropdown-item" href="/">English</a></li>
+          <li><a class="dropdown-item" href="/ms">Bahasa Melayu</a></li>
+          <li><a class="dropdown-item" href="/th">ไทย</a></li>
+          <li><a class="dropdown-item" href="/vi">Tiếng Việt</a></li>
+          <li><a class="dropdown-item" href="/es">Español</a></li>
+          <li><a class="dropdown-item" href="/pt">Português</a></li>
+          <li><a class="dropdown-item" href="/hi">हिन्दी</a></li>
+          <li><a class="dropdown-item" href="/ko">한국어</a></li>
+          <li><a class="dropdown-item" href="/ja">日本語</a></li>
+          <li><a class="dropdown-item" href="/my">မြန်မာ</a></li>
+          <li><a class="dropdown-item" href="/km">ខ្មែរ</a></li>
+          <li><a class="dropdown-item" href="/zh-CN">简体中文</a></li>
+          <li><a class="dropdown-item" href="/zh-TW">繁體中文</a></li>
+        </ul>
+      </div>
+
+      <span
+        id="menu-icon"
+        class="material-icons-round md-36 d-md-none"
+        onclick="toggleMenu()"
+        >menu
+      </span>
+      <div id="menu" class="d-md-none hidden">
+        <a href="#section1">{{home}}</a>
+        <a href="#section2">{{about}}</a>
+        <a href="#section4">{{games}}</a>
+      </div>
+    </nav>
+    <section id="section1">
+      <div class="ratio ratio-16x9">
+        <div class="banner">
+          <video class="video" autoplay muted loop playsinline>
+            <source src="/videos/collection.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+
+      <div class="text">{{session2_1}}</div>
+    </section>
+
+    <section id="section2">
+      <div class="container">
+        <div class="title" data-aos="zoom-in-up">{{aboutUs}}</div>
+        <div class="content" data-aos="zoom-in-up">{{session2_2}}</div>
+        <div class="row">
+          <div class="col-12 col-md-6" data-aos="fade-right">
+            <div class="item">
+              <div class="item-title">
+                {{session2_3_1}}
+                <div class="item-decorate"></div>
+              </div>
+              <div class="item-content">{{session2_3_2}}</div>
+            </div>
+            <div class="item">
+              <div class="item-title">
+                {{session2_4_1}}
+                <div class="item-decorate"></div>
+              </div>
+              <div class="item-content">{{session2_4_2}}</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-6" data-aos="fade-left">
+            <img src="/images/hot_games_of_the_month.png" class="w-100" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section3">
+      <div class="container">
+        <div class="title" data-aos="zoom-in-up">{{session3_1}}</div>
+        <div class="row row-cols-1 row-cols-md-3 g-3">
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/best_game.png" />
+              <div class="item-title">{{session3_2_1}}</div>
+              <div class="item-content">{{session3_2_2}}</div>
+            </div>
+          </div>
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/safety.png" />
+              <div class="item-title">{{session3_3_1}}</div>
+              <div class="item-content">{{session3_3_2}}</div>
+            </div>
+          </div>
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/customer_service.png" />
+              <div class="item-title">{{session3_4_1}}</div>
+              <div class="item-content">{{session3_4_2}}</div>
+            </div>
+          </div>
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/multi_platform.png" />
+              <div class="item-title">{{session3_5_1}}</div>
+              <div class="item-content">{{session3_5_2}}</div>
+            </div>
+          </div>
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/multilingual.png" />
+              <div class="item-title">{{session3_6_1}}</div>
+              <div class="item-content">{{session3_6_2}}</div>
+            </div>
+          </div>
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/expansive_game.png" />
+              <div class="item-title">{{session3_7_1}}</div>
+              <div class="item-content">{{session3_7_2}}</div>
+            </div>
+          </div>
+
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/multi_language.png" />
+              <div class="item-title">{{session3_8_1}}</div>
+              <div class="item-content">{{session3_8_2}}</div>
+            </div>
+          </div>
+
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/global_currency.png" />
+              <div class="item-title">{{session3_9_1}}</div>
+              <div class="item-content">{{session3_9_2}}</div>
+            </div>
+          </div>
+
+          <div class="col" data-aos="fade-left">
+            <div class="item h-100">
+              <img class="item-icon" src="/images/frequent_update.png" />
+              <div class="item-title">{{session3_10_1}}</div>
+              <div class="item-content">{{session3_10_2}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="section4">
+      <div class="container">
+        <div class="title" data-aos="zoom-in-up">{{session4_1}}</div>
+        <div class="row row-cols-2 row-cols-md-5 g-3 icon-row">
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game1.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game2.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game3.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game4.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game5.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game6.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game7.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game8.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game9.png" />
+            </div>
+          </div>
+          <div class="col" data-aos="fade-right">
+            <div class="icon ratio ratio-1x1">
+              <img src="/images/game10.png" />
+            </div>
+          </div>
+        </div>
+        <a href="https://example.invalid/" data-aos="zoom-in-up">
+          <button class="button-1">{{session4_2}}</button>
+        </a>
+      </div>
+    </section>
+
+    <section id="section5">
+      <div class="container">
+        <div class="exhibitions" data-aos="zoom-in-up">
+          <div class="title">{{session5_1}}</div>
+          <div class="content">{{session5_2}}</div>
+          <div class="d-flex justify-content-center">
+            <img class="ice-img me-3" src="/images/ice.png" />
+            <img class="sigma_asia-img" src="/images/sigma_asia.png" />
+          </div>
+        </div>
+        <img
+          class="banner"
+          src="/images/sigma_asia_banner_2.png"
+          data-aos="zoom-in-up"
+        />
+      </div>
+    </section>
+
+    <section id="section6">
+      <div class="container">
+        <div class="title" data-aos="zoom-in">{{session6_1}}</div>
+        <div class="content" data-aos="zoom-in">{{session6_2}}</div>
+        <form
+          data-aos="zoom-in"
+          id="form"
+          action="https://example.invalid/macros/s/AKfycby3pyd0pZO1hAEFaXth7jrBeOrNBGCMuPqBhPvGGrqo3xCfhOsr54OmIbD5dcvxEWp3hw/exec"
+          method="POST"
+          class="form"
+        >
+          <div class="mb-3">
+            <input
+              type="text"
+              placeholder="{{name}}"
+              class="form-control"
+              name="Name"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <input
+              type="email"
+              placeholder="{{email}}"
+              class="form-control"
+              name="Email"
+              required
+            />
+          </div>
+          <div class="mb-3">
+            <textarea
+              class="form-control"
+              name="Message"
+              rows="3"
+              placeholder="{{message}}"
+              required
+            ></textarea>
+          </div>
+          <button type="submit" class="button-1">{{session6_3}}</button>
+        </form>
+        <div class="contact-title" data-aos="zoom-in">{{session6_4}}</div>
+        <div class="d-flex justify-content-center" data-aos="zoom-in">
+          <a
+            href="https://example.invalid/Officialpgs"
+            target="_blank"
+            class="social-link"
+          >
+            <img src="/images/tg.png" />
+          </a>
+          <a
+            href="https://example.invalid/pegasusoffical99"
+            target="_blank"
+            class="social-link"
+          >
+            <img src="/images/ig.png" />
+          </a>
+          <a
+            href="https://example.invalid/PegasusOfficial99"
+            target="_blank"
+            class="social-link"
+          >
+            <img src="/images/fb.png" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Pegasus © 2024 all rights reserved</div>
+
+    <div class="modal-bg d-none" id="age-modal">
+      <div class="modal-box">
+        <img src="/images/18+.png" class="img-18" />
+        <div class="modal-title">{{ageModal1}}</div>
+        <div class="modal-content">{{ageModal2}}</div>
+        <div class="modal-buttons">
+          <button class="button-1" onclick="hideAgeModal()">
+            {{ageModal3}}
+          </button>
+          <button
+            class="button-2"
+            onclick="goBackOrDefault()"
+          >
+            {{ageModal4}}
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://example.invalid/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://example.invalid/aos@2.3.1/dist/aos.js"></script>
+    <script src="/js/script.js"></script>
+  </body>
+</html>

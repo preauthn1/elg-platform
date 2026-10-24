@@ -1,0 +1,57 @@
+{
+  "name": "gff-marketplace",
+  "description": "target GFFv3 Claude Code plugin marketplace（內部）",
+  "owner": { "name": "rb" },
+  "plugins": [
+    {
+      "name": "gitlab-mcp",
+      "source": "./plugins/gitlab-mcp",
+      "description": "GitLab MCP server ＋ 工單小工具 gitlab-workitem（掛父子關係、讀改起訖日、描述存檔送回），op-toolkit / dev-toolkit 之共用基礎"
+    },
+    {
+      "name": "gcp-mcp",
+      "source": "./plugins/gcp-mcp",
+      "description": "GCP Observability MCP server（全員查詢 Cloud Logging 之共用基礎；apis-toolkit 的 gcp-log-troubleshoot 依賴）"
+    },
+    {
+      "name": "memory-mcp",
+      "source": "./plugins/memory-mcp",
+      "description": "共用長期記憶 MCP（memory，直連 LAN 共享服務），全員可用"
+    },
+    {
+      "name": "codegraph-mcp",
+      "source": "./plugins/codegraph-mcp",
+      "description": "CodeGraph 符號知識圖 MCP server（誰呼叫這個方法 / 它呼叫了誰 / 改這裡影響多大），開發者選裝；各專案需自行建索引"
+    },
+    {
+      "name": "op-toolkit",
+      "source": "./plugins/op-toolkit",
+      "description": "建工單（PM 需求單 pm-ticket-create / OP 線上問題單 op-ticket-create）、讀 OP 單並指路排查（op-ticket-read）、改工單描述（pm-ticket-edit）與需求單示意圖（ticket-artifact），依賴 gitlab-mcp"
+    },
+    {
+      "name": "dev-toolkit",
+      "source": "./plugins/dev-toolkit",
+      "description": "開發流程（git-commit / release-workflow / branch-sync / gitlab-release）＋ 設計與文件方法（design-grilling / domain-modeling / tdd / bug-diagnosis）＋ harness 稽核（harness-audit）＋ 本地記憶整理（memory-tidy），僅開發者，依賴 gitlab-mcp"
+    },
+    {
+      "name": "apis-toolkit",
+      "source": "./plugins/apis-toolkit",
+      "description": "APIs 領域一站式（金流 / 遊戲商接入 + DB 連線切換 + 對帳 + 報表 + 白標 registry + GCP log 排查 + 命令 + agent），依賴 dev-toolkit / gcp-mcp"
+    },
+    {
+      "name": "legend-toolkit",
+      "source": "./plugins/legend-toolkit",
+      "description": "Legend 系列舊專案維運（以環境部署為主）：RD-Studio 多站台部署（deploy-rd-studio）＋ WEB_AgentBackend / API_Agent / WEB_CustomerServiceSocket 分支上版（deploy-agent-stack）＋ 人工 make 腳本"
+    },
+    {
+      "name": "qa-toolkit",
+      "source": "./plugins/qa-toolkit",
+      "description": "QA 專用（opt-in，自帶 Playwright MCP）：瀏覽並操作 dev 站點前台/後台（可讀可寫）＋側錄可重播腳本（dev-only）"
+    },
+    {
+      "name": "wiki-toolkit",
+      "source": "./plugins/wiki-toolkit",
+      "description": "寫 APIS 知識庫 wiki（Outline）：功能說明頁、操作手冊、發頁後建魔鏡 pointer；自帶 Outline MCP，依賴 memory-mcp"
+    }
+  ]
+}

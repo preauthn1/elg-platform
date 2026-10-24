@@ -1,0 +1,59 @@
+steps:
+  - name: 'example.invalid/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      docker pull example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:build || exit 0
+  - name: 'example.invalid/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      docker pull example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:latest || exit 0
+  - name: 'example.invalid/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      docker build -f server-build/Dockerfile-build -t example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:build --cache-from example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:build .
+      docker push example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:build
+      docker container create --name extract example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:build
+      docker container cp extract:/src/dist ./dist/
+      docker container rm -f extract
+  - name: 'example.invalid/cloud-builders/docker'
+    entrypoint: 'bash'
+    args:
+    - '-c'
+    - |
+      docker build -f server-build/Dockerfile-nginx -t example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:$SHORT_SHA --cache-from example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:latest .
+      docker tag example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:$SHORT_SHA example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:latest
+      docker push example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:$SHORT_SHA
+      docker push example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:latest
+  - name: 'example.invalid/cloud-builders/kubectl'
+    args:
+    - set
+    - image
+    - deployment
+    - cs-web-deployment
+    - cs-web-nginx-container=example.invalid/$PROJECT_ID/${_NGINX_IMAGE_NAME}:$SHORT_SHA
+    env:
+    - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
+    - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'
+substitutions:
+  _NGINX_IMAGE_NAME: cs-web-nginx-image
+#
+#- name: 'example.invalid/cloud-builders/docker'
+#  args: ['build', '-f', 'server-build/Dockerfile-nginx', '-t', 'example.invalid/$PROJECT_ID/cs-web-nginx-image:$SHORT_SHA', '.']
+#- name: 'example.invalid/cloud-builders/docker'
+#  args: ["push", "example.invalid/$PROJECT_ID/cs-web-nginx-image:$SHORT_SHA"]
+#- name: 'example.invalid/cloud-builders/kubectl'
+#  args:
+#  - set
+#  - image
+#  - deployment
+#  - cs-web-deployment
+#  - cs-web-nginx-container=example.invalid/$PROJECT_ID/cs-web-nginx-image:$SHORT_SHA
+#  env:
+#  - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
+#  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'

@@ -1,0 +1,10 @@
+
+moo=["foo"]
+
+KNOWN_PEERS = [
+    "example.invalid:11625",
+    "example.invalid:11625",
+    "example.invalid:11625",
+    32,
+    true
+]

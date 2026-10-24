@@ -1,0 +1,89 @@
+.rule_merge_request:
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "main"'
+      when: always
+    - when: never
+
+.before_script_merge_request:
+  before_script:
+    - uname -a
+    - apt-get update && apt-get install -y git
+    - git config --global user.email "user@example.invalid"
+    - git config --global user.name "runner"
+    
+    - echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME 
+    - git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+    - git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+
+
+
+merge_result_pint:
+  stage: pre-build
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:ae4fd248
+  tags:
+    - php8
+  needs:
+    - job: prepare_dependencies
+      artifacts: true
+  extends:
+    - .rule_merge_request
+    - .before_script_merge_request
+  script:
+    - vendor/bin/pint --test
+
+merge_result_test:
+  stage: pre-build
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:ae4fd248
+  tags:
+    - php8
+  needs:
+    - job: prepare_dependencies
+      artifacts: true
+  extends:
+    - .default_variables
+    - .default_service
+    - .rule_merge_request
+    - .before_script_merge_request
+  script:
+    - apt-get install -y redis-tools
+    - |
+      until mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 -e "SELECT 1"; do
+        echo "等待 MySQL 服務就緒..."
+        sleep 1
+      done
+    - |
+      mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 $MYSQL_DATABASE < init.sql;
+      echo "已使用 init.sql 初始化数据库";
+    - php artisan test --testsuite=Unit
+    - php artisan test --testsuite=Feature
+
+
+merge_result_check_psr4_autoloading_standard:
+  stage: pre-build
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:ae4fd248
+  tags:
+    - php8
+  needs:
+    - job: prepare_dependencies
+      artifacts: true
+  extends:
+    - .default_variables
+    - .default_service
+    - .rule_merge_request
+    - .before_script_merge_request
+  script:
+    # add 2>&1 to redirect error to dump_output.txt
+    - composer dump-autoload > dump_output.txt 2>&1
+
+    # print dump_output.txt
+    - cat dump_output.txt
+
+    # check if dump_output.txt contains "does not comply with psr-4 autoloading standard"
+    - |
+      if grep -q "does not comply with psr-4 autoloading standard" dump_output.txt; then
+        echo "❌ PSR-4 autoloading check failed"
+        exit 1
+      else
+        echo "✅ Composer autoload looks good"
+      fi

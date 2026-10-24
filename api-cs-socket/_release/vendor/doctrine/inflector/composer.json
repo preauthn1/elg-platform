@@ -1,0 +1,32 @@
+{
+    "name": "doctrine/inflector",
+    "type": "library",
+    "description": "Common String Manipulations with regard to casing and singular/plural rules.",
+    "keywords": ["string", "inflection", "singularize", "pluralize"],
+    "homepage": "http://example.invalid",
+    "license": "MIT",
+    "authors": [
+        {"name": "Guilherme Blanco", "email": "user@example.invalid"},
+        {"name": "Roman Borschel", "email": "user@example.invalid"},
+        {"name": "Benjamin Eberlei", "email": "user@example.invalid"},
+        {"name": "Jonathan Wage", "email": "user@example.invalid"},
+        {"name": "Johannes Schmitt", "email": "user@example.invalid"}
+    ],
+    "require": {
+        "php": "^7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^6.2"
+    },
+    "autoload": {
+        "psr-4": { "Doctrine\\Common\\Inflector\\": "lib/Doctrine/Common/Inflector" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Doctrine\\Tests\\Common\\Inflector\\": "tests/Doctrine/Tests/Common/Inflector" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.3.x-dev"
+        }
+    }
+}

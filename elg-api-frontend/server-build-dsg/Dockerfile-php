@@ -1,0 +1,19 @@
+from centos:centos7.6.1810
+
+FROM example.invalid/tp-wz3-rd/php-base:100ab2fb01b7e7b1c17714ced9d58bfc7592a0eb
+
+RUN yum -y install git php-gd php-soap openssh-clients
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh && \
+    ssh-keyscan -t rsa -p 1022 example.invalid > /root/.ssh/known_hosts
+COPY gitlab-ci/id_rsa /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
+
+RUN mkdir /app
+COPY _release /app
+COPY _release/.env.dsg /app/.env
+COPY _release/laravel-echo-server.json.dsg /app/laravel-echo-server.json
+WORKDIR /app
+RUN composer install
+
+CMD ["php-fpm", "--nodaemonize"]

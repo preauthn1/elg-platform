@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代收訂單 status 生命週期報告</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="i-repeat" viewBox="0 0 24 24"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><path d="M12 2 21 7H3z"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5v6"/><path d="m9 10.5 3 3 3-3"/></svg></div><div class="name">Deposit&nbsp;Flow</div></div>
+    <div class="menu-label">報告章節</div>
+    <ul class="menu">
+      <li><a href="#states" class="active"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="8" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span> 狀態值總覽</a></li>
+      <li><a href="#lifecycle"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 9"/><path d="M3 21v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 15"/></svg></span> 生命週期狀態機</a></li>
+      <li><a href="#triggers"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> 變更時機明細</a></li>
+      <li><a href="#credit"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="22" x2="21" y2="22"/><line x1="6" y1="18" x2="6" y2="11"/><line x1="10" y1="18" x2="10" y2="11"/><line x1="14" y1="18" x2="14" y2="11"/><line x1="18" y1="18" x2="18" y2="11"/><path d="M12 2 21 7H3z"/></svg></span> 上分機制 (1→3)</a></li>
+    </ul>
+    <div class="foot">orders.status<br>· 2026-10-07 ·</div>
+  </aside>
+
+  <div class="content">
+    <div class="topbar">
+      <div>
+        <div class="crumb">Reports <b>/</b> Payment <b>/</b> 代收訂單生命週期</div>
+        <h1>代收訂單 status 生命週期</h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg class="ni"><use href="#i-cal"/></svg> 2026-10-07</span>
+        <span class="chip">APIs L13 + API_Agent L5.6</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="stats">
+        <div class="stat"><div class="avatar av-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><div><div class="num">5</div><div class="lbl">列舉狀態值</div></div></div>
+        <div class="stat"><div class="avatar av-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div class="num">11</div><div class="lbl">狀態變更時機</div></div></div>
+        <div class="stat"><div class="avatar av-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14a9 3 0 0 0 18 0V5"/><path d="M3 12a9 3 0 0 0 18 0"/></svg></div><div><div class="num">2</div><div class="lbl">寫入系統來源</div></div></div>
+        <div class="stat"><div class="avatar av-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></div><div><div class="num">2</div><div class="lbl">終態 3 / 2</div></div></div>
+        <div class="stat"><div class="avatar av-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></svg></div><div><div class="num">3</div><div class="lbl">回調分支 (1/4/2)</div></div></div>
+      </div>
+
+      <!-- 1 -->
+      <section id="states" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>狀態值總覽（OrderStatusEnum）</h2>
+          <p class="desc">代收與線下訂單共用 <code>app/Enums/OrderStatusEnum.php</code>（Order model）。關鍵：<b>回調確認成功是 <span class="st s1"><span class="n">1</span>SUCCESS</span>（未上分）</b>，真正加值後才進 <span class="st s3"><span class="n">3</span>DEPOSIT_FINISHED</span>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th class="center">值</th><th>Enum case</th><th>語意</th><th class="center">終態</th><th>說明</th></tr></thead>
+              <tbody>
+                <tr><td class="center"><span class="st s0">0</span></td><td><code>CREATED</code></td><td>建立訂單</td><td class="center"><span class="dash">—</span></td><td>等待三方回調 / 後台審核；唯一可被回調修改的狀態</td></tr>
+                <tr><td class="center"><span class="st s1">1</span></td><td><code>SUCCESS</code></td><td>建立成功，<b>未上分</b></td><td class="center"><span class="dash">—</span></td><td>三方回調確認成功，等待加值（鎖分模式會停在此）</td></tr>
+                <tr><td class="center"><span class="st s2">2</span></td><td><code>FAILED</code></td><td>失敗 / 審核不通過</td><td class="center"><span class="tick">✓</span></td><td>回調失敗、過期取消或後台拒絕</td></tr>
+                <tr><td class="center"><span class="st s3">3</span></td><td><code>DEPOSIT_FINISHED</code></td><td>已上分</td><td class="center"><span class="tick">✓</span></td><td>餘額已加值，活動 / 流水 / 報表皆以此為準</td></tr>
+                <tr><td class="center"><span class="st s4">4</span></td><td><code>WAITING_MANUAL_DEPOSIT</code></td><td>等待人工上分</td><td class="center"><span class="dis">待人工</span></td><td>回調成功但金額與訂單不符，轉人工確認</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2 -->
+      <section id="lifecycle" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>生命週期狀態機</h2>
+          <p class="desc">線上代收主流程走 APIs；自助開分的審核、手動上分、重置狀態走舊 API_Agent。</p>
+        </div>
+        <div class="card-body">
+          <div class="fchart">
+            <div class="fcap">會員 / 代理發起儲值 · OrderService::createOrder</div>
+            <div class="frow">
+              <div class="fnode s0"><span class="fn-n">0</span><span class="fn-t">建立訂單</span><span class="fn-d">等待三方回調</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l">三方回調 · DepositNotifyController</span><span class="fc-a"></span></div>
+            <div class="fbranch"><span>回調成功</span><span>金額不符</span><span>回調失敗</span></div>
+            <div class="frow">
+              <div class="fnode s1"><span class="fn-n">1</span><span class="fn-t">成功</span><span class="fn-d">未上分</span></div>
+              <div class="fnode s4"><span class="fn-n">4</span><span class="fn-t">待人工</span><span class="fn-d">金額不符</span></div>
+              <div class="fnode s2 term"><span class="fn-n">2</span><span class="fn-t">失敗</span><span class="fn-d">終態</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l">上分 · PaymentService::updateMemberBalance</span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s3 term"><span class="fn-n">3</span><span class="fn-t">已上分</span><span class="fn-d">終態 · 報表以此為準</span></div>
+            </div>
+            <div class="fnotes">
+              <div class="fnote"><svg class="ni"><use href="#i-lock"/></svg> <b>鎖分模式</b>（event_mode &gt; 0）：停在 <b>1 成功</b> 不上分，只發 TG 通知，需後台介入。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-list"/></svg> <b>自助開分</b>：會員轉帳後上傳截圖 <b>0 → 1</b>（待審核），由舊 API_Agent 後台審核：通過 → 上分 → <b>3</b>、拒絕 → <b>2 失敗</b>。會員取消、或收款帳號已不可用時 <b>0 → 2</b>。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-bank"/></svg> <b>4 待人工</b>：人工確認金額後，在舊 API_Agent 後台手動上分（先寫 1 再上分）→ <b>3 已上分</b>。手動上分對 3 以外的狀態都可用。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-repeat"/></svg> <b>重置狀態</b>：舊 API_Agent 後台可把 0 與 3 以外的單重置回 <b>0</b>。</div>
+            </div>
+          </div>
+          <div class="callout">
+            <b>關鍵差異 vs 代付</b>：代收「回調成功」只到 <span class="st s1">1 SUCCESS</span>，<b>加值是獨立第二步</b>（<code>PaymentService::updateMemberBalance</code>）才寫 <span class="st s3">3 DEPOSIT_FINISHED</span>。
+          </div>
+        </div>
+      </section>
+
+      <!-- 3 -->
+      <section id="triggers" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>狀態變更時機明細</h2>
+          <p class="desc">每個實際寫入 <code>orders.status</code> 的位置。<span class="badge b-primary">APIs</span> 新系統、<span class="badge b-warning">舊</span> API_Agent。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>#</th><th>時機</th><th class="center">狀態變更</th><th class="center">系統</th><th>寫入位置 (file:line) / 觸發</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>發起儲值建單</td>
+                  <td class="center"><span class="st s0">建立→0</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Services/OrderService.php:104</span><span class="trig"><code>createOrder()</code> 的 <code>Order::create</code>，<code>'status'=&gt;0</code>，等待三方回調</span></td>
+                </tr>
+                <tr>
+                  <td>2</td><td>自助開分建單</td>
+                  <td class="center"><span class="st s0">建立→0</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Frontend/AutoDepositController.php:196</span><span class="trig"><code>createOrder()</code> 的 <code>Order::create</code>；會員轉帳到平台收款帳號，處理中（0 或 1）的單數受代理設定的上限限制</span></td>
+                </tr>
+                <tr>
+                  <td>3</td><td>三方回調：成功</td>
+                  <td class="center"><span class="st s0">0</span><span class="arrow">→</span><span class="st s1">1</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/DepositCallbackTrait.php:161</span><span class="trig"><code>updateDepositOrderSuccess()</code>，標記成功（尚未上分）</span></td>
+                </tr>
+                <tr>
+                  <td>4</td><td>三方回調：金額不符</td>
+                  <td class="center"><span class="st s0">0</span><span class="arrow">→</span><span class="st s4">4</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/DepositCallbackTrait.php:161</span><span class="trig">同一個寫入點；<code>:134</code> 的 <code>numCompare</code> 比對不符時改寫 4，轉人工並發 BotNotify</span></td>
+                </tr>
+                <tr>
+                  <td>5</td><td>三方回調：失敗</td>
+                  <td class="center"><span class="st s0">0</span><span class="arrow">→</span><span class="st s2">2</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Traits/DepositCallbackTrait.php:181</span><span class="trig"><code>updateDepositOrderFailed()</code></span></td>
+                </tr>
+                <tr>
+                  <td>6</td><td>自助開分：上傳截圖</td>
+                  <td class="center"><span class="st s0">0</span><span class="arrow">→</span><span class="st s1">1</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Frontend/AutoDepositController.php:315</span><span class="trig"><code>uploadImage()</code>，只收 0 的單；改為待後台審核</span></td>
+                </tr>
+                <tr>
+                  <td>7</td><td>自助開分：取消 / 收款帳號不可用</td>
+                  <td class="center"><span class="st s0">0</span><span class="arrow">→</span><span class="st s2">2</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Frontend/AutoDepositController.php:261</span><br><span class="mono">:68</span><span class="trig"><code>deleteOrder()</code> 會員取消 0 的單；<code>bankAccounts()</code> 發現該單的收款帳號已不可用時判失敗</span></td>
+                </tr>
+                <tr>
+                  <td>8</td><td><b>上分完成</b>（加值後）</td>
+                  <td class="center"><span class="st s1">1</span><span class="arrow">→</span><span class="st s3">3</span></td>
+                  <td class="center"><span class="badge b-primary">APIs</span></td>
+                  <td><span class="mono">Services/PaymentService.php:209</span>（會員）<br><span class="mono">:403</span>（代理）<span class="trig">餘額加值 + 寫 TransactionLog + 寫 pay_time 與 payment_cost + 觸發活動 SP</span></td>
+                </tr>
+                <tr>
+                  <td>9</td><td>舊系統：自助開分審核</td>
+                  <td class="center"><span class="st s1">1</span><span class="arrow">→</span><span class="st s3">3</span> / <span class="st s2">2</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">OrderController.php:824</span>（通過）<br><span class="mono">:852</span>（其他）<span class="trig"><code>POST order/reviewOrder</code>（<code>reviewOrder()</code>，<code>:797</code>）只收 1 的單；通過走 <code>CashFlowService::updateMemberBalance</code> 上分，其餘直接寫入指定狀態；鎖分模式的會員不能審核通過</span></td>
+                </tr>
+                <tr>
+                  <td>10</td><td>舊系統：手動上分</td>
+                  <td class="center">3 以外<span class="arrow">→</span><span class="st s1">1</span><span class="arrow">→</span><span class="st s3">3</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">OrderController.php:320</span>（寫 1）<br><span class="mono">:331</span>（上分）<span class="trig"><code>POST order/manual-deposit</code>（<code>manualDeposit()</code>）；用於 4 待人工等情況，鎖分模式的會員不能上分</span></td>
+                </tr>
+                <tr>
+                  <td>11</td><td>舊系統：重置狀態</td>
+                  <td class="center"><span class="st s1">1</span>/<span class="st s2">2</span>/<span class="st s4">4</span><span class="arrow">→</span><span class="st s0">0</span></td>
+                  <td class="center"><span class="badge b-warning">舊</span></td>
+                  <td><span class="mono">OrderController.php:424</span><span class="trig"><code>POST order/reset-status</code>（<code>resetStatus()</code>）；0 與 3 的單不能重置</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="legend">
+            <span><span class="badge b-primary">APIs</span> 新系統 (PHP 8.4)</span>
+            <span><span class="badge b-warning">舊</span> API_Agent (PHP 7.3)</span>
+          </div>
+          <div class="callout">
+            <b>自己寫狀態的金流商</b>：下列代收回調不走共用的 <code>updateDepositOrderSuccess()</code> / <code>updateDepositOrderFailed()</code>，自己寫入 <code>orders.status</code>：GMPay（<span class="mono">GMPay/DepositCallback.php:120</span>）、MajesticPay（<span class="mono">MajesticPay/DepositCallback.php:111</span>）、TngPin（<span class="mono">TngPin/DepositCallback.php:265</span> 成功、<span class="mono">:275</span> 失敗），另有 CCPayment 在 <span class="mono">CCPayment/DepositCallback.php:250</span> 自行寫入 4。寫入的狀態值仍是 1 / 2 / 4，流轉與上表相同；各家的判定條件見報告中心「金流商完整盤點」的「回調邏輯」一節。
+          </div>
+        </div>
+      </section>
+
+      <!-- 4 -->
+      <section id="credit" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>上分機制 <span class="st s1">1</span><span class="arrow">→</span><span class="st s3">3</span></h2>
+          <p class="desc">回調成功（status=1）後，由 <code>DepositNotifyController</code> 立即觸發加值；真正寫 <span class="st s3">3 DEPOSIT_FINISHED</span> 在 <code>PaymentService</code> 內完成。</p>
+        </div>
+        <div class="card-body">
+          <h3>觸發鏈</h3>
+          <ul class="clean">
+            <li><b>1. 回調入口</b> <span class="mono">DepositNotifyController:71</span>：呼叫 Provider <code>depositCallback()</code> → 訂單變 <span class="st s1">1</span>（或 <span class="st s4">4</span>/<span class="st s2">2</span>）。</li>
+            <li><b>2. 確認可上分</b> <span class="mono">:83</span>：僅當 <code>status === SUCCESS(1)</code> 才繼續，避免重複上分；會員在鎖分模式（<span class="mono">:86</span>）只發通知不上分。</li>
+            <li><b>3. 上分</b> <span class="mono">:91</span> <code>processSuccessfulDeposit()</code>（<span class="mono">:128</span>） → <code>PaymentService::updateMemberBalance($order)</code>。</li>
+            <li><b>4. 加值並結案</b> <span class="mono">PaymentService:209</span>：先以 <code>lockForUpdate()</code> 重取訂單（<span class="mono">:98</span>），更新餘額、寫 <code>TransactionLog</code>，再設 <span class="st s3">3</span> + <code>balance</code> + <code>pay_time</code> + <code>payment_cost</code>。</li>
+          </ul>
+
+          <h3>上分時的連帶寫入（皆在同一交易內）</h3>
+          <ul class="clean">
+            <li>會員餘額 / 多錢包餘額加值（<code>Common::numAdd</code>），寫 <code>TransactionLog</code> / <code>WalletTransactionLog</code>。</li>
+            <li>訂單的支付商手續費 <code>payment_cost</code>（依渠道成本與最終點數計算；回調已寫實際值的沿用）。</li>
+            <li>充值稽核流水 <code>FlowLimit</code>（依 <code>DEPOSIT_FLOW_LIMIT_RATE</code>）。</li>
+            <li>VIP 稽核流水 <code>VipFlowLimit</code>（倍數為 0 時直接 <code>CALL SP_calc_member_vip_deposit_amount</code>）。</li>
+            <li>充值獎勵 <code>CALL SP_event_deposit</code>；若為首充再 <code>CALL SP_event_invite_deposit</code> 發下線獎金。</li>
+          </ul>
+
+          <div class="callout">
+            <b>代理 vs 會員</b>：<code>order->agent_id &gt; 0</code> 時，<code>updateMemberBalance()</code> 在 <span class="mono">PaymentService:83</span> 轉交 <code>updateAgentBalance()</code>（<span class="mono">:336</span>，加值後同樣設 <span class="st s3">3</span>，<span class="mono">:403</span>）；會員留在 <code>updateMemberBalance()</code>。兩者各自管理獨立交易並 <code>lockForUpdate()</code>。
+          </div>
+        </div>
+      </section>
+
+      <p style="text-align:center; color:var(--faint); font-size:12px; margin:34px 0 10px">
+        代收訂單 status 生命週期報告 · 產生於 2026-10-07 · 資料源：APIs（OrderService、DepositCallbackTrait、PaymentService、DepositNotifyController、AutoDepositController）+ API_Agent（OrderController 的 reviewOrder、manualDeposit、resetStatus）原始碼追蹤
+      </p>
+
+    </div>
+  </div>
+</div>
+
+<script>
+  const links=[...document.querySelectorAll('.menu a')];
+  const map=new Map(links.map(a=>[a.getAttribute('href').slice(1),a]));
+  const obs=new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ links.forEach(l=>l.classList.remove('active')); map.get(e.target.id)?.classList.add('active'); }});
+  },{rootMargin:'-45% 0px -50% 0px'});
+  document.querySelectorAll('section[id]').forEach(s=>obs.observe(s));
+</script>
+</body>
+</html>

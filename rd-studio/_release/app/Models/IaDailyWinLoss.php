@@ -1,0 +1,57 @@
+<?php
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class IaDailyWinLoss extends Model
+{
+    protected $fillable = [
+        'rowID',
+        'game_id',
+        'points_id',
+        'bonus',
+        'winner',
+        'amount',
+        'create_time',
+        'update_time',
+        'bonus_time',
+        'cancel_time',
+        'is_cancel',
+        'is_getprize',
+        'prize_status',
+        'userip',
+        'cdnip',
+        'money_type',
+        'is_change',
+        'game_type_id',
+        'odds',
+        'client_type',
+        'category_id',
+        'desc',
+        'cancel_user',
+        'currency_id',
+        'exchange_rate',
+        'show_scale',
+        'settlement_odds',
+        'prize_winner',
+        'third_mark_id',
+        'receive_status',
+        'is_champion',
+        'game_name',
+        'team_name_1',
+        'team_name_2',
+        'team_info_desc',
+        'category_type',
+        'username',
+        'team_points',
+        'team_name',
+        'event_id',
+        'user_points',
+        'win_lose',
+        'order_id',
+        'game_start_time',
+        'point_start_time',
+        'event_name',
+        'utc_update_time',
+    ];
+}

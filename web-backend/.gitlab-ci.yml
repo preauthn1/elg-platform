@@ -1,0 +1,42 @@
+variables:
+  DEV_GCR_PATH: example.invalid/tp-wz3-rd
+  ONLINE_GCR_PATH: example.invalid/tp-wz3-rd
+stages:
+  - build-docker
+  - deploy-dev
+
+Build Docker:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:latest
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - docker:18.09.7-dind
+  only:
+    - master
+  before_script:
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://example.invalid < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest || true
+  script:
+    - docker build -f server-build-online/Dockerfile-php -t ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest --cache-from ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest .
+    - docker tag ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:${CI_PIPELINE_ID}
+    - docker push ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest
+    - docker push ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:${CI_PIPELINE_ID}
+Deploy Dev:
+  stage: deploy-dev
+  image: alpine/helm
+  tags:
+    - php
+  only:
+    - develop
+    - master
+  script:
+    - echo "Deploy dev start ..."
+    - helm upgrade web-backend ./helm --install --namespace target-dev
+      --set image.tag=${CI_PIPELINE_ID}
+    - echo "Deploy dev completed!"

@@ -1,0 +1,9 @@
+{
+  "$schema": "https://example.invalid/tsconfig",
+  "extends": "@vben/tsconfig/web.json",
+  "compilerOptions": {
+    "types": ["vite/client", "@vben/types/global"]
+  },
+  "include": ["src"],
+  "exclude": ["node_modules"]
+}

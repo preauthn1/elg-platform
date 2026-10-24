@@ -1,0 +1,18 @@
+.mysql_service:
+  services: &mysql_service
+    - name: mysql:8.0.29
+      alias: mysql
+      command: ["mysqld", "--port=3307"]
+
+.redis_service:
+  services: &redis_service
+    - name: redis:6.2.12-alpine
+      alias: redis
+
+# 避免合併錯誤
+.combine_service: &combine_service
+  - *mysql_service
+  - *redis_service
+
+.default_service:
+  services: *combine_service

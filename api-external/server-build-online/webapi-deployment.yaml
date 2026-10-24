@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ext-webapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: ext-webapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ext-webapi
+    spec:
+      terminationGracePeriodSeconds: 10    
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: ext-nginx-container
+          image: "example.invalid/tp-wz3-online/ext-webapi-nginx-image:4a5b5d6"
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: 300Mi
+            requests:
+              cpu: 100m 
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: ext-fluentd-container
+          image: "example.invalid/tp-wz3-online/ext-webapi-fluentd-image:4a5b5d6"
+          resources:
+            limits:
+              memory: 300Mi
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: ext-webapi-container
+          image: "example.invalid/tp-wz3-online/ext-webapi-image:4a5b5d6"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          resources:
+            limits:
+              memory: 300Mi
+            requests:
+              cpu: 100m 
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; php artisan migrate; chmod -R 777 storage"]

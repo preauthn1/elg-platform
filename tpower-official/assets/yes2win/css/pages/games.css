@@ -1,0 +1,685 @@
+/* 遊戲內容 /games（樣板 pages/games.njk；互動 assets/js/games.js；分類圖示 partials/icons-games.njk）。漸層色標刻意不在 0%／100%，是照設計稿換算的。 */
+
+/* ---------- 首屏 ---------- */
+@media (min-width: 768px) {
+  .games-page .hero-copy .hero-actions { margin-top: calc(34 * var(--u)); }
+  .games-page .hero-copy { padding-left: calc(5 * var(--u)); }
+  .games-page .hero-copy .eyebrow { margin-left: calc(5 * var(--u)); }
+  .games-page .hero-copy h1 strong { margin-left: calc(6 * var(--u)); }
+  .games-page .hero-copy > p { margin-left: calc(-3 * var(--u)); }
+  .games-page .hero-copy .hero-actions { margin-left: calc(3 * var(--u)); }
+}
+@media (max-width: 767px) {
+  .games-page .hero-no-media { padding-top: calc(50 * var(--u)); }
+  .games-page .hero-no-media > .shell-wide { padding-left: calc(15 * var(--u)); }
+  /* 字級只放大中文（en/ms 放大會把 Everything 從中間拆開） */
+  html[lang^="zh"] .games-page .hero-copy h1 { font-size: max(48px, calc(72 * var(--u))); }
+  html[lang^="zh"] .games-page .hero-copy h1 strong { font-size: max(36px, calc(55 * var(--u))); }
+  .games-page .hero-copy h1 strong { margin: calc(.5 * var(--u)) 0 0 calc(3 * var(--u)); }
+  .games-page .hero-copy > p { margin: calc(14 * var(--u)) 0 0 calc(-4 * var(--u)); }
+  .games-page .hero-copy .hero-actions { margin: calc(50 * var(--u)) 0 0 calc(8 * var(--u)); }
+}
+@media (min-width: 400px) and (max-width: 767px) {
+  html[lang^="zh"] .games-page .hero-copy > p { max-width: none; margin-right: -15px; font-size: max(11px, calc(12 * var(--u))); }
+  html[lang^="zh"] .games-page .hero-copy > p br { display: inline; }
+}
+
+.games-providers .section-title h2 strong,
+.games-ecosystem-section .section-title h2 strong,
+.games-page .cta-band .section-title h2 strong { font-weight: 600; }
+
+/* ========== 1. GAME PROVIDERS ========== */
+.games-providers {
+  position: relative;
+  padding-block: calc(115 * var(--u)) calc(187 * var(--u));
+  background: linear-gradient(168.3deg, #000 47.2%, #005200 153.7%);
+}
+.games-providers .section-title { margin-bottom: calc(36 * var(--u)); }
+
+/* 篩選列用共用 .filter-tabs */
+
+/* 卡片區比站寬 .shell 寬 */
+.provider-board {
+  width: min(calc(1580 * var(--u)), 100% - 2 * var(--gutter));
+  margin: calc(100.5 * var(--u)) auto 0;
+}
+
+/* 兩欄、先直後橫；--rows 由樣板／games.js 給 */
+.provider-wall {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(var(--rows, 4), auto);
+  grid-auto-flow: column;
+  column-gap: calc(33.8 * var(--u));
+  row-gap: calc(35.8 * var(--u));
+}
+
+.provider-card {
+  position: relative;
+  isolation: isolate;
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+  min-height: calc(253.2 * var(--u));
+  padding: calc(27 * var(--u)) 47% calc(29.2 * var(--u)) calc(50 * var(--u));
+  /* 白框也用同方向的漸層（border-box 那層）：右上清楚、往左下淡掉 */
+  --edge: #fff;
+  border: 1px solid transparent;
+  border-radius: var(--r-17);
+  background:
+    linear-gradient(-130.1deg, rgb(13 12 14 / 0) 27.9%, #0b0a0c 57.2%) padding-box,
+    linear-gradient(-170.5deg, #005200 -24.7%, #000 40.3%) padding-box,
+    linear-gradient(-130.1deg, var(--edge) 27.9%, #0b0a0c 57.2%) border-box;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+/* 左緣綠色直向光條 */
+.provider-card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: calc(25.6 * var(--u));
+  bottom: calc(23.4 * var(--u));
+  width: max(2px, calc(7.4 * var(--u)));
+  background: var(--g-glow-bar);
+  pointer-events: none;
+}
+.provider-card:hover {
+  transform: translateY(-3px);
+  --edge: var(--c-lime-1);
+  box-shadow: 0 0 0 1px rgb(0 255 0 / .35), 0 14px 36px rgb(0 255 0 / .12);
+}
+
+/* SLOT＋电子游戏（同一行） */
+.provider-type {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 calc(10 * var(--u));
+  line-height: 1;
+  color: var(--c-neon);
+}
+/* 中文間距收到 0（Montserrat 的 SLOT 較寬）；英文留間距 */
+html[lang^="zh"] .provider-type { gap: 0; }
+.provider-type b {
+  font-family: var(--font-latin);
+  font-size: max(16px, calc(30 * var(--u)));
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.provider-type small { font-size: max(11px, calc(15 * var(--u))); }
+
+.provider-card h3 {
+  max-width: 100%;
+  margin-top: calc(40 * var(--u));
+  font-family: var(--font-display);
+  /* 卡片變窄時跟著卡寬縮，FUMA GAMES 這類兩個字的名稱才不會斷行 */
+  font-size: max(20px, min(calc(46 * var(--u)), 12.9cqw));
+  font-weight: 600;
+  line-height: 1;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+.provider-desc {
+  max-width: calc(262 * var(--u));
+  margin-top: calc(3 * var(--u));
+  font-size: max(12px, calc(15 * var(--u)));
+  line-height: 1.2;
+  color: var(--c-muted-2);
+}
+/* VIEW GAMES：按鈕的 ::after 蓋滿整張卡，整張都能點 */
+.provider-action {
+  margin-top: auto;
+  padding-top: calc(19 * var(--u));
+  font-family: var(--font-latin);
+  font-size: max(12px, calc(21 * var(--u)));
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .01em;
+  color: var(--c-neon);
+  text-align: left;
+}
+.provider-action::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: inherit;
+}
+.provider-action:focus-visible { outline: none; }
+.provider-card:has(.provider-action:focus-visible) { outline: 2px solid var(--c-neon); outline-offset: 3px; }
+
+/* Logo 區 */
+.provider-logo-box {
+  position: absolute;
+  left: 74.25%;
+  top: 50%;
+  display: grid;
+  place-items: center;
+  width: min(calc(300 * var(--u)), 42%);
+  height: min(calc(230 * var(--u)), 92%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+.provider-logo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: contain;
+}
+/* 沒上傳 logo 時的文字 wordmark */
+.provider-wordmark {
+  font-family: var(--font-latin);
+  font-size: max(18px, calc(40 * var(--u)));
+  font-weight: 800;
+  line-height: 1.05;
+  text-align: center;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+
+/* 空狀態（分類底下沒有遊戲商） */
+.provider-empty {
+  display: grid;
+  justify-items: center;
+  gap: calc(14 * var(--u));
+  min-height: calc(253.2 * var(--u));
+  align-content: center;
+  padding: calc(40 * var(--u)) calc(32 * var(--u));
+  border: 1px solid var(--c-line-3);
+  border-radius: var(--r-17);
+  background: linear-gradient(180deg, #001f00 0%, #000 70%);
+  text-align: center;
+}
+.provider-empty .icon { width: calc(86 * var(--u)); height: calc(86 * var(--u)); color: var(--c-neon); }
+.provider-empty h3 {
+  font-family: var(--font-display);
+  font-size: max(20px, calc(36 * var(--u)));
+  font-weight: 900;
+  line-height: 1.2;
+}
+.provider-empty p { max-width: 36em; font-size: max(13px, calc(18 * var(--u))); line-height: 1.6; color: var(--c-muted-2); }
+
+/* 遊戲商彈窗（games.js 在 backdrop 加 .provider-modal） */
+.provider-modal .modal-logo {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: none;
+  height: clamp(110px, calc(170 * var(--u)), 170px);
+  max-height: none;
+  margin: calc(18 * var(--u)) 0 calc(6 * var(--u));
+  padding: 12px;
+  object-fit: contain;
+  object-position: center;
+  border: 1px solid var(--c-line);
+  border-radius: var(--r-12);
+  background: radial-gradient(closest-side, rgb(0 82 0 / .5), rgb(0 0 0 / 0)) #050605;
+}
+
+/* ========== 2. FEATURED PROVIDERS ========== */
+.games-featured {
+  position: relative;
+  padding-block: calc(141 * var(--u)) calc(198 * var(--u));
+  background: #000;
+}
+.games-featured .section-title { margin-bottom: calc(57 * var(--u)); padding-left: calc(9 * var(--u)); }
+
+.featured-provider-list { display: grid; gap: calc(34 * var(--u)); }
+
+/* 卡片 */
+.featured-provider {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 833fr) minmax(0, 592fr);
+  grid-template-areas: "visual copy";
+  column-gap: calc(59 * var(--u));
+  align-items: start;
+  padding: calc(26 * var(--u) - 1px);
+  border: 1px solid var(--c-neon);
+  border-radius: calc(34 * var(--u));
+  background: linear-gradient(147.4deg, #005200 -3%, #000 84.8%);
+}
+.featured-provider-visual {
+  grid-area: visual;
+  overflow: hidden;
+  aspect-ratio: 833 / 401;
+  border: 1px solid var(--c-gray);
+  border-radius: var(--r-21);
+  background: #050505;
+}
+.featured-provider-visual img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  transition: transform .5s ease;
+}
+.featured-provider:hover .featured-provider-visual img { transform: scale(1.045); }
+
+.featured-provider-copy {
+  grid-area: copy;
+  container-type: inline-size;
+  min-width: 0;
+  padding-top: calc(36 * var(--u) + 1px);
+}
+.featured-provider-meta {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 calc(8 * var(--u));
+  line-height: 1;
+  color: var(--c-neon);
+}
+.featured-provider-meta b {
+  font-family: var(--font-latin);
+  font-size: max(15px, calc(28 * var(--u)));
+  font-weight: 700;
+}
+.featured-provider-meta small { font-size: max(12px, calc(20 * var(--u))); font-weight: 700; }
+
+/* 名稱：欄寬不夠時跟著欄寬縮 */
+.featured-provider-copy h3 {
+  margin-top: calc(33.6 * var(--u));
+  font-family: var(--font-latin);
+  font-size: min(calc(118 * var(--u)), 18.6cqw);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: #fff;
+  overflow-wrap: anywhere;
+}
+.featured-provider-desc {
+  margin-top: calc(1 * var(--u));
+  font-size: max(13px, calc(16 * var(--u)));
+  line-height: 1.2;
+  color: #fff;
+}
+/* 標籤（長字自動變寬、放不下換行） */
+.featured-provider .featured-provider-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(10 * var(--u));
+  margin-top: calc(85 * var(--u));
+}
+.featured-provider-tags li {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(174 * var(--u));
+  min-height: calc(48 * var(--u));
+  padding: calc(4 * var(--u)) calc(18 * var(--u));
+  border-radius: var(--r-pill);
+  background: linear-gradient(180deg, #e1f5a9 0%, #9ecf7e 100%);
+  font-size: max(12px, calc(20 * var(--u)));
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--c-green);
+  white-space: nowrap;
+}
+/* 右上指示燈只有手機稿有 */
+.featured-provider-led { display: none; }
+
+/* ========== 3. GROWING ECOSYSTEM ==========
+   ≥768 用 --k（＝圖寬 / 1416）：圖寬跟著容器縮，平板不會溢出。 */
+.games-ecosystem-section {
+  position: relative;
+  padding-block: calc(152 * var(--u)) calc(73 * var(--u));
+  background: linear-gradient(15.2deg, #000 51.6%, #005200 149.6%);
+}
+.games-ecosystem-section .section-title { position: relative; z-index: 1; margin-bottom: calc(-28 * var(--u)); }
+/* 說明換行處的逗號：電腦沒有、手機有 */
+@media (min-width: 768px) { .games-ecosystem-section .nl-comma { display: none; } }
+
+.games-ecosystem {
+  container-type: inline-size;
+  width: min(calc(1416 * var(--u)), 100%);
+  margin-inline: auto;
+}
+.eco-stage {
+  --k: calc(100cqw / 1416);
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  align-content: center;
+  min-height: calc(948 * var(--k));
+}
+.eco-glow,
+.eco-ring,
+.eco-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+/* 底光 */
+.eco-glow {
+  z-index: 0;
+  width: calc(1336 * var(--k));
+  height: calc(948 * var(--k));
+  background: radial-gradient(closest-side, #005200 0%, #000 88.1%);
+}
+/* 外圓 */
+.eco-ring {
+  z-index: 1;
+  width: calc(750 * var(--k));
+  height: calc(750 * var(--k));
+  border: 1px solid var(--c-neon);
+  background: radial-gradient(closest-side, #00ff00 0%, #000 100%);
+}
+/* 內圓 */
+.eco-core {
+  z-index: 3;
+  width: calc(606 * var(--k));
+  height: calc(606 * var(--k));
+  border: 1px solid #fff;
+  background: radial-gradient(closest-side, #005200 0%, #000 100%);
+}
+.eco-core img {
+  position: absolute;
+  left: calc(37.5 * var(--k));
+  top: calc(149 * var(--k));
+  width: calc(545 * var(--k));
+  max-width: none;
+  height: auto;
+}
+.eco-core small {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(375 * var(--k));
+  font-family: var(--font-latin);
+  font-size: max(12px, calc(29 * var(--k)));
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .01em;
+  text-align: center;
+  text-transform: uppercase;
+  color: #fff;
+}
+
+/* 三列節點 */
+.eco-rows {
+  position: relative;
+  display: grid;
+  gap: calc(79.5 * var(--k));
+}
+.eco-row {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+/* 列中線：在外圓之上、內圓之下 */
+.eco-row::before {
+  content: "";
+  position: absolute;
+  z-index: 2;
+  left: 50%;
+  top: 50%;
+  width: calc(829 * var(--k));
+  height: max(1px, calc(5 * var(--k)));
+  transform: translate(-50%, -50%);
+  background: linear-gradient(89.7deg, rgb(0 255 0 / 0) 0%, #00ff00 52.2%, rgb(0 255 0 / 0) 101.8%);
+  pointer-events: none;
+}
+/* 節點 */
+.eco-node {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: calc(14 * var(--k));
+  width: calc(315 * var(--k));
+  min-height: calc(140 * var(--k));
+  padding: 0 calc(10 * var(--k)) calc(9 * var(--k)) calc(29 * var(--k));
+  border: 1px solid rgb(0 255 0 / .85);
+  border-radius: calc(7 * var(--k));
+  background: linear-gradient(180deg, #000 0%, #005200 228.1%);
+}
+.eco-node > .icon {
+  width: calc(86 * var(--k));
+  height: calc(86 * var(--k));
+  color: var(--c-neon);
+}
+.eco-node > span { display: grid; gap: calc(1.3 * var(--k)); min-width: 0; }
+.eco-node b {
+  font-family: var(--font-latin);
+  font-size: max(14px, calc(40 * var(--k)));
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+.eco-node small {
+  font-size: max(12px, calc(28 * var(--k)));
+  font-weight: 500;
+  line-height: 1;
+  color: #fff;
+}
+
+/* ========== 4. 768–1279：卡片牆 1024 以下改單欄 ========== */
+/* 1024–1279 兩欄卡片比較窄：文字欄多給一點（FUMA GAMES 不換行），logo 框跟著收 */
+@media (max-width: 1279px) {
+  .provider-card { padding-right: 44%; }
+  .provider-logo-box { width: min(calc(300 * var(--u)), 38%); }
+}
+@media (min-width: 768px) and (max-width: 1023px) {
+  .provider-wall {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+  }
+  .provider-card { padding-right: 46%; }
+  .featured-provider .featured-provider-tags { margin-top: calc(48 * var(--u)); }
+}
+
+/* ========== 5. 手機（≤767） ========== */
+@media (max-width: 767px) {
+
+  /* 標題字級各區不同，而且要一行放得下 */
+  .games-providers .section-title > span,
+  .games-ecosystem-section .section-title > span { font-size: max(13px, calc(15 * var(--u))); }
+
+  /* ---------- GAME PROVIDERS ---------- */
+  .games-providers {
+    padding-block: calc(2 * var(--u)) calc(93 * var(--u));
+    background: linear-gradient(172deg, #000 62.4%, #005200 152.2%) bottom / 100% calc(367 * var(--u)) no-repeat, #000;
+  }
+  .games-providers .section-title { margin-bottom: calc(14 * var(--u)); }
+  .games-providers .section-title h2 { font-size: max(28px, calc(46 * var(--u))); }
+  /* 英文／馬來文有長單字（Menghimpunkan），縮小才不會從中間拆開 */
+  html:not([lang^="zh"]) .games-providers .section-title h2 { font-size: max(26px, calc(40 * var(--u))); }
+  .games-providers .section-title h2 strong { margin-top: calc(7 * var(--u)); font-size: max(18px, calc(23 * var(--u))); }
+
+  .games-providers .section-title p { margin-top: calc(3.3 * var(--u)); font-size: 11px; line-height: 1.3; }
+
+  /* 篩選列：放不下就橫向捲動（共用） */
+  .games-providers .provider-tabs { width: 100%; }
+  .games-providers .provider-tabs > button {
+    min-width: 0;
+    padding: 0 calc(5.5 * var(--u));
+    font-size: max(11px, calc(10 * var(--u)));
+  }
+  .games-providers .provider-tabs > button.active { min-width: calc(92 * var(--u)); }
+  /* 中文照稿排：未選項不均分 */
+  html[lang^="zh"] .games-providers .provider-tabs {
+    width: calc(399 * var(--u));
+    max-width: none;
+    min-height: calc(35 * var(--u));
+    margin: 0 0 0 calc(21 * var(--u) - var(--gutter));
+    padding: calc(1.2 * var(--u)) calc(1.5 * var(--u));
+    gap: 0;
+  }
+  html[lang^="zh"] .games-providers .provider-tabs > button { flex: 0 0 calc(55 * var(--u)); padding: 0; }
+  html[lang^="zh"] .games-providers .provider-tabs > button.active { flex-basis: calc(92 * var(--u)); margin-right: calc(10 * var(--u)); }
+  html[lang^="zh"] .games-providers .provider-tabs > button:not(.active):first-child { margin-right: calc(10 * var(--u)); }
+
+  .provider-board { width: auto; margin: calc(18 * var(--u)) calc(24.7 * var(--u)) 0; }
+  .provider-wall {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: none;
+    grid-auto-flow: row;
+    gap: calc(28.3 * var(--u));
+  }
+
+  .provider-card {
+    min-height: calc(124.7 * var(--u));
+    padding: calc(13 * var(--u)) calc(165 * var(--u)) calc(16.4 * var(--u)) calc(24.6 * var(--u));
+  }
+  .provider-card::before {
+    top: calc(12.6 * var(--u));
+    bottom: calc(11.6 * var(--u));
+    width: max(2px, calc(3.7 * var(--u)));
+  }
+  .provider-card:hover { transform: none; }
+  .provider-type b { font-size: max(13px, calc(14 * var(--u))); }
+  html[lang^="zh"] .provider-type { gap: 0 calc(6 * var(--u)); }
+  .provider-type small { font-size: 11px; }
+  .provider-card h3 { margin-top: calc(6.2 * var(--u)); font-size: max(18px, calc(22 * var(--u))); }
+  /* 行高照稿，卡高才維持 */
+  .provider-desc { max-width: none; margin-top: calc(10 * var(--u)); font-size: 11px; line-height: calc(12 * var(--u)); }
+  .provider-action { padding-top: calc(4.5 * var(--u)); font-size: 11px; }
+  .provider-logo-box {
+    left: 74.3%;
+    width: min(calc(150 * var(--u)), 42%);
+    height: min(calc(115 * var(--u)), 90%);
+  }
+  .provider-wordmark { font-size: max(15px, calc(20 * var(--u))); }
+  .provider-empty { min-height: calc(124.7 * var(--u)); padding: calc(24 * var(--u)) calc(16 * var(--u)); }
+  .provider-empty .icon { width: calc(44 * var(--u)); height: calc(44 * var(--u)); }
+
+  /* ---------- FEATURED PROVIDERS ---------- */
+  .games-featured {
+    padding-block: calc(20 * var(--u)) calc(86 * var(--u));
+    background: linear-gradient(172deg, #000 62.4%, #005200 152.2%) bottom / 100% calc(367 * var(--u)) no-repeat, #000;
+  }
+  .games-featured .section-title { margin-bottom: calc(25 * var(--u)); padding-left: calc(27.5 * var(--u)); }
+  .games-featured .section-title > span { font-size: max(13px, calc(17 * var(--u))); }
+  .games-featured .section-title h2 { font-size: max(32px, calc(53 * var(--u))); }
+  .games-featured .section-title h2 strong { font-size: max(18px, calc(27 * var(--u))); }
+  .games-featured .section-title p { margin-top: calc(12.8 * var(--u)); }
+
+  .featured-provider-list { gap: calc(20 * var(--u)); padding-inline: calc(10.5 * var(--u)); }
+  .featured-provider {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: "copy" "visual";
+    column-gap: 0;
+    overflow: hidden;
+    padding: 0;
+    border-radius: var(--r-12);
+    background: linear-gradient(332.4deg, #141414 55.3%, #000 86.2%);
+  }
+  .featured-provider-copy { min-height: calc(190 * var(--u)); padding: calc(16 * var(--u)) calc(19 * var(--u)) calc(24 * var(--u)); }
+  html[lang^="zh"] .featured-provider-meta { gap: 0 calc(2 * var(--u)); }
+  .featured-provider-meta b { font-family: var(--font-lt); font-size: max(13px, calc(15 * var(--u))); font-weight: 400; }
+  .featured-provider-meta small { font-size: 11px; }
+  .featured-provider-copy h3 { margin-top: calc(19 * var(--u)); font-family: var(--font-lt); font-size: min(calc(50 * var(--u)), 16cqw); font-weight: 600; letter-spacing: 0; }
+  .featured-provider-desc { margin-top: calc(4 * var(--u)); font-size: 11px; font-weight: 300; }
+  .featured-provider .featured-provider-tags { gap: calc(5 * var(--u)); margin-top: calc(18 * var(--u)); }
+  .featured-provider-tags li {
+    min-width: calc(78 * var(--u));
+    min-height: calc(26 * var(--u));
+    padding: calc(2 * var(--u)) calc(10 * var(--u));
+    font-size: 11px;
+    font-weight: 400;
+  }
+  /* 圖貼卡底（下方兩角跟著卡片圓角） */
+  .featured-provider-visual { aspect-ratio: 364 / 189; border: 0; border-radius: 0; }
+  .featured-provider:hover .featured-provider-visual img { transform: none; }
+  /* 右上指示燈；第 3 張是熄燈，卡框也是暗的 */
+  .featured-provider-led {
+    display: block;
+    position: absolute;
+    top: calc(8 * var(--u));
+    right: calc(8 * var(--u));
+    width: calc(18 * var(--u));
+    height: calc(18 * var(--u));
+    border-radius: 50%;
+    --led: #00ff00;
+    border: .5px solid #f83f3d;
+    background: radial-gradient(closest-side, #3c1616 0%, var(--led) 100%);
+  }
+  .featured-provider-led::after {
+    content: "";
+    position: absolute;
+    inset: calc(1.5 * var(--u));
+    border-radius: 50%;
+    border: 1px solid #5e1817;
+    background: radial-gradient(closest-side, #3c1616 0%, var(--led) 100%);
+  }
+  .featured-provider:nth-child(3) .featured-provider-led { --led: #18080a; }
+  .featured-provider:nth-child(3) { border-color: #393939; }
+
+  /* ---------- GROWING ECOSYSTEM ---------- */
+  .games-ecosystem-section { padding-block: calc(54 * var(--u)) calc(26 * var(--u)); background: #000; }
+  .games-ecosystem-section .section-title { margin-bottom: calc(17.5 * var(--u)); }
+  .games-ecosystem-section .section-title h2 { font-size: max(28px, calc(38 * var(--u))); }
+  .games-ecosystem-section .section-title h2 strong { margin-top: calc(8 * var(--u)); font-size: max(18px, calc(23 * var(--u))); }
+
+  .games-ecosystem { container-type: normal; width: min(calc(374 * var(--u)), 100%); }
+  .eco-stage { min-height: calc(250 * var(--u)); }
+  .eco-glow { width: calc(353 * var(--u)); height: calc(250 * var(--u)); }
+  /* 節點有 92px 下限，窄螢幕（<400）圓環跟著縮，不然會壓到中間的 logo；內圓內容用 cqw 排 */
+  .eco-ring,
+  .eco-core { height: auto; aspect-ratio: 1; }
+  .eco-ring { width: min(calc(198 * var(--u)), 100% - 2 * max(calc(83 * var(--u)), 86px) + 6px); }
+  .eco-core {
+    container-type: inline-size;
+    width: min(calc(160 * var(--u)), (100% - 2 * max(calc(83 * var(--u)), 86px) + 6px) * .808);
+  }
+  .eco-core img { left: 5.94cqw; top: 24.4cqw; width: 90cqw; }
+  .eco-core small { top: 60.6cqw; padding-inline: 4px; font-size: 11px; line-height: 1.1; letter-spacing: 0; }
+  .eco-rows { gap: calc(21 * var(--u)); }
+  .eco-row::before { width: calc(219 * var(--u)); height: max(1px, calc(1.5 * var(--u))); }
+  .eco-node {
+    gap: calc(5 * var(--u));
+    width: max(calc(83 * var(--u)), 80px);
+    min-height: calc(37 * var(--u));
+    padding: calc(4 * var(--u)) calc(2 * var(--u)) calc(4 * var(--u)) calc(9 * var(--u));
+    border-radius: calc(7 * var(--u));
+  }
+  .eco-node > .icon { flex: none; width: calc(21 * var(--u)); height: calc(21 * var(--u)); }
+  /* 馬來文單字長：最長的字放不下就讓節點變寬幾 px，不斷字、不超出框 */
+  .eco-node { min-width: min-content; gap: calc(5 * var(--u)); }
+  /* 英文／馬來文的分類名長：節點維持 95 寬、整組滿寬，圓環照比例收 */
+  html:not([lang^="zh"]) .games-ecosystem { width: auto; }
+  html:not([lang^="zh"]) .eco-node { width: max(calc(95 * var(--u)), 92px); padding-inline: calc(6 * var(--u)) calc(4 * var(--u)); gap: calc(4 * var(--u)); }
+  html:not([lang^="zh"]) .eco-ring { width: min(calc(198 * var(--u)), 100% - 2 * max(calc(95 * var(--u)), 92px) + 6px); }
+  html:not([lang^="zh"]) .eco-core { width: min(calc(160 * var(--u)), (100% - 2 * max(calc(95 * var(--u)), 92px) + 6px) * .808); }
+  .eco-node > span { gap: 1px; }
+  .eco-node b { font-size: 10px; line-height: 1.1; }
+  .eco-node small { font-size: 11px; font-weight: 400; line-height: 1.15; }
+
+  /* ---------- 收尾帶：本頁比共用的手機版高 ---------- */
+  .games-page .cta-band-inner { padding-block: calc(77 * var(--u)) calc(51 * var(--u)); }
+  .games-page .cta-band { margin-bottom: calc(26 * var(--u)); }
+  .games-page .cta-band .section-title { margin-bottom: calc(51 * var(--u)); }
+  .games-page .cta-band .section-title > span { font-size: max(13px, calc(17 * var(--u))); }
+  .games-page .cta-band .section-title h2 { margin-top: calc(2 * var(--u)); font-size: max(36px, calc(56 * var(--u))); line-height: 1; }
+  .games-page .cta-band .section-title h2 strong { margin-top: calc(6 * var(--u)); font-size: max(20px, calc(29 * var(--u))); line-height: 1.15; }
+  .games-page .cta-band .section-title p { margin-top: calc(13 * var(--u)); line-height: 1.33; }
+  /* 紋理：本頁帶子框位置不同，圖跟著左移 */
+  .games-page .cta-band-wave { left: calc(-161.7 * var(--u)); }
+}
+
+/* ========== 字型指派：放檔尾蓋過上面同特異度的規則；電腦才有的字重包在 ≥768，免得蓋掉手機段 ========== */
+.eco-core small { font-family: var(--font-sj); }
+/* 遊戲商卡名稱不換行，字級上限跟著文字欄寬收（兰亭的拉丁字較寬，FUMA GAMES 會斷成兩行） */
+.provider-card h3 { white-space: nowrap; overflow-wrap: normal; font-size: max(18px, min(calc(46 * var(--u)), 12.4cqw)); }
+@media (min-width: 768px) {
+  .games-featured .section-title h2 { font-weight: 600; }
+  .games-featured .section-title p { font-weight: 400; }
+  .featured-provider-desc { font-weight: 300; }
+  .featured-provider-meta small { font-family: var(--font-lt); font-weight: 400; }
+  .eco-node small { font-weight: 400; }
+}
+@media (max-width: 767px) {
+  .featured-provider-meta small { font-weight: 400; }                  /* 兰亭沒有 700 */
+}
+/* Lantinghei SC Extralight → 400（見 site.css 檔尾） */
+.provider-desc { font-weight: 400; }

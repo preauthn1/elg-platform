@@ -1,0 +1,59 @@
+{
+    "name": "mockery/mockery",
+    "description": "Mockery is a simple yet flexible PHP mock object framework",
+    "scripts": {
+        "docs": "phpdoc -d library -t docs/api"
+    },
+    "keywords": [
+        "bdd",
+        "library",
+        "mock",
+        "mock objects",
+        "mockery",
+        "stub",
+        "tdd",
+        "test",
+        "test double",
+        "testing"
+    ],
+    "homepage": "https://example.invalid/mockery/mockery",
+    "license": "BSD-3-Clause",
+    "authors": [
+        {
+            "name": "Pádraic Brady",
+            "email": "user@example.invalid",
+            "homepage": "http://example.invalid"
+        },
+        {
+            "name": "Dave Marshall",
+            "email": "user@example.invalid",
+            "homepage": "http://example.invalid.uk"
+        }
+    ],
+    "require": {
+        "php": "^7.3.0",
+        "lib-pcre": ">=7.0",
+        "hamcrest/hamcrest-php": "~2.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.0.0 || ^9.0.0"
+    },
+    "conflict": {
+        "phpunit/phpunit": "<8.0"
+    },
+    "autoload": {
+        "psr-0": {
+            "Mockery": "library/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "test\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.4.x-dev"
+        }
+    }
+}

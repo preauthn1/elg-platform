@@ -1,0 +1,1784 @@
+/* YES2WIN 全站共用樣式；單頁樣式在 assets/css/pages/<頁>.css，由該頁樣板的 {% block styles %} 掛。
+   設計尺寸寫成 calc(<設計 px> * var(--u))：≥768 對 1920 稿、≤767 對 430 稿。 */
+
+/* ---------- 字型：Montserrat（只放 400 一個檔、宣告成 100 900，不合成粗體）。⚠ 檔名不帶版號（/assets/ 一年 immutable 快取），換字型要換檔名 ---------- */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/montserrat-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+/* 兰亭的 · 是全形寬；要窄 · 的元素用 --font-lt-narrowdot */
+@font-face {
+  font-family: 'Y2W Narrow Dot';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/montserrat-latin-400-normal.woff2') format('woff2');
+  unicode-range: U+00B7;
+}
+
+/* ---------- 字型：設計稿原字型（自架、切成小包） ----------
+   第一包（00-*）宣告在最前面：重疊的 unicode-range 是「後宣告的先查」，其餘小包在 fonts-cjk.css。
+   由 scratchpad/fontwork/build.mjs 產生（會覆寫下面 begin/end 之間、fonts-cjk.css 與 layout.njk 的預載段）。 */
+/* cjkfonts:begin —— 由 scratchpad/fontwork/build.mjs 產生，別手改（重跑會覆寫） */
+@font-face {
+  font-family: 'SJchaocujihei';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('../fonts/sanji/all/00-4067cefb.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'FZ LanTingHei';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url('../fonts/lanting/300/00-8c022ff4.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'FZ LanTingHei';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/lanting/400/00-936245a3.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'FZ LanTingHei';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/lanting/500/00-dbb72ccb.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'FZ LanTingHei';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('../fonts/lanting/600/00-8334e1c2.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'FZ LanTingHei';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../fonts/lanting/900/00-641b891f.woff2') format('woff2');
+  unicode-range: U+20-7E, U+A0-FF, U+2010-2027, U+2030-203A, U+20AC, U+2122, U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 3.0';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/puhuiti/400/00-8f631973.woff2') format('woff2');
+  unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 3.0';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/puhuiti/500/00-96b8ca0e.woff2') format('woff2');
+  unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 3.0';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url('../fonts/puhuiti/700/00-414ba848.woff2') format('woff2');
+  unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+@font-face {
+  font-family: 'Alibaba PuHuiTi 3.0';
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url('../fonts/puhuiti/900/00-d959b815.woff2') format('woff2');
+  unicode-range: U+3000-303F, U+3400-4DBF, U+4E00-9FFF, U+F900-FAFF, U+FE10-FE1F, U+FE30-FE4F, U+FF00-FFEF;
+}
+/* cjkfonts:end */
+
+/* ========== 1. Token =[REDACTED] */
+:root {
+  /* ---- 色彩 ---- */
+  --c-bg: #000;
+  --c-neon: #00ff00;
+  --c-green: #005200;
+  --c-green-2: #004300;
+  --c-lime-1: #e1f5a9;
+  --c-lime-2: #9ecf7e;
+  --c-ink-1: #0b0a0c;
+  --c-ink-2: #0c0b0d;
+  --c-ink-3: #0e0e10;
+  --c-line: #222224;
+  --c-line-2: #272628;
+  --c-line-3: #495541;
+  --c-line-4: #393939;
+  --c-text: #fff;
+  --c-text-2: #eee;
+  --c-muted: #9b9b9b;
+  --c-muted-2: #8a8a93;
+  --c-dim: #585858;
+  --c-gray: #707070;
+  --c-divider: #6b6b6b;
+
+  /* ---- 漸層：色標刻意放在 0%～100% 之外或不從 0% 開始，是照設計稿換算的，不是打錯 ---- */
+  --g-lime: linear-gradient(178deg, #e1f5a9 -55%, #9ecf7e 120%);
+  --g-lime-pill: linear-gradient(179deg, #e1f5a9 -40%, #9ecf7e 110%);
+  --g-lime-chip: linear-gradient(0deg, #e1f5a9 -84.7%, #9ecf7e 132.3%);
+  --g-lime-flat: linear-gradient(0deg, #e1f5a9 -14.5%, #9ecf7e 177%);
+  --g-nav: linear-gradient(-5deg, #9ecf7e -4%, #e1f5a9 138%);
+  --g-section: linear-gradient(173deg, #000 0%, #005200 100%);
+  --g-card: linear-gradient(180deg, #005200 0%, #0b0a0c 100%);
+  --g-card-2: linear-gradient(180deg, #004300 0%, #0b0a0c 100%);
+  --g-card-h: linear-gradient(91deg, #005200 0%, #000 100%);
+  --g-glow-card: linear-gradient(186deg, #002400 0%, #000 42%);
+  --g-panel: linear-gradient(162deg, #000 50%, #002c00 100%);
+  --g-panel-more: linear-gradient(124deg, #000 40%, #001f00 100%);
+  --g-modal: linear-gradient(211deg, #003a00 0%, #001500 42%, #000 58%);
+  --g-light: linear-gradient(158deg, #fff 35.3%, #9ecf7e 133.4%);
+  --g-glow-line: linear-gradient(84deg, rgb(0 255 0 / 0) 0%, #00ff00 51%, rgb(0 255 0 / 0) 100%);
+  --g-glow-bar: linear-gradient(180deg, rgb(0 255 0 / 0) 0%, #00ff00 51%, rgb(0 255 0 / 0) 100%);
+  --g-icon-tile: linear-gradient(-30deg, #005200 0%, #00ff00 100%);
+
+  /* ---- 字型 ---- */
+  /* ⚠ 兰亭沒有 700／800（寫 700 會落到 900 特黑）：兰亭只寫 300／400／500／600／900，普惠寫 400／500／700／900 */
+  --font-sys: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Source Han Sans SC", sans-serif;
+  --font-lt: "FZ LanTingHei", var(--font-sys);
+  --font-lt-narrowdot: "Y2W Narrow Dot", var(--font-lt);
+  --font-ph: "Alibaba PuHuiTi 3.0", var(--font-sys);
+  --font-sj: "SJchaocujihei", "FZ LanTingHei", var(--font-sys);
+  --font-zh: var(--font-lt);
+  --font-latin: "Montserrat", var(--font-lt);
+  --font-display: var(--font-lt);
+
+  /* ---- 縮放單位 ---- */
+  --u: clamp(0.6667px, calc(100vw / 1920), 1px);
+  --hu: var(--u);
+  --header-h: calc(115 * var(--hu) + 1px);
+
+  /* ---- 容器 ---- */
+  --container: 1536px;
+  --container-wide: 1648px;
+  --gutter: clamp(20px, 5vw, 96px);
+  --section-y: calc(125 * var(--u));
+
+  /* ---- 圓角 ---- */
+  --r-6: calc(6 * var(--u));
+  --r-8: calc(8 * var(--u));
+  --r-10: calc(10 * var(--u));
+  --r-12: calc(12 * var(--u));
+  --r-17: calc(17 * var(--u));
+  --r-21: calc(21 * var(--u));
+  --r-pill: 999px;
+
+  /* ---- 字級（手機版在 ≤767 重新指定） ---- */
+  --fs-body: max(14px, calc(18 * var(--u)));
+  --fs-hero-eyebrow: max(13px, calc(31 * var(--u)));
+  --fs-hero-title: max(48px, calc(144 * var(--u)));
+  --fs-hero-sub: max(36px, calc(110 * var(--u)));
+  --fs-hero-desc: max(13px, calc(25 * var(--u)));
+  --fs-sec-eyebrow: max(13px, calc(36 * var(--u)));
+  --fs-sec-title: max(36px, calc(107 * var(--u)));
+  --fs-sec-sub: max(18px, calc(55 * var(--u)));
+  --fs-sec-desc: max(13px, calc(25 * var(--u)));
+  --fs-card-title: max(16px, calc(36 * var(--u)));
+  --fs-card-desc: max(12px, calc(19 * var(--u)));
+  --fs-small: max(12px, calc(16 * var(--u)));
+  --fs-nav: max(13px, calc(17 * var(--hu)));
+  --fs-header-btn: max(14px, calc(23 * var(--hu)));
+  --fs-btn-cta: max(14px, calc(23 * var(--u)));
+  --fs-btn-pill: max(14px, calc(28 * var(--u)));
+  --fs-footer-title: max(14px, calc(30 * var(--u)));
+  --fs-footer-link: max(13px, calc(31 * var(--u)));
+  --fs-footer-blurb: max(12px, calc(18 * var(--u)));
+  --fs-copyright: max(11px, calc(21 * var(--u)));
+}
+
+@media (max-width: 1279px) {
+  :root {
+    --hu: 1.1px;
+    --header-h: calc(61 * var(--hu) + 1px);
+    --fs-header-btn: max(11px, calc(9 * var(--hu)));
+  }
+}
+
+@media (max-width: 767px) {
+  :root {
+    --u: clamp(0.7442px, calc(100vw / 430), 1.25px);
+    --hu: var(--u);
+    --section-y: calc(58 * var(--u));
+    --g-light: linear-gradient(158deg, #fff 47.6%, #9ecf7e 188%);
+
+    --fs-body: max(13px, calc(14 * var(--u)));
+    --fs-hero-eyebrow: max(13px, calc(15 * var(--u)));
+    --fs-hero-title: max(48px, calc(67 * var(--u)));
+    --fs-hero-sub: max(36px, calc(50 * var(--u)));
+    --fs-hero-desc: max(13px, calc(12 * var(--u)));
+    --fs-sec-eyebrow: max(13px, calc(16 * var(--u)));
+    --fs-sec-title: max(36px, calc(50 * var(--u)));
+    --fs-sec-sub: max(18px, calc(22 * var(--u)));
+    --fs-sec-desc: max(13px, calc(12 * var(--u)));
+    --fs-card-title: max(16px, calc(21 * var(--u)));
+    --fs-card-desc: max(12px, calc(10 * var(--u)));
+    --fs-small: max(12px, calc(12 * var(--u)));
+    --fs-btn-cta: max(14px, calc(15 * var(--u)));
+    --fs-btn-pill: max(13px, calc(13 * var(--u)));
+  }
+  /* 英文／馬來文的首屏大標縮小，長字才不會被折斷 */
+  :root:not(:lang(zh)) { --fs-hero-title: max(36px, calc(58 * var(--u))); }
+}
+
+/* ========== 2. Reset ========== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--c-bg);
+  scroll-padding-top: var(--header-h);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--c-bg);
+  color: var(--c-text);
+  font-family: var(--font-zh);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6, p, figure, blockquote, dl, dd { margin: 0; }
+h1, h2, h3, h4, h5, h6 { font-size: inherit; font-weight: inherit; }
+/* 包在 :where()（特異度 0）：頁面用單一 class 設清單的 margin／padding 才蓋得過 */
+:where(ul[class], ol[class]) { margin: 0; padding: 0; list-style: none; }
+
+img, picture, svg, video, canvas { display: block; max-width: 100%; }
+img, video { height: auto; }
+
+input, button, textarea, select { font: inherit; color: inherit; letter-spacing: inherit; }
+button { margin: 0; padding: 0; border: 0; background: none; cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+a, button { -webkit-tap-highlight-color: transparent; }
+summary { cursor: pointer; }
+
+:focus-visible { outline: 2px solid var(--c-neon); outline-offset: 2px; }
+[hidden] { display: none !important; }
+::selection { background: var(--c-neon); color: #000; }
+
+.sr-only {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.icon, svg.lucide { display: inline-block; flex: none; vertical-align: middle; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* ========== 3. 版面骨架與容器 ========== */
+/* 用 overflow:clip 不用 hidden：不建立捲動容器，sticky 頁首才有效 */
+.site-app { min-height: 100vh; overflow: clip; }
+
+/* main 是首屏背景圖（z-index:-1）的疊層容器：背景不會跑到頁尾後面 */
+.site-app main { position: relative; isolation: isolate; overflow: clip; }
+
+.shell {
+  width: min(var(--container), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+.shell-wide {
+  width: min(var(--container-wide), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+.content-section { position: relative; padding-block: var(--section-y); }
+
+/* ========== 4. 按鈕 ========== */
+/* 尺寸都走變數（--btn-h／--btn-px／--btn-fs／--btn-r／--btn-gap）；.cta 是舊站 class 名，等同 .btn-lime */
+.btn-lime,
+.btn-dark,
+.cta,
+.modal-action {
+  --btn-h: calc(65 * var(--u));
+  --btn-px: calc(40 * var(--u));
+  --btn-fs: var(--fs-btn-cta);
+  --btn-r: var(--r-6);
+  --btn-gap: calc(16 * var(--u));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+  min-height: var(--btn-h);
+  padding: 0 var(--btn-px);
+  border-radius: var(--btn-r);
+  font-family: var(--font-zh);
+  font-size: var(--btn-fs);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: filter .2s, background-color .2s, border-color .2s, transform .2s;
+}
+.btn-lime,
+.cta,
+.modal-action {
+  background: var(--g-lime);
+  /* 設計是 0.5px 白框；1x 螢幕畫不出 0.5px，改 1px 半透明 */
+  border: 1px solid rgb(255 255 255 / .5);
+  color: var(--c-green);
+}
+.btn-dark {
+  background: var(--c-ink-3);
+  border: 1px solid rgb(255 255 255 / .5);
+  color: #fff;
+}
+.btn-lime:hover,
+.cta:hover,
+.modal-action:hover { filter: brightness(1.06); }
+.btn-dark:hover { background: #1b1b1e; }
+
+.btn-lime > svg,
+.cta > svg {
+  width: max(9px, calc(17.2 * var(--u)));
+  height: max(13px, calc(24.6 * var(--u)));
+}
+/* 舊站樣板的 <span>→</span> */
+.cta > span { display: inline-block; }
+
+/* 膠囊 */
+.btn-lime.is-pill {
+  --btn-h: calc(83.4 * var(--u));
+  --btn-fs: var(--fs-btn-pill);
+  --btn-r: var(--r-pill);
+  min-width: calc(364 * var(--u));
+  background: var(--g-lime-pill);
+}
+/* 扁平（卡片內按鈕） */
+.btn-lime.is-flat {
+  --btn-r: var(--r-8);
+  background: var(--g-lime-flat);
+  border-color: transparent;
+}
+/* 淺色底上的膠囊 */
+.btn-lime.is-green-border { border-color: rgb(0 82 0 / .5); }
+/* 小尺寸 */
+.btn-sm {
+  --btn-h: calc(48 * var(--u));
+  --btn-px: calc(24 * var(--u));
+  --btn-fs: max(13px, calc(18 * var(--u)));
+  --btn-gap: calc(10 * var(--u));
+}
+
+@media (max-width: 767px) {
+  .btn-lime,
+  .btn-dark,
+  .cta,
+  .modal-action {
+    --btn-h: calc(48.7 * var(--u));
+    --btn-px: calc(30 * var(--u));
+    --btn-gap: calc(20 * var(--u));
+  }
+  .btn-lime > svg,
+  .cta > svg { width: calc(12.9 * var(--u)); height: calc(18.4 * var(--u)); }
+  .btn-lime.is-pill {
+    --btn-h: calc(44.5 * var(--u));
+    min-width: calc(194 * var(--u));
+  }
+  .btn-sm {
+    --btn-h: calc(36 * var(--u));
+    --btn-px: calc(16 * var(--u));
+    --btn-fs: max(12px, calc(12 * var(--u)));
+  }
+}
+
+/* ========== 5. 頁首 ========== */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  height: var(--header-h);
+  background: #000;
+  border-bottom: 1px solid #fff;
+}
+.header-inner {
+  /* z-index:0 建立疊層：斜切裝飾（z-index:-1）留在頁首裡、壓在 logo 與導覽底下 */
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: 0 calc(60 * var(--hu)) 0 calc(55 * var(--hu));
+}
+
+.brand-mark {
+  position: relative;
+  flex: none;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  width: calc(233 * var(--hu));
+}
+.brand-mark img { width: 100%; height: auto; }
+
+/* ---- 導覽：前後兩個彈性空白 3:1 分配剩下的寬度 ---- */
+.desktop-nav {
+  flex: 1 1 auto;
+  align-self: stretch;
+  display: flex;
+  min-width: 0;
+  margin: 0 calc(72 * var(--hu)) 0 calc(30 * var(--hu));
+}
+.desktop-nav::before,
+.desktop-nav::after { content: ""; flex: 3 1 0; }
+.desktop-nav::after { flex-grow: 1; }
+.desktop-nav > a,
+.desktop-nav > .desktop-more { margin-inline: calc(18.5 * var(--hu)); }
+.desktop-nav > a,
+.desktop-more > summary {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(68 * var(--hu));
+  height: 100%;
+  font-size: var(--fs-nav);
+  line-height: 1.2;
+  color: #fff;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.desktop-nav > a::before,
+.desktop-more > summary::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 50%;
+  left: calc(-23.8 * var(--hu));
+  right: calc(-23.8 * var(--hu));
+  height: calc(43.9 * var(--hu));
+  transform: translateY(-50%);
+  border-radius: calc(6 * var(--hu));
+  background: var(--g-nav);
+  border: 1px solid rgb(255 255 255 / .5);
+  opacity: 0;
+  transition: opacity .2s;
+  pointer-events: none;
+}
+.desktop-nav > a.active,
+.desktop-more > summary.active { color: var(--c-green); }
+.desktop-nav > a.active::before,
+.desktop-more > summary.active::before { opacity: 1; }
+.desktop-nav > a:not(.active):hover,
+.desktop-more > summary:not(.active):hover { color: var(--c-neon); }
+html[lang="zh-CN"] .desktop-nav > a:first-child {
+  justify-content: flex-start;
+  min-width: calc(73 * var(--hu));
+  margin-left: calc(13.5 * var(--hu));
+}
+html[lang="zh-CN"] .desktop-nav > a:first-child::before {
+  left: calc(-41.6 * var(--hu));
+  right: calc(-1 * var(--hu));
+}
+
+/* 「更多」：原生 <details>，site.js 補點外面／Esc 收起與互斥 */
+.desktop-more { position: relative; height: 100%; }
+.desktop-more > summary { list-style: none; }
+.desktop-more > summary::-webkit-details-marker { display: none; }
+.desktop-more > summary .icon {
+  width: calc(12.8 * var(--hu));
+  height: calc(6.4 * var(--hu));
+  margin-left: calc(4 * var(--hu));
+  transition: transform .2s;
+}
+.desktop-more[open] > summary .icon { transform: rotate(180deg); }
+
+.desktop-more-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 30 * var(--hu));
+  right: calc(-22 * var(--hu));
+  display: grid;
+  width: max-content;
+  min-width: calc(305 * var(--hu));
+  padding: calc(8 * var(--hu)) 0;
+  border-radius: calc(10 * var(--hu));
+  background: var(--g-panel-more);
+  border: 1px solid rgb(225 245 169 / .8);
+}
+.desktop-more-menu a {
+  display: flex;
+  align-items: center;
+  min-height: max(44px, calc(73 * var(--hu)));
+  padding: 0 calc(50 * var(--hu));
+  font-size: max(14px, calc(20 * var(--hu)));
+  font-weight: 500;
+  color: #fff;
+  white-space: nowrap;
+  transition: color .2s;
+}
+.desktop-more-menu a:hover,
+.desktop-more-menu a.active { color: var(--c-neon); }
+
+/* ---- 右側：立即注冊、使用指南、語言 ---- */
+.header-actions {
+  /* 斜切裝飾的定位基準：斜線永遠緊貼「立即注冊」左邊，按鈕變寬也不會壓到 */
+  position: relative;
+  flex: none;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  gap: calc(12 * var(--hu));
+}
+.header-register,
+.header-download {
+  --btn-h: calc(64.5 * var(--hu));
+  --btn-px: calc(24 * var(--hu));
+  --btn-fs: var(--fs-header-btn);
+  --btn-r: calc(6 * var(--hu));
+  min-width: calc(185.8 * var(--hu));
+  font-weight: 400;
+}
+
+/* 頁首左半的斜切綠色色塊＋白色斜線 */
+.header-actions::before,
+.header-actions::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  pointer-events: none;
+}
+.header-actions::before {
+  right: calc(100% + 24.6 * var(--hu));
+  width: 100vw;
+  height: calc(115 * var(--hu));
+  background: linear-gradient(180deg, #000 0%, #002800 100%);
+  clip-path: polygon(0 0, 100% 0, calc(100% - 96.9 * var(--hu)) 100%, 0 100%);
+}
+.header-actions::after {
+  right: calc(100% + 11.4 * var(--hu));
+  width: calc(96.1 * var(--hu));
+  height: calc(98.4 * var(--hu));
+  background: #fff;
+  clip-path: polygon(calc(100% - 13.2 * var(--hu)) 0, 100% 0, calc(13.2 * var(--hu)) 100%, 0 100%);
+}
+
+.language-switcher { margin-left: calc(14.7 * var(--hu)); }
+.language-trigger {
+  display: flex;
+  align-items: center;
+  gap: calc(17 * var(--hu));
+  min-height: calc(64.5 * var(--hu));
+  padding: 0 0 0 calc(12 * var(--hu));
+  font-size: var(--fs-header-btn);
+  color: var(--c-text-2);
+  white-space: nowrap;
+}
+.language-trigger b { font-weight: 400; }
+.language-trigger .icon {
+  width: calc(12.8 * var(--hu));
+  height: calc(6.4 * var(--hu));
+  transition: transform .2s;
+}
+.language-trigger[aria-expanded="true"] .icon { transform: rotate(180deg); }
+.language-trigger:hover { color: var(--c-neon); }
+
+.language-menu {
+  position: absolute;
+  z-index: 2;
+  top: calc(100% + 21 * var(--hu));
+  right: calc(-14 * var(--hu));
+  display: none;
+  gap: calc(8 * var(--hu));
+  /* 語言名稱較長時往左長，不讓字壓到勾勾 */
+  width: max-content;
+  min-width: calc(305 * var(--hu));
+  padding: calc(14 * var(--hu));
+  border-radius: calc(10 * var(--hu));
+  background: var(--g-panel);
+  border: 1px solid rgb(225 245 169 / .8);
+}
+.language-menu.open { display: grid; }
+.language-menu a {
+  display: grid;
+  grid-template-columns: calc(62 * var(--hu)) minmax(0, 1fr) auto;
+  column-gap: calc(8 * var(--hu));
+  align-items: center;
+  min-height: calc(72 * var(--hu));
+  padding: 0 calc(24 * var(--hu)) 0 calc(20 * var(--hu));
+  border-radius: calc(6 * var(--hu));
+  transition: background-color .2s;
+}
+.language-menu a span {
+  font-size: max(14px, calc(24 * var(--hu)));
+  font-weight: 500;
+  line-height: 1;
+  color: var(--c-lime-1);
+}
+.language-menu a b {
+  font-size: max(13px, calc(20 * var(--hu)));
+  font-weight: 500;
+  line-height: 1.2;
+  color: #fff;
+  white-space: nowrap;
+}
+.language-menu a .lucide,
+.language-menu a .icon {
+  width: calc(22.9 * var(--hu));
+  height: calc(22.9 * var(--hu));
+  color: var(--c-green);
+}
+.language-menu a.active { background: var(--c-lime-1); }
+.language-menu a.active span { color: var(--c-green); }
+.language-menu a.active b { color: #000; }
+.language-menu a:not(.active):hover { background: rgb(225 245 169 / .1); }
+
+/* 漢堡（只有手機版頁首有） */
+.menu-button { display: none; }
+
+/* ---- 下拉打開時的壓暗遮罩 ---- */
+.nav-backdrop {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  z-index: 70;
+  background: rgb(0 0 0 / .8);
+  animation: y2w-fade .2s ease;
+}
+
+/* ---- 手機選單 ---- */
+.mobile-menu { display: none; }
+
+/* ---- 手機版頁首（≤1279） ---- */
+@media (max-width: 1279px) {
+  .header-inner { padding: 0 calc(17 * var(--hu)) 0 calc(10 * var(--hu)); }
+  .brand-mark { width: calc(131 * var(--hu)); }
+  .desktop-nav,
+  .header-download { display: none; }
+
+  .header-actions {
+    margin-left: auto;
+    gap: calc(6.7 * var(--hu));
+  }
+  .header-actions::before,
+  .header-actions::after { content: none; }
+
+  /* 斜切裝飾改掛在 logo 上 */
+  .brand-mark::before,
+  .brand-mark::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    pointer-events: none;
+  }
+  .brand-mark::before {
+    right: calc(-64 * var(--hu));
+    width: 100vw;
+    height: calc(61 * var(--hu));
+    background: linear-gradient(180deg, #000 0%, #002600 100%);
+    clip-path: polygon(0 0, 100% 0, calc(100% - 46.4 * var(--hu)) 100%, 0 100%);
+  }
+  .brand-mark::after {
+    right: calc(-70.3 * var(--hu));
+    width: calc(46.1 * var(--hu));
+    height: calc(52.1 * var(--hu));
+    background: #fff;
+    clip-path: polygon(calc(100% - 6.4 * var(--hu)) 0, 100% 0, calc(6.4 * var(--hu)) 100%, 0 100%);
+  }
+
+  .header-register {
+    --btn-h: calc(30 * var(--hu));
+    --btn-px: calc(10 * var(--hu));
+    min-width: calc(86.4 * var(--hu));
+  }
+
+  /* 點擊範圍用 ::after 撐到 44px */
+  .language-switcher { order: -1; margin-left: 0; }
+  .language-trigger,
+  .menu-button {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: calc(30 * var(--hu));
+    height: calc(30 * var(--hu));
+    min-height: 0;
+    padding: 0;
+    gap: 0;
+    border-radius: 50%;
+    background: var(--c-ink-3);
+    border: 1px solid var(--c-line-2);
+    color: #fff;
+  }
+  .language-trigger { font-size: max(11px, calc(9 * var(--hu))); color: var(--c-text-2); }
+  .language-trigger .icon { display: none; }
+  .language-trigger::after,
+  .menu-button::after {
+    content: "";
+    position: absolute;
+    inset: calc(-7 * var(--hu));
+  }
+  .menu-button .icon { width: calc(13.3 * var(--hu)); height: calc(11.6 * var(--hu)); }
+
+  /* 手機語言下拉 */
+  .language-menu {
+    top: calc(100% + 10 * var(--hu));
+    right: calc(4 * var(--hu));
+    gap: calc(3.5 * var(--hu));
+    min-width: calc(153 * var(--hu));
+    padding: calc(6 * var(--hu));
+  }
+  .language-menu a {
+    grid-template-columns: calc(31 * var(--hu)) minmax(0, 1fr) auto;
+    column-gap: calc(5 * var(--hu));
+    min-height: calc(37 * var(--hu));
+    padding: 0 calc(10 * var(--hu)) 0 calc(11 * var(--hu));
+  }
+  .language-menu a span { font-size: max(12px, calc(12 * var(--hu))); }
+  .language-menu a b { font-size: max(11px, calc(10 * var(--hu))); }
+  .language-menu a .lucide,
+  .language-menu a .icon { width: calc(11.5 * var(--hu)); height: calc(11.5 * var(--hu)); }
+
+  .nav-backdrop { background: rgb(0 0 0 / .5); }
+
+  .mobile-menu {
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    z-index: 75;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    padding: calc(18 * var(--hu)) calc(16.5 * var(--hu)) calc(40 * var(--hu));
+    background: #000;
+  }
+  .mobile-menu.open { display: block; }
+  .mobile-menu-grid { display: grid; gap: calc(10 * var(--hu)); }
+  .mobile-menu-grid a {
+    display: flex;
+    align-items: center;
+    min-height: calc(52 * var(--hu));
+    padding: 0 calc(18 * var(--hu));
+    border-radius: calc(10 * var(--hu));
+    background: var(--c-ink-2);
+    border: 1px solid #242426;
+    transition: border-color .2s;
+  }
+  .mobile-menu-grid small {
+    flex: none;
+    width: calc(46 * var(--hu));
+    font-size: calc(22 * var(--hu));
+    line-height: 1;
+    color: var(--c-neon);
+  }
+  .mobile-menu-grid span {
+    font-size: max(14px, calc(20 * var(--hu)));
+    line-height: 1.2;
+    color: #fff;
+  }
+  /* 目前頁不另外變色，由 aria-current 標示 */
+  .mobile-menu-grid a:hover { border-color: var(--c-line-3); }
+}
+/* 平板：選單卡排兩欄 */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .mobile-menu-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* ========== 6. 內頁首屏（.page-hero.hero-no-media） ========== */
+.page-hero { position: relative; }
+
+.hero-no-media {
+  display: flex;
+  align-items: flex-start;
+  min-height: calc(965 * var(--u));
+  padding-block: calc(106 * var(--u)) calc(110 * var(--u));
+}
+
+/* 背景圖：z-index:-1 落在 main 裡所有內容後面。預設裝飾圖已照設計稿裁好取景；後台上傳的 hero.bg 照舊 cover 蓋滿 */
+.page-hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: calc(963 * var(--u));
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.page-hero-bg picture { display: contents; }
+.page-hero-bg img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  object-position: center top;
+  opacity: .26;
+}
+.page-hero-bg picture img {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 1280 * var(--u));
+  width: calc(2560 * var(--u));
+}
+
+/* 緊湊型（使用指南、常見問題）：不撐 1080 高，背景延伸到內容後面 */
+.page-hero--compact {
+  min-height: 0;
+  padding-bottom: calc(105 * var(--u));
+}
+@media (min-width: 768px) {
+  .page-hero--compact .page-hero-bg { height: calc(2784 * var(--u)); }
+  .page-hero--compact .page-hero-bg picture img {
+    left: calc(50% - 1210 * var(--u));
+    width: calc(2420 * var(--u));
+  }
+}
+
+.hero-copy { max-width: calc(1400 * var(--u)); }
+.hero-copy .eyebrow {
+  display: block;
+  font-family: var(--font-latin);
+  font-size: var(--fs-hero-eyebrow);
+  font-weight: 700;
+  line-height: 1.42;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
+.hero-copy h1 {
+  margin-top: calc(24.8 * var(--u));
+  font-family: var(--font-display);
+  font-size: var(--fs-hero-title);
+  font-weight: 900;
+  line-height: .86;
+  letter-spacing: -.01em;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+.hero-copy h1 strong {
+  display: block;
+  margin-top: calc(10.9 * var(--u));
+  font-size: var(--fs-hero-sub);
+  font-weight: 900;
+  line-height: 1.03;
+  color: var(--c-neon);
+}
+/* {文字} → <em>：綠色、不斜體；{brand} → .hero-brand：白色（在綠色副標裡也是白） */
+.hero-copy h1 em { font-style: normal; color: var(--c-neon); }
+.hero-copy h1 .hero-brand { color: #fff; }
+/* 主標是空心字：用 layout.njk 的 SVG 濾鏡，不用 -webkit-text-stroke（Montserrat 有重疊筆畫，描邊會多出線）。
+   濾鏡載入失敗時退回實心白字。 */
+.hero-copy .hero-title { filter: url(#y2w-outline-1); }
+/* 濾鏡會把選取的反白色塊也挖成框 → 空心字選取時不畫底色，改成外框變綠 */
+.hero-copy .hero-title::selection,
+.hero-copy .hero-title *::selection { background: transparent; color: var(--c-neon); }
+.hero-copy > p {
+  margin-top: calc(26.3 * var(--u));
+  max-width: calc(980 * var(--u));
+  font-size: var(--fs-hero-desc);
+  line-height: 1.32;
+  color: #fff;
+}
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: calc(16 * var(--u));
+  margin-top: calc(69 * var(--u));
+}
+.hero-copy > h1 + .hero-actions { margin-top: calc(60 * var(--u)); }
+@media (min-width: 768px) {
+  .hero-no-media .hero-copy .eyebrow,
+  .hero-no-media .hero-copy h1 strong,
+  .hero-no-media .hero-actions { margin-left: calc(8 * var(--u)); }
+  .hero-no-media { padding-top: calc(103.5 * var(--u)); }
+  .hero-no-media .hero-copy h1 { margin-top: calc(16.8 * var(--u)); }
+  .hero-no-media .hero-copy h1 strong { margin-top: calc(12.4 * var(--u)); }
+  .hero-no-media .hero-copy > p { margin-top: calc(35.3 * var(--u)); }
+  .hero-no-media .hero-actions .cta { font-weight: 400; }
+}
+
+@media (max-width: 767px) {
+  .hero-no-media {
+    min-height: calc(473 * var(--u));
+    padding-block: calc(87.8 * var(--u)) calc(60 * var(--u));
+  }
+  .hero-no-media > .shell-wide { padding-left: calc(20 * var(--u)); }
+  /* 各頁用 heroBgM 換手機背景圖，頁面 CSS 改高度／透明度 */
+  /* 圖框四角 r16；核心優勢、熱門活動、往期回顧是直角，在下面排除 */
+  .page-hero-bg { height: calc(473 * var(--u)); border-radius: calc(16 * var(--u)); }
+  .advantages-page .page-hero-bg,
+  .promo-page .page-hero-bg { border-radius: 0; }
+  .page-hero-bg picture img {
+    left: calc(50% - 515 * var(--u));
+    width: calc(1030 * var(--u));
+  }
+  .page-hero--compact { min-height: 0; padding-bottom: calc(48 * var(--u)); }
+  .hero-copy .eyebrow { line-height: 1.4; }
+  .hero-copy h1 { margin-top: calc(10 * var(--u)); line-height: .85; }
+  .hero-copy h1 strong { margin-top: calc(6.5 * var(--u)); line-height: 1.14; }
+  .hero-copy > p { margin-top: calc(6 * var(--u)); line-height: 1.33; }
+  /* 說明裡的手動換行只在電腦版生效 */
+  .hero-copy > p br { display: none; }
+  .hero-actions { margin-top: calc(40 * var(--u)); }
+}
+
+/* ========== 7. 區塊標題（partials/section-title.njk） ========== */
+.section-title { margin-bottom: calc(48 * var(--u)); }
+.section-title > span {
+  display: block;
+  font-family: var(--font-latin);
+  font-size: var(--fs-sec-eyebrow);
+  font-weight: 700;
+  line-height: 1.72;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
+.section-title h2 {
+  font-family: var(--font-display);
+  font-size: var(--fs-sec-title);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -.01em;
+  color: #fff;
+  overflow-wrap: break-word;
+  text-wrap: balance;
+}
+.section-title > span + h2 { margin-top: calc(12.5 * var(--u)); }
+/* 副標預設一般字重；要粗的頁面自己加 .section-title h2 strong{font-weight:600} */
+.section-title h2 strong {
+  display: block;
+  margin-top: calc(8.8 * var(--u));
+  font-size: var(--fs-sec-sub);
+  font-weight: 400;
+  line-height: 1;
+  letter-spacing: 0;
+  color: var(--c-neon);
+}
+.section-title h2 em { font-style: normal; color: var(--c-neon); }
+.section-title p {
+  margin-top: calc(37.4 * var(--u));
+  max-width: calc(1100 * var(--u));
+  font-size: var(--fs-sec-desc);
+  line-height: 1.32;
+  color: #fff;
+}
+
+/* 英文／馬來文的說明避免孤字；:where() 讓頁面 CSS 照樣蓋得過 */
+:where(:root:not(:lang(zh))) :is(.section-title p, .hero-copy > p) { text-wrap: pretty; }
+
+.section-title.is-center { text-align: center; }
+.section-title.is-center p { margin-inline: auto; }
+
+.section-title.is-light > span,
+.section-title.is-light h2 strong,
+.section-title.is-light h2 em,
+.is-light-section .section-title > span,
+.is-light-section .section-title h2 strong,
+.is-light-section .section-title h2 em { color: var(--c-green); }
+.section-title.is-light h2,
+.section-title.is-light p,
+.is-light-section .section-title h2,
+.is-light-section .section-title p { color: #000; }
+
+@media (max-width: 767px) {
+  .section-title { margin-bottom: calc(24 * var(--u)); }
+  .section-title > span { line-height: 1.75; }
+  .section-title > span + h2 { margin-top: calc(5 * var(--u)); }
+  .section-title h2 strong { margin-top: calc(9.6 * var(--u)); line-height: 1.18; }
+  .section-title p { margin-top: calc(7.8 * var(--u)); line-height: 1.33; }
+  .section-title p br { display: none; }   /* 手動換行只在電腦版（同首屏） */
+}
+
+/* ========== 8. 膠囊分頁／篩選列（.route-tabs、.filter-tabs、.level-tabs、.insights-tabs、.pill-tabs 同一套） ========== */
+.pill-tabs,
+.route-tabs,
+.filter-tabs,
+.level-tabs,
+.insights-tabs {
+  display: flex;
+  gap: calc(4 * var(--u));
+  width: max-content;
+  max-width: 100%;
+  min-height: calc(72 * var(--u));
+  padding: calc(6.2 * var(--u));
+  border-radius: var(--r-pill);
+  background: #000;
+  border: 2px solid var(--c-line-3);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.pill-tabs::-webkit-scrollbar,
+.route-tabs::-webkit-scrollbar,
+.filter-tabs::-webkit-scrollbar,
+.level-tabs::-webkit-scrollbar,
+.insights-tabs::-webkit-scrollbar { display: none; }
+
+.pill-tabs > :is(a, button),
+.route-tabs > :is(a, button),
+.filter-tabs > :is(a, button),
+.level-tabs > :is(a, button),
+.insights-tabs > :is(a, button) {
+  flex: 1 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: calc(8 * var(--u));
+  min-width: calc(127 * var(--u));
+  padding: 0 calc(26 * var(--u));
+  border-radius: var(--r-pill);
+  border: 1px solid transparent;
+  font-size: max(13px, calc(20 * var(--u)));
+  font-weight: 300;
+  line-height: 1.35;
+  color: var(--c-dim);
+  white-space: nowrap;
+  transition: color .2s, background-color .2s;
+}
+.pill-tabs > :is(a, button):hover,
+.route-tabs > :is(a, button):hover,
+.filter-tabs > :is(a, button):hover,
+.level-tabs > :is(a, button):hover,
+.insights-tabs > :is(a, button):hover { color: #fff; }
+
+.pill-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.route-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.filter-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.level-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.insights-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]) {
+  min-width: calc(212.2 * var(--u));
+  background: var(--g-lime-chip);
+  border-color: rgb(0 82 0 / .5);
+  font-weight: 600;
+  color: var(--c-green);
+}
+.pill-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]):hover,
+.route-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]):hover,
+.filter-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]):hover,
+.level-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]):hover,
+.insights-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]):hover { color: var(--c-green); }
+
+/* 放不下而橫向捲動時（site.js 掛 class）：還有內容的那側淡出 */
+:is(.pill-tabs, .route-tabs, .filter-tabs, .level-tabs, .insights-tabs).is-fade-end {
+  -webkit-mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(90deg, #000 calc(100% - 28px), transparent);
+}
+:is(.pill-tabs, .route-tabs, .filter-tabs, .level-tabs, .insights-tabs).is-fade-start {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px);
+  mask-image: linear-gradient(90deg, transparent, #000 28px);
+}
+:is(.pill-tabs, .route-tabs, .filter-tabs, .level-tabs, .insights-tabs).is-fade-start.is-fade-end {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 28px, #000 calc(100% - 28px), transparent);
+}
+
+/* 修飾：置中、加大 */
+.tabs-center { margin-inline: auto; }
+.tabs-lg { min-height: calc(92 * var(--u)); padding: calc(7.1 * var(--u)) calc(7.6 * var(--u)); }
+.tabs-lg > :is(a, button) { font-size: max(14px, calc(27 * var(--u))); }
+.tabs-lg > :is(.active, [aria-selected="true"], [aria-current="page"]) { min-width: calc(272.3 * var(--u)); }
+
+@media (max-width: 767px) {
+  .pill-tabs,
+  .route-tabs,
+  .filter-tabs,
+  .level-tabs,
+  .insights-tabs { min-height: calc(37 * var(--u)); padding: calc(3.5 * var(--u)); }
+  .pill-tabs > :is(a, button),
+  .route-tabs > :is(a, button),
+  .filter-tabs > :is(a, button),
+  .level-tabs > :is(a, button),
+  .insights-tabs > :is(a, button) {
+    min-width: 0;
+    padding: 0 calc(14 * var(--u));
+    font-size: max(12px, calc(10 * var(--u)));
+  }
+  .pill-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+  .route-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+  .filter-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+  .level-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+  .insights-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]) { min-width: calc(108.5 * var(--u)); }
+  .tabs-lg { min-height: calc(46 * var(--u)); }
+}
+
+/* ========== 9. 卡片與裝飾元件 ========== */
+/* 發光卡；修飾 .has-bar-right（右側也有光條）、.is-soft-border */
+.glow-card {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: var(--r-17);
+  /* 框用漸層畫在 border-box 上：只有上緣亮白、往下變暗 */
+  border: 1px solid transparent;
+  background:
+    var(--g-glow-card) padding-box,
+    linear-gradient(200deg, rgb(255 255 255 / .7) 0, rgb(255 255 255 / .5) 14%, rgb(255 255 255 / .32) 45%, rgb(255 255 255 / .2) 100%) border-box;
+}
+.glow-card::before,
+.glow-card.has-bar-right::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: calc(22 * var(--u));
+  bottom: calc(22 * var(--u));
+  width: max(2px, calc(6.5 * var(--u)));
+  background: var(--g-glow-bar);
+  pointer-events: none;
+}
+.glow-card::before { left: 0; }
+.glow-card.has-bar-right::after { right: 0; }
+.glow-card.is-soft-border { border-color: var(--c-line); }
+.glow-card-art {
+  position: absolute;
+  z-index: -1;
+  top: calc(-18 * var(--u));
+  right: 0;
+  width: 56%;
+  max-width: none;
+  opacity: .32;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(255deg, #000 35%, transparent 85%);
+  mask-image: linear-gradient(255deg, #000 35%, transparent 85%);
+}
+
+/* 底緣橫向光線：<i class="glow-line" aria-hidden="true"></i>，父層要 position:relative */
+.glow-line {
+  position: absolute;
+  left: calc(32 * var(--u));
+  right: calc(32 * var(--u));
+  bottom: 0;
+  height: max(2px, calc(4 * var(--u)));
+  background: var(--g-glow-line);
+  pointer-events: none;
+}
+
+/* 編號方塊：尺寸用 --tile 調 */
+.num-tile {
+  --tile: calc(46 * var(--u));
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: var(--tile);
+  height: var(--tile);
+  border-radius: calc(var(--tile) * .1);
+  background: var(--g-icon-tile);
+  font-family: var(--font-latin);
+  font-size: calc(var(--tile) * .5);
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+}
+
+/* 18+ 雙圈徽章（頁尾用；別處要用就改 --badge） */
+.age-badge {
+  --badge: calc(133.8 * var(--u));
+  display: grid;
+  place-items: center;
+  width: var(--badge);
+  height: var(--badge);
+  border-radius: 50%;
+  border: 1px solid var(--c-neon);
+  outline: 1px solid rgb(0 255 0 / .6);
+  outline-offset: calc(var(--badge) * -.05 - 1px);
+  background: #000;
+  font-family: var(--font-latin);
+  font-size: calc(var(--badge) * .486);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -.02em;
+  color: #fff;
+}
+
+/* ========== 10. 淺色區塊與淺色收尾帶 ========== */
+/* 淺色區塊：裡面的區塊標題自動變淺底版 */
+.is-light-section {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--g-light);
+  color: #000;
+}
+/* 紋理位置照設計稿換算；高度不同的區塊在頁面 CSS 覆寫 */
+.is-light-section::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: calc(-534.2 * var(--u));
+  left: calc(50% - 1186.3 * var(--u));
+  width: calc(3748.6 * var(--u));
+  height: calc(2142.3 * var(--u));
+  background: url('../img/bg-light-wave.webp') 0 0 / 100% 100% no-repeat;
+  opacity: .84;
+  pointer-events: none;
+}
+
+/* 淺色收尾帶（partials/cta-band.njk）：按鈕 margin-top:auto 貼底；YES 浮水印手機隱藏 */
+.cta-band {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: calc(717 * var(--u));
+  background: var(--g-light);
+  color: #000;
+}
+.cta-band-bg { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+/* 電腦底色不用共用的 --g-light：那組會讓右上角整片偏白 */
+@media (min-width: 768px) {
+  .cta-band { background: linear-gradient(110.6deg, #fff 40.9%, #9ecf7e 148.7%); }
+}
+.cta-band-wave {
+  position: absolute;
+  top: calc(-534.2 * var(--u));
+  left: calc(50% - 1186.3 * var(--u));
+  width: calc(3748.6 * var(--u));
+  height: calc(2142.3 * var(--u));
+  max-width: none;
+  opacity: .84;
+}
+.cta-band-mark {
+  position: absolute;
+  top: 0;
+  left: calc(50% - 61 * var(--u));
+  width: calc(978 * var(--u));
+  max-width: none;
+  opacity: .13;
+}
+.cta-band-inner {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(717 * var(--u));
+  padding: calc(126 * var(--u)) 0 calc(98 * var(--u)) calc(18.5 * var(--u));
+}
+.cta-band-inner > .btn-lime { align-self: flex-start; margin-top: auto; }
+.cta-band .section-title { margin-bottom: calc(61 * var(--u)); }
+.cta-band .section-title p { max-width: calc(760 * var(--u)); }
+
+@media (max-width: 767px) {
+  .cta-band { min-height: 0; }
+  .cta-band-mark { display: none; }
+  /* 手機是緊湊的預設，各頁再覆寫 */
+  .cta-band-inner { min-height: 0; padding-block: calc(48 * var(--u)) calc(58 * var(--u)); }
+  .cta-band .section-title { margin-bottom: calc(28 * var(--u)); }
+  /* 手機紋理；各頁框位置不同，在頁面 CSS 覆寫 */
+  .cta-band-wave {
+    top: calc(-285.6 * var(--u));
+    left: calc(-120.7 * var(--u));
+    width: calc(1999.2 * var(--u));
+    height: calc(1142.5 * var(--u));
+  }
+  .is-light-section::before {
+    top: calc(-215.7 * var(--u));
+    left: calc(-373.1 * var(--u));
+    width: calc(1681.9 * var(--u));
+    height: calc(961.2 * var(--u));
+  }
+}
+
+/* ========== 11. 橫向捲動容器 ==========
+   .h-scroll 任何寬度、.h-scroll-m 只在 ≤767；子項寬 --h-item、間距 --h-gap，.is-bleed 左右貼齊螢幕邊 */
+.h-scroll {
+  display: flex;
+  gap: var(--h-gap, calc(16 * var(--u)));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.h-scroll::-webkit-scrollbar { display: none; }
+.h-scroll > * { flex: 0 0 var(--h-item, 78%); min-width: 0; scroll-snap-align: start; }
+.h-scroll.is-bleed {
+  margin-inline: calc(var(--gutter) * -1);
+  padding-inline: var(--gutter);
+  scroll-padding-inline: var(--gutter);
+}
+@media (max-width: 767px) {
+  .h-scroll-m {
+    display: flex;
+    gap: var(--h-gap, calc(16 * var(--u)));
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+  .h-scroll-m::-webkit-scrollbar { display: none; }
+  .h-scroll-m > * { flex: 0 0 var(--h-item, 78%); min-width: 0; scroll-snap-align: start; }
+  .h-scroll-m.is-bleed {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scroll-padding-inline: var(--gutter);
+  }
+}
+
+/* ========== 12. 彈窗（.modal-backdrop > .modal，由 promotions.js / games.js / media.js / insights.js 動態組出；寬度用 --modal-w） ========== */
+.modal-backdrop {
+  position: fixed;
+  inset: var(--header-h) 0 0;
+  z-index: 120;
+  display: grid;
+  place-items: center;
+  padding: calc(40 * var(--u)) var(--gutter);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  background: rgb(0 0 0 / .8);
+  animation: y2w-fade .2s ease;
+}
+.modal {
+  --modal-w: calc(760 * var(--u));
+  position: relative;
+  width: min(max(var(--modal-w), 320px), 100%);
+  max-height: calc(100dvh - var(--header-h) - 2 * calc(40 * var(--u)));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: calc(40 * var(--u)) calc(31 * var(--u)) calc(36 * var(--u));
+  border-radius: var(--r-17);
+  background: var(--g-modal);
+  border: 1px solid var(--c-lime-1);
+  color: #fff;
+  animation: y2w-rise .25s ease;
+}
+.modal-close {
+  position: absolute;
+  z-index: 3;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--c-line-2);
+  /* JS 放的是「×」字元；字藏起來，改畫線寬一致的 ✕ */
+  background: var(--c-ink-3) url("data:image/svg+xml,%3Csvg xmlns='http://example.invalid/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M1.5 1.5l9 9M10.5 1.5l-9 9' stroke='%23fff' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") center / 11px no-repeat;
+  color: transparent;
+  font-size: 0;
+  transition: border-color .2s;
+}
+.modal-close::after { content: ""; position: absolute; inset: -7px; }
+.modal-close:hover { border-color: var(--c-lime-1); }
+.modal .eyebrow {
+  display: block;
+  margin-right: 36px;
+  font-family: var(--font-latin);
+  font-size: max(11px, calc(16 * var(--u)));
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: .02em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
+.modal h2 {
+  margin: calc(10 * var(--u)) 36px 0 0;
+  font-family: var(--font-display);
+  font-size: max(20px, calc(32 * var(--u)));
+  font-weight: 900;
+  line-height: 1.25;
+}
+.modal p {
+  margin-top: calc(16 * var(--u));
+  font-size: max(13px, calc(18 * var(--u)));
+  line-height: 1.7;
+  color: #dcdce0;
+}
+.modal-action {
+  --btn-h: calc(52 * var(--u));
+  --btn-px: calc(28 * var(--u));
+  --btn-fs: max(14px, calc(18 * var(--u)));
+  margin-top: calc(24 * var(--u));
+}
+
+/* 遊戲商彈窗的 Logo（games.js 放在標題上方） */
+.modal-logo {
+  max-width: min(240px, 100%);
+  max-height: 72px;
+  margin: 4px 0 10px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* 影像彈窗的影片框（media.js） */
+.video-placeholder {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  margin-top: calc(24 * var(--u));
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-17);
+  border: 1px solid var(--c-lime-1);
+  background: #000;
+  text-align: center;
+}
+.video-cover {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: cover;
+  filter: brightness(.45) saturate(.9);
+}
+.video-placeholder > span,
+.video-play {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  padding-left: 4px;
+  border-radius: 50%;
+  background: var(--g-lime);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--c-green);
+}
+.video-play { transition: transform .25s, box-shadow .25s; }
+.video-play:hover { transform: scale(1.08); box-shadow: 0 0 24px rgb(0 255 0 / .35); }
+.video-placeholder > p { margin: 0; font-size: max(13px, calc(16 * var(--u))); color: #b9b9c0; }
+
+@media (max-width: 767px) {
+  .modal-backdrop { padding: calc(24 * var(--u)) calc(16 * var(--u)); background: rgb(0 0 0 / .5); }
+  .modal {
+    max-height: calc(100dvh - var(--header-h) - 2 * calc(24 * var(--u)));
+    padding: calc(32 * var(--u)) calc(18 * var(--u)) calc(24 * var(--u));
+  }
+  .modal .eyebrow { font-size: max(11px, calc(11 * var(--u))); }
+  .modal h2 { font-size: max(20px, calc(22 * var(--u))); }
+  .modal p { font-size: max(13px, calc(13 * var(--u))); line-height: 1.6; }
+}
+
+@keyframes y2w-fade { from { opacity: 0; } }
+@keyframes y2w-rise { from { opacity: 0; transform: translateY(16px) scale(.98); } }
+
+/* ========== 13. 頁尾（--fu：頁尾自己的單位，≤1279 改用手機稿） ========== */
+.site-footer {
+  --fu: var(--u);
+  position: relative;
+  overflow: hidden;
+  background: #000;
+  color: #fff;
+}
+
+/* 裝飾：三塊都往畫面外延伸 100vw，超寬螢幕也不會露出直邊 */
+.footer-deco {
+  --slab-x: -422.1; --slab-y: -146.9; --slab-w: 1567.5; --slab-h: 1015.6; --slab-cut: 629.1;
+  --stripe-x: -341; --stripe-y: 159.8; --stripe-w: 1332; --stripe-h: 863; --stripe-cut: 534.6;
+  --wedge-x: 1190.4; --wedge-y: 701.2; --wedge-w: 792.5; --wedge-h: 513.5; --wedge-cut: 318.1;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: calc(1920 * var(--fu));
+  height: calc(858 * var(--fu));
+  transform: translateX(-50%);
+  clip-path: inset(0 -100vw);
+  pointer-events: none;
+}
+.footer-deco i { position: absolute; display: block; }
+.fd-stripe {
+  left: calc(var(--stripe-x) * var(--fu) - 100vw);
+  top: calc(var(--stripe-y) * var(--fu));
+  width: calc(var(--stripe-w) * var(--fu) + 100vw);
+  height: calc(var(--stripe-h) * var(--fu));
+  background: #fff;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--stripe-cut) * var(--fu)) 100%, 0 100%);
+}
+.fd-slab {
+  left: calc(var(--slab-x) * var(--fu) - 100vw);
+  top: calc(var(--slab-y) * var(--fu));
+  width: calc(var(--slab-w) * var(--fu) + 100vw);
+  height: calc(var(--slab-h) * var(--fu));
+  background: linear-gradient(122deg, #000 50%, #002400 71.5%) right top / calc(var(--slab-w) * var(--fu)) 100% no-repeat;
+  clip-path: polygon(0 0, 100% 0, calc(100% - var(--slab-cut) * var(--fu)) 100%, 0 100%);
+}
+.fd-wedge {
+  left: calc(var(--wedge-x) * var(--fu));
+  top: calc(var(--wedge-y) * var(--fu));
+  width: calc(var(--wedge-w) * var(--fu) + 100vw);
+  height: calc(var(--wedge-h) * var(--fu));
+  background: linear-gradient(122deg, #002400 28.8%, #000 50%) left top / calc(var(--wedge-w) * var(--fu)) 100% no-repeat;
+  clip-path: polygon(calc(var(--wedge-cut) * var(--fu)) 0, 100% 0, 100% 100%, 0 100%);
+}
+
+/* ⚠ 連結區左緣不能越過白斜條：連結欄最寬到容器中線往右 25（calc(50% - 25fu)）；英文／馬來文在欄內折行 */
+.footer-main {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, calc(910 * var(--fu))) minmax(0, calc(50% - 25 * var(--fu)));
+  justify-content: space-between;
+  align-items: start;
+  width: min(var(--container-wide), 100% - 2 * var(--gutter));
+  min-height: calc(858 * var(--fu));
+  margin-inline: auto;
+  padding: calc(58 * var(--fu)) 0 calc(60 * var(--fu));
+}
+.footer-brand { display: flex; flex-direction: column; align-items: flex-start; min-width: 0; }
+.footer-brand > img {
+  width: calc(569 * var(--fu));
+  max-width: none;
+  margin-left: calc(-36 * var(--fu));
+}
+.footer-kicker {
+  margin-top: calc(10.5 * var(--fu));
+  font-family: var(--font-latin);
+  font-size: max(13px, calc(23 * var(--fu)));
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: .01em;
+  text-transform: uppercase;
+  color: var(--c-neon);
+}
+.footer-brand > p {
+  margin-top: calc(8.6 * var(--fu));
+  max-width: calc(630 * var(--fu));
+  font-size: var(--fs-footer-blurb);
+  line-height: 1.28;
+  color: #fff;
+}
+.site-footer .age-badge {
+  --badge: calc(133.8 * var(--fu));
+  margin: calc(77 * var(--fu)) 0 0 calc(14 * var(--fu));
+}
+
+.footer-links {
+  display: grid;
+  grid-template-columns: calc(288.3 * var(--fu)) calc(256.4 * var(--fu)) max-content;
+  justify-content: end;
+  padding-top: calc(180.6 * var(--fu));
+}
+@media (min-width: 1280px) {
+  :root:lang(zh) .footer-links { margin-right: calc(-24 * var(--fu)); }
+}
+.footer-links > div { min-width: 0; }
+/* 英文／馬來文：字級略小，第二、三欄分剩下的寬度，長項目在欄內折行 */
+@media (min-width: 1280px) {
+  :root:not(:lang(zh)) .footer-links {
+    grid-template-columns: max-content minmax(0, 1fr) minmax(0, 1.35fr);
+    column-gap: calc(32 * var(--fu));
+  }
+  :root:not(:lang(zh)) .footer-links h3 { font-size: max(14px, calc(27 * var(--fu))); }
+  :root:not(:lang(zh)) .footer-links a { font-size: max(13px, calc(26 * var(--fu))); }
+  :root:not(:lang(zh)) .footer-links :is(h3, a) { text-wrap: balance; }   /* 折行時不留單一個字在第二行 */
+}
+.footer-links h3 {
+  margin-bottom: calc(18 * var(--fu));
+  font-size: var(--fs-footer-title);
+  font-weight: 400;
+  line-height: 1.2;
+  color: #fff;
+}
+.footer-links a {
+  display: block;
+  padding-block: calc(14.65 * var(--fu));
+  font-size: var(--fs-footer-link);
+  line-height: 1.2;
+  color: var(--c-muted);
+  transition: color .2s;
+}
+.footer-links a:hover { color: #fff; }
+
+/* 分隔線＋版權 */
+.copyright {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(108 * var(--fu));
+  margin-inline: calc(29.3 * var(--fu));
+  padding: 10px 0;
+  border-top: 1px solid var(--c-divider);
+  font-size: var(--fs-copyright);
+  line-height: 1.4;
+  text-align: center;
+  color: var(--c-muted);
+}
+
+/* ≤1279：用手機稿 */
+@media (max-width: 1279px) {
+  .site-footer { --fu: clamp(0.7442px, calc(100vw / 430), 1.4px); }
+  .footer-deco {
+    --slab-x: -187.6; --slab-y: -124.5; --slab-w: 681; --slab-h: 441.2; --slab-cut: 273.4;
+    --stripe-x: -92.3; --stripe-y: -91.2; --stripe-w: 578.6; --stripe-h: 374.9; --stripe-cut: 232.2;
+    --wedge-x: -31.3; --wedge-y: 588.4; --wedge-w: 535.2; --wedge-h: 346.8; --wedge-cut: 214.8;
+    left: 0;
+    width: calc(430 * var(--fu));
+    height: calc(720 * var(--fu));
+    transform: none;
+  }
+  .footer-main {
+    display: block;
+    width: auto;
+    min-height: calc(720 * var(--fu));
+    margin: 0;
+    padding: calc(2 * var(--fu)) calc(16 * var(--fu)) calc(40 * var(--fu)) calc(34.8 * var(--fu));
+  }
+  .footer-brand > img { width: calc(301 * var(--fu)); margin-left: calc(-26.8 * var(--fu)); }
+  .footer-kicker {
+    margin: calc(-14 * var(--fu)) 0 0 calc(5.9 * var(--fu));
+    font-size: max(12px, calc(14 * var(--fu)));
+  }
+  .footer-brand > p {
+    margin: calc(6 * var(--fu)) 0 0 calc(5.9 * var(--fu));
+    max-width: calc(222 * var(--fu));
+    font-size: max(12px, calc(10 * var(--fu)));
+    line-height: calc(16 * var(--fu));   /* 行距刻意不跟字級放大，下面的 18+ 與連結欄才在原位 */
+  }
+  /* 中文簡介換行後的段落每行最多 16 字（只在 ≤1279） */
+  :root:lang(zh) .footer-brand > p > span:last-child:not(:first-child) { display: inline-block; max-width: 16.4em; }
+  .site-footer .age-badge {
+    --badge: calc(59 * var(--fu));
+    margin: calc(25.5 * var(--fu)) 0 0 calc(5.9 * var(--fu));
+  }
+  .footer-links {
+    grid-template-columns: calc(128.4 * var(--fu)) calc(122 * var(--fu)) minmax(0, 1fr);
+    padding-top: calc(58 * var(--fu));
+  }
+  .footer-links h3 {
+    margin-bottom: calc(7.5 * var(--fu));
+    padding-right: 8px;                       /* 留 8：馬來文欄標在 360 寬才不會黏在一起 */
+    font-size: max(13px, calc(14 * var(--fu)));
+  }
+  .footer-links a {
+    padding-block: calc(9.6 * var(--fu));
+    padding-right: 8px;
+    font-size: max(12px, calc(12 * var(--fu)));
+  }
+  .copyright {
+    min-height: calc(55.5 * var(--fu));
+    margin-inline: calc(26.5 * var(--fu));
+    font-size: max(11px, calc(10 * var(--fu)));
+  }
+}
+
+/* ========== 14. 即時數據的逐位翻動（stats.js 依賴，勿刪） ==========
+   ⚠ 不用 overflow:hidden 做轉輪窗口（line-height 小於 1 會裁到字）；數字用 tabular-nums，翻動時不會左右抽動。 */
+.stat-value-num,
+.stat-desc-num {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: 'tnum' 1;
+}
+.sd {
+  display: inline-block;
+  position: relative;
+}
+.sd.is-roll .sd-out,
+.sd.is-roll .sd-in {
+  display: inline-block;
+  /* 字型與顏色要明確繼承；刻意不用 font 簡寫（會把 font-variant-numeric 重設成 normal） */
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+  font-variant-numeric: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  color: inherit;
+  animation-duration: .3s;
+  animation-timing-function: cubic-bezier(.2, .85, .25, 1);
+  animation-delay: var(--sd-delay, 0ms);
+  /* forwards 不用 both：動畫沒跑起來時數字直接換掉，不會停在透明狀態 */
+  animation-fill-mode: forwards;
+}
+/* 舊的那一位絕對定位：讓新的那一位撐出寬度，翻動時寬度才不會塌掉 */
+.sd.is-roll .sd-out {
+  position: absolute;
+  left: 0;
+  top: 0;
+  animation-name: tp-sd-out;
+}
+.sd.is-roll .sd-in { animation-name: tp-sd-in; }
+/* 先後接力，不同時淡入淡出（同時的話看起來會重疊） */
+@keyframes tp-sd-out {
+  0%   { transform: none;               opacity: 1; }
+  30%  { transform: translateY(-.45em); opacity: 0; }
+  100% { transform: translateY(-.45em); opacity: 0; }
+}
+@keyframes tp-sd-in {
+  0%   { transform: translateY(.45em);  opacity: 0; }
+  12%  { transform: translateY(.45em);  opacity: 0; }
+  70%  { opacity: 1; }
+  100% { transform: none;               opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .sd.is-roll .sd-out,
+  .sd.is-roll .sd-in { animation: none; }
+  .sd.is-roll .sd-out { display: none; }
+}
+
+/* ========== 字型指派（共用元件）：放檔尾蓋過前面同特異度的規則；單頁例外寫在該頁 CSS 檔尾 ========== */
+/* 首屏大標 */
+.hero-copy h1 { font-family: var(--font-sj); }
+.modal .eyebrow { font-family: var(--font-sj); }
+/* 按鈕 */
+.btn-lime,
+.btn-dark,
+.cta,
+.modal-action { font-family: var(--font-lt); font-weight: 300; }
+.header-register,
+.header-download,
+.desktop-more-menu a,
+.language-menu a span,
+.language-menu a b { font-family: var(--font-lt); font-weight: 400; }
+
+@media (min-width: 768px) {
+  /* 眉標 */
+  .hero-copy .eyebrow,
+  .section-title > span,
+  .footer-kicker { font-family: var(--font-sj); }
+  /* 首屏說明、區塊說明 */
+  .hero-copy > p,
+  .section-title p { font-weight: 300; }
+}
+@media (max-width: 767px) {
+  /* 手機：眉標 */
+  .hero-copy .eyebrow,
+  .section-title > span,
+  .footer-kicker { font-family: var(--font-lt); font-weight: 600; }
+  /* 手機：區塊大標、按鈕 */
+  .section-title h2 { font-weight: 600; }
+  .btn-lime,
+  .btn-dark,
+  .cta,
+  .modal-action { font-family: var(--font-lt); font-weight: 400; }
+}
+
+/* ---- 稿上標 Lantinghei SC Heavy／Extralight 的元素 → 兰亭 400 ---- */
+.pill-tabs > :is(a, button),
+.route-tabs > :is(a, button),
+.filter-tabs > :is(a, button),
+.level-tabs > :is(a, button),
+.insights-tabs > :is(a, button) { font-weight: 400; }
+.pill-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.route-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.filter-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.level-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]),
+.insights-tabs > :is(.active, [aria-selected="true"], [aria-current="page"]) { font-weight: 600; }
+@media (min-width: 768px) {
+  .section-title h2 { font-weight: 400; }
+}

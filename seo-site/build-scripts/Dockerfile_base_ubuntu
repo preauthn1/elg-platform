@@ -1,0 +1,24 @@
+FROM ubuntu:latest
+
+RUN apt update && apt install -y nano curl wget software-properties-common sudo nodejs npm
+RUN add-apt-repository ppa:savoury1/chromium
+RUN apt update && apt install -y chromium-browser
+RUN apt-get -y install libxss1
+
+USER root
+WORKDIR "/home/node"
+ENV CACHE_MAXSIZE=1000
+ENV CACHE_TTL=86400
+
+COPY ./package.json .
+COPY ./package-lock.json .
+
+#RUN npm install --no-package-lock
+
+# Run everything after as non-privileged user.
+RUN node --version && npm --version
+RUN npm install
+
+COPY . .
+RUN npm run build
+RUN ls -la

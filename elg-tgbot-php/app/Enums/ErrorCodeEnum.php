@@ -1,0 +1,24 @@
+<?php
+
+namespace App\Enums;
+
+enum ErrorCodeEnum: int
+{
+    // 通用
+    case PLATFORM_API_CALL_NOT_SUCCESS = 1111;
+    case INVALID_CALLBACK_ACTION = 1001;
+    case RESPONSE_DATA_EMPTY = 1002;
+
+    case REPLY_MESSAGE_NOT_FOUND = 2001;
+    case REPLY_MESSAGE_STATUS_INVALID = 2002;
+
+    case DEPOSIT_LIST_EMPTY = 3001;
+
+    case CACHE_DATA_NOT_FOUND = 4001;
+    case CACHE_STATUS_INVALID = 4002;
+
+    case REGISTER_CONTACT_EMPTY = 5001;
+    case REGISTER_PHONE_NUMBER_EMPTY = 5002;
+    case REGISTER_USER_ID_NOT_MATCH = 5003;
+
+}

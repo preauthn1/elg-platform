@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://example.invalid/schema/routing"
+    xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example.invalid/schema/routing
+        https://example.invalid/schema/routing/routing-1.0.xsd">
+
+    <import resource="routing.xml" controller="FrameworkBundle:Template:template">
+        <default key="_controller">AppBundle:Blog:index</default>
+    </import>
+</routes>

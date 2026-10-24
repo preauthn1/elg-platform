@@ -1,0 +1,7 @@
+{
+  "generatedAt": "2026-01-01",
+  "providers": {
+    "EpicPay": { "inventoryNote": "範例實作", "response": "OK / FAIL", "depositSuccessTrigger": "status==='1'", "withdrawalSuccessTrigger": "status==='1'", "statusStyle": "二分" },
+    "YeePay": { "inventoryNote": "代收無失敗分支", "response": "SUCCESS / FAIL", "depositSuccessTrigger": "驗簽過即成功（不讀 code）", "withdrawalSuccessTrigger": "code===1", "statusStyle": "代收無失敗分支" }
+  }
+}

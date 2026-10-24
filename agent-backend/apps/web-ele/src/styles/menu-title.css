@@ -1,0 +1,9 @@
+/* 選單標題原本固定 max-width:140px，側邊欄與 hover 展開的浮動選單都比它寬，
+   長標題在還有空間時就被截成「…」。改為不設上限，標題是 flex item 且已有
+   overflow:hidden + text-overflow:ellipsis，真的塞不下時仍會在實際邊界斷字。
+   浮動選單內層自己也宣告這個變數，所以兩個選擇器都要蓋，且要 !important
+   才贏得過元件 SFC 樣式的注入順序。 */
+.vben-menu,
+.vben-menu__popup-container {
+  --menu-title-width: none !important;
+}

@@ -1,0 +1,50 @@
+.guid{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(0,0,0,.8);
+  text-align: center;
+  padding: 0 .3rem;
+  z-index: 99;
+  display: none;
+  box-sizing: border-box;
+}
+.guid img{
+  max-width: 100%;
+}
+.guid-1 {
+  position: relative;
+  padding: .2rem .5rem 0 1rem;
+
+}
+.guid-1 img {
+  margin-left: -0.5rem;
+  margin-top: 0;
+}
+.guid-1 .guid-close{
+  position: absolute;
+  right: .2rem;
+  top: .15rem;
+  width: .5rem;
+}
+.guid-2 {
+  margin-top: -0.4rem;
+}
+.guid-3 img{
+  width: 40%;
+  margin: 0 auto;
+  display: block;
+}
+.guid-4 img{
+  width: 40%;
+  margin: 0 auto;
+  display: block;
+}
+.guid-bottom{
+  position: absolute;
+  left: 0;
+  width: 100%;
+  bottom: 0;
+}

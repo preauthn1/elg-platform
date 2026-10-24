@@ -1,0 +1,31 @@
+steps:
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build-online/Dockerfile-php', '-t', 'example.invalid/tp-wz3-online/agent-backend-web-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/tp-wz3-online/agent-backend-web-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - agent-backend-web-deployment
+  - agent-backend-web-container=example.invalid/tp-wz3-online/agent-backend-web-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_CORE_PROJECT=tp-wz3-online'
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build-online/Dockerfile-nginx', '-t', 'example.invalid/tp-wz3-online/agent-backend-web-nginx-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/tp-wz3-online/agent-backend-web-nginx-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - agent-backend-web-deployment
+  - agent-backend-nginx-container=example.invalid/tp-wz3-online/agent-backend-web-nginx-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_CORE_PROJECT=tp-wz3-online'
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'

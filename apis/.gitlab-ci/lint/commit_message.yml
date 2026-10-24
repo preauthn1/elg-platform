@@ -1,0 +1,198 @@
+lint:commit-message:
+  stage: lint
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  tags:
+    - php8
+  before_script:
+    - apt-get update && apt-get install -y git bash
+    # MR 時同時 fetch 當前分支與 target branch，確保 remote ref 存在於本地（shallow clone 預設不含其他分支）
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ]; then
+        git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+      fi
+  script:
+    - |
+      bash << 'EOF'
+      set -e
+      # 強制 UTF-8 locale：wc -m 在容器預設 C/POSIX locale 下退化成算 byte（CJK 3 bytes/字），
+      # 改以「字元數」計長度，與本地 .githooks/commit-msg.sh 一致（修正本地過、CI 擋的 drift）。
+      export LC_ALL=C.UTF-8
+
+      RED='\033[0;31m'
+      GREEN='\033[0;32m'
+      YELLOW='\033[1;33m'
+      NC='\033[0m'
+
+      VALID_TYPES="feat|fix|refactor|test|chore|docs|perf|revert|style|ci|ai|skill"
+      FORMAT_PATTERN="^($VALID_TYPES)(\([^)]+\))?: .+"
+      MAX_LEN=130
+      MIN_DESC_LEN=4
+      FAILED=0
+
+      echo -e "${YELLOW}🔍 檢查 Commit Message 格式...${NC}"
+      echo ""
+
+      # 決定比對基準：
+      # MR  → 比對 target branch（已在 before_script fetch）
+      # Push → 比對 CI_COMMIT_BEFORE_SHA（前一個 commit），新分支首推則只檢查 HEAD
+      if [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
+        BASE_REF="origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+      elif [ -n "$CI_COMMIT_BEFORE_SHA" ] && \
+           [ "$CI_COMMIT_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+        BASE_REF="$CI_COMMIT_BEFORE_SHA"
+      else
+        # 新分支首次推送：僅檢查最新一筆 commit
+        BASE_REF="HEAD~1"
+      fi
+
+      # 基準逐級退回：force push 改寫歷史後，CI_COMMIT_BEFORE_SHA 指向的 commit 已不在 repo，
+      # 直接餵給 git log 會以 "fatal: Invalid revision range" 中止（本 script 為 set -e）。
+      # shallow clone 下 HEAD~1 亦可能取不到，故兩層都先驗證再用。
+      # 退回後只檢查 HEAD，被改寫掉的那批 commit 仍會在 MR pipeline 以 target branch
+      # 為基準完整重驗，不會漏檢。
+      if ! git rev-parse --verify --quiet "${BASE_REF}^{commit}" > /dev/null 2>&1; then
+        echo -e "${YELLOW}⚠️  比對基準 ${BASE_REF} 無法解析（多為 force push 改寫歷史），改為僅檢查最新一筆 commit${NC}"
+        BASE_REF="HEAD~1"
+      fi
+
+      # 取得相較於 base ref 的所有 commit（不含 merge commit）
+      HEAD_HASH=$(git rev-parse HEAD)
+
+      if git rev-parse --verify --quiet "${BASE_REF}^{commit}" > /dev/null 2>&1; then
+        COMMITS=$(git log "${BASE_REF}..HEAD" \
+          --no-merges \
+          --pretty=format:"%H %s")
+      else
+        # 連 HEAD~1 都取不到（root commit 或 depth=1 的 shallow clone）
+        COMMITS=$(git log -1 HEAD --pretty=format:"%H %s")
+      fi
+
+      if [ -z "$COMMITS" ]; then
+        echo -e "${YELLOW}⚠️  無可驗證的 commit${NC}"
+        exit 0
+      fi
+
+      while IFS= read -r line; do
+        HASH=$(echo "$line" | awk '{print $1}')
+        TITLE=$(echo "$line" | cut -d' ' -f2-)
+        SHORT_HASH="${HASH:0:8}"
+        COMMIT_VALID=true
+
+        # 略過 fixup! / squash! / git revert 自動訊息 / merge commit 自動訊息
+        # （shallow clone 環境下 --no-merges 有時無法正確過濾 merge commit，故在訊息層面補充防守）
+        if echo "$TITLE" | grep -qE "^(fixup! |squash! |Revert \"|Reapply \"|Merge branch |Merge remote-tracking branch |Merge tag )"; then
+          continue
+        fi
+
+        # 規則 1：格式檢查
+        if ! echo "$TITLE" | grep -qE "$FORMAT_PATTERN"; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 格式錯誤${NC}"
+          echo -e "   期望格式：${YELLOW}<type>: <描述>${NC}"
+          echo -e "   有效類型：${YELLOW}${VALID_TYPES//|/、}${NC}"
+          echo -e "   實際標題：${RED}${TITLE}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 2：標題長度
+        TITLE_LEN=$(echo -n "$TITLE" | wc -m | tr -d ' ')
+        if [ "$TITLE_LEN" -gt "$MAX_LEN" ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 標題過長（${TITLE_LEN} 字元，上限 ${MAX_LEN}）${NC}"
+          echo -e "   實際標題：${RED}${TITLE}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 3：描述字數
+        COMMIT_TYPE=$(echo "$TITLE" | sed -E "s/^($VALID_TYPES)(\([^)]+\))?: .*/\1/")
+        DESCRIPTION=$(echo "$TITLE" | sed -E "s/^($VALID_TYPES)(\([^)]+\))?: //")
+        DESC_LEN=$(echo -n "$DESCRIPTION" | wc -m | tr -d ' ')
+        if [ "$DESC_LEN" -lt "$MIN_DESC_LEN" ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 描述過短（${DESC_LEN} 字，至少需 ${MIN_DESC_LEN} 字）${NC}"
+          echo -e "   實際描述：${RED}${DESCRIPTION}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 4：描述不得全由泛用詞組成
+        #   原理：將描述拆成詞，若所有詞都在泛用詞表內則視為無意義描述
+        #   e.g. "fix bug" → 全泛用 ❌；"fix login bug" → login 為具體詞 ✅
+        GENERIC_WORDS="fix fixed fixes bug bugs hotfix patch update updates updated modify modified change changed changes add added remove removed delete deleted test tests testing wip tmp temp todo cleanup refactor refactoring adjust adjusted improve improved improvement enhancement minor 修 改 修改 修正 修復 調整 更新 新增 刪除 優化 測試 修bug"
+        LOWER_DESC=$(echo "$DESCRIPTION" | tr '[:upper:]' '[:lower:]')
+        ALL_GENERIC=true
+        for word in $LOWER_DESC; do
+          word=$(echo "$word" | sed 's/[[:punct:]]//g')
+          [ -z "$word" ] && continue
+          IS_GENERIC=false
+          for gw in $GENERIC_WORDS; do
+            if [ "$word" = "$gw" ]; then
+              IS_GENERIC=true
+              break
+            fi
+          done
+          if [ "$IS_GENERIC" = false ]; then
+            ALL_GENERIC=false
+            break
+          fi
+        done
+        if [ "$ALL_GENERIC" = true ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 描述全由泛用詞組成，看不出實際變更為何${NC}"
+          echo -e "   NG：${RED}fix bug / update / 修改 / wip${NC}"
+          echo -e "   OK：${GREEN}fix login bug${NC}（含具體對象）、${GREEN}修正登入 token 過期問題${NC}"
+          echo -e "   實際描述：${RED}${DESCRIPTION}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 5：最新一筆 commit 必須包含 GitLab ticket 連結
+        #   僅檢查 HEAD commit；其餘歷史 commit 略過此規則
+        #   ticket 可放在標題行或 body（第 2 行以後），兩者皆可
+        #   豁免類型：chore / style / ci / docs / revert / ai
+        if [ "$HASH" = "$HEAD_HASH" ]; then
+          TICKET_REQUIRED_TYPES="feat"
+          # ! 三段式 pattern 必須與 .githooks/commit-msg.sh 逐字一致——本地 hook 早已接受
+          # ! 「Refs: <GitLab URL>」與裸 URL 兩種寫法，CI 這份先前只認短參照，導致本地過、
+          # ! CI 紅（2026-08-24 實際踩到）。日後任一邊放寬時，另一邊要同步。
+          # 前置邊界放寬到「非英數字」：中文訊息的 ticket 常緊貼全形標點（工單：target/tickets#4412），
+          # 那不是 [[:space:]]，原本會被判成缺 ticket。英數字黏在前面（xxelg/tickets#1）仍擋下。
+          SHORT_TICKET_PATTERN="(^|[^[:alnum:]_/-])target/(tickets|ticket_tasks|op_tickets)#[0-9]+"
+          GITLAB_HOST_PATTERN="[^/[:space:]]*[Gg][Ii][Tt][Ll][Aa][Bb][^/[:space:]]*"
+          GITLAB_URL_PATTERN="https?://$GITLAB_HOST_PATTERN/[^[:space:]]+"
+          REF_GITLAB_URL_PATTERN="(^|[[:space:]])Refs:[[:space:]]+$GITLAB_URL_PATTERN"
+          BARE_GITLAB_URL_PATTERN="^[[:space:]]*$GITLAB_URL_PATTERN"
+          TICKET_PATTERN="($SHORT_TICKET_PATTERN|$REF_GITLAB_URL_PATTERN|$BARE_GITLAB_URL_PATTERN)"
+          FULL_MSG=$(git log -1 --format="%B" "$HASH")
+          if echo "$COMMIT_TYPE" | grep -qE "^($TICKET_REQUIRED_TYPES)$"; then
+            if ! echo "$FULL_MSG" | grep -qE "$TICKET_PATTERN"; then
+              echo -e "${RED}❌ [${SHORT_HASH}] 缺少 ticket 連結${NC}"
+              echo -e "   類型 ${YELLOW}${COMMIT_TYPE}${NC} 必須附上 ticket（標題或 body 均可）"
+              echo -e "   範例 1（標題）：${YELLOW}feat: 新增功能 target/tickets#3668${NC}"
+              echo -e "   範例 2（body）：${YELLOW}feat: 新增功能${NC}"
+              echo -e "              ${YELLOW}target/tickets#3668${NC}"
+              echo -e "              ${YELLOW}Refs: http://example.invalid:1688/target/tickets/-/work_items/3837${NC}"
+              echo -e "              ${YELLOW}https://example.invalid/groups/foo/-/issues/3837${NC}"
+              echo -e "   實際訊息：${RED}${FULL_MSG}${NC}"
+              COMMIT_VALID=false
+            fi
+          fi
+        fi
+
+        if [ "$COMMIT_VALID" = true ]; then
+          echo -e "${GREEN}✅ [${SHORT_HASH}] ${TITLE}${NC}"
+        else
+          FAILED=$((FAILED + 1))
+          echo ""
+        fi
+
+      done <<< "$COMMITS"
+
+      echo ""
+      if [ "$FAILED" -gt 0 ]; then
+        echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${RED}  ${FAILED} 筆 Commit 格式不符，MR 驗證失敗   ${NC}"
+        echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        exit 1
+      fi
+
+      echo -e "${GREEN}✅ 所有 Commit Message 格式檢查通過${NC}"
+      EOF
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+  allow_failure: false

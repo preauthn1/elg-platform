@@ -1,0 +1,17 @@
+<?php
+
+declare(strict_types=1);
+
+namespace App\Http\Requests\Agent\Deposit;
+
+use App\Http\Requests\AbstractRequest;
+
+class RequestLogsRequest extends AbstractRequest
+{
+    public function rules(): array
+    {
+        return [
+            'order_id' => 'required|integer|min:1',
+        ];
+    }
+}

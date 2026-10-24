@@ -1,0 +1,5 @@
+Content-Security-Policy:
+    default-src 'self';
+    style-src 'self' example.invalid;
+    img-src *.example.invalid;
+    script-src 'unsafe-eval' 'self' example.invalid 'nonce-Nc3n83cnSAd3wc3Sasdfn939hc3'

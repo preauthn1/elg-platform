@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PAYESSENCE × PEGASUS Giftcode Giveaway</title>
+    <link rel="icon" type="/image/png" href="/images/favicon.ico" />
+    <link rel="stylesheet" href="/css/pe-x-pegasus.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Banner -->
+      <div class="section">
+        <img
+          id="en-banner"
+          class="banner"
+          src="/images/banner_en.jpg"
+          alt="Promotion Banner"
+        />
+        <img
+          id="cn-banner"
+          class="banner"
+          src="/images/banner_cn.jpg"
+          alt="Promotion Banner"
+        />
+        <img
+          id="ms-banner"
+          class="banner"
+          src="/images/banner_ms.jpg"
+          alt="Promotion Banner"
+        />
+      </div>
+
+      <!-- Language -->
+      <div class="language-switch language">
+        <button
+          type="button"
+          class="language-btn active"
+          id="lang-en"
+          onclick="switchLanguage('/pe-x-pegasus')"
+        >
+          English
+        </button>
+        <button
+          type="button"
+          class="language-btn"
+          id="lang-cn"
+          onclick="switchLanguage('/zh-CN/pe-x-pegasus')"
+        >
+          中文
+        </button>
+        <button
+          type="button"
+          class="language-btn"
+          id="lang-ms"
+          onclick="switchLanguage('/ms/pe-x-pegasus')"
+        >
+          Bahasa Melayu
+        </button>
+      </div>
+
+      <!-- Content -->
+      <div class="rule-content active">
+        <div class="language-switch">
+          <button type="button" class="how-to-redeem-btn" onclick="openModal()">
+            {{redeem_button}}
+          </button>
+        </div>
+
+        <div class="section">
+          <h3 class="section-title">{{terms_title1}}</h3>
+          <h2 class="section-title">{{terms_title2}}</h2>
+
+          <div class="section-content">
+            <!-- Intro -->
+            <p>{{terms_intro_prefix}} {{terms_intro}} {{terms_intro_suffix}}</p>
+
+            <!-- Highlight -->
+            <div class="highlight">{{terms_highlight}}</div>
+
+            <ol>
+              <!-- Section 1 -->
+              <li>
+                <b>{{terms_section1_title}}</b>
+                <ul>
+                  <li>{{terms_section1_item1}}</li>
+                  <li>{{terms_section1_item2}}</li>
+                </ul>
+              </li>
+              <!-- Section 2 -->
+              <li>
+                <b>{{terms_section2_title}}</b>
+                <ul>
+                  <li>{{terms_section2_item1}}</li>
+                  <li>{{terms_section2_item2}}</li>
+                  <li>{{terms_section2_item3}}</li>
+                </ul>
+              </li>
+              <!-- Section 3 -->
+              <li>
+                <b>{{terms_section3_title}}</b>
+                <ul>
+                  <li>{{terms_section3_item1}}</li>
+                  <li>{{terms_section3_item2}}</li>
+                  <li>{{terms_section3_item3}}</li>
+                  <li>{{terms_section3_item4}}</li>
+                </ul>
+              </li>
+              <!-- Section 4 -->
+              <li>
+                <b>{{terms_section4_title}}</b>
+                <ul>
+                  <li>{{terms_section4_item1}}</li>
+                  <li>{{terms_section4_item2}}</li>
+                  <li>{{terms_section4_item3}}</li>
+                  <li>{{terms_section4_item4}}</li>
+                </ul>
+              </li>
+              <!-- Section 5 -->
+              <li>
+                <b>{{terms_section5_title}}</b>
+                <ul>
+                  <li>{{terms_section5_item1}}</li>
+                  <li>{{terms_section5_item2}}</li>
+                </ul>
+              </li>
+              <!-- Section 6 -->
+              <li>
+                <b>{{terms_section6_title}}</b>
+                <ul>
+                  <li>{{terms_section6_item1}}</li>
+                  <li>
+                    {{terms_section6_item2}}
+                    <ul>
+                      <li>{{terms_section6_sub1}}</li>
+                      <li>{{terms_section6_sub2}}</li>
+                      <li>{{terms_section6_sub3}}</li>
+                    </ul>
+                  </li>
+                  <li>{{terms_section6_item3}}</li>
+                  <li>{{terms_section6_item4}}</li>
+                  <li>{{terms_section6_item5}}</li>
+                </ul>
+              </li>
+            </ol>
+
+            <!-- Highlight -->
+            <div class="highlight">{{terms_reminder}}</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Modal -->
+      <div id="redeemModal" class="modal">
+        <div class="modal-content">
+          <span class="close-modal" onclick="closeModal()">&times;</span>
+
+          <h2 class="modal-title">{{howToRedeemPromoCode}}</h2>
+
+          <div class="image-container">
+            <div class="slides">
+              <img src="/images/step_1.jpg" />
+              <div id="step-1" class="language-content step">
+                {{step}} 1：<br />{{step1_description}}
+              </div>
+            </div>
+
+            <div class="slides">
+              <img src="/images/step_2.jpg" />
+              <div id="step-2" class="language-content step">
+                {{step}} 2：<br />{{step2_description}}
+              </div>
+            </div>
+
+            <div class="slides">
+              <img src="/images/step_3.jpg" />
+              <div id="step-3" class="language-content step">
+                {{step}} 3：<br />{{step3_description}}
+              </div>
+            </div>
+
+            <div class="slides">
+              <img src="/images/step_4.jpg" />
+              <div id="step-4" class="language-content step">
+                {{step}} 4：<br />{{step4_description}}
+              </div>
+            </div>
+
+            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+            <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+            <div style="text-align: center">
+              <span class="dot" onclick="currentSlide(1)"></span>
+              <span class="dot" onclick="currentSlide(2)"></span>
+              <span class="dot" onclick="currentSlide(3)"></span>
+              <span class="dot" onclick="currentSlide(4)"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="/js/terms.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1088 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APIs 金流商完整盤點報告</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M6 15h4"/></svg></div><div class="name">Pay&nbsp;Audit</div></div>
+    <div class="menu-label">報告章節</div>
+    <ul class="menu">
+      <li><a href="#inventory" class="active"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="20" y2="12"/><line x1="8" y1="18" x2="20" y2="18"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/></svg></span> 金流商清單</a></li>
+      <li><a href="#whitelabel"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg></span> 白標使用對照</a></li>
+      <li><a href="#callback"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3v6h-6"/><path d="M3 12a9 9 0 0 1 15-6.7L21 9"/><path d="M3 21v-6h6"/><path d="M21 12a9 9 0 0 1-15 6.7L3 15"/></svg></span> 回調邏輯</a></li>
+      <li><a href="#docs"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></svg></span> 文檔缺口</a></li>
+    </ul>
+    <div class="foot">report:payment-providers<br>· 2026-10-07 ·</div>
+  </aside>
+
+  <div class="content">
+
+    <div class="topbar">
+      <div>
+        <div class="crumb">Reports <b>/</b> Payment <b>/</b> 金流商盤點</div>
+        <h1>APIs 金流商完整盤點</h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg> 2026-10-07</span>
+        <span class="chip">39 providers · 6 白標</span>
+        <span class="chip">report:payment-providers</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="stats">
+        <div class="stat"><div class="avatar av-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="9" x2="20" y2="9"/><line x1="4" y1="15" x2="20" y2="15"/><line x1="10" y1="3" x2="8" y2="21"/><line x1="16" y1="3" x2="14" y2="21"/></svg></div><div><div class="num">39</div><div class="lbl">對接金流商</div></div></div>
+        <div class="stat"><div class="avatar av-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 1l4 4-4 4"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><path d="M7 23l-4-4 4-4"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><div><div class="num">34</div><div class="lbl">支援代收＋代付</div></div></div>
+        <div class="stat"><div class="avatar av-secondary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M4 21h16"/></svg></div><div><div class="num">5</div><div class="lbl">代收限定</div></div></div>
+        <div class="stat"><div class="avatar av-success"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg></div><div><div class="num">37</div><div class="lbl">已有三方文檔</div></div></div>
+        <div class="stat"><div class="avatar av-danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div><div><div class="num">2</div><div class="lbl">缺三方文檔</div></div></div>
+      </div>
+
+      
+      <section id="inventory" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>金流商清單（共 39 家）</h2>
+          <p class="desc">註冊於 <code>config/payment.php</code> 的 provider driver。代收限定（5 家）：AllPay、Ap8Pay、Sure、TgPay、TngPin。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr>
+                <th>#</th><th>Provider</th><th>config key</th><th class="center">代收</th><th class="center">代付</th><th class="center">三方文檔</th><th>備註</th>
+              </tr></thead>
+              <tbody>
+                                <tr>
+                  <td>1</td>
+                  <td><b>A3Pay</b></td>
+                  <td><span class="mono">A3PAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>AES-256-CBC 解密 Data（PBKDF2-SHA1）＋ RSA SHA-1 對明文驗簽；代收往上 ≤0.10 唯一化上調以實付金額重算 amount/tax/point</td>
+                </tr>
+                                <tr>
+                  <td>2</td>
+                  <td><b>AkPay</b></td>
+                  <td><span class="mono">AKPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（source_id/tx_id/amount/currency/token，hash_equals）＋空憑證守衛（MERCHANT_TOKEN）；無 StatusEnum</td>
+                </tr>
+                                <tr>
+                  <td>3</td>
+                  <td><b>AllPay</b></td>
+                  <td><span class="mono">ALL</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="dash">—</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>代收限定；MD5 簽名（content/notifyTime/version＋key，大寫）＋content base64 JSON；無 Status Enum；代付走舊系統（無 Withdrawal）</td>
+                </tr>
+                                <tr>
+                  <td>4</td>
+                  <td><b>AntzPay</b></td>
+                  <td><span class="mono">ANTZPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>Kira 薄繼承殼（回調全沿用 Kira）；AES-256-CBC 對稱解密 encryptedData、無獨立驗簽；無 Trait 檔</td>
+                </tr>
+                                <tr>
+                  <td>5</td>
+                  <td><b>Ap8Pay</b></td>
+                  <td><span class="mono">AP8</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="dash">—</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>代收限定；<b style="color:var(--danger)">無驗簽</b>；無 Trait 檔；只有代收</td>
+                </tr>
+                                <tr>
+                  <td>6</td>
+                  <td><b>B3Wallet</b></td>
+                  <td><span class="mono">B3WALLET</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td><b style="color:var(--danger)">無驗簽</b>（僅 IP 白名單）＋查詢接口二次確認</td>
+                </tr>
+                                <tr>
+                  <td>7</td>
+                  <td><b>BigPayz</b></td>
+                  <td><span class="mono">BIGPAYZ</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256；代收依欄位分流兩支子回調（ItemID→Payin V2 驗 signature2、RefId→DuitNow 驗 Signature）</td>
+                </tr>
+                                <tr>
+                  <td>8</td>
+                  <td><b>BillionPay</b></td>
+                  <td><span class="mono">BILLIONPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（過濾空值與 0、ksort 後 json_encode 再接 secret）；無 StatusEnum</td>
+                </tr>
+                                <tr>
+                  <td>9</td>
+                  <td><b>CCPayment</b></td>
+                  <td><span class="mono">CCPAYMENT</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256 header 驗簽（Appid+Timestamp+原始 body，hash_equals，不驗時效）＋強制回查；代收回調自建單（永久地址 DirectDeposit，recordId 冪等）＋風險地址回調分流；無 Status Enum（類別常數白名單）</td>
+                </tr>
+                                <tr>
+                  <td>10</td>
+                  <td><b>DgPay</b></td>
+                  <td><span class="mono">DG</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 驗簽 md5(opCode+orderId+amount+status+secretKey)；雙鍵相容憑證</td>
+                </tr>
+                                <tr>
+                  <td>11</td>
+                  <td><b>DgPay</b></td>
+                  <td><span class="mono">DGPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 驗簽 md5(opCode+orderId+amount+status+secretKey)；雙鍵相容憑證</td>
+                </tr>
+                                <tr>
+                  <td>12</td>
+                  <td><b>EasyPay</b></td>
+                  <td><span class="mono">EASYPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td><b style="color:var(--danger)">無驗簽</b>（回調只做 validate 格式，Trait 僅出站 Basic Auth）</td>
+                </tr>
+                                <tr>
+                  <td>13</td>
+                  <td><b>EpicPay</b></td>
+                  <td><span class="mono">EPICPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 token 驗簽（merchant-secret-id-amount-ts）</td>
+                </tr>
+                                <tr>
+                  <td>14</td>
+                  <td><b>FlashPay</b></td>
+                  <td><span class="mono">FLASHPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>SHA256(ksort query+secret) 簽名；空 SECRET_KEY 守衛</td>
+                </tr>
+                                <tr>
+                  <td>15</td>
+                  <td><b>FPay</b></td>
+                  <td><span class="mono">FPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>md5(APP_SECRET.order_id) token 驗簽；APP_SECRET 空即拒；代收成功時依 payment_type 改寫 order_type_id</td>
+                </tr>
+                                <tr>
+                  <td>16</td>
+                  <td><b>GffPay</b></td>
+                  <td><span class="mono">GFF</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>無 Trait 檔；MD5 簽名（ksort k=v& 串接＋MerchantKey，轉大寫）；空憑證守衛</td>
+                </tr>
+                                <tr>
+                  <td>17</td>
+                  <td><b>GlobePay</b></td>
+                  <td><span class="mono">GLOBEPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>AES-256-CBC 解密 Data＋RSA SHA-1 驗簽（Signature）</td>
+                </tr>
+                                <tr>
+                  <td>18</td>
+                  <td><b>GMPay</b></td>
+                  <td><span class="mono">GMPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256 驗簽（transaction_reference+amount+currency）；standalone 脫離 MajesticPay；代收 origin_amount 湊零頭重算入帳（上限 1.00）</td>
+                </tr>
+                                <tr>
+                  <td>19</td>
+                  <td><b>Kira</b></td>
+                  <td><span class="mono">KIRA</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>AES-256-CBC 對稱解密 encryptedData（無獨立驗簽）</td>
+                </tr>
+                                <tr>
+                  <td>20</td>
+                  <td><b>LegendPay</b></td>
+                  <td><span class="mono">LEGEND</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（ksort＋urldecode＋&key=API_SECRET，大寫）；無 StatusEnum</td>
+                </tr>
+                                <tr>
+                  <td>21</td>
+                  <td><b>MajesticPay</b></td>
+                  <td><span class="mono">MAJESTIC</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256（ref_no+amount+currency）；代收直接 order->update 繞過 updateDepositOrderSuccess</td>
+                </tr>
+                                <tr>
+                  <td>22</td>
+                  <td><b>MaxPay</b></td>
+                  <td><span class="mono">MAXPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td><b style="color:var(--danger)">無驗簽</b>（SHA512 generateHash 只用在送出請求，回調不驗）</td>
+                </tr>
+                                <tr>
+                  <td>23</td>
+                  <td><b>PayEssence</b></td>
+                  <td><span class="mono">PAYESSENCE</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>SHA256 雙簽名 CheckString/CheckString2（代收 CheckString2 僅成功驗；代付 CheckString2 僅 35002 驗）</td>
+                </tr>
+                                <tr>
+                  <td>24</td>
+                  <td><b>PayMate</b></td>
+                  <td><span class="mono">PAYMATE</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（signMsg，ksort 拼接 key:MD5_KEY 轉大寫）＋ Base64 JSON content；SpeedPay 共用本實作</td>
+                </tr>
+                                <tr>
+                  <td>25</td>
+                  <td><b>PayMate</b></td>
+                  <td><span class="mono">SPEEDPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（signMsg，ksort 拼接 key:MD5_KEY 轉大寫）＋ Base64 JSON content；SpeedPay 共用本實作</td>
+                </tr>
+                                <tr>
+                  <td>26</td>
+                  <td><b>PayPro</b></td>
+                  <td><span class="mono">PAYPRO</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（ksort 拼接 key=value + MERCHANT_KEY 鹽）</td>
+                </tr>
+                                <tr>
+                  <td>27</td>
+                  <td><b>QuickPay</b></td>
+                  <td><span class="mono">QUICKPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（ksort query+&key=，轉大寫；簽 status+result）＋空憑證守衛；無 Status Enum</td>
+                </tr>
+                                <tr>
+                  <td>28</td>
+                  <td><b>Sure</b></td>
+                  <td><span class="mono">SURE</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="dash">—</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>代收限定；MD5 token 驗簽（MerchantID+amount+status+CallBackApiKey+trxno）；無 Trait 檔、無 Status Enum</td>
+                </tr>
+                                <tr>
+                  <td>29</td>
+                  <td><b>SurePay</b></td>
+                  <td><span class="mono">SUREPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 token（merchant+amount+status+CALLBACK_API_KEY+trxno）；空憑證守衛</td>
+                </tr>
+                                <tr>
+                  <td>30</td>
+                  <td><b>TakaPay</b></td>
+                  <td><span class="mono">TAKAPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（商戶碼+7 欄串接+SECRET_KEY）；StatusCodeEnum</td>
+                </tr>
+                                <tr>
+                  <td>31</td>
+                  <td><b>TgPay</b></td>
+                  <td><span class="mono">TGPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="dash">—</span></td>
+                  <td class="center"><span class="badge b-danger">缺</span></td>
+                  <td>代收限定；Header 明文金鑰比對（x-public-key/x-secret-key hash_equals）、無簽名</td>
+                </tr>
+                                <tr>
+                  <td>32</td>
+                  <td><b>TngPin</b></td>
+                  <td><span class="mono">TNGPIN</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="dash">—</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>代收限定；MD5 簽名 md5(ApiKey+transaction_id+merchant_ref)＋可選回調 IP 白名單；三層匹配（merchant_ref→transaction_id→PIN 孤兒）</td>
+                </tr>
+                                <tr>
+                  <td>33</td>
+                  <td><b>TopPay</b></td>
+                  <td><span class="mono">TOPPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>RSA 公鑰解密還原明文比對（驗章前 amount/fee 補 2 位小數）</td>
+                </tr>
+                                <tr>
+                  <td>34</td>
+                  <td><b>TrustPay</b></td>
+                  <td><span class="mono">TRUSTPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256 驗簽（transaction_reference+amount+currency）</td>
+                </tr>
+                                <tr>
+                  <td>35</td>
+                  <td><b>TtPay</b></td>
+                  <td><span class="mono">TTPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-danger">缺</span></td>
+                  <td>DGPay 換名白牌（兩支回調直接 extends DgPay，無自有 Trait 檔）；MD5 securityToken 驗簽</td>
+                </tr>
+                                <tr>
+                  <td>36</td>
+                  <td><b>VaderPay</b></td>
+                  <td><span class="mono">VADERPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>HMAC-SHA256 簽名（代收／代付回調各自欄位串接）＋MerchantCode 比對；StatusCodeEnum；代付驗簽改用原始 JSON 值</td>
+                </tr>
+                                <tr>
+                  <td>37</td>
+                  <td><b>VtPay</b></td>
+                  <td><span class="mono">VTPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>AES-128-CBC 對稱解密（request.response；無 iv/value 的 base64 JSON 直接當明文採用），無簽名</td>
+                </tr>
+                                <tr>
+                  <td>38</td>
+                  <td><b>YeePay</b></td>
+                  <td><span class="mono">YEEPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 簽名（ksort、排除 0／空值、&key=secret、轉大寫，hash_equals 比對）</td>
+                </tr>
+                                <tr>
+                  <td>39</td>
+                  <td><b>ZPay</b></td>
+                  <td><span class="mono">ZPAY</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="tick">✓</span></td>
+                  <td class="center"><span class="badge b-success">✓</span></td>
+                  <td>MD5 itemDesc 驗簽（代收＝MD5(存單 zpay_item_desc+secret)、代付＝MD5(referenceId+dateTime+amount+secret)）；StatusCodeEnum</td>
+                </tr>
+                              </tbody>
+            </table>
+          </div>
+          <div class="legend">
+            <span><span class="tick">✓</span> 支援</span>
+            <span><span class="dash">—</span> 不支援 / 代收限定</span>
+            <span><span class="badge b-success">✓</span> 有文檔</span>
+            <span><span class="badge b-danger">缺</span> 缺文檔</span>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="whitelabel" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>白標站點使用對照</h2>
+          <p class="desc">啟用中 = <code>agent_cash_flows.status = 1</code>；由 <code>report:payment-providers</code> 即時查各租戶 DB。WTT/Wintoto 共用 VWorld。只統計由 APIs 處理的通道（<code>CashFlowScopeEnum::isHandledByApis()</code>：<code>cash_flows.id</code> 大於 62，或在 APIs 承接名單內）；舊系統範疇的通道由 API_Agent 處理，不在本表。</p>
+        </div>
+        <div class="card-body">
+                    <div class="tbl-scroll">
+            <table class="matrix">
+              <thead><tr>
+                <th>Provider</th>
+                <th class="center">VWorld</th><th class="center">TPower</th><th class="center">VPlus33</th><th class="center">Yes2Win</th><th class="center">Alfawin77</th><th class="center">Me77</th>              </tr></thead>
+              <tbody>
+                                <tr>
+                  <td><b>A3Pay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>AkPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>AntzPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>Ap8Pay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>B3Wallet</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>BigPayz</b></td>
+                                                          <td class="center">代收 / <span class="dis">代付</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>BillionPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>CCPayment</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>DgPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>EasyPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>EpicPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>FlashPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>FPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                  </tr>
+                                <tr>
+                  <td><b>GlobePay</b></td>
+                                                          <td class="center">代收 / <span class="dis">代付</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>GMPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>Kira</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>LegendPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>MajesticPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>MaxPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>PayEssence</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>PayMate</b></td>
+                                                          <td class="center">代收 / <span class="dis">代付</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                  </tr>
+                                <tr>
+                  <td><b>PayPro</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>QuickPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>SurePay</b></td>
+                                                          <td class="center">代收 / <span class="dis">代付</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TakaPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TgPay</b></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TngPin</b></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TopPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TrustPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>TtPay</b></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>VaderPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dis">代收代付</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>VtPay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>YeePay</b></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收代付</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                  </tr>
+                                <tr>
+                  <td><b>ZPay</b></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收</td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center"><span class="dash">—</span></td>
+                                                          <td class="center">代收</td>
+                                  </tr>
+                              </tbody>
+            </table>
+          </div>
+          <div class="legend">
+            <span>代收代付 = 該方向有啟用記錄</span>
+            <span><span class="dis">橙色</span> = 已配置但全部停用（acf=0）</span>
+            <span><span class="dash">—</span> = 未配置</span>
+          </div>
+                    <h3>關鍵觀察</h3>
+          <ul class="clean">
+            <li><b>FPay</b> 覆蓋最廣（5 個白標）。</li><li><b>TPower</b> 接入最多金流商（21 家）；<b>Me77</b> 最精簡（3 家）。</li><li>沒有由 APIs 處理的正式站通道：<b>AllPay、GffPay、Sure</b>。舊系統範疇的通道不在本表，這幾家仍可能經由舊系統在正式站使用。</li>          </ul>
+                            </div>
+      </section>
+
+      
+      <section id="callback" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>回調成功/失敗標記邏輯</h2>
+          <p class="desc">所有金流商繼承共用框架語意；下表為各家「明確標記成功」的觸發條件與差異（來源：payment-callback-analysis 分析）。</p>
+        </div>
+        <div class="card-body">
+          <div class="callout">
+            <b>共用框架語意</b>
+            <ul class="clean">
+              <li><b>代收</b>：僅 <code>status=CREATED(0)</code> 可被回調修改；終態回成功響應停重試（冪等）。金額不符 → <code>WAITING_MANUAL_DEPOSIT</code> + BotNotify；否則設 <code>SUCCESS</code> / <code>FAILED</code>。</li>
+              <li><b>代付</b>：僅 <code>THIRD_PARTY_SUCCESS(24)</code> 視為已處理（冪等）。<code>THIRD_PARTY_FAILED(29)</code> 為<b>非終態</b>，允許補發成功 / 重試。金額僅成功時驗，不符只 warning。</li>
+            </ul>
+          </div>
+          <h3>各家觸發條件總表</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr>
+                <th>Provider</th><th>回應字串（成功 / 失敗）</th><th>代收「成功」觸發</th><th>代付「成功」觸發</th><th>狀態判定風格</th>
+              </tr></thead>
+              <tbody>
+                                <tr>
+                  <td><b>A3Pay</b></td>
+                  <td>success / fail</td>
+                  <td><code>(int)Data.Status===6（7 失敗；其餘含 4 為非終態，不動單只回 success）</code></td>
+                  <td><code>(string)Data.Status===&#039;4&#039;（&#039;5&#039; 失敗→29；其餘 INDETERMINATE 維持 22）</code></td>
+                  <td>代收：常數三態（6/7 終態、其餘 ack 不動單）；代付：resolveWithdrawalOutcome 白名單三態；例外 rethrow 交框架</td>
+                </tr>
+                                <tr>
+                  <td><b>AkPay</b></td>
+                  <td>JSON {success:true} / {success:false}；驗簽失敗拋 ApiException</td>
+                  <td><code>status===&#039;Completed&#039;</code></td>
+                  <td><code>status===&#039;Approved&#039;</code></td>
+                  <td>二分（非成功即失敗）：代收非 Completed→FAILED；代付非 Approved→FAILURE(29)，無 INDETERMINATE 路徑</td>
+                </tr>
+                                <tr>
+                  <td><b>AllPay</b></td>
+                  <td>OK / Failure</td>
+                  <td><code>content.status===&#039;SUCCESS&#039;（base64 解碼後；另驗 merchantNo 相符）</code></td>
+                  <td><span class="dash">—</span></td>
+                  <td>二分（非 SUCCESS 即失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>AntzPay</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>strtoupper(data.status)===&#039;SUCCESS&#039;（金額取 transaction.amountPaid）</code></td>
+                  <td><code>strtoupper(trim(data.status))===&#039;SUCCESS&#039;（金額取 transaction.amountWithdraw）；紀錄為 -2 明確拒絕時收 SUCCESS 照常定案並另發專用告警</code></td>
+                  <td>代收：match SUCCESS/PENDING(→回寫 CREATED)/FAILED，default 失敗；代付：三態 SUCCESS/FAILED/其餘 INDETERMINATE（回 OK 不改狀態）</td>
+                </tr>
+                                <tr>
+                  <td><b>Ap8Pay</b></td>
+                  <td>OK / 例外訊息原文（已處理的訂單回 &#039;Order already deposit finished&#039;；未定義 FAIL 失敗回應）</td>
+                  <td><code>status===&#039;SUCCESS&#039;（不驗金額，amount 傳 null；成功或失敗都會用回調的 amount 覆寫訂單的 amount、rate、point）</code></td>
+                  <td><span class="dash">—</span></td>
+                  <td>二分（非成功即失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>B3Wallet</b></td>
+                  <td>success / fail（框架預設，未覆寫）</td>
+                  <td><code>queryBill Status in [&#039;PAID&#039;,&#039;SETTLED&#039;]（不信回調 Paid）；EXPIRED/CANCELLED→失敗；其餘不 finalize 回 success</code></td>
+                  <td><code>queryPayout Status===&#039;PAID&#039;（不信回調 Paid/Error）；FAILED/CANCELLED→29；其餘 INDETERMINATE</code></td>
+                  <td>代收三態（未知→rollback 回成功不改單）；代付 resolveWithdrawalOutcome 三態；狀態以查詢接口為準</td>
+                </tr>
+                                <tr>
+                  <td><b>BigPayz</b></td>
+                  <td>JSON {error_code:0,message:&#039;Operation Success&#039;} / {error_code:1,message:&#039;Operation Failed&#039;}</td>
+                  <td><code>status∈{1 Success,3 Approved}（Payin 讀 status、DuitNow 讀 Status，經 BigPayzPayinCallbackStatusCodeEnum::isSuccess）</code></td>
+                  <td><code>Status∈{&#039;1&#039;,&#039;3&#039;}（resolveWithdrawalOutcome；&#039;2&#039;→失敗，其餘如 0 In Process→INDETERMINATE 不改狀態）</code></td>
+                  <td>代收二分（非 1/3 即失敗，含未知碼與 2）；代付三態（1/3 成功、2 失敗、其餘不改）</td>
+                </tr>
+                                <tr>
+                  <td><b>BillionPay</b></td>
+                  <td>true / fail</td>
+                  <td><code>status===&#039;completed&#039;（以 actual_amount 入帳）；pending 不改狀態並回成功響應</code></td>
+                  <td><code>status===&#039;completed&#039;</code></td>
+                  <td>字串三態（completed 成功／pending 不改狀態／其他一律失敗），代收與代付相同</td>
+                </tr>
+                                <tr>
+                  <td><b>CCPayment</b></td>
+                  <td>Success / Fail（代收、代付皆覆寫；驗簽失敗或回查異常拋例外→非 200 由三方重送）</td>
+                  <td><code>回查 getAppDepositRecord status===&#039;Success&#039; 且幣/鏈符合通道、地址屬該會員、非 isFlaggedAsRisky→建單 updateDepositOrderSuccess；isFlaggedAsRisky→建單 status 4＋DepositManualReview（不自動入帳）；webhook status 不採信</code></td>
+                  <td><code>回查 getAppWithdrawRecord status===&#039;Success&#039;（SUCCESS_CODES）→24；Failed/Rejected→29；Processing/WaitingApproval/其他→INDETERMINATE 不改狀態</code></td>
+                  <td>代收：二分但無失敗分支（非 Success 只 log＋ack、不建單）；代付：白名單三態（未知→INDETERMINATE 不改狀態）；兩者皆以回查結果判定、webhook 只當觸發</td>
+                </tr>
+                                <tr>
+                  <td><b>DgPay</b></td>
+                  <td>JSON {code:&#039;0&#039;,description:&#039;Success&#039;} / {code:&#039;-100&#039;,description:&lt;錯誤訊息&gt;}（代付失敗 description=&#039;Fail&#039;）</td>
+                  <td><code>status===&#039;20&#039;（-10/-20→失敗，其餘只記 remark 不改狀態）</code></td>
+                  <td><code>status===&#039;20&#039;（-10/-20→失敗，其餘 INDETERMINATE 維持 22）</code></td>
+                  <td>代收三態（20 成功／-10,-20 失敗／其餘不動）；繞過 checkDepositOrderStatus 自訂冪等（僅 SUCCESS/DEPOSIT_FINISHED 擋，允許失敗→成功）；代付三態 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>DgPay</b></td>
+                  <td>JSON {code:&#039;0&#039;,description:&#039;Success&#039;} / {code:&#039;-100&#039;,description:&lt;錯誤訊息&gt;}（代付失敗 description=&#039;Fail&#039;）</td>
+                  <td><code>status===&#039;20&#039;（-10/-20→失敗，其餘只記 remark 不改狀態）</code></td>
+                  <td><code>status===&#039;20&#039;（-10/-20→失敗，其餘 INDETERMINATE 維持 22）</code></td>
+                  <td>代收三態（20 成功／-10,-20 失敗／其餘不動）；繞過 checkDepositOrderStatus 自訂冪等（僅 SUCCESS/DEPOSIT_FINISHED 擋，允許失敗→成功）；代付三態 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>EasyPay</b></td>
+                  <td>success / fail</td>
+                  <td><code>status===&#039;COMPLETE&#039;（金額取 order_amount）</code></td>
+                  <td><code>status===&#039;COMPLETE&#039;（resolveWithdrawalOutcome 白名單）</code></td>
+                  <td>代收三態（COMPLETE 成功／REJECT 失敗／其餘回 success ack 不動單）；代付三態（REJECT→29，PENDING／未知→INDETERMINATE 維持 22）</td>
+                </tr>
+                                <tr>
+                  <td><b>EpicPay</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>status===&#039;1&#039;</code></td>
+                  <td><code>status===&#039;1&#039;</code></td>
+                  <td>二分（非成功即失敗；代付無 INDETERMINATE，非 &#039;1&#039; 一律標 29）</td>
+                </tr>
+                                <tr>
+                  <td><b>FlashPay</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>tran_status===&#039;completed&#039;（其餘狀態只記 warning、訂單留 CREATED、回 OK）</code></td>
+                  <td><code>tran_status===&#039;completed&#039;（&#039;rejected&#039;→FAILURE；&#039;refund&#039; 只記 log、其他→INDETERMINATE）</code></td>
+                  <td>代付三態 match（未知→INDETERMINATE 不改狀態）；<b class="dis">代收無失敗分支</b></td>
+                </tr>
+                                <tr>
+                  <td><b>FPay</b></td>
+                  <td>success / fail</td>
+                  <td><code>order_status===&#039;completed&#039;（&#039;fail&#039;→失敗，其他值拋例外）</code></td>
+                  <td><code>order_status===&#039;completed&#039;（&#039;fail&#039;/&#039;rejected&#039;→失敗，其他→INDETERMINATE 不改狀態）</code></td>
+                  <td>代收三態（未知→拋例外）；代付白名單三態 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>GffPay</b></td>
+                  <td>JSON {code:200,message:&#039;Success&#039;} / {code:400,message}（notifySuccessText &#039;OK&#039;/&#039;Success&#039; 未被使用）</td>
+                  <td><code>status==2（寬鬆比較）</code></td>
+                  <td><code>status===&#039;2&#039;（&#039;3&#039;→失敗，其餘如 1 等待付款→不改狀態）</code></td>
+                  <td>代收二分（非 2 即失敗）；代付三態 resolveWithdrawalOutcome（未知→INDETERMINATE 回 200 不改狀態）</td>
+                </tr>
+                                <tr>
+                  <td><b>GlobePay</b></td>
+                  <td>success / fail（驗簽或解密失敗直接拋例外）</td>
+                  <td><code>(int)Status===6</code></td>
+                  <td><code>Status===&#039;6&#039;（7/8→失敗，其餘→INDETERMINATE 不改狀態）</code></td>
+                  <td>代收二分（6 以外一律失敗）；代付三態 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>GMPay</b></td>
+                  <td>OK (HTTP 200) / Failed (HTTP 400)；notifySuccessText/FailText 宣告但未使用</td>
+                  <td><code>is_sandbox===1 即成功（不看 status）；否則 is_repush≠0→待人工；status===&#039;completed&#039;（大小寫敏感）→成功，origin_amount 差距逾 0~1.00 轉待人工</code></td>
+                  <td><code>Str::lower(status)===&#039;completed&#039;（不看 is_sandbox）</code></td>
+                  <td>代收：二分（非 completed 即 FAILED），直接 order-&gt;update 繞過 updateDepositOrderSuccess/Failed 框架；代付：三態 match（completed 成功／pending 未知／其他失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>Kira</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>strtoupper(data.status)===&#039;SUCCESS&#039;（金額取 transaction.amountPaid）；PENDING 寫回 CREATED，FAILED／未知值一律判失敗</code></td>
+                  <td><code>strtoupper(trim(data.status))===&#039;SUCCESS&#039;（FAILED→失敗，其餘不定案）；同步已判明確拒絕(-2)的紀錄收到 SUCCESS 仍照常定案，交易結束後另發專用告警</code></td>
+                  <td>代收：match 三態，default 判失敗（PENDING 寫回 CREATED）；代付：resolveWithdrawalOutcome 三態（SUCCESS/FAILED 白名單，其餘不定案）</td>
+                </tr>
+                                <tr>
+                  <td><b>LegendPay</b></td>
+                  <td>success / fail</td>
+                  <td><code>status===&#039;1&#039;（&#039;2&#039;→失敗；其他含 &#039;0&#039; 拋 ApiException）</code></td>
+                  <td><code>status===&#039;1&#039;（其他一律 FAILURE→29，無 INDETERMINATE）</code></td>
+                  <td>代收三態（未知→拋例外）；代付二分（非成功即失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>MajesticPay</b></td>
+                  <td>OK(200) / Failed(400)（自建 buildSuccess/FailResponse，notifySuccessText/notifyFailText 未使用）</td>
+                  <td><code>is_sandbox===1 直接 SUCCESS；否則 is_repush!=0→WAITING_MANUAL_DEPOSIT；status===&#039;completed&#039;→SUCCESS（無金額比對）；另須 transaction_reference===third_party_order_no</code></td>
+                  <td><code>strtolower(status)===&#039;completed&#039;（&#039;pending&#039;→INDETERMINATE 保持 22，其他→FAILURE）</code></td>
+                  <td>代收二分（非 completed 即 FAILED，sandbox／repush 特例，<b class="dis">繞過框架</b>直接寫 status）；代付三態 match（completed／pending／default 失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>MaxPay</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>status_id===1（match 嚴格比對）；2 與其他值一律判失敗</code></td>
+                  <td><code>status_id==&#039;1&#039;（resolveWithdrawalOutcome）；&#039;2&#039; 判失敗(29)；其他值（如 0=Pending）不改狀態</code></td>
+                  <td>代收二分（非成功即失敗）；代付三態（未知不改狀態）</td>
+                </tr>
+                                <tr>
+                  <td><b>PayEssence</b></td>
+                  <td>代收處理完 JSON {&quot;Status&quot;:&quot;OK&quot;}、終態／10004 待處理回 success / 例外 fail；代付 success / fail（35003 失敗處理後也回 fail）</td>
+                  <td><code>Result===10001 且 CheckString2 驗過（10002/未知→失敗，10004 不改狀態）</code></td>
+                  <td><code>Result===&#039;35002&#039; 且 CheckString2 驗過（35003→失敗；35001/35004/未知→INDETERMINATE）</code></td>
+                  <td>代收 match + default 失敗（10004 待處理保持 CREATED）；代付白名單 resolveWithdrawalOutcome 三態（未知→INDETERMINATE）</td>
+                </tr>
+                                <tr>
+                  <td><b>PayMate</b></td>
+                  <td>OK / Failure</td>
+                  <td><code>content.status===&#039;SUCCESS&#039;（驗簽＋merchantNo 比對後）</code></td>
+                  <td><code>content.status===&#039;SUCCESS&#039;（其餘一律 FAILURE→29）</code></td>
+                  <td>二分（非成功即失敗），代付無 INDETERMINATE</td>
+                </tr>
+                                <tr>
+                  <td><b>PayMate</b></td>
+                  <td>OK / Failure</td>
+                  <td><code>content.status===&#039;SUCCESS&#039;（驗簽＋merchantNo 比對後）</code></td>
+                  <td><code>content.status===&#039;SUCCESS&#039;（其餘一律 FAILURE→29）</code></td>
+                  <td>二分（非成功即失敗），代付無 INDETERMINATE</td>
+                </tr>
+                                <tr>
+                  <td><b>PayPro</b></td>
+                  <td>OK / FAIL</td>
+                  <td><code>status===&#039;0000&#039; 或 &#039;0001&#039;（部分支付亦視為成功，以回調 amount 入帳）；&#039;0015&#039; 處理中不改狀態回 OK</code></td>
+                  <td><code>status===&#039;0000&#039;；&#039;0015&#039;→INDETERMINATE 保持 22 回 OK</code></td>
+                  <td>代收：成功/處理中白名單＋其他一律失敗；代付：三態 match（default→FAILURE）</td>
+                </tr>
+                                <tr>
+                  <td><b>QuickPay</b></td>
+                  <td>代收 success / fail；代付 SUCCESS / FAIL</td>
+                  <td><code>status==10000（寬鬆比較）</code></td>
+                  <td><code>(int)status===10000</code></td>
+                  <td>二分（非成功即失敗；代付無 INDETERMINATE）</td>
+                </tr>
+                                <tr>
+                  <td><b>Sure</b></td>
+                  <td>success / fail（例外路徑回字面 &#039;failure&#039;）</td>
+                  <td><code>status===&#039;1&#039;</code></td>
+                  <td><span class="dash">—</span></td>
+                  <td>二分（非 &#039;1&#039; 即失敗）</td>
+                </tr>
+                                <tr>
+                  <td><b>SurePay</b></td>
+                  <td>success / fail</td>
+                  <td><code>status===&#039;1&#039;（其他值一律 updateDepositOrderFailed）</code></td>
+                  <td><code>status===&#039;1&#039;（&#039;-1&#039;→失敗 29；其他→INDETERMINATE 不改狀態、回 success）</code></td>
+                  <td>代收二分（非成功即失敗）；代付三態 resolveWithdrawalOutcome 白名單 [&#039;1&#039;]/[&#039;-1&#039;]，未知→不改狀態</td>
+                </tr>
+                                <tr>
+                  <td><b>TakaPay</b></td>
+                  <td>JSON {status:&#039;00000&#039;} / {status:&#039;12000&#039;}</td>
+                  <td><code>status===&#039;00000&#039;（TakaPayStatusCodeEnum::SUCCESS）</code></td>
+                  <td><code>status===&#039;00000&#039;；&#039;10015&#039;→FAILURE；其餘（含 10014 PENDING）→INDETERMINATE</code></td>
+                  <td>代收二分（非 00000 即失敗，含 10014 PENDING）；代付三態白名單（resolveWithdrawalOutcome，未知→不改狀態）</td>
+                </tr>
+                                <tr>
+                  <td><b>TgPay</b></td>
+                  <td>success / fail</td>
+                  <td><code>status==1 &amp;&amp; Str::upper(data.status)===&#039;APPROVED&#039;</code></td>
+                  <td><span class="dash">—</span></td>
+                  <td>二分（非成功即失敗）；data.status=PENDING 先略過回 success、不改單</td>
+                </tr>
+                                <tr>
+                  <td><b>TngPin</b></td>
+                  <td>JSON {status:&#039;0&#039;,message:&#039;Success&#039;}（status=3 時 message 為 &#039;Processing&#039;）；重複回調回 &#039;success&#039;／查無訂單回 &#039;fail&#039;；驗簽／IP 失敗拋 ApiException</td>
+                  <td><code>status===&#039;1&#039;（直接寫 status=1，金額取自回調 amount 並自算 tax/point，不走 updateDepositOrderSuccess）</code></td>
+                  <td><span class="dash">—</span></td>
+                  <td>三態：&#039;1&#039; 成功／&#039;3&#039; 處理中維持 CREATED／其餘（含 &#039;2&#039; 與未知值）失敗；直接寫 status，<b class="dis">繞過框架</b></td>
+                </tr>
+                                <tr>
+                  <td><b>TopPay</b></td>
+                  <td>SUCCESS / FAIL</td>
+                  <td><code>status===&#039;SUCCESS&#039;</code></td>
+                  <td><code>status==2（3/5→失敗，0/1/4→INDETERMINATE）</code></td>
+                  <td>代收二分（非成功即失敗）；代付三態 resolveWithdrawalOutcome 白名單</td>
+                </tr>
+                                <tr>
+                  <td><b>TrustPay</b></td>
+                  <td>代收 success / fail；代付 SUCCESS / FAIL</td>
+                  <td><code>strtolower(status)===&#039;completed&#039;</code></td>
+                  <td><code>strtolower(status)===&#039;completed&#039;（failed→FAILURE，其餘含 pending→INDETERMINATE 不改狀態、回成功響應）</code></td>
+                  <td>代收二分（非 completed 即失敗）；代付三態白名單 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>TtPay</b></td>
+                  <td>代收 JSON {code:&#039;0&#039;,description:&#039;Success&#039;} / {code:&#039;-100&#039;,description:&lt;錯誤訊息&gt;}；代付 {code:0,description:&#039;Success&#039;} / {code:-100,description:&#039;Fail&#039;}</td>
+                  <td><code>status===&#039;20&#039;（繼承 DgPay；FAILED 單可被成功回調改回成功，SUCCESS/DEPOSIT_FINISHED 才算終態）</code></td>
+                  <td><code>status===&#039;20&#039;（繼承 DgPay；-10/-20 為失敗，其餘狀態視為未定）</code></td>
+                  <td>代收：20 成功、-10/-20 失敗、其餘只記錄不改狀態（自行判斷是否終態，不走框架 checkDepositOrderStatus）；代付：三態 resolveWithdrawalOutcome</td>
+                </tr>
+                                <tr>
+                  <td><b>VaderPay</b></td>
+                  <td>JSON {error_code:0,message:&#039;Operation Success&#039;} / {error_code:-1,message:&#039;Operation Failed&#039;}</td>
+                  <td><code>Status===1(SUCCESS)；2(REJECTED)→失敗；0/3 回滾不改單、回成功</code></td>
+                  <td><code>Status∈{1(SUCCESS),3(APPROVED)}；2→FAILURE(29)；0→INDETERMINATE</code></td>
+                  <td>Enum 白名單＋未知碼拋例外（fromValue）；代收三態（0/3 不動）、代付三態（resolveWithdrawalOutcome）</td>
+                </tr>
+                                <tr>
+                  <td><b>VtPay</b></td>
+                  <td>代收 SUCCESS / FAIL；代付已處理回 JSON {error_code:200,data:{order_id,sh_order_no}}（含不確定態），訂單狀態擋下回 AES 加密 {result:&#039;success&#039;}，查無 payout 回 FAIL、已處理回 SUCCESS</td>
+                  <td><code>(int)order_status===3（金額取 paid_amount ?? order_amount ?? 訂單金額）</code></td>
+                  <td><code>order_status==3（5=失敗，其餘→INDETERMINATE 不改狀態）</code></td>
+                  <td>代收二分（非 3 即失敗）；代付三態（resolveWithdrawalOutcome 3/5/其餘未知）</td>
+                </tr>
+                                <tr>
+                  <td><b>YeePay</b></td>
+                  <td>SUCCESS / FAIL</td>
+                  <td><code>驗簽過即成功（不讀 code；code 只驗 in:0,1，code=0 也標成功）</code></td>
+                  <td><code>(int) code===1 → SUCCESS(24)；其他(code=0) → FAILURE(29)</code></td>
+                  <td>代付二分（非成功即失敗，無 INDETERMINATE）；<b class="dis">代收無失敗分支</b></td>
+                </tr>
+                                <tr>
+                  <td><b>ZPay</b></td>
+                  <td>&#039;OK&#039; / &#039;FAIL&#039;（代收處理中與代付訂單狀態攔截分支改回 JSON {status:&#039;OK&#039;|&#039;FAIL&#039;,message}）</td>
+                  <td><code>status===1 (ON)</code></td>
+                  <td><code>status===&#039;1&#039; (ON)；2/3/4/7/8 失敗、5/6 INDETERMINATE</code></td>
+                  <td>三態：代收 Enum（5/6 處理中→回成功不改單；碼值僅限 1～8 驗證，Enum 查無即拋例外）；代付 resolveWithdrawalOutcome</td>
+                </tr>
+                              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      
+      <section id="docs" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>三方文檔缺口</h2>
+          <p class="desc"><code>docs/integrations/payments/</code> 目前 37 家有文檔，其餘 2 家缺。</p>
+        </div>
+        <div class="card-body">
+          <h3 style="color:var(--success)">✓ 已有文檔（37）</h3>
+          <div class="badges">
+            <span class="badge b-success">A3Pay</span><span class="badge b-success">AkPay</span><span class="badge b-success">AllPay</span><span class="badge b-success">AntzPay</span><span class="badge b-success">Ap8Pay</span><span class="badge b-success">B3Wallet</span><span class="badge b-success">BigPayz</span><span class="badge b-success">BillionPay</span><span class="badge b-success">CCPayment</span><span class="badge b-success">DgPay</span><span class="badge b-success">DgPay</span><span class="badge b-success">EasyPay</span><span class="badge b-success">EpicPay</span><span class="badge b-success">FlashPay</span><span class="badge b-success">FPay</span><span class="badge b-success">GffPay</span><span class="badge b-success">GlobePay</span><span class="badge b-success">GMPay</span><span class="badge b-success">Kira</span><span class="badge b-success">LegendPay</span><span class="badge b-success">MajesticPay</span><span class="badge b-success">MaxPay</span><span class="badge b-success">PayEssence</span><span class="badge b-success">PayMate</span><span class="badge b-success">PayMate</span><span class="badge b-success">PayPro</span><span class="badge b-success">QuickPay</span><span class="badge b-success">Sure</span><span class="badge b-success">SurePay</span><span class="badge b-success">TakaPay</span><span class="badge b-success">TngPin</span><span class="badge b-success">TopPay</span><span class="badge b-success">TrustPay</span><span class="badge b-success">VaderPay</span><span class="badge b-success">VtPay</span><span class="badge b-success">YeePay</span><span class="badge b-success">ZPay</span>          </div>
+          <h3 style="color:var(--danger)">✗ 缺文檔（2）</h3>
+          <div class="badges">
+            <span class="badge b-secondary">TgPay</span><span class="badge b-secondary">TtPay</span>          </div>
+        </div>
+      </section>
+
+      <div class="callout">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> 各金流商的風險與待修項目不在本報告，見報告中心的「金流商風險發現」。
+      </div>
+
+      <footer style="padding:8px 2px 0; color:var(--faint); font-size:12px">
+        APIs 金流商完整盤點報告 · 2026-10-07 · 金流商清單、白標使用對照、文檔缺口由 report:payment-providers 即時計算；回調邏輯來自 payment-callback-analysis 分析 JSON
+      </footer>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

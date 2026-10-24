@@ -1,0 +1,34 @@
+{
+    "name": "doctrine/dbal",
+    "type": "library",
+    "description": "Database Abstraction Layer",
+    "keywords": ["dbal", "database", "persistence", "queryobject"],
+    "homepage": "http://example.invalid",
+    "license": "MIT",
+    "authors": [
+        {"name": "Guilherme Blanco", "email": "user@example.invalid"},
+        {"name": "Roman Borschel", "email": "user@example.invalid"},
+        {"name": "Benjamin Eberlei", "email": "user@example.invalid"},
+        {"name": "Jonathan Wage", "email": "user@example.invalid"}
+    ],
+    "require": {
+        "php": ">=5.3.2",
+        "doctrine/common": "~2.4"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*",
+        "symfony/console": "~2.0"
+    },
+    "suggest": {
+        "symfony/console": "For helpful console commands such as SQL execution and import of files."
+    },
+    "suggest": {
+        "symfony/console": "Allows use of the command line interface"
+    },
+    "autoload": {
+        "psr-0": { "Doctrine\\DBAL\\": "lib/" }
+    },
+    "archive": {
+        "exclude": ["!vendor", "tests", "*phpunit.xml", ".travis.yml", "build.xml", "build.properties", "composer.phar"]
+    }
+}

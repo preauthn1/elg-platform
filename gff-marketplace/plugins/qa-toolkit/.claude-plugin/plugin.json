@@ -1,0 +1,6 @@
+{
+  "name": "qa-toolkit",
+  "description": "QA 專用工具包（含 Playwright MCP，選裝）：以 Playwright 瀏覽並操作 dev 站點前台/後台（可讀可寫）、把操作側錄成可重播的 Playwright 腳本，另含 agent-backend-ui-sync（對齊代理後台側邊欄選單與 memory-mcp 共享記憶，需搭配 memory-mcp）。當使用者說「看/操作 dev 前台、後台」「登入 dev 後台做 X」「巡檢 dev 站點」「把剛才的操作錄成腳本/側錄腳本」「重播腳本」「同步後台選單記憶/對齊代理後台記憶」「web-browser」時使用。站台網址與帳密由本機 shell 啟動檔（~/.zshrc 或 ~/.bashrc）提供。",
+  "author": { "name": "Rhys" },
+  "keywords": ["qa", "playwright", "dev", "前台", "後台", "巡檢", "側錄", "腳本", "web-browser", "後台選單同步"]
+}

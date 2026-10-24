@@ -1,0 +1,2847 @@
+@charset "UTF-8";
+html body {
+  overscroll-behavior-y: contain;
+  height: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體", sans-serif;
+}
+
+body:-webkit-scrollbar {
+  display: none;
+}
+
+#C711Mobile .loadingiframeGame {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  width: 100px;
+  margin: auto;
+  border-radius: 10px;
+  padding: 25px;
+  color: #fff;
+}
+
+#C711Mobile div {
+  margin: 0;
+  border: 0;
+  padding: 0;
+}
+
+#C711Mobile .allBackground {
+  background-color: #2e0d02;
+}
+
+#C711Mobile .directionMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000000f5;
+}
+
+#C711Mobile .directionMask .directionPic {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .directionMask .directionPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .shortcutMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000000f5;
+}
+
+#C711Mobile .shortcutMask .shortcutPic {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .shortcutMask .shortcutPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .has_pc_mobileMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: #000000f5;
+}
+
+#C711Mobile .has_pc_mobileMask .has_pc_mobilePic {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  margin: auto;
+  z-index: 9999;
+  width: 100%;
+}
+
+#C711Mobile .has_pc_mobileMask .has_pc_mobilePic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .wechatMask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#C711Mobile .wechatMask .wechatPic {
+  position: relative;
+  top: 3%;
+  margin: auto;
+  z-index: 9999;
+  width: 80%;
+}
+
+#C711Mobile .wechatMask .wechatPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .login {
+  margin: auto;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+#C711Mobile .login .loginBg {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .login .specialT {
+  position: absolute;
+  width: 100%;
+  margin: auto;
+  top: 0%;
+  left: 0;
+  z-index: 9;
+}
+
+#C711Mobile .login .C711_Msignin {
+  position: absolute;
+  top: 17%;
+  right: 0;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  z-index: 10;
+}
+
+#C711Mobile .login .C711_Msignin .loginLogo {
+  width: 100%;
+}
+
+#C711Mobile .login .C711_Msignin .loginLogo img {
+  width: 80%;
+  height: 78px;
+}
+
+#C711Mobile .login .C711_Msignin .signData {
+  width: 85%;
+  margin: 40px auto;
+}
+
+#C711Mobile .login .loginFooter {
+  margin: auto;
+  width: 100%;
+  height: 50px;
+  line-height: 25px;
+  color: #fff;
+  font-size: 10px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+}
+
+#C711Mobile .yellow_borderInput {
+  border-radius: 10px;
+  padding: 1px;
+  background: #81500b;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #81500b), color-stop(49%, #c58014), color-stop(70%, #ac6f11), to(#82520b));
+  background: linear-gradient(to bottom, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .marginTop20 {
+  margin-top: 20px;
+}
+
+#C711Mobile .marginTop10 {
+  margin-top: 10px;
+}
+
+#C711Mobile .marginBottom20 {
+  margin-bottom: 10px;
+}
+
+#C711Mobile .black_InputAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 40px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_inputbg {
+  background: #4a3934;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #4a3934), color-stop(49%, #312836), color-stop(90%, #141418), color-stop(94%, #141418), to(#621919));
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 94%, #621919 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gameListBgAll {
+  margin: auto;
+  padding: 5px;
+  width: 90px;
+  height: 100%;
+  border: 1px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .gameListBg {
+  background-image: url(../../img/C711_Mobile/ListMenuBg.png);
+}
+
+#C711Mobile .gameJokerBg {
+  background-image: url(../../img/C711_Mobile/ListOpenAppBg.png);
+}
+
+#C711Mobile .point_PAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .point_Pbg {
+  background: #4a3934;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #4a3934), color-stop(49%, #312836), color-stop(90%, #141418), to(#4a3934));
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #4a3934 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .black_DivAll {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 120px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_EventDiv {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .black_Divbg {
+  background: #4a3934;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #4a3934), color-stop(49%, #312836), color-stop(90%, #141418), to(#141418));
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .red_Btnbg {
+  border: 1px solid #111217;
+  background: #d50f0c;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #d50f0c), color-stop(1%, #d50f0c), color-stop(44%, #8d0002), color-stop(95%, #141418), to(#880000));
+  background: linear-gradient(to bottom, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .abreastBtn {
+  width: 46%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .abreastBtnTwo {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .yellow_Btnbg {
+  border: 1px solid #111217;
+  background: #e6dc97;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6dc97), color-stop(39%, #d9b23d), color-stop(94%, #a86100), color-stop(94%, #a86100), to(#c5984a));
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gray_BtnBg {
+  border: 1px solid #111217;
+  background: #79655f;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #79655f), color-stop(39%, #675d6c), color-stop(93%, #313140), to(#1a1615));
+  background: linear-gradient(to bottom, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .yellowcolor {
+  color: #fff;
+  font-weight: bolder;
+  font-size: 15px;
+  border: 1px solid #111217;
+  background: #e6dc97;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6dc97), color-stop(39%, #d9b23d), color-stop(94%, #a86100), color-stop(94%, #a86100), to(#c5984a));
+  background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .graycolor {
+  color: gray;
+  font-size: 15px;
+  font-weight: bolder;
+  border: 1px solid #111217;
+  background: #79655f;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #79655f), color-stop(39%, #675d6c), color-stop(93%, #313140), to(#1a1615));
+  background: linear-gradient(to bottom, #79655f 1%, #675d6c 39%, #313140 93%, #1a1615 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .brown_BtnBg {
+  border: 1px solid #111217;
+  background: #6f411e;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #6f411e), color-stop(39%, #844c24), color-stop(93%, #271407), to(#0e0804));
+  background: linear-gradient(to bottom, #6f411e 1%, #844c24 39%, #271407 93%, #0e0804 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .fontsizelogin {
+  font-size: 14px;
+  color: #fff;
+}
+
+#C711Mobile .fontsizeBtn {
+  font-size: 15px;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .blackInput {
+  font-size: 14px;
+  color: #fff;
+  text-align: right;
+  position: relative;
+}
+
+#C711Mobile .blackInput .inputFontLeft {
+  position: absolute;
+  left: 7px;
+  top: 2;
+}
+
+#C711Mobile .blackInput .inputFontCenter {
+  position: absolute;
+  top: 2;
+  left: 0;
+  right: 0;
+}
+
+#C711Mobile .blackInput .inputFontRight {
+  position: absolute;
+  right: 7px;
+  top: 2;
+}
+
+#C711Mobile .mask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+#C711Mobile .mask .eventModal {
+  position: relative;
+  top: 1%;
+  width: 97%;
+  margin: auto;
+  z-index: 9999;
+  height: 98%;
+}
+
+#C711Mobile .mask .eventModal .closeBtn {
+  position: absolute;
+  top: 0;
+  right: 2px;
+}
+
+#C711Mobile .mask .eventModal .closeBtn img {
+  width: 30px;
+}
+
+#C711Mobile .Popups_Modal {
+  color: #fff;
+  width: 300px;
+  border-radius: 8px;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+#C711Mobile .Popups_Modal .PopupsTitle {
+  height: 50px;
+  line-height: 50px;
+  font-weight: bolder;
+  border-radius: 8px 8px 0px 0px;
+  background: #ab2800;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#ab2800), to(#6e0819));
+  background: linear-gradient(to bottom, #ab2800 0%, #6e0819 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .Popups_Modal .PopupsTitle .modalClose {
+  position: absolute;
+  top: 12px;
+  right: 10px;
+  width: 25px;
+}
+
+#C711Mobile .Popups_Modal .PopupsConAll {
+  background-color: #2b2c33;
+  height: 250px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  -webkit-box-shadow: 0px 2px 2px #2b2c33;
+          box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .Popups_Modal .PopupsConNoBtn {
+  background-color: #2b2c33;
+  height: 180px;
+  border-radius: 0px 0px 8px 8px;
+  position: relative;
+  -webkit-box-shadow: 0px 2px 2px #2b2c33;
+          box-shadow: 0px 2px 2px #2b2c33;
+}
+
+#C711Mobile .Popups_Modal .PopupsCon {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 60%;
+  background-color: #151622;
+  border-bottom: 1px solid #50515b;
+  border-radius: 5px;
+}
+
+#C711Mobile .Popups_Modal .PopupsConNo {
+  position: absolute;
+  top: 10px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  width: 90%;
+  height: 80%;
+  background-color: #151622;
+  border-bottom: 1px solid #50515b;
+  border-radius: 5px;
+}
+
+#C711Mobile .Popups_Modal .popupsConFont {
+  padding-top: 30px;
+  font-size: 15px;
+}
+
+#C711Mobile .Popups_Modal .popupsBank {
+  padding-top: 20px;
+  font-size: 15px;
+}
+
+#C711Mobile .Popups_Modal .PopupsBtn {
+  position: absolute;
+  bottom: 20px;
+  right: 0;
+  left: 0;
+  width: 80%;
+  margin: auto;
+}
+
+#C711Mobile .pageBg {
+  background-image: url(../../img/C711_Mobile/BGL.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #2d0d02;
+}
+
+#C711Mobile .CwidthHeight {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .widthHeightvh {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .fontFamily {
+  font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體", sans-serif;
+}
+
+#C711Mobile .fontColor {
+  color: #fff;
+  font-size: 15px;
+}
+
+#C711Mobile .contentAll {
+  position: relative;
+  min-height: 100%;
+  background-color: #04020c;
+  width: 100%;
+}
+
+#C711Mobile .contentAll .ys-float-btn {
+  -webkit-box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+          box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: #666666;
+  z-index: 1050;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  bottom: 20vw;
+}
+
+#C711Mobile .contentAll .eventbtn {
+  position: relative;
+}
+
+#C711Mobile .contentAll .eventbtn .specialButton {
+  position: absolute;
+  top: -5px;
+  bottom: 0;
+  right: 6%;
+  width: 100%;
+}
+
+#C711Mobile .contentAll .eventbtn .eventBtnT {
+  position: absolute;
+  top: -8px;
+  bottom: 0;
+  right: 0;
+  width: 45%;
+}
+
+#C711Mobile .contentAll .eventbtn .eventFont {
+  position: absolute;
+  bottom: 4px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-size: 8px;
+  text-align: center;
+}
+
+#C711Mobile .contentAll .eventbtn img {
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  margin-bottom: 3px;
+}
+
+#C711Mobile .contentAll .eventbtn p {
+  font-size: 7px;
+}
+
+#C711Mobile .contentAll .modal {
+  top: 1%;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content {
+  background: none;
+  border: none;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .closeBtn {
+  position: absolute;
+  top: 14px;
+  right: -5px;
+  z-index: 200;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .closeBtn img {
+  width: 51%;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body {
+  display: inline-block;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto !important;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body,
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body {
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+}
+
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body iframe,
+#C711Mobile .contentAll .modal .modal-dialog .modal-content .modal-body iframe {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile footer {
+  position: fixed;
+  padding: 5px 0;
+  bottom: -6px;
+  height: 64px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 100%;
+  z-index: 100;
+}
+
+#C711Mobile footer .specialINB {
+  position: absolute;
+  top: -7px;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 110;
+}
+
+#C711Mobile footer .C711_MlobbyMenu {
+  background-image: url(../../img/C711_Mobile/footerBg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn {
+  width: 180px;
+  height: 66px;
+  position: relative;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a {
+  display: block;
+  height: 66px;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 100%;
+  height: 66px;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomBtn {
+  height: 30px;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomBtn img {
+  width: 90px;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomFont {
+  height: 30px;
+  text-align: center;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .btnPosition .MenuBottomFont span {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .fontColorWhite {
+  color: #ffffff;
+}
+
+#C711Mobile footer .C711_MlobbyMenu .menuBtn a .fontColorGray {
+  color: #7b7a7a;
+}
+
+#C711Mobile .page .pageTitle {
+  height: 55px;
+  line-height: 55px;
+  z-index: 100;
+  font-weight: bolder;
+  position: relative;
+}
+
+#C711Mobile .page .pageTitle .pagePic {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .page .speciallogT {
+  position: absolute;
+  bottom: -13px;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  width: 100%;
+}
+
+#C711Mobile .page .pageTitleAll {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+}
+
+#C711Mobile .page .loginbarBack {
+  width: 10%;
+  padding: 1px;
+  padding-top: 5px;
+  text-align: left;
+}
+
+#C711Mobile .page .loginbarBack img {
+  width: 40px;
+  margin-left: 20px;
+}
+
+#C711Mobile .page .loginbarTitle {
+  width: 60%;
+  padding: 1px;
+  text-align: center;
+  color: #ffd36d;
+}
+
+#C711Mobile .page .loginbarTitle span {
+  font-size: 18px;
+  color: #ffd36d;
+  font-weight: bold;
+}
+
+#C711Mobile .page .gamePointTransfer {
+  width: 10%;
+  text-align: center;
+  padding: 1px;
+}
+
+#C711Mobile .page .gamePointTransfer img {
+  width: 28px;
+}
+
+#C711Mobile .page .loginbarright {
+  width: 10%;
+  text-align: center;
+  padding: 1px;
+}
+
+#C711Mobile .page .loginbarright .searchPic {
+  margin-right: 10px;
+  width: 20px;
+}
+
+#C711Mobile .page .loginbarright img {
+  margin-right: 10px;
+  width: 35px;
+}
+
+#C711Mobile .page .loginbarright span {
+  color: #fff;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+#C711Mobile .page .loginbarright .dropdown-item {
+  height: 50px;
+}
+
+#C711Mobile .page .iconImg {
+  width: 22px;
+}
+
+#C711Mobile .PointHeader {
+  width: 100%;
+  height: 8%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+}
+
+#C711Mobile .PointHeader .PointImgBg {
+  position: relative;
+  width: 100%;
+  margin: auto;
+}
+
+#C711Mobile .PointHeader .PointImgBg img {
+  width: 100%;
+  height: 60px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .specialINT {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  left: 0;
+  right: 0;
+  height: 40px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .backBtn {
+  position: absolute;
+  left: 7%;
+  top: 11px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .backBtn img {
+  width: 40px;
+  height: 40px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .blackPointBg {
+  position: absolute;
+  right: 0;
+  left: 0;
+  bottom: 17px;
+  text-align: center;
+}
+
+#C711Mobile .PointHeader .PointImgBg .blackPointBg img {
+  width: 46%;
+  height: 27px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointRe {
+  position: absolute;
+  left: 27.5%;
+  top: 16px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointRe img {
+  width: 22px;
+  height: 22px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointFont {
+  position: absolute;
+  left: 34%;
+  top: 21px;
+  color: #ffe16a;
+  font-size: 12px;
+  font-weight: normal;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointAddBtn {
+  position: absolute;
+  right: 27%;
+  top: 17px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .pointAddBtn img {
+  height: 31px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn {
+  position: absolute;
+  right: 8%;
+  top: 16px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn img {
+  width: 25px;
+  height: 25px;
+}
+
+#C711Mobile .PointHeader .PointImgBg .rightBtn .homeBtn {
+  width: 25px;
+  height: 22px;
+}
+
+#C711Mobile .pointHeight {
+  height: 60px;
+}
+
+#C711Mobile .pageFull {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+}
+
+#C711Mobile .LobbyBg {
+  background-image: url(../../img/C711_Mobile/LobbyBg2.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #330908;
+  background-position: 0px 50px;
+}
+
+#C711Mobile .LobbyBgPoints {
+  background-image: url(../../img/C711_Mobile/LobbyBg1.png);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-color: #330908;
+}
+
+#C711Mobile .LobbyBgColor {
+  background-color: #330908;
+}
+
+#C711Mobile .LobbySetting {
+  width: 100%;
+  margin: auto;
+  height: 100%;
+}
+
+#C711Mobile .scrollBar {
+  overflow: hidden;
+}
+
+#C711Mobile .pageCon {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+  color: #fff;
+}
+
+#C711Mobile .inputvalidate {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 30px;
+  height: 55px;
+  position: relative;
+  margin: 15px auto;
+}
+
+#C711Mobile .noValidate {
+  height: 40px;
+}
+
+#C711Mobile .validateDiv {
+  width: 100%;
+  margin: 2px auto;
+  text-align: right;
+  color: #ffd36d;
+  font-size: 14px;
+}
+
+#C711Mobile .InputMain {
+  position: relative;
+}
+
+#C711Mobile .InputMain .InputLeft {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput {
+  border-radius: 10px;
+  padding: 1px;
+  background: #b67612;
+  margin-bottom: 0px;
+  position: relative;
+  width: 100%;
+}
+
+#C711Mobile .ListborderInput .settingShare {
+  width: 100%;
+  border-radius: 10px;
+}
+
+#C711Mobile .ListborderInput .personPic {
+  position: absolute;
+  left: 15px;
+  top: 9px;
+  width: 20px;
+}
+
+#C711Mobile .ListborderInput .ShareCodeFont {
+  position: absolute;
+  left: 40px;
+  top: 9px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .ShareCodeFont2 {
+  position: absolute;
+  right: 115px;
+  top: 9px;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .ListInputAllL {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+}
+
+#C711Mobile .ListborderInput .ListInputAllR {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 2.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .ListInputAllRSetting {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 38px;
+  display: inline-block;
+  padding: 0.5em 2.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .ListInputRightS {
+  margin: auto;
+  padding: 5px;
+  width: 100%;
+  height: 30px;
+  border: 2px solid #111217;
+  display: inline-block;
+  padding: 0.5em 0.75em;
+  border-radius: 10px;
+  text-align: right;
+}
+
+#C711Mobile .ListborderInput .Listinputbg {
+  border: none;
+  background: #1f0909e0;
+  color: #fff;
+  font-size: 14px;
+}
+
+#C711Mobile .ListborderInput .inputClose {
+  position: absolute;
+  width: 13px;
+  top: 14px;
+  right: 8px;
+}
+
+#C711Mobile .ListborderInput .forgetphoneCode {
+  position: absolute;
+  width: 55px;
+  top: 8px;
+  left: 10px;
+  font-size: 15px;
+  text-align: left;
+}
+
+#C711Mobile .ListborderInput .setNewPw {
+  width: 90px;
+  font-size: 14px;
+  padding-left: 3px;
+}
+
+#C711Mobile .inputInBtn {
+  position: absolute;
+  right: 5px;
+  top: 3px;
+  cursor: pointer;
+}
+
+#C711Mobile .shareFont {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+#C711Mobile .sendBtn {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 35%;
+  height: 46px;
+  line-height: 37px;
+  font-weight: bolder;
+  margin: 50px auto;
+  font-size: 13px;
+}
+
+#C711Mobile .sendBtn button {
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .BigBlueBtn {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 62%;
+  height: 82px;
+  line-height: 82px;
+  font-weight: bolder;
+  margin: 50px auto;
+}
+
+#C711Mobile .BigBlueBtn button {
+  color: #fff;
+  font-weight: bold;
+}
+
+#C711Mobile .margin20 {
+  margin: 20px auto;
+}
+
+#C711Mobile .BtnShare {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 115px;
+  height: 40px;
+  line-height: 40px;
+  margin: auto;
+  color: #fff;
+  font-weight: bolder;
+}
+
+#C711Mobile .blueBtnShare {
+  background-image: url(../../img/C711_Mobile/blueBtn.png);
+}
+
+#C711Mobile .OrangeBtnShare {
+  background-image: url(../../img/C711_Mobile/OrangeBtn.png);
+}
+
+#C711Mobile .nicknameBg {
+  margin: auto;
+  width: 80%;
+  position: relative;
+}
+
+#C711Mobile .nicknameBg .nicknameBG {
+  width: 100%;
+  margin: 10px auto;
+}
+
+#C711Mobile .nicknameBg .userPic {
+  position: absolute;
+  top: 50%;
+  left: 2px;
+  width: 12%;
+  height: 61%;
+  margin-top: -20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+}
+
+#C711Mobile .nicknameBg .userPic img {
+  width: 90%;
+  margin: auto;
+}
+
+#C711Mobile .nicknameBg .userPic .lobbyUserPic {
+  -webkit-transform: scale(1.2);
+          transform: scale(1.2);
+}
+
+#C711Mobile .nicknameBg .nickname {
+  position: absolute;
+  top: 34%;
+  left: 17%;
+  color: #ffd36d;
+  font-size: 14px;
+  width: 79%;
+  height: 25px;
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+#C711Mobile .CLobbyContent {
+  width: 100%;
+  margin: auto;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  padding-left: 3px;
+}
+
+#C711Mobile .CLobbyContent .lobbyGameBg {
+  height: 100%;
+  margin: 3px 4px;
+  width: 31%;
+}
+
+#C711Mobile .swiperPadding {
+  width: 99%;
+  margin: auto;
+}
+
+#C711Mobile .disPic {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+#C711Mobile .disGray {
+  -webkit-filter: grayscale(1);
+}
+
+#C711Mobile .NodisGray {
+  -webkit-filter: grayscale(0);
+}
+
+#C711Mobile .GameIconAll {
+  position: relative;
+  text-align: center;
+}
+
+#C711Mobile .GameIconBg {
+  padding-top: 1px;
+  max-width: 97%;
+  max-height: 100%;
+}
+
+#C711Mobile .GameIcon {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  text-align: center;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#C711Mobile .GameIcon a {
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#C711Mobile .GameIcon a .gameImage {
+  max-height: 95%;
+  max-width: 95%;
+}
+
+#C711Mobile .GameIcon .newHotPic {
+  position: absolute;
+  z-index: 2;
+  width: 50px;
+}
+
+#C711Mobile .GameIcon .hotPic {
+  top: -1px;
+  right: -2px;
+}
+
+#C711Mobile .GameIcon .newPic {
+  top: -1px;
+  left: -2px;
+}
+
+#C711Mobile .GameIcon .maintain {
+  bottom: 5px;
+  left: -3px;
+  width: 85%;
+  z-index: 88;
+}
+
+#C711Mobile .GameIcon .maintainfont {
+  position: absolute;
+  z-index: 98;
+  bottom: 4px;
+  left: 2px;
+  font-size: 11px;
+  font-weight: bolder;
+  color: #af1f00;
+  width: 72%;
+  height: 23%;
+  text-align: left;
+  display: inline-block;
+}
+
+#C711Mobile .C711_Mcarousel {
+  height: 120px;
+  width: 100%;
+}
+
+#C711Mobile .carouselPic {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  padding: 1px;
+  height: 120px;
+  margin-top: -1px;
+}
+
+#C711Mobile .carouselPic .bannerImg {
+  width: 400px;
+  /*圖片寬度*/
+  position: absolute;
+  left: 50%;
+  height: 100%;
+  max-height: 100%;
+  margin-left: -200px;
+  /*圖片寬度一半*/
+  overflow: hidden;
+  behavior: expression( this.style.width = document.documentElement.offsetWidth );
+}
+
+#C711Mobile .carouselPic .bannerImg img {
+  max-height: 100%;
+  height: 100%;
+}
+
+#C711Mobile .bannerLobby {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 52px;
+}
+
+#C711Mobile .forgetTitleFont {
+  color: #fff;
+  font-size: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .forgetFont {
+  margin: 20px auto;
+  font-size: 10px;
+  text-align: right;
+  color: #a8bac9;
+}
+
+#C711Mobile .yellow_borderDropdown {
+  border-radius: 0px 0px 10px 10px;
+  padding: 1px;
+  background: #81500b;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #81500b), color-stop(49%, #c58014), color-stop(70%, #ac6f11), to(#82520b));
+  background: linear-gradient(to bottom, #81500b 1%, #c58014 49%, #ac6f11 70%, #82520b 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .gray_dropdownBg {
+  background-color: #312836;
+  color: #fff;
+  border-radius: 0px 0px 10px 10px;
+  width: 100%;
+  margin-top: 0px;
+}
+
+#C711Mobile .gray_dropdownBg a {
+  color: #fff;
+  font-size: 15px;
+}
+
+#C711Mobile .yellowBorder {
+  border: #81500b 1px solid;
+}
+
+#C711Mobile .dropdown-menu.show {
+  width: 100%;
+}
+
+#C711Mobile .OpenFont {
+  margin: 10px auto;
+}
+
+#C711Mobile .OpenBtn {
+  width: 90%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .OpenBtn .androIosBtn {
+  padding: 1px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  width: 110px;
+  height: 40px;
+  margin: 10px 8px;
+}
+
+#C711Mobile .OpenBtn .AndroidBtn {
+  background-image: url("../../img/C711_Mobile/Android.png");
+}
+
+#C711Mobile .OpenBtn .IosBtn {
+  background-image: url("../../img/C711_Mobile/IOS.png");
+}
+
+#C711Mobile .iconPic {
+  width: 80%;
+  margin: 15px auto;
+}
+
+#C711Mobile .iconPic .picLeft {
+  width: 30%;
+}
+
+#C711Mobile .iconPic .picLeft img {
+  width: 50%;
+}
+
+#C711Mobile .iconPic .fontLeft {
+  width: 70%;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .pwFont {
+  width: 85%;
+  text-align: left;
+}
+
+#C711Mobile .ctrlCPic {
+  width: 10%;
+}
+
+#C711Mobile .iosOpenFont {
+  margin: auto;
+  width: 95%;
+  text-align: left;
+  font-size: 15px;
+}
+
+#C711Mobile .iosOpenFont .pwrule {
+  font-size: 13px;
+  color: #ffd36d;
+}
+
+#C711Mobile .modalBalance {
+  font-size: 15px;
+  line-height: 30px;
+  font-weight: bolder;
+}
+
+#C711Mobile .pointFont {
+  color: #fe5f00;
+  font-weight: bolder;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .bankPic {
+  position: relative;
+}
+
+#C711Mobile .bankPic .PicD {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+}
+
+#C711Mobile .bankPic .PicD img {
+  width: 13px;
+}
+
+#C711Mobile .StoredValueBank {
+  width: 100%;
+  margin: auto 20px;
+  text-align: left;
+}
+
+#C711Mobile .StoredValueBank .Bank {
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+#C711Mobile .StoredValueBank .BankName {
+  color: #ffe992;
+  margin: 5px auto;
+}
+
+#C711Mobile .DategaryFont {
+  color: #a8bac9;
+  font-size: 15px;
+  font-weight: bolder;
+  text-align: center;
+  margin: 10px auto;
+}
+
+#C711Mobile .dateSelect {
+  margin: 10px auto;
+  width: 80%;
+  font-size: 15px;
+  font-weight: bolder;
+  line-height: 30px;
+}
+
+#C711Mobile .datepicker {
+  width: 100%;
+  margin: 10px auto;
+}
+
+#C711Mobile .datepicker input {
+  width: 100%;
+  -webkit-box-shadow: 1px 1px 3px 2px #0000006b inset;
+          box-shadow: 1px 1px 3px 2px #0000006b inset;
+  border-radius: 10px;
+  border: #b67612;
+  background: #4a3934;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #4a3934), color-stop(49%, #312836), color-stop(90%, #141418), to(#141418));
+  background: linear-gradient(to bottom, #4a3934 1%, #312836 49%, #141418 90%, #141418 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  color: #fff;
+  font-size: 14px;
+}
+
+#C711Mobile .datepicker > input {
+  color: #fff !important;
+  border: 1px solid #b67612 !important;
+}
+
+#C711Mobile .datepicker > input.focus {
+  border-color: #b67612;
+}
+
+#C711Mobile .datepicker-popup {
+  background-color: #312836 !important;
+  color: #fff;
+  border-radius: 0px 0px 10px 10px;
+  margin: auto;
+  border: 1px solid #b67612 !important;
+  margin-top: -1px;
+}
+
+#C711Mobile .RecordListCon {
+  margin: 2px auto;
+  width: 100%;
+}
+
+#C711Mobile .RecordListCon thead {
+  color: #fff;
+  font-size: 15px;
+  line-height: 15px;
+}
+
+#C711Mobile .RecordListCon thead th {
+  vertical-align: middle;
+  border: none;
+}
+
+#C711Mobile .RecordListCon thead .number {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .cardnumber {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon thead .date {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .gamer {
+  width: 25%;
+}
+
+#C711Mobile .RecordListCon thead .cardgamer {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon thead .point {
+  width: 30%;
+  margin: auto;
+}
+
+#C711Mobile .RecordListCon thead .cardpoint {
+  width: 30%;
+}
+
+#C711Mobile .RecordListCon tbody {
+  color: #fff;
+  font-size: 13px;
+}
+
+#C711Mobile .RecordListCon tbody th {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711Mobile .RecordListCon tbody td {
+  border: none;
+  vertical-align: middle;
+}
+
+#C711Mobile .RecordListCon .colorR {
+  color: #fe5f00;
+}
+
+#C711Mobile .RecordListCon .colorG {
+  color: #00c3fe;
+}
+
+#C711Mobile .setPic {
+  position: relative;
+}
+
+#C711Mobile .setPic .SettingNameLeft {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+#C711Mobile .setPic .SettingNameRight {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+#C711Mobile .setPic .SettingInputLeft {
+  position: absolute;
+  top: 8px;
+  left: 11px;
+}
+
+#C711Mobile .setPic .SettingInputRight {
+  position: absolute;
+  top: 8px;
+  right: 15px;
+}
+
+#C711Mobile .setPic .redEnvelLogo {
+  width: 14px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .recordLogoPic {
+  width: 16px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .logoPic {
+  width: 18px;
+  margin: auto 10px;
+}
+
+#C711Mobile .setPic .Lpic {
+  width: 8px;
+}
+
+#C711Mobile .personalPic {
+  position: relative;
+  width: 70%;
+  margin: auto;
+}
+
+#C711Mobile .personalPic .circlePic {
+  margin: 25px auto;
+  width: 130px;
+  height: 130px;
+  border: 2px solid blue;
+  border: 1px solid #b67612;
+  border-radius: 50%;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#C711Mobile .personalPic .circlePic img {
+  max-width: 100%;
+  max-height: 100%;
+  -webkit-transform: scale(1.1);
+          transform: scale(1.1);
+}
+
+#C711Mobile .personalPic .camera {
+  position: absolute;
+  right: 55px;
+  bottom: -15px;
+  width: 50px;
+}
+
+#C711Mobile .transition {
+  width: 100%;
+  margin: auto;
+  position: absolute;
+  bottom: 0;
+}
+
+#C711Mobile .fadeMenu {
+  width: 90%;
+  margin: 5px auto;
+  border-radius: 10px;
+  border: #aa6402 1px solid;
+  color: #ffd36d;
+  background: #6c1a1b;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, from(#6c1a1b), to(#360d0e));
+  background: linear-gradient(to bottom, #6c1a1b 0%, #360d0e 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .fadeMenu .fadeBottomBorder {
+  border-bottom: gray 1px solid;
+}
+
+#C711Mobile .fadeMenu .fadeFont {
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#C711Mobile .about button[aria-expanded="true"] {
+  border: 1px solid #111217;
+  background: #d50f0c;
+  /* Old browsers */
+  /* FF3.6-15 */
+  /* Chrome10-25,Safari5.1-6 */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #d50f0c), color-stop(1%, #d50f0c), color-stop(44%, #8d0002), color-stop(95%, #141418), to(#880000));
+  background: linear-gradient(to bottom, #d50f0c 1%, #d50f0c 1%, #8d0002 44%, #141418 95%, #880000 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+#C711Mobile .about .termsAndConditions {
+  -webkit-transform: translate3d(1px, 40px, 0px) !important;
+          transform: translate3d(1px, 40px, 0px) !important;
+}
+
+#C711Mobile .about .aboutCon {
+  padding: 10px;
+  font-size: 13px;
+}
+
+#C711Mobile .eventsConFont {
+  color: #fff;
+  text-align: left;
+  font-size: 13px;
+  font-weight: bolder;
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#C711Mobile .eventsConFont .eventPr {
+  width: 100%;
+  text-align: left;
+  margin: 10px auto;
+}
+
+#C711Mobile .eventsConFont .eventPrR {
+  width: 100%;
+  text-align: left;
+}
+
+#C711Mobile .eventsConFont .eventPrR img {
+  width: 25px;
+}
+
+#C711Mobile .eventsTitle {
+  width: 100%;
+  margin: auto;
+  line-height: 30px;
+  text-align: left;
+}
+
+#C711Mobile .eventsTitle .eventsLogo {
+  width: 12%;
+}
+
+#C711Mobile .eventsTitle .eventsLogo img {
+  margin-top: -10px;
+  width: 25px;
+}
+
+#C711Mobile .eventsTitle .eventsFont {
+  color: #ffd36d;
+  font-size: 15px;
+  width: 75%;
+}
+
+#C711Mobile .eventsTitle .eventsFont span {
+  color: #7e7c7c;
+  font-size: 13px;
+}
+
+#C711Mobile .eventsTitle .eventTicket {
+  width: 13%;
+}
+
+#C711Mobile .eventsTitle .eventTicket img {
+  margin-top: -5px;
+  margin-right: 10px;
+  width: 28px;
+}
+
+#C711Mobile .eventTime {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711Mobile .reddeemTime {
+  width: 100%;
+  margin: auto;
+  color: #fe5f42;
+  font-size: 14px;
+  text-align: left;
+  font-weight: normal;
+}
+
+#C711Mobile .remarks {
+  width: 100%;
+  margin: auto;
+  font-size: 14px;
+  text-align: left;
+  font-weight: bolder;
+}
+
+#C711Mobile .eventsProgress {
+  width: 100%;
+  margin: 15px auto 8px auto;
+}
+
+#C711Mobile .gamer_Btn {
+  width: 100%;
+  margin: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+}
+
+#C711Mobile .dateFont {
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .dateFont span {
+  color: #fe5f42;
+  font-weight: bold;
+}
+
+#C711Mobile .bar_Btn {
+  cursor: pointer;
+}
+
+#C711Mobile .eventsPointFont {
+  width: 100%;
+  margin: auto;
+  color: #fff;
+  font-size: 13px;
+  text-align: left;
+}
+
+#C711Mobile .eventsPointFont span {
+  color: #fe5f42;
+}
+
+#C711Mobile .eventsBtn {
+  width: 100%;
+  margin: 15px auto;
+}
+
+#C711Mobile .EventDescriptTitle {
+  color: #ffd36d;
+  font-size: 15px;
+  text-align: left;
+  line-height: 30px;
+}
+
+#C711Mobile .EventDescriptTitle .eventPr {
+  width: 50%;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptTitle .eventPrR {
+  width: 50%;
+  text-align: right;
+}
+
+#C711Mobile .EventDescriptTitle .eventPrR img {
+  margin-top: -5px;
+  margin-left: 20px;
+  width: 25px;
+}
+
+#C711Mobile .EventDescriptTime {
+  margin: 5px auto;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptFont {
+  white-space: pre-wrap;
+  text-align: left;
+  margin: 3px auto;
+  padding-left: 2px;
+}
+
+#C711Mobile .EventDescriptProgress {
+  width: 100%;
+  margin: 18px auto 8px auto;
+}
+
+#C711Mobile .EventDescriptDate {
+  margin: 2px auto;
+  text-align: left;
+}
+
+#C711Mobile .EventDescriptDate span {
+  color: #f8806a;
+}
+
+#C711Mobile .dateFont {
+  color: #fff;
+  font-size: 13px;
+  line-height: 20px;
+  text-align: left;
+}
+
+#C711Mobile .buttonClick {
+  margin-top: 40px;
+}
+
+#C711Mobile .GamePlay {
+  width: 100%;
+  height: 100%;
+  padding-top: 3px;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  -moz-overflow-scrolling: touch;
+  -o-overflow-scrolling: touch;
+  -ms-overflow-scrolling: touch;
+  position: relative;
+}
+
+#C711Mobile .eventBtnD {
+  position: absolute;
+  top: -15px;
+  left: 0;
+  z-index: 999999;
+}
+
+#C711Mobile .btnFixedBg {
+  width: 100%;
+  margin: auto;
+  height: 60px;
+  text-align: center;
+  position: fixed;
+  z-index: 10;
+}
+
+#C711Mobile .btnFixedBg .pointBtn {
+  width: 90%;
+  height: 60px;
+  margin: auto;
+  padding-top: 10px;
+}
+
+#C711Mobile .btnFixedBg .pointBtn .pointBtnLeftRight {
+  position: relative;
+}
+
+#C711Mobile .btnFixedBg .pointBtn .pointBtnLeftRight .pointBtnBg {
+  position: absolute;
+  top: 5px;
+  left: 0;
+  right: 0;
+  font-size: 15px;
+  color: #ffe992;
+  font-weight: bold;
+}
+
+#C711Mobile .PointsItem {
+  width: 100%;
+  margin: auto;
+  padding-top: 60px;
+  padding-bottom: 66px;
+}
+
+#C711Mobile .PointsItem .pointSelect {
+  width: 50%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint {
+  width: 85%;
+  margin: 10px auto;
+  position: relative;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint img {
+  width: 100%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointTitle {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+  height: 22%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg {
+  position: relative;
+  text-align: left;
+  margin-left: 8px;
+  margin-top: 9px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg img {
+  width: 82%;
+  height: 25px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg .pointdigital {
+  position: absolute;
+  top: 3px;
+  right: 29%;
+  font-size: 13px;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointBg .pointdigitalsmall {
+  position: absolute;
+  top: 3px;
+  right: 0;
+  left: 2px;
+  font-size: 8px;
+  text-align: center;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .reBtn {
+  position: absolute;
+  top: 9px;
+  right: 0;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .reBtn img {
+  width: 55%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .PointsImg {
+  position: absolute;
+  top: 21%;
+  left: 0;
+  right: 0;
+  height: 54%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .PointsImg img {
+  max-height: 90%;
+  max-width: 90%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton {
+  position: absolute;
+  top: 76%;
+  left: 0;
+  right: 0;
+  height: 24%;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton .ButtonInOut {
+  width: 50%;
+  margin: 8px auto;
+}
+
+#C711Mobile .PointsItem .pointSelect .GamerPoint .pointButton .ButtonInOut img {
+  width: 33%;
+}
+
+#C711Mobile .PointModalBg {
+  margin: auto;
+  width: 100%;
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  color: #fff;
+  font-weight: bolder;
+  text-align: center;
+}
+
+#C711Mobile .PointModalBg img {
+  width: 95%;
+}
+
+#C711Mobile .PointModalBg .pointModalTitle {
+  position: absolute;
+  top: 1%;
+  left: 0;
+  right: 0;
+  height: 9%;
+  line-height: 45px;
+}
+
+#C711Mobile .PointModalBg .pointModalClose {
+  position: absolute;
+  top: 25%;
+  right: 25px;
+  width: 25px;
+}
+
+#C711Mobile .PointModalBg .pointModalInput {
+  position: absolute;
+  top: 10%;
+  left: 0;
+  right: 0;
+  height: 24%;
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO {
+  width: 70%;
+  margin: 20px auto;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToFont {
+  width: 40%;
+  text-align: center;
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToImg {
+  width: 20%;
+}
+
+#C711Mobile .PointModalBg .pointModalInput .pointTO .pointToImg img {
+  width: 15px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber {
+  position: absolute;
+  top: 34%;
+  left: 0;
+  right: 0;
+  height: 38%;
+  width: 78%;
+  margin: auto;
+  padding: 1px 2px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber .pointBtnMargin {
+  width: 30%;
+  margin: 1.5%;
+  padding: auto 1px;
+}
+
+#C711Mobile .PointModalBg .pointModalNumber .pointBtnMargin .pointBtnSize {
+  text-align: center;
+  color: #f3d84d;
+  height: 2.5em;
+}
+
+#C711Mobile .PointModalBg .pointModalBtn {
+  position: absolute;
+  top: 72%;
+  left: 0;
+  right: 0;
+  height: 24%;
+}
+
+#C711Mobile .GameMenu {
+  width: 100%;
+  margin: auto;
+  height: 60px;
+}
+
+#C711Mobile .GameMenu .ListMenu {
+  width: 100%;
+  margin: auto;
+  padding-top: 15px;
+  position: relative;
+  height: 60px;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 115px;
+  height: 90%;
+  overflow: hidden;
+  z-index: 9;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixBg img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixedBtn {
+  position: absolute;
+  top: 10px;
+  left: 2%;
+  z-index: 10;
+}
+
+#C711Mobile .GameMenu .ListMenu .fixedBtn .allgames {
+  font-size: 12px;
+}
+
+#C711Mobile .GameMenu .ListMenu .gametype {
+  position: absolute;
+  top: 9px;
+  left: 31%;
+  display: inline-block;
+  width: 75%;
+  font-size: 12px;
+}
+
+#C711Mobile .GameMenu .ListMenu .listBg {
+  margin: auto 5px;
+  display: inline-block;
+  height: 35px;
+  color: #ffe992;
+  font-size: 13px;
+  text-align: center;
+  overflow: hidden;
+}
+
+#C711Mobile .gameList {
+  width: 100%;
+  margin: auto;
+  margin-bottom: 5px;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll {
+  width: 93%;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .GameItemB {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .NewHotBtn {
+  position: absolute;
+  top: -2px;
+  left: -2.5%;
+  z-index: 10;
+  width: 35%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .Gift {
+  position: absolute;
+  bottom: -2px;
+  left: -2.5%;
+  z-index: 10;
+  width: 35%;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .gameListCon {
+  position: absolute;
+  top: 2px;
+  left: 2.5%;
+  width: 96%;
+  height: 96%;
+  border-radius: 15px;
+  overflow: hidden;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#C711Mobile .gameList .swiperPic .gamePicAll .gamePic {
+  max-width: 100%;
+  min-height: 100%;
+}
+
+#C711Mobile .gameList .swiperPic .gameName {
+  width: 88%;
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffe992;
+  overflow: hidden;
+}
+
+#C711Mobile .GameItemAll {
+  width: 100%;
+  margin: auto;
+  margin-top: 6px;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic {
+  width: 100%;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll {
+  width: 93%;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .GameItemBG {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .GiftS {
+  position: absolute;
+  bottom: -1px;
+  left: -4px;
+  z-index: 9;
+  width: 45px;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .gameListItemCon {
+  position: absolute;
+  top: 3px;
+  left: 2%;
+  width: 96%;
+  height: 95%;
+  border-radius: 13px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gamePicItemAll .gameListItemCon .gameItemPic {
+  max-height: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#C711Mobile .GameItemAll .swiperItemPic .gameItemName {
+  width: 90%;
+  margin: auto;
+  margin-top: 5px;
+  text-align: center;
+  font-size: 11px;
+  color: #ffe992;
+  height: 40px;
+  overflow: hidden;
+}
+
+#C711Mobile .bannerGameList {
+  height: 120px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+}
+
+#C711Mobile .chatIframe {
+  width: 100%;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto;
+}
+
+#C711Mobile .iframeChat {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .specialB {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 25px;
+  z-index: 9;
+  width: 100%;
+}
+
+#C711Mobile .bottomIcon {
+  z-index: 10;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 50px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 60%;
+  margin: auto;
+}
+
+#C711Mobile .bottomIcon .whatapp {
+  margin: auto;
+  text-align: center;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappPic {
+  width: 50px;
+  margin: auto;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappPic img {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .bottomIcon .whatapp .whatappFont {
+  font-size: small;
+  color: #fff;
+  font-weight: bold;
+  line-height: 23px;
+}
+
+#C711Mobile .ScratchCardAll {
+  padding-top: 5px;
+  width: 100%;
+  height: 100vh;
+  margin: auto;
+  position: relative;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardGIF {
+  position: absolute;
+  top: 0px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 500;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardGIF img {
+  width: 100%;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardPIC {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardPIC img {
+  width: 100%;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardMask {
+  position: absolute;
+  top: 40px;
+  left: 0;
+  width: 100%;
+  margin: auto;
+  z-index: 500;
+}
+
+#C711Mobile .ScratchCardAll .scratchCardMask img {
+  margin-top: 35%;
+  width: 340px;
+  height: 340px;
+}
+
+#C711Mobile .ScratchCardAll img {
+  height: 92vh;
+}
+
+#C711Mobile .Lottery {
+  width: 100%;
+  height: 100%;
+}
+
+#C711Mobile .Events_bar {
+  width: 100%;
+  height: 44px;
+}
+
+#C711Mobile .LotteryAll {
+  width: 100%;
+  height: 100%;
+  margin: auto;
+  margin-top: 10px;
+  position: relative;
+}
+
+#C711Mobile .LotteryAll .LotteryBgPic {
+  width: 100%;
+  height: 100vh;
+}
+
+#C711Mobile .LotteryAll .LotteryTitle {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  color: #fff;
+  font-weight: bold;
+  margin: auto;
+  font-size: 18px;
+  height: 50px;
+  line-height: 50px;
+  text-align: center;
+}
+
+#C711Mobile .LotteryAll .LotteryGo {
+  width: 100%;
+  position: absolute;
+  top: 15%;
+  left: 0;
+  right: 0;
+}
+
+#C711Mobile .displayNone {
+  display: none;
+}
+
+#C711Mobile .displayBlock {
+  display: block;
+}
+
+#C711Mobile .displayFlex {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+}
+
+#C711Mobile .btn-blue {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, left bottom, from(#b9e0ff), color-stop(50%, #0c63bc), to(#1a6cbe));
+  background: linear-gradient(#b9e0ff 0%, #0c63bc 50%, #1a6cbe 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-blue button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 30px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0087fb), color-stop(50%, #0c63bc), to(#12468d));
+  background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-grey {
+  width: 140px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#414141), color-stop(50%, #504a59), to(#2a2832));
+  background: linear-gradient(#414141 0%, #504a59 50%, #2a2832 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-grey button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 45px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#766361), color-stop(50%, #504a59), color-stop(90%, #2a2832), to(#19181c));
+  background: linear-gradient(#766361, #504a59 50%, #2a2832 90%, #19181c);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+}
+
+#C711Mobile .btn-orangeSetting {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fea068), color-stop(50%, #c93b09), to(#ff863d));
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+}
+
+#C711Mobile .btn-orangeSetting button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f95c01), color-stop(50%, #c93b09), to(#991a11));
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-orange {
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fea068), color-stop(50%, #c93b09), to(#ff863d));
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+  display: inline-block;
+}
+
+#C711Mobile .btn-orange button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 30px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f95c01), color-stop(50%, #c93b09), to(#991a11));
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-blueTwo {
+  width: 110px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  text-align: center;
+  margin: auto;
+  cursor: pointer;
+  background: -webkit-gradient(linear, left top, left bottom, from(#b9e0ff), color-stop(50%, #0c63bc), to(#1a6cbe));
+  background: linear-gradient(#b9e0ff 0%, #0c63bc 50%, #1a6cbe 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+}
+
+#C711Mobile .btn-blueTwo button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#0087fb), color-stop(50%, #0c63bc), to(#12468d));
+  background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+
+#C711Mobile .btn-orangeTwo {
+  width: 110px;
+  padding: 2px 0 1px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#fea068), color-stop(50%, #c93b09), to(#ff863d));
+  background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+  -webkit-box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  margin: auto;
+}
+
+#C711Mobile .btn-orangeTwo button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  width: 100%;
+  display: block;
+  padding: 9px 10px;
+  border-radius: 10px;
+  background: -webkit-gradient(linear, left top, left bottom, from(#f95c01), color-stop(50%, #c93b09), to(#991a11));
+  background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+  border: 0;
+  color: #fff;
+  font-weight: 600;
+  font-size: 15px;
+}
+/*# sourceMappingURL=css.css.map */

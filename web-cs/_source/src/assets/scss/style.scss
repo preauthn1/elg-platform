@@ -1,0 +1,1892 @@
+html body {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  font-family: 微軟正黑體;
+  -webkit-overflow-scrolling: touch !important;
+  overflow-y: auto;
+}
+a {
+  text-decoration: none;
+}
+
+//測試用框線
+$testBorder: 2px red solid;
+// C711_MOBILE START
+//title漸層背景色
+.redTemp {
+  .titleHeaderBg {
+    background: -webkit-linear-gradient(#230700, #4c110e, #731c1b);
+    background: -o-linear-gradient(#230700, #4c110e, #731c1b);
+    background: -moz-linear-gradient(#230700, #4c110e, #731c1b);
+    background: linear-gradient(#230700, #4c110e, #731c1b);
+  }
+
+  //列表背景圖片
+  .listbgPic {
+    background: -webkit-linear-gradient(#2c060c, #810810, #8e0a07, #2d0d01);
+    background: -o-linear-gradient(#2c060c, #810810, #8e0a07, #2d0d01);
+    background: -moz-linear-gradient(#2c060c, #810810, #8e0a07, #2d0d01);
+    background: linear-gradient(#2c060c, #810810, #8e0a07, #2d0d01);
+  }
+  // 好友聊天被選取的背景色
+
+  .selectBtn {
+    background-color: #c50336;
+  }
+
+  .selectAction:active {
+    background-color: #ab0c28;
+  }
+  .talkBottomBg {
+    background: -webkit-linear-gradient(#750b37, #37071e);
+    background: -o-linear-gradient(#750b37, #37071e);
+    background: -moz-linear-gradient(#750b37, #37071e);
+    background: linear-gradient(#750b37, #37071e);
+  }
+  .talkMenuBg {
+    background: -webkit-linear-gradient(#37071e, #750b37);
+    background: -o-linear-gradient(#37071e, #750b37);
+    background: -moz-linear-gradient(#37071e, #750b37);
+    background: linear-gradient(#37071e, #750b37);
+  }
+}
+.blueTemp {
+  .titleHeaderBg {
+    background: -webkit-linear-gradient(#000b14, #002547, #102c74);
+    background: -o-linear-gradient(#000b14, #002547, #102c74);
+    background: -moz-linear-gradient(#000b14, #002547, #102c74);
+    background: linear-gradient(#000b14, #002547, #102c74);
+  }
+
+  //列表背景圖片
+  .listbgPic {
+    background-image: url(../../assets/img/BG.png);
+    background: -webkit-linear-gradient(#041628, #072c49, #083c63, #0a0910);
+    background: -o-linear-gradient(#041628, #072c49, #083c63, #0a0910);
+    background: -moz-linear-gradient(#041628, #072c49, #083c63, #0a0910);
+    background: linear-gradient(#041628, #072c49, #083c63, #0a0910);
+  }
+  // 好友聊天被選取的背景色
+
+  .selectBtn {
+    background-color: #0674ec;
+  }
+
+  .selectAction:active {
+    background-color: #0258b3;
+  }
+  .talkBottomBg {
+    background: -webkit-linear-gradient(#00284c, #00080f);
+    background: -o-linear-gradient(#00284c, #00080f);
+    background: -moz-linear-gradient(#00284c, #00080f);
+    background: linear-gradient(#00284c, #00080f);
+  }
+  .talkMenuBg {
+    background: -webkit-linear-gradient(#00080f, #00284c);
+    background: -o-linear-gradient(#00080f, #00284c);
+    background: -moz-linear-gradient(#00080f, #00284c);
+    background: linear-gradient(#00080f, #00284c);
+  }
+}
+
+// C711_MOBILE END
+// title字體顏色
+.titleFontColor {
+  color: #fff;
+}
+//好友選單背景色
+.blueMainBtn {
+  background-color: #0179f2;
+  //
+}
+.grayBtn {
+  background-color: #bfbfbf;
+}
+.blackBtn {
+  background-color: #434343;
+}
+.orangeBtn {
+  background-color: #fe5f42;
+}
+
+.listbgAll {
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+.listbgAll_A {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+//列表背景顏色
+.listbgColor {
+  background-color: #040213;
+}
+
+// 內容字體顏色
+.ContentFont {
+  color: #fff;
+}
+
+//聊天列表內容字體顏色
+.talkListFont {
+  color: #898989;
+}
+//輸入框底色
+.inputBgColor {
+  background-color: #0305149e;
+}
+//輸入框邊框顏色
+.inputBorderColor {
+  border-color: #4f7ae1;
+}
+//input邊框
+.inputBorder {
+  border-style: solid;
+  border-width: 1px;
+}
+//input輸入框底色
+.inputTagBg {
+  background-color: #0305149e;
+}
+//彈窗提示header背景色
+.modalHeaderBg {
+  //   background: -webkit-linear-gradient(#0a52ae, #142846);
+  //   background: -o-linear-gradient(#0a52ae, #142846);
+  //   background: -moz-linear-gradient(#0a52ae, #142846);
+  //   background: linear-gradient(#0a52ae, #142846);
+
+  background: -webkit-linear-gradient(#230700, #731c1b);
+  background: -o-linear-gradient(#230700, #731c1b);
+  background: -moz-linear-gradient(#230700, #731c1b);
+  background: linear-gradient(#230700, #731c1b);
+}
+//彈窗header底線色
+.mheaderBorder {
+  border-image: linear-gradient(
+    to right,
+    #50423b 0%,
+    #e4ca53 50%,
+    #50423b 100%
+  );
+}
+//彈窗headerFontColor
+.mheaderFont {
+  color: #fff;
+}
+//彈窗bodyFontColor
+.mbodyFont {
+  color: #000;
+}
+//彈窗contentBgColor
+.mcontentBg {
+  background-color: #e2e1e1;
+}
+//彈窗按鈕及顏色
+.modalBtnGreen {
+  background-image: url("../img/greenBtn.png");
+}
+.modalBtnGreen:active {
+  background-image: url("../img/greenBtn2.png");
+}
+.modalBtnRed {
+  background-image: url("../img/redBtn.png");
+}
+.modalBtnRed:active {
+  background-image: url("../img/redBtn2.png");
+}
+.modalBtnFont {
+  color: #fff;
+}
+//加好友彈窗提示背景色
+.addModalBg {
+  //   background-color: #0f1c49;
+  background-color: #510d02;
+}
+//長條藍色背景共用
+.longBtnPic {
+  background-image: url(../img/blueLongBtn.png);
+}
+//白底input共用
+.inputCon {
+  width: 80%;
+  height: 35px;
+  padding-top: 4px;
+  margin: 20px auto;
+  border: 1px solid#F0F0F0;
+  border-radius: 5px;
+  padding-left: 15px;
+  font-size: 15px;
+  font-weight: bold;
+  input {
+    border: none;
+    outline: none;
+    text-align: left;
+    width: 190px;
+    font-size: 15px;
+    background-color: #fbfbfb;
+  }
+  .closeInputBtn {
+    padding-right: 5px;
+  }
+}
+//遮罩
+.mask {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 9998;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+//switch用css
+//樣式1
+// .checkbox-wrapper {
+//   width: 80px;
+//   height: 32px;
+//   position: relative;
+//   display: inline-block;
+//   overflow: hidden;
+// }
+// .checkbox {
+//   display: none;
+// }
+// .checkbox-label::before,
+// .checkbox-label::after {
+//   font-family: sans-serif;
+//   font-size: 13px;
+//   color: #ffffff;
+//   position: absolute;
+//   font-weight: bold;
+//   line-height: 32px;
+//   height: 32px;
+//   width: 40px;
+//   text-align: center;
+// }
+// .checkbox-label::before {
+//   content: 'ON';
+//   left: -40px;
+//   background: #45b6af;
+// }
+// .checkbox-label::after {
+//   content: 'OFF';
+//   right: -40px;
+//   background: #f3565d;
+// }
+// .checkbox-label {
+//   display: block;
+//   position: absolute;
+//   left: 0;
+//   width: 40px;
+//   height: 32px;
+//   transition: all 0.4s ease;
+//   cursor: pointer;
+//   background: #dddddd;
+// }
+// .checkbox:checked + .checkbox-wrapper .checkbox-label {
+//   left: 40px;
+// }
+//樣式2
+.checkbox-wrapper {
+  width: 58px;
+  height: 25px;
+  position: relative;
+  display: inline-block;
+  background: #ffffff;
+  border-radius: 16px;
+  transition: all 0.3s ease-out;
+  box-shadow: 0px 0px 0px 2px #ddd;
+}
+.checkbox {
+  display: none;
+}
+.checkbox-label {
+  display: block;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0px 2px 3px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease-out;
+}
+.checkbox:checked + .checkbox-wrapper {
+  background: #0bd318;
+  box-shadow: 0px 0px 0px 2px #0bd318;
+}
+.checkbox:checked + .checkbox-wrapper .checkbox-label {
+  left: 34px;
+}
+//Title共用
+.titleBg {
+  position: fixed;
+  width: 100%;
+  height: 65px;
+  line-height: 65px;
+  //   font-size: 0;
+  z-index: 100;
+  img {
+    width: 100%;
+    height: 100%;
+  }
+  .titleContent {
+    width: 100%;
+    height: 100%;
+    margin: auto;
+  }
+}
+
+//內容置中PADDING-70
+.allContent {
+  margin: auto;
+  padding-top: 10px;
+}
+
+//藍色置中按鈕共用
+//blueBtnPic
+.blueBtnPic {
+  background-image: url(../img/blueBtn.png);
+}
+.blueBtnPic:active {
+  background-image: url(../img/blueBtn2.png);
+}
+.buttonAll {
+  margin: auto;
+  width: 140px;
+  height: 39px;
+  line-height: 39px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  border-radius: 7px;
+  box-shadow: 0 7px #0b316d;
+}
+.buttonAll:active {
+  box-shadow: 0 4px #666;
+  transform: translateY(4px);
+}
+
+//滑動選單共用
+.menuBtn {
+  width: 40px;
+  padding: 1px;
+
+  img {
+    width: 40px;
+    height: 30px;
+  }
+  .bm-burger-button {
+    width: 33px;
+    height: 26px;
+    left: auto;
+    right: 10px;
+    top: 22px;
+    cursor: pointer;
+    background-image: url(../img/whiteMenu.png);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    padding: 1px;
+  }
+  .bm-burger-bars {
+    background: none;
+  }
+
+  .cross-style {
+    position: absolute;
+    top: 12px;
+    right: 2px;
+    cursor: pointer;
+  }
+  .bm-cross {
+    background: #bdc3c7;
+  }
+  .bm-cross-button {
+    height: 24px;
+    width: 24px;
+  }
+
+  .bm-menu {
+    height: 100%; /* 100% Full-height */
+    width: 0; /* 0 width - change this with JavaScript */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Stay on top */
+    top: 0px;
+    left: auto;
+    right: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    padding-top: 40px; /* Place content 60px from the top */
+    transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
+  }
+  // C711_MOBILE
+
+  .bm-menu {
+    // background: -webkit-linear-gradient(#230700, #4c110e, #731c1b);
+    // background: -o-linear-gradient(#230700, #4c110e, #731c1b);
+    // background: -moz-linear-gradient(#230700, #4c110e, #731c1b);
+    // background: linear-gradient(#230700, #4c110e, #731c1b);
+
+    background: -webkit-linear-gradient(#000b14, #002547, #102c74);
+    background: -o-linear-gradient(#000b14, #002547, #102c74);
+    background: -moz-linear-gradient(#000b14, #002547, #102c74);
+    background: linear-gradient(#000b14, #002547, #102c74);
+  }
+
+  .bm-overlay {
+    background: rgba(0, 0, 0, 0.3);
+  }
+  .bm-item-list {
+    color: #b8b7ad;
+    margin-left: 10%;
+    font-size: 15px;
+    a {
+      color: #fff;
+      margin-left: 10px;
+    }
+    a:active {
+      color: #858383;
+    }
+  }
+  .bm-item-list > * {
+    display: flex;
+    text-decoration: none;
+    padding: 0px;
+  }
+  .bm-item-list > * > span {
+    margin-left: 10px;
+    font-weight: bold;
+    color: #fff;
+  }
+  .slideFont {
+    font-size: 15px;
+    height: 50px;
+    line-height: 50px;
+    text-align: left;
+    .switchFont {
+      margin-left: 10px;
+      color: #fff;
+    }
+    img {
+      width: 60px;
+    }
+  }
+  .switchBtn {
+    position: relative;
+    .switchBtnCh {
+      position: absolute;
+      top: 5px;
+      right: 10px;
+    }
+    // .switchPic {
+    //   position: absolute;
+    //   right: 15px;
+    //   top: 20%;
+    //   width: 60px;
+    // }
+  }
+}
+//listTitle高度共用
+.listTitleHeight {
+  height: 65px;
+}
+// ListTitle.vue 裡的 Title
+.titleLeftRight {
+  width: 14%;
+  padding: 1px;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: center;
+  .btn {
+    padding: 0;
+    font-size: 15px;
+  }
+  .leftrightPic {
+    width: 30px;
+  }
+  a {
+    text-decoration: none;
+  }
+  .titleFont {
+    width: 100%;
+    height: 100%;
+    font-weight: bold;
+  }
+}
+.titleCenter {
+  width: 72%;
+  padding: 1px;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  overflow: hidden;
+}
+.talkModal {
+  width: 100%;
+  margin: auto;
+
+  .talkModalAll {
+    width: 70%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    border-radius: 5px;
+    .talkModalHeader {
+      width: 100%;
+      //底線漸層
+      padding-left: 30px;
+      border-bottom: 1px solid transparent;
+      border-width: 0 0 2px 0;
+      border-image-slice: 1;
+      font-weight: bold;
+      font-size: 18px;
+      text-align: center;
+      position: relative;
+      height: 50px;
+      line-height: 50px;
+      img {
+        margin: 5px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+    .talkModalCon {
+      margin: auto;
+      text-align: center;
+      background-color: #e2e1e1;
+
+      .talkModalFont {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+      .talkModalfotter {
+        width: 90%;
+        margin: auto;
+        padding: 0px;
+        margin: 5px auto;
+        justify-content: space-around;
+        padding-bottom: 10px;
+      }
+    }
+  }
+}
+//  Home.vue好友及聊天Title
+.friendtalkTitle {
+  width: 100%;
+  height: 100%;
+  padding-left: 10%;
+  padding-right: 3%;
+  .friendtalkMenu {
+    font-size: 15px;
+    // width: 80px;
+    width: 105px;
+    height: 100%;
+    text-align: center;
+    transform-origin: bottom;
+    transform: skewX(-20deg);
+
+    .friendtalkFont {
+      font-weight: bold;
+      font-size: 20px;
+      transform: skewX(20deg);
+    }
+  }
+}
+//Main.vue
+.friendList {
+  width: 100%;
+  padding-left: 25px;
+  padding-top: 75px;
+
+  .group {
+    width: 100%;
+    margin: 10px auto;
+    .topic {
+      font-size: 17px;
+      margin: auto;
+    }
+    .picName {
+      margin-top: 5px;
+      height: 60px;
+      position: relative;
+      .groupPic {
+        width: 50px;
+        height: 50px;
+
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .groupName {
+        width: 70%;
+        height: 50px;
+        line-height: 50px;
+        padding-left: 5px;
+        font-size: 15px;
+        overflow: hidden;
+      }
+      a {
+        color: #fff;
+      }
+      .personalMenu {
+        font-size: 10px;
+        width: 60%;
+        height: 50px;
+        position: absolute;
+        top: 0;
+        right: 2px;
+        line-height: 50px;
+
+        .menuBtnMain {
+          width: 25%;
+          text-align: center;
+          //   word-wrap: break-word;
+        }
+        .leftRadius {
+          border-top-left-radius: 8px;
+          border-bottom-left-radius: 8px;
+        }
+        .rightRadius {
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+        }
+      }
+    }
+  }
+}
+
+//SetName.vue
+.setNameInput {
+  width: 80%;
+  .setNameNum {
+    text-align: right;
+    font-size: 15px;
+  }
+  .inputAll {
+    margin: 30px auto;
+    text-align: right;
+    padding-left: 5px;
+    border-radius: 5px;
+    input {
+      width: 85%;
+      height: 35px;
+      border: none;
+      outline: none;
+      text-align: left;
+      color: #fff;
+    }
+    img {
+      width: 22px;
+      padding-right: 5px;
+    }
+  }
+  .myidFont {
+    width: 100%;
+    color: red;
+    text-align: center;
+    font-size: 15px;
+    font-weight: bolder;
+    margin: 10px auto;
+  }
+  .sendIdButton {
+    width: 100%;
+    margin: auto;
+    text-align: center;
+  }
+}
+//TalkList.vue
+.talkList {
+  width: 90%;
+  padding-top: 70px;
+  .bgAction {
+    display: block;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+  }
+  .bgAction:active {
+    width: 100%;
+    background-color: #898989;
+  }
+}
+//聊天列表共用 talklist.vue searchTalk.vue
+
+.talkGroup {
+  // margin-top: 5px;
+  height: 80px;
+
+  .talkPic {
+    width: 20%;
+    .talkPicCon {
+      width: 50px;
+      height: 50px;
+      line-height: 80px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+  }
+  .talkName {
+    width: 80%;
+    height: 70px;
+    padding: 5px 15px;
+    line-height: 40px;
+    .talkGropName {
+      height: 40px;
+      width: 100%;
+      font-size: 15px;
+    }
+    .talkContent {
+      height: 40px;
+      width: 40%;
+      font-size: 13px;
+      overflow: hidden;
+    }
+    .talkTime {
+      width: 60%;
+      font-size: 10px;
+      height: 40px;
+      line-height: 40px;
+      text-align: right;
+    }
+  }
+}
+//BlackList.vue GroupChatFriends.vue
+.blackList {
+  width: 85%;
+  .checkBtn {
+    height: 50px;
+    line-height: 50px;
+    margin: auto 8px;
+    // display: none;
+    // .custom-control-label {
+    //   vertical-align: middle;
+    // }
+    // .custom-control-label::before {
+    //   top: -0.75rem;
+    // }
+    .checkBP {
+      padding-top: 15px;
+    }
+  }
+  .groupcheckBtn {
+    height: 50px;
+    line-height: 50px;
+    margin: auto 8px;
+  }
+  .blackGroup {
+    height: 60px;
+    margin-bottom: 10px;
+
+    .blackPic {
+      width: 50px;
+      height: 50px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+    }
+    .blackFont {
+      padding-left: 20px;
+      height: 50px;
+      line-height: 50px;
+    }
+  }
+}
+//聊天白底延伸
+.whiteAll {
+  width: 100%;
+  height: 100%;
+  background-color: #fbfbfb;
+}
+.whiteCon {
+  width: 100%;
+  height: 100vh;
+  background-color: #fbfbfb;
+  overflow-y: auto;
+  margin-bottom: 60px;
+}
+//Talk.vue TalkRedEnvelopes.vue共用
+
+.talkAll {
+  width: 100%;
+  height: 100%;
+  //   overflow: auto;
+  background-color: #fbfbfb;
+  padding: 0;
+  .talkChatCon {
+    width: 100%;
+    height: 100%;
+    background-color: #fbfbfb;
+    overflow-y: auto;
+    // margin-bottom: 60px;
+    // padding-bottom: 60px;
+  }
+  .talkHistory {
+    background-color: #f0f0f0;
+    color: #666;
+    cursor: pointer;
+  }
+  .talkHistory:active {
+    background-color: #6f6f6f;
+    color: #fff;
+  }
+  .talkDate {
+    width: 120px;
+    margin: auto;
+    margin-bottom: 20px;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 8px;
+
+    border-radius: 10px;
+  }
+  .talkItem {
+    width: 92%;
+    margin: auto;
+    .timeShow {
+      background-color: #c4c4c4;
+      color: #1b1e21;
+    }
+
+    .talkLeftCon {
+      width: 100%;
+      margin-bottom: 10px;
+
+      .headPic {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+
+      .chat {
+        width: 70%;
+        position: relative;
+        //Talk.vue
+        .groupTalk {
+          font-size: 10px;
+        }
+        .nameL {
+          text-align: left;
+          padding-left: 5px;
+        }
+        .nameR {
+          text-align: right;
+          padding-right: 5px;
+        }
+        .chatContent {
+          width: 90%;
+          background-color: #dddcdb94;
+          padding: 8px;
+          border-radius: 10px;
+          font-size: 14px;
+          margin-right: 5px;
+          word-wrap: break-word;
+          white-space: pre-wrap;
+          //   white-space:normal;
+          img {
+            width: 100px;
+          }
+        }
+        // talkRedEnvelopes.vue
+        .talkRedContentS {
+          background-color: #f0f0f0;
+          padding: 8px;
+          border-radius: 10px;
+          font-size: 14px;
+          margin-right: 5px;
+          width: 98%;
+          margin-left: 0px;
+
+          .talkRedEnvel {
+            padding-left: 5px;
+            img {
+              width: 50px;
+            }
+          }
+          .talkRedName {
+            padding-left: 5px;
+            .nameTop {
+              font-weight: bolder;
+              font-size: 14px;
+            }
+            .namemsg {
+              font-size: 13px;
+              word-wrap: break-word;
+            }
+          }
+        }
+        .talkRedContent {
+          background-color: #f0f0f0;
+          padding: 8px;
+          //   border-radius: 10px;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          font-size: 14px;
+          margin-right: 5px;
+          width: 98%;
+          margin-left: 0px;
+
+          .talkRedEnvel {
+            padding-left: 5px;
+            img {
+              width: 50px;
+            }
+          }
+          .talkRedName {
+            padding-left: 5px;
+            .nameTop {
+              font-weight: bolder;
+              font-size: 14px;
+            }
+            .namemsg {
+              font-size: 13px;
+              word-wrap: break-word;
+            }
+          }
+        }
+        .talkRedBottom {
+          background-color: #fff;
+          //   padding: 8px;
+          padding-left: 8px;
+          border-bottom-left-radius: 10px;
+          border-bottom-right-radius: 10px;
+          font-size: 10px;
+          margin-right: 5px;
+          width: 98%;
+          height: 30px;
+          line-height: 30px;
+
+          font-weight: bolder;
+        }
+        .talkRedBottomFontR {
+          color: #fe5f42;
+          cursor: pointer;
+        }
+        .talkRedBottomFontG {
+          color: #707070;
+          cursor: pointer;
+        }
+        .redcancel {
+          padding-right: 10px;
+          color: #820a0a;
+          cursor: pointer;
+        }
+        .csColor {
+          color: #0179f2;
+          font-weight: bolder;
+        }
+        .csFontSize {
+          font-size: 18px;
+          color: #0179f2;
+        }
+        .csFontSize:active {
+          color: #002144;
+        }
+        .csNo {
+          padding-right: 10px;
+          cursor: pointer;
+        }
+        .chatTimeRight {
+          font-size: 10px;
+          position: absolute;
+          bottom: 0;
+          right: -12px;
+        }
+        .chatTimeLeft {
+          font-size: 10px;
+          position: absolute;
+          bottom: 0;
+          left: -20px;
+        }
+        .chatRedTimeRight {
+          font-size: 10px;
+          position: absolute;
+          bottom: 0;
+          right: -30px;
+        }
+        .chatRedTimeLeft {
+          font-size: 10px;
+          position: absolute;
+          bottom: 0;
+          left: -35px;
+        }
+      }
+    }
+  }
+  //依照單字換行
+  .wordwrap {
+    word-wrap: break-word;
+  }
+
+  .talkBottom {
+    // position: fixed;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 9999;
+    width: 100%;
+    height: 50px;
+    // line-height: 50px;
+    display: flex;
+    align-items: center;
+    .bottomLeftRight {
+      width: 15%;
+      //   height: 35px;
+      text-align: center;
+      cursor: pointer;
+      .menu711 {
+        width: 50%;
+      }
+      .menupath {
+        width: 65%;
+      }
+    }
+    .bottomInput {
+      width: 70%;
+      height: 35px;
+      line-height: 35px;
+      text-align: center;
+      background-color: #fff;
+      position: relative;
+      border-radius: 17px;
+      -webkit-user-select: text !important;
+      .massageInput {
+        position: absolute;
+        left: 5%;
+        right: 0px;
+        // top: 2px;
+        height: 31px;
+        background-color: #fff;
+        border: none;
+        outline: none;
+        color: #000;
+        text-align: left;
+        width: 90%;
+        font-size: 14px;
+        -webkit-user-select: text !important;
+        // -webkit-appearance: none; /* Safari 和 Chrome，常用於iOS下移除內建樣式 */
+        // -moz-appearance: none; /* FireFox */
+      }
+    }
+  }
+
+  .talkMenu {
+    position: fixed;
+    bottom: 50px;
+    left: 0px;
+    right: 0px;
+    z-index: 20;
+    width: 100%;
+    height: 100px;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    // transform: translateY(-50%);
+    .talkMenuItem {
+      margin: auto;
+
+      .menuBtnBg {
+        width: 55px;
+        height: 55px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        // background-color: #fff;
+        border-radius: 5px;
+
+        .soundred {
+          width: 40%;
+        }
+        img {
+          width: 50%;
+        }
+      }
+
+      .menuFont {
+        width: 55px;
+        margin: auto;
+        // color: #007bff;
+        // color: #f2da8a;
+        color: #fff;
+        font-weight: bold;
+        font-size: 8px;
+        margin: 2px 0;
+      }
+    }
+  }
+}
+
+//發紅包彈窗
+.redEvelModal {
+  width: 100%;
+  margin: auto;
+
+  .redEvelCon {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    // border: 2px solid red;
+    margin: auto;
+    width: 85%;
+    img {
+      width: 100%;
+      transform: scale(1.5);
+    }
+    .openRedAC {
+      position: absolute;
+      top: 0;
+      left: 4px;
+      right: 0;
+      margin: auto;
+      text-align: center;
+      //   border: 2px solid red;
+      width: 100%;
+      //   opacity: 0.5;
+      //   transform: scale(1.5, 1.4);
+    }
+    .redClose {
+      position: absolute;
+      top: 10px;
+      right: 75px;
+
+      img {
+        width: 15px;
+      }
+    }
+    .redCon {
+      width: 50%;
+      margin: auto;
+      position: absolute;
+      top: 26%;
+      right: 0;
+      left: 0;
+      color: #fff;
+
+      .redPic {
+        text-align: center;
+        margin: 5px auto;
+        width: 50px;
+        height: 50px;
+        img {
+          max-width: 100%;
+          max-height: 100%;
+          height: 100%;
+          border-radius: 50%;
+        }
+      }
+      .redName {
+        font-size: 15px;
+        font-weight: bold;
+        margin: 5px auto;
+      }
+      .redTalk {
+        font-size: 13px;
+        margin: 15px auto;
+      }
+      .redOpenCon {
+        font-size: 13px;
+        margin: auto;
+        width: 80%;
+        font-size: 14px;
+        margin-top: 25px;
+      }
+      .redOpenPoint {
+        color: #fff;
+        margin: 10px auto;
+        font-size: 40px;
+      }
+    }
+    .redOpenFont {
+      position: absolute;
+      top: 57%;
+      right: 0;
+      left: 0;
+      color: #b1494a;
+      font-weight: bolder;
+      font-size: 15px;
+      width: 23%;
+      height: 75px;
+      line-height: 78px;
+      margin: auto;
+      //   border: 2px solid red;
+    }
+    .redOpenDetails {
+      color: #feb14f;
+      font-size: 15px;
+      font-weight: bold;
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      left: 0;
+      img {
+        width: 8px;
+        margin-left: 3px;
+      }
+    }
+  }
+}
+.recordModal {
+  width: 100%;
+  margin: auto;
+  background-color: #fff;
+  .recordCon {
+    position: relative;
+    top: 0;
+    // transform: translateY(-50%);
+    text-align: center;
+    background-color: #fff;
+    .recordList {
+      width: 100%;
+      margin: auto;
+
+      .recordListCon {
+        overflow-y: auto;
+        table {
+          font-size: 15px;
+          text-align: center;
+          th {
+            padding: 5px;
+          }
+          td {
+            padding: 5px;
+          }
+          thead {
+            th {
+              height: 20px;
+              line-height: 20px;
+              font-weight: bolder;
+              border-top: 1px solid #102045;
+              border-bottom: 1px solid #102045;
+            }
+          }
+          tbody {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}
+.recordList {
+  width: 100%;
+  margin: auto;
+
+  .recordListCon {
+    table {
+      font-size: 15px;
+      text-align: center;
+      th {
+        padding: 5px;
+      }
+      td {
+        padding: 5px;
+      }
+      thead {
+        th {
+          height: 20px;
+          line-height: 20px;
+          font-weight: bolder;
+          border-top: 1px solid #102045;
+          border-bottom: 1px solid #102045;
+        }
+      }
+      tbody {
+        font-size: 13px;
+      }
+    }
+  }
+}
+//BS彈窗更改
+.modal {
+  top: 50%;
+  transform: translateY(-25%);
+  .modal-dialog {
+    margin: 3rem;
+    .modal-content {
+      border-radius: 5px;
+
+      .modal-header {
+        padding: 5px;
+        width: 100%;
+        //底線漸層
+        border-bottom: 1px solid transparent;
+        border-width: 0 0 2px 0;
+        border-image-slice: 1;
+        font-weight: bold;
+        font-size: 18px;
+        position: relative;
+        //提示用
+        .headerBg {
+          margin: auto;
+          .headerBtn {
+            position: absolute;
+            right: 4px;
+            top: 4px;
+            img {
+              width: 20px;
+            }
+          }
+        }
+      }
+      .modal-body {
+        width: 85%;
+        margin: 15px auto;
+        text-align: center;
+      }
+
+      .modal-footer {
+        border: none;
+        padding: 0px;
+        margin: 5px auto;
+        justify-content: space-around;
+      }
+    }
+  }
+}
+//彈窗按鈕共用
+.modalBtn {
+  width: 100px;
+  height: 32px;
+  line-height: 32px;
+  font-size: 15px;
+  font-weight: bold;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  margin: 10px auto;
+}
+.oneBtnCenter {
+  margin: 10px auto;
+  text-align: center;
+}
+//search用
+.search {
+  width: 90%;
+  margin: auto;
+  padding-top: 10px;
+  .searchinput {
+    width: 90%;
+    .inputbg {
+      background-color: #100731;
+      color: #fff;
+      width: 100%;
+      height: 30px;
+    }
+  }
+  .searchBtn {
+    width: 10%;
+    padding-top: 3px;
+    padding-left: 5px;
+    .searchicon {
+      text-align: center;
+      width: 40px;
+      color: #fff;
+    }
+  }
+}
+//AddFriend.vue
+.addFriendModal {
+  width: 100%;
+  .modalContent {
+    // border: 1px #1e7abb solid;
+    border: 1px #6b0a33 solid;
+    width: 70%;
+    margin: auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    .addModalHeader {
+      border-bottom: 1px solid transparent;
+      border-width: 0 0 2px 0;
+      border-image-slice: 1;
+
+      //main.vue 好友彈窗
+      .mainfriendTitle {
+        width: 95%;
+        margin: auto;
+        text-align: center;
+        font-size: 15px;
+      }
+      //加好友用
+      .addFriendTitle {
+        width: 95%;
+        margin: auto;
+        font-size: 15px;
+
+        img {
+          width: 60px;
+          margin: auto 20px;
+        }
+      }
+      .closeBtn {
+        position: absolute;
+        top: -35px;
+        right: 4px;
+        img {
+          width: 20px;
+        }
+      }
+      .maincloseBtn {
+        position: absolute;
+        top: -10px;
+        right: 4px;
+        img {
+          width: 20px;
+        }
+      }
+    }
+    .addModalHeight {
+      height: 100px;
+      line-height: 100px;
+    }
+    .mainModalHeight {
+      height: 50px;
+      line-height: 50px;
+    }
+    .promptHeight {
+      height: 50px;
+      line-height: 50px;
+      text-align: center;
+    }
+
+    .addFriendBtn {
+      width: 100%;
+      height: 60px;
+      margin: 10px auto;
+      text-align: center;
+      .friendPic {
+        width: 50px;
+      }
+      .mainBtn {
+        margin: 20px auto;
+      }
+      .addBtnLeftRight {
+        width: 50%;
+
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+        .friendBtn {
+          padding-top: 2px;
+        }
+        .friendFont {
+          font-size: 13px;
+        }
+      }
+      .addBtnOne {
+        width: 100%;
+        margin: autol;
+      }
+    }
+    .addFriendPrompt {
+      height: 60px;
+      line-height: 60px;
+      text-align: center;
+    }
+  }
+}
+.blueBtnLong {
+  width: 98%;
+  margin: 20px auto;
+  .longBtnBg {
+    background-repeat: no-repeat;
+    background-size: 100%;
+    height: 40px;
+    line-height: 38px;
+    .bluePic {
+      text-align: center;
+      width: 20%;
+      img {
+        margin-top: -2px;
+        width: 28px;
+      }
+    }
+    .settingFont {
+      width: 70%;
+      text-align: left;
+      span {
+        color: #fff;
+        font-weight: bold;
+      }
+    }
+    .blueBtnRight {
+      width: 10%;
+      img {
+        margin-top: -2px;
+        width: 10px;
+      }
+    }
+  }
+}
+//RedEnvelopes.vue
+.point {
+  text-align: center;
+  font-size: 13px;
+  color: #707070;
+  padding: 10px;
+}
+
+.redEnvelopesBtnCon {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  color: #707070;
+  .redEnBtnTop {
+    margin: 30px auto;
+    color: #fe5f42;
+    font-weight: bold;
+  }
+  .redEnBtnCen {
+    font-size: 14px;
+    margin: 20px auto;
+  }
+}
+//GroupRedEnvelopes.vue
+.GroupPoint {
+  text-align: center;
+  font-size: 13px;
+  color: #707070;
+}
+.groupRedBtn {
+  width: 80%;
+  margin: auto;
+  .gwiorBtn {
+    width: 48%;
+    height: 35px;
+    line-height: 35px;
+    color: #707070;
+    border: 1px solid#F0F0F0;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 14px;
+  }
+  .gwiorBtnBg {
+    background-color: #fff;
+  }
+  .gwiorBtnBgOr {
+    /* Permalink - use to edit and share this gradient: https://example.invalid/gradient-editor/#ff6601+0,fb751e+20,b8510d+53,c85f1b+80,ff6601+100 */
+    background: #ff6601; /* Old browsers */
+    background: -moz-linear-gradient(
+      top,
+      #ff6601 0%,
+      #fb751e 20%,
+      #b8510d 53%,
+      #c85f1b 80%,
+      #ff6601 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      top,
+      #ff6601 0%,
+      #fb751e 20%,
+      #b8510d 53%,
+      #c85f1b 80%,
+      #ff6601 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #ff6601 0%,
+      #fb751e 20%,
+      #b8510d 53%,
+      #c85f1b 80%,
+      #ff6601 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff6601', endColorstr='#ff6601',GradientType=0 ); /* IE6-9 */
+    color: #fff;
+  }
+  .gwiorBtnBgGr {
+    /* Permalink - use to edit and share this gradient: https://example.invalid/gradient-editor/#70e560+0,50a445+22,387330+53,4a9840+80,70e560+100 */
+    background: #70e560; /* Old browsers */
+    background: -moz-linear-gradient(
+      top,
+      #70e560 0%,
+      #50a445 22%,
+      #387330 53%,
+      #4a9840 80%,
+      #70e560 100%
+    ); /* FF3.6-15 */
+    background: -webkit-linear-gradient(
+      top,
+      #70e560 0%,
+      #50a445 22%,
+      #387330 53%,
+      #4a9840 80%,
+      #70e560 100%
+    ); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(
+      to bottom,
+      #70e560 0%,
+      #50a445 22%,
+      #387330 53%,
+      #4a9840 80%,
+      #70e560 100%
+    ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#70e560', endColorstr='#70e560',GradientType=0 ); /* IE6-9 */
+    color: #fff;
+  }
+}
+.groupMember {
+  width: 80%;
+  margin: auto;
+  text-align: right;
+  font-size: 15px;
+  font-weight: bold;
+  color: #707070;
+}
+//RedLogin.vue
+.redLoginTop {
+  width: 100%;
+  text-align: center;
+  .rTopFont {
+    margin: 20px;
+    color: #fe5f42;
+    font-weight: bold;
+  }
+}
+.RedLoginBtn {
+  margin: 50px auto;
+}
+//RedEnvelopesRecord.vue
+.recordTop {
+  width: 70%;
+  margin: auto;
+  text-align: center;
+  color: #194661;
+  .recordPic {
+    margin: 10px auto;
+    width: 80px;
+    height: 80px;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+  }
+  .recordItem {
+    margin: 10px auto;
+    font-weight: bolder;
+  }
+  .recordCon {
+    margin: 20px auto;
+    font-size: 15px;
+  }
+  .recordMoney {
+    color: #fe5f42;
+    font-weight: bold;
+    margin: 20px auto;
+  }
+}
+.RrecordList {
+  width: 100%;
+  margin: auto;
+
+  .RrecordListCon {
+    table {
+      font-size: 15px;
+      text-align: center;
+      th {
+        padding: 5px;
+      }
+      td {
+        padding: 5px;
+      }
+      thead {
+        th {
+          height: 20px;
+          line-height: 20px;
+          font-weight: bolder;
+          border-top: 1px solid #102045;
+          border-bottom: 1px solid #102045;
+        }
+      }
+      tbody {
+        font-size: 13px;
+      }
+    }
+  }
+}
+//SetGroupFile.vue
+.sgroupName {
+  width: 80%;
+  margin: 20px auto;
+  .sgroupBpic {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    img {
+      max-width: 100%;
+      max-height: 100%;
+      height: 100%;
+      border-radius: 50%;
+    }
+    .sCamera {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 30px;
+      height: 30px;
+    }
+  }
+  .sgroupBname {
+    padding-left: 15px;
+    height: 90px;
+    line-height: 90px;
+    font-weight: bold;
+  }
+}
+.memberLine {
+  border-top: 1px solid #2390dd;
+  border-bottom: 1px solid #2390dd;
+  font-size: 15px;
+  color: #a0cfff;
+  height: 30px;
+  line-height: 30px;
+  padding-left: 20px;
+}
+.addMemberAll {
+  width: 90%;
+  margin: 20px auto;
+  //   display: flex;
+  //   justify-content: space-between;
+  .memberItem {
+    width: 25%;
+    text-align: center;
+    margin: auto;
+    position: relative;
+    .memberPic {
+      width: 65px;
+      height: 65px;
+      margin-bottom: 5px;
+      margin-left: 10px;
+      img {
+        max-width: 100%;
+        max-height: 100%;
+        height: 100%;
+        border-radius: 50%;
+      }
+      .imgBorder {
+        border: 1px solid #a0cfff;
+        padding: 15px;
+      }
+    }
+    .memberName {
+      width: 100%;
+      font-size: 13px;
+      margin-bottom: 20px;
+      overflow: hidden;
+    }
+    .redCloseBtn {
+      position: absolute;
+      top: -2px;
+      right: 8px;
+    }
+  }
+}
+//MyQRcode.vue
+.qrcodeAll {
+  width: 80%;
+  margin: auto;
+  margin-top: 80px;
+  .qrcodePic {
+    width: 250px;
+    height: 250px;
+    background-color: #fff;
+    margin: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .qrcodeFont {
+    margin: 20px auto;
+    width: 100%;
+    text-align: center;
+  }
+}
+.qrcodesearBottom {
+  height: 60px;
+  line-height: 60px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 10px;
+}
+//qrcodebuttonbg
+.qrcodeButtonBg {
+  background-color: #102d75;
+}
+//searchTalk.vue
+.searchTalkAll {
+  width: 90%;
+  margin: 20px auto;
+  .searchTitle {
+    width: 100%;
+    font-size: 10px;
+  }
+  .searchCon {
+    width: 90%;
+    margin: auto;
+  }
+}
+
+.sendBtn {
+  background-repeat: no-repeat;
+  background-size: 100%;
+  text-align: center;
+  cursor: pointer;
+  outline: none;
+  width: 55%;
+  height: 50px;
+  line-height: 45px;
+  font-weight: bolder;
+  margin: 50px auto;
+  // border: $border;
+  button {
+    color: #fff;
+    font-weight: bolder;
+  }
+}
+.blueBtnShare {
+  background-image: url(../../assets/img/blueBtn711.png);
+}
+.loading-container .loading {
+  background-color: #ffffff00 !important;
+  box-shadow: none !important;
+}

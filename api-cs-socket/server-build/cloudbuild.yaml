@@ -1,0 +1,29 @@
+steps:
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build/Dockerfile-php', '-t', 'example.invalid/$PROJECT_ID/cs-socket-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/$PROJECT_ID/cs-socket-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - cs-socket-deployment
+  - cs-socket-container=example.invalid/$PROJECT_ID/cs-socket-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'
+- name: 'example.invalid/cloud-builders/docker'
+  args: ['build', '-f', 'server-build/Dockerfile-nginx', '-t', 'example.invalid/$PROJECT_ID/cs-socket-nginx-image:$SHORT_SHA', '.']
+- name: 'example.invalid/cloud-builders/docker'
+  args: ["push", "example.invalid/$PROJECT_ID/cs-socket-nginx-image:$SHORT_SHA"]
+- name: 'example.invalid/cloud-builders/kubectl'
+  args:
+  - set
+  - image
+  - deployment
+  - cs-socket-deployment
+  - cs-nginx-container=example.invalid/$PROJECT_ID/cs-socket-nginx-image:$SHORT_SHA
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=asia-east1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=xsgcasino-cluster'

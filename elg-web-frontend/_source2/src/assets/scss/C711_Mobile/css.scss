@@ -1,0 +1,5234 @@
+﻿$border: 2px solid blue;
+$memoWidth: 85px;
+
+html body {
+    overscroll-behavior-y: contain;
+    height: 100%;
+    -webkit-overflow-scrolling: touch !important;
+    // font-family: 'Noto Sans TC', sans-serif;
+    // font-family: '微軟正黑體', 'Helvetica', 'Arial', 'LiHei Pro', '黑體-繁',
+    //     sans-serif;
+    font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+        sans-serif;
+    background-color: #2d0d02;
+}
+
+body:-webkit-scrollbar {
+    display: none;
+}
+
+#C711Mobile {
+    .up225 {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 50px;
+        right: 0;
+        z-index: 9998;
+        background-color: #1217a6;
+
+        .upfont {
+            width: 80%;
+            border: 1px dashed #ffd378;
+            padding: 15px;
+            border-radius: 10px;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 20%;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: black;
+
+            .title {
+                font-weight: bold;
+                font-size: 16px;
+                margin: 10px auto;
+            }
+
+            .con {
+                border-bottom: 1px solid#ffd378;
+            }
+        }
+    }
+
+    // iframeloading用
+    .loadingiframeGame {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 40%;
+        width: 100px;
+        margin: auto;
+        // background: -webkit-linear-gradient(#0a52ae, #142846);
+        // background: -o-linear-gradient(#0a52ae, #142846);
+        // background: -moz-linear-gradient(#0a52ae, #142846);
+        // background: linear-gradient(#0a52ae, #142846);
+        border-radius: 10px;
+        // border: 1px #4a0409 solid;
+        padding: 25px;
+        // box-shadow: 0px 0px 10px #777777;
+        color: #fff;
+    }
+
+    div {
+        margin: 0;
+        border: 0;
+        padding: 0;
+    }
+
+    .allBackground {
+        background-color: #2e0d02;
+    }
+
+    //direction鎖定方向
+    .directionMask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9998;
+        background-color: #000;
+
+        // display: none;
+        .directionPic {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: auto;
+            z-index: 9999;
+            width: 100%;
+
+            // height: 80%;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    // 捷徑引導
+    .shortcutMask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9998;
+        background-color: #000;
+
+        .shortcutPic {
+            position: relative;
+            top: 0%;
+            // transform: translateY(-50%);
+            margin: auto;
+            z-index: 9999;
+            width: 100%;
+
+            // height: 80%;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    // 有無手機/PC版
+    .has_pc_mobileMask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9998;
+        background-color: #000;
+
+        // display: none;
+        .has_pc_mobilePic {
+            position: relative;
+            top: 50%;
+            transform: translateY(-50%);
+            margin: auto;
+            z-index: 9999;
+            width: 100%;
+
+            // height: 80%;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    //login wechat
+    .wechatMask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9998;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        // display: none;
+        .closeBtn {
+            position: relative;
+            top: 3%;
+            left: 15px;
+
+            img {
+                width: 30px;
+            }
+        }
+
+        .wechatPic {
+            // border: $border;
+            position: relative;
+            top: 3%;
+            // transform: translateY(-50%);
+            margin: auto;
+            z-index: 9999;
+            width: 80%;
+
+            // height: 80%;
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
+    // login.vue
+    .login {
+        margin: auto;
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow-y: auto;
+
+        // display: none;
+        .loginBg {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .specialT {
+            position: absolute;
+            width: 100%;
+            margin: auto;
+            top: 0%;
+            left: 0;
+            z-index: 9;
+        }
+
+        .C711_Msignin {
+            position: absolute;
+            top: 17%;
+            right: 0;
+            left: 0;
+            width: 100%;
+            // height: 100%;
+            margin: auto;
+            text-align: center;
+            z-index: 10;
+
+            .loginLogo {
+                width: 100%;
+
+                img {
+                    width: 80%;
+                    height: 78px;
+                }
+            }
+
+            .signData {
+                width: 85%;
+                margin: 40px auto;
+            }
+        }
+
+        .loginFooter {
+            margin: auto;
+            width: 100%;
+            height: 50px;
+            line-height: 25px;
+            color: #fff;
+            font-size: 10px;
+            // background-color: #ffffff;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            text-align: center;
+        }
+
+        div.selectWapper {
+            width: 150px;
+            position: absolute;
+            right: 15px;
+            top: 15px;
+            margin: 3px 0px;
+            height: 40px;
+            line-height: 40px;
+            color: #aaa;
+            background: #1f0909;
+            border-radius: 16px;
+            border: solid 1px #b67612;
+            padding-left: 7px;
+        }
+
+        .selectIcon {
+            height: 14px !important;
+            width: 14px !important;
+            margin-left: 5px;
+            margin-top: 0px;
+        }
+
+        select {
+            padding: 0px 4px 0px 0px;
+            width: 110px;
+            border: 0px solid rgb(255, 255, 255);
+            color: #ffd36d;
+            margin: 1px;
+            font-size: 14px;
+            background: transparent;
+
+            option {
+                color: #ffd36d;
+            }
+        }
+
+        select:hover {
+            background: #1f0909;
+            padding: 0px 4px 0px 0px;
+            -webkit-appearance: none;
+            max-height: 90%;
+        }
+
+        option:hover {
+            background-color: #1f0909;
+            padding: 0px 4px 0px 0px;
+            -webkit-appearance: none;
+        }
+    }
+
+    //黃色漸層border共用
+    .yellow_borderInput {
+        border-radius: 10px;
+        padding: 1px;
+        background: #81500b;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .marginTop20 {
+        margin-top: 20px;
+    }
+
+    .marginTop10 {
+        margin-top: 10px;
+    }
+
+    .marginBottom20 {
+        margin-bottom: 10px;
+    }
+
+    //黑色漸層輸入框共用
+    //輸入框
+    .black_InputAll {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        height: 40px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .lockHeight {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        // height: 40px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .black_inputbg {
+        background: #4a3934;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .orange_inputbg {
+        background: #f95c01;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    // gamelistMenuBg
+    .gameListBgAll {
+        margin: auto;
+        padding: 5px;
+        width: 90px;
+        height: 100%;
+        border: 1px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .gameListBg {
+        background-image: url(../../img/C711_Mobile/ListMenuBg.png);
+    }
+
+    .gameListBg_s {
+        background-image: url(../../img/C711_Mobile/ListOpenAppBg.png);
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .gameJokerBg {
+        background-image: url(../../img/C711_Mobile/ListOpenAppBg.png);
+    }
+
+    // point頁面點數框公用
+    .point_PAll {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        height: 30px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .point_Pbg {
+        background: #4a3934;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #4a3934 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #4a3934 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #4a3934 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //DIV可放大框
+    .black_DivAll {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        min-height: 120px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    //EventDiv
+    .black_EventDiv {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .black_Divbg {
+        background: #4a3934;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    // 摸彩活動背景漸層
+    .purple_Divbg {
+        background: #561d2d;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //紅色漸層按鈕共用
+    .red_Btnbg {
+        border: 1px solid #111217;
+        background: #d50f0c;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #d50f0c 1%,
+                #d50f0c 1%,
+                #8d0002 44%,
+                #141418 95%,
+                #880000 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #d50f0c 1%,
+                #d50f0c 1%,
+                #8d0002 44%,
+                #141418 95%,
+                #880000 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #d50f0c 1%,
+                #d50f0c 1%,
+                #8d0002 44%,
+                #141418 95%,
+                #880000 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //並排兩個按鈕
+    .abreastBtn {
+        width: 46%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .abreastBtnTwo {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        // border: $border;
+    }
+
+    //黃色漸層按鈕共用
+    .yellow_Btnbg {
+        border: 1px solid #111217;
+        font-weight: bolder;
+        background: #e6dc97;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //灰色漸層按鈕共用
+    .gray_BtnBg {
+        border: 1px solid #111217;
+        background: #79655f;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    // event用
+    .yellowcolor {
+        color: #fff;
+        font-weight: bolder;
+        font-size: 15px;
+        border: 1px solid #111217;
+        background: #e6dc97;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .graycolor {
+        color: gray;
+        font-size: 15px;
+        font-weight: bolder;
+        border: 1px solid #111217;
+        background: #79655f;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //棕色漸層按鈕共用
+    .brown_BtnBg {
+        border: 1px solid #111217;
+        background: #6f411e;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //藍色漸層按鈕共用
+    .blue_BtnBg {
+        border: 1px solid #111217;
+        background: #1e83d8;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //輸入框字體大小顏色
+    .fontsizelogin {
+        font-size: 14px;
+        color: #fff;
+    }
+
+    //按鈕字體大小顏色
+    .fontsizeBtn {
+        font-size: 15px;
+        color: #fff;
+        font-weight: bolder;
+    }
+
+    .fontsizeLock {
+        font-size: 9px;
+        color: #fff;
+        font-weight: bolder;
+    }
+
+    //黑底一左一右共用
+    .blackInput {
+        font-size: 14px;
+        color: #fff;
+        text-align: right;
+        position: relative;
+
+        .inputFontLeft {
+            position: absolute;
+            left: 7px;
+            top: 2;
+        }
+
+        .inputFontCenter {
+            position: absolute;
+            top: 2;
+            left: 0;
+            right: 0;
+        }
+
+        .inputFontRight {
+            position: absolute;
+            right: 7px;
+            top: 2;
+        }
+
+        .appFontLeft {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            margin-top: -10px;
+
+            img {
+                margin-top: -5px;
+                width: 20px;
+            }
+        }
+
+        .appFontRight {
+            position: absolute;
+            right: 7px;
+            top: 50%;
+            margin-top: -10px;
+
+            img {
+                width: 10px;
+            }
+        }
+    }
+
+    // eventModal遮屏共用
+    .mask {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 9998;
+        background-color: rgba(0, 0, 0, 0.7);
+
+        .eventModal {
+            position: relative;
+            top: 1%;
+            width: 97%;
+            margin: auto;
+            z-index: 9999;
+            height: 98%;
+
+            .closeBtn {
+                position: absolute;
+                top: 0;
+                right: 2px;
+
+                img {
+                    width: 30px;
+                }
+            }
+        }
+    }
+
+    .mask.mask-dark-grey {
+        background-color: #1e1e1e;
+    }
+
+    .firework {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+    }
+
+    //彈窗全版
+    .Popups_full {
+        color: #fff;
+        width: 300px;
+        margin: auto;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        position: absolute;
+        text-align: center;
+        height: 90vh;
+        // transform: translateY(-50%);
+        padding: 10px auto;
+        // border-radius: 8px;
+        // border: 2px solid red;
+    }
+
+    //彈窗
+    .Popups_Modal {
+        color: #fff;
+        width: 300px;
+        border-radius: 8px;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .PopupsTitle {
+            // position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-weight: bolder;
+            border-radius: 8px 8px 0px 0px;
+            background: #ab2800;
+            /* Old browsers */
+            background: -moz-linear-gradient(top, #ab2800 0%, #6e0819 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, #ab2800 0%, #6e0819 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, #ab2800 0%, #6e0819 100%);
+
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            .modalClose {
+                position: absolute;
+                top: 12px;
+                right: 10px;
+                width: 25px;
+            }
+        }
+
+        //有按鈕
+        .PopupsConAll {
+            background-color: #2b2c33;
+            height: 250px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //無按鈕
+        .PopupsConNoBtn {
+            background-color: #2b2c33;
+            height: 180px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //有按鈕
+        .PopupsCon {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 60%;
+            background-color: #151622;
+            border-bottom: 1px solid #50515b;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        //無按鈕
+        .PopupsConNo {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 80%;
+            background-color: #151622;
+            border-bottom: 1px solid #50515b;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        .popupsConFont {
+            padding-top: 30px;
+            font-size: 15px;
+        }
+
+        .popupsBank {
+            padding-top: 20px;
+            font-size: 15px;
+        }
+
+        .PopupsBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            left: 0;
+            width: 80%;
+            margin: auto;
+        }
+    }
+
+    .lottery_Modal {
+        color: #fff;
+        width: 300px;
+        border-radius: 8px;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .PopupsTitle {
+            // position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-weight: bolder;
+            border-radius: 8px 8px 0px 0px;
+            background: #ff6000;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            .modalClose {
+                position: absolute;
+                top: 12px;
+                right: 10px;
+                width: 25px;
+            }
+        }
+
+        //有按鈕
+        .PopupsConAll {
+            // background-color: #2b2c33;
+            background: #981817;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            height: 250px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //無按鈕
+        .PopupsConNoBtn {
+            background-color: #2b2c33;
+            height: 180px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //有按鈕
+        .PopupsCon {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 60%;
+            // background-color: #151622;
+            // border-bottom: 1px solid #50515b;
+            background-color: #310f12;
+            border-bottom: 1px solid #955a2d;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        //無按鈕
+        .PopupsConNo {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 80%;
+            background-color: #151622;
+            border-bottom: 1px solid #50515b;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        .popupsConFont {
+            padding-top: 30px;
+            font-size: 15px;
+        }
+
+        .popupsBank {
+            padding-top: 20px;
+            font-size: 15px;
+        }
+
+        .PopupsBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            left: 0;
+            width: 80%;
+            margin: auto;
+        }
+    }
+
+    //背景共用
+    .pageBg {
+        background-image: url(../../img/C711_Mobile/BGL.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: #2d0d02;
+    }
+
+    //全部頁面的寬高
+    .CwidthHeight {
+        width: 100%;
+        height: 100%;
+    }
+
+    .widthHeightvh {
+        width: 100%;
+        height: 100vh;
+    }
+
+    .fontFamily {
+        font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+            sans-serif;
+    }
+
+    .fontColor {
+        color: #fff;
+        font-size: 15px;
+    }
+
+    //浮動event按鈕
+    .contentAll {
+        position: relative;
+        min-height: 100%;
+        background-color: #04020c;
+        width: 100%;
+
+        .ys-float-btn {
+            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            color: #666666;
+            z-index: 1050;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            bottom: 20vw;
+        }
+
+        .eventbtn {
+            position: relative;
+
+            .specialButton {
+                position: absolute;
+                top: -14px;
+                bottom: 0;
+                right: 18%;
+                // left:0;
+                width: 100%;
+            }
+
+            .eventBtnT {
+                position: absolute;
+                top: -8px;
+                bottom: 0;
+                right: 0;
+                width: 45%;
+            }
+
+            .eventFont {
+                position: absolute;
+                bottom: 4px;
+                left: 0;
+                right: 0;
+                color: #fff;
+                font-size: 8px;
+                text-align: center;
+            }
+
+            img {
+                width: 100%;
+                // height: 100%;
+                object-fit: contain;
+                margin-bottom: 3px;
+            }
+
+            p {
+                font-size: 7px;
+            }
+        }
+
+        .modal {
+            top: 1%;
+
+            .modal-dialog {
+                width: 100%;
+                height: 100vh;
+                margin: auto;
+
+                .modal-content {
+                    background: none;
+                    border: none;
+
+                    .closeBtn {
+                        position: absolute;
+                        top: 14px;
+                        right: -5px;
+                        z-index: 200;
+
+                        img {
+                            width: 51%;
+                        }
+                    }
+
+                    .modal-body {
+                        display: inline-block;
+                        -webkit-overflow-scrolling: touch !important;
+                        overflow-y: auto !important;
+                    }
+
+                    .modal-body,
+                    .modal-body {
+                        width: 100%;
+                        height: 100vh;
+                        margin: auto;
+
+                        iframe {
+                            width: 100%;
+                            height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .isDisabled {
+        color: currentColor;
+        cursor: not-allowed;
+        opacity: 0.5;
+        text-decoration: none;
+    }
+
+    footer {
+        position: fixed;
+        padding: 5px 0;
+        bottom: -6px;
+        height: 64px;
+        box-sizing: border-box;
+        width: 100%;
+        z-index: 100;
+
+        .specialINB {
+            position: absolute;
+            top: -15px;
+            left: 0;
+            right: 0;
+            width: 100%;
+            z-index: 110;
+        }
+
+        .C711_MlobbyMenu {
+            background-image: url(../../img/C711_Mobile/footerBg.png);
+            background-repeat: no-repeat;
+            background-size: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: space-around;
+
+            .menuBtn {
+                width: 180px;
+                height: 66px;
+                position: relative;
+                text-align: center;
+
+                a {
+                    display: block;
+                    height: 66px;
+
+                    .btnPosition {
+                        position: absolute;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        margin: auto;
+                        width: 100%;
+                        height: 66px;
+
+                        .MenuBottomBtn {
+                            height: 30px;
+                            text-align: center;
+
+                            img {
+                                width: $memoWidth;
+                                max-width: 100%;
+                            }
+                        }
+
+                        .MenuBottomFont {
+                            height: 30px;
+                            width: 100%;
+                            margin: auto;
+                            text-align: center;
+
+                            span {
+                                // padding-left: 8px;
+                                font-size: 14px;
+                                font-weight: bold;
+                            }
+                        }
+                    }
+
+                    .fontColorWhite {
+                        color: #ffffff;
+                    }
+
+                    .fontColorGray {
+                        color: #7b7a7a;
+                    }
+                }
+            }
+        }
+    }
+
+    //Login_header
+    .page {
+        .pageTitle {
+            height: 55px;
+            line-height: 55px;
+            z-index: 100;
+            font-weight: bolder;
+            position: relative;
+
+            .pagePic {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .speciallogT {
+            position: absolute;
+            bottom: -17px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            width: 100%;
+        }
+
+        .pageTitleAll {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+        }
+
+        .loginbarBack {
+            width: 10%;
+            padding: 1px;
+            padding-top: 5px;
+            // border: $border;
+            text-align: left;
+
+            img {
+                width: 40px;
+                margin-left: 20px;
+            }
+        }
+
+        .loginbarTitle {
+            width: 60%;
+            padding: 1px;
+            text-align: center;
+            color: #ffd36d;
+
+            // border: $border;
+            span {
+                font-size: 18px;
+                color: #ffd36d;
+                font-weight: bold;
+            }
+        }
+
+        .gamePointTransfer {
+            // border: $border;
+            width: 10%;
+            text-align: center;
+            padding: 1px;
+
+            img {
+                // margin-right: 10px;
+                width: 28px;
+            }
+        }
+
+        .loginbarright {
+            // border: $border;
+            width: 10%;
+            text-align: center;
+            padding: 1px;
+
+            .searchPic {
+                margin-right: 10px;
+                width: 20px;
+            }
+
+            img {
+                margin-right: 10px;
+                width: 35px;
+            }
+
+            span {
+                color: #fff;
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .dropdown-item {
+                height: 50px;
+            }
+        }
+
+        .iconImg {
+            width: 22px;
+        }
+    }
+
+    //PointHeader
+    .PointHeader {
+        width: 100%;
+        height: 8%;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 999;
+
+        // border: $border;
+        .PointImgBg {
+            position: relative;
+            width: 100%;
+            margin: auto;
+
+            img {
+                width: 100%;
+                height: 60px;
+            }
+
+            div.searchIcon {
+                position: absolute;
+                left: 4.5%;
+                top: 16px;
+                z-index: 99999;
+            }
+
+            img.searchIcon {
+                width: 26px;
+                height: 26px;
+            }
+
+            .specialINT {
+                position: absolute;
+                top: 0;
+                width: 100%;
+                left: 0;
+                right: 0;
+                height: 72px;
+            }
+
+            .backBtn {
+                position: absolute;
+                left: 7%;
+                top: 11px;
+
+                img {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+
+            .blackPointBg {
+                position: absolute;
+                right: 0;
+                left: 0;
+                bottom: 17px;
+                text-align: center;
+
+                img {
+                    width: 46%;
+                    height: 27px;
+                }
+            }
+
+            .pointRe {
+                position: absolute;
+                left: 27.5%;
+                top: 16px;
+
+                img {
+                    width: 22px;
+                    height: 22px;
+                }
+            }
+
+            .pointFont {
+                position: absolute;
+                left: 34%;
+                top: 21px;
+                color: #ffe16a;
+                font-size: 12px;
+                font-weight: normal;
+            }
+
+            .pointAddBtn {
+                position: absolute;
+                right: 27%;
+                top: 17px;
+
+                img {
+                    height: 31px;
+                }
+            }
+
+            .pointLockBtn {
+                position: absolute;
+                right: 27%;
+                top: 14px;
+
+                img {
+                    height: 31px;
+                }
+            }
+
+            .marquee_Pos {
+                position: absolute;
+                bottom: -5px;
+                left: 0;
+                right: 0;
+                color: red;
+                // border: $border;
+                margin: auto;
+                width: 50%;
+                font-size: 10px;
+            }
+
+            .fixed-settingBtn {
+                position: absolute;
+                right: 15px;
+                top: 16px;
+
+                img {
+                    height: 26px;
+                    width: 26px;
+                }
+            }
+
+            .rightBtn {
+                position: absolute;
+                right: 8%;
+                top: 16px;
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+
+                .homeBtn {
+                    width: 25px;
+                    height: 22px;
+                }
+            }
+        }
+    }
+
+    .pointHeight {
+        height: 60px;
+    }
+
+    // 滿版 list
+    .pageFull {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        color: #fff;
+    }
+
+    // Lobby共用背景
+    .LobbyBg {
+        background-image: url(../../img/C711_Mobile/LobbyBg2.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: #330908;
+        background-position: 0px 50px;
+    }
+
+    .LobbyBgPoints {
+        background-image: url(../../img/C711_Mobile/LobbyBg1.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        // background-attachment: scroll;
+        background-attachment: fixed;
+        background-color: #330908;
+    }
+
+    .LobbyBgColor {
+        background-color: #330908;
+    }
+
+    .LobbySetting {
+        width: 100%;
+        margin: auto;
+        height: 100%;
+    }
+
+    .marqueeRun {
+        width: 100%;
+        margin: auto;
+        margin-top: 1px;
+
+        // border: $border;
+        .marquee {
+            width: 100%;
+            // border: 2px solid yellow;
+            font-size: 10px;
+            font-weight: bolder;
+            color: #ff9614;
+            height: 25px;
+            line-height: 25px;
+            overflow: hidden;
+        }
+    }
+
+    .scrollBar {
+        overflow: hidden;
+    }
+
+    //Signup.vue
+    .pageCon {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        color: #fff;
+    }
+
+    .qrfont {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        transform: translateY(-50%);
+    }
+
+    .inputvalidate {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 30px;
+        height: 55px;
+        position: relative;
+        margin: 15px auto;
+        // border: $border;
+    }
+
+    .noValidate {
+        height: 40px;
+    }
+
+    //驗證用
+    .validateDiv {
+        width: 100%;
+        margin: 2px auto;
+        text-align: right;
+        color: #ffd36d;
+        font-size: 14px;
+    }
+
+    //input左右定位
+    .InputMain {
+        position: relative;
+
+        .InputLeft {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            font-size: 14px;
+        }
+    }
+
+    //input輸入頁右邊有叉叉
+    .ListborderInput {
+        border-radius: 10px;
+        padding: 1px;
+        background: #b67612;
+        margin-bottom: 0px;
+        position: relative;
+        width: 100%;
+
+        .settingShare {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        .personPic {
+            position: absolute;
+            left: 15px;
+            top: 9px;
+            width: 20px;
+        }
+
+        .ShareCodeFont {
+            position: absolute;
+            left: 40px;
+            top: 9px;
+            font-size: 14px;
+        }
+
+        .ShareCodeFont2 {
+            position: absolute;
+            right: 115px;
+            top: 9px;
+            font-size: 14px;
+        }
+
+        //靠左
+        .ListInputAllL {
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            height: 38px;
+            border: 2px solid #111217;
+            display: inline-block;
+            padding: 0.5em 0.75em;
+            border-radius: 10px;
+        }
+
+        //靠右
+        .ListInputAllR {
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            height: 38px;
+            border: 2px solid #111217;
+            display: inline-block;
+            padding: 0.5em 2.75em;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        //靠右
+        .ListInputAllRSetting {
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            height: 38px;
+            // border: 2px solid #111217;
+            display: inline-block;
+            padding: 0.5em 2.75em;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        //靠右細長
+        .ListInputRightS {
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            height: 30px;
+            border: 2px solid #111217;
+            display: inline-block;
+            padding: 0.5em 0.75em;
+            border-radius: 10px;
+            text-align: right;
+        }
+
+        .Listinputbg {
+            border: none;
+            background: #000;
+            /*1f0909e0*/
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .inputClose {
+            position: absolute;
+            width: 13px;
+            top: 14px;
+            right: 8px;
+        }
+
+        .forgetphoneCode {
+            position: absolute;
+            width: 55px;
+            top: 8px;
+            left: 10px;
+            font-size: 15px;
+            text-align: left;
+        }
+
+        .setNewPw {
+            width: 90px;
+            font-size: 14px;
+            padding-left: 3px;
+        }
+    }
+
+    // input內按鈕 設定
+    .inputInBtn {
+        position: absolute;
+        right: 5px;
+        top: 3px;
+        // width: 10%;
+        cursor: pointer;
+    }
+
+    .shareFont {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        text-align: center;
+        // border: 2px solid red;
+    }
+
+    //中間一個
+    .sendBtn {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        width: 35%;
+        height: 46px;
+        line-height: 37px;
+        font-weight: bolder;
+        margin: 50px auto;
+        font-size: 13px;
+
+        // border: $border;
+        button {
+            color: #fff;
+            font-weight: bolder;
+        }
+    }
+
+    .BigBlueBtn {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        width: 62%;
+        height: 82px;
+        line-height: 82px;
+        font-weight: bolder;
+        margin: 50px auto;
+
+        // border: $border;
+        button {
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+
+    .margin20 {
+        margin: 20px auto;
+    }
+
+    //Btn共用
+    .BtnShare {
+        background-repeat: no-repeat;
+        background-size: 100%;
+        text-align: center;
+        cursor: pointer;
+        outline: none;
+        width: 115px;
+        height: 40px;
+        line-height: 40px;
+        margin: auto;
+        color: #fff;
+        font-weight: bolder;
+    }
+
+    .blueBtnShare {
+        background-image: url(../../img/C711_Mobile/blueBtn.png);
+    }
+
+    .OrangeBtnShare {
+        background-image: url(../../img/C711_Mobile/OrangeBtn.png);
+    }
+
+    // lobby.vue
+    .nicknameBg {
+        margin: auto;
+        width: 80%;
+        position: relative;
+
+        // border: $border;
+        .nicknameBG {
+            width: 100%;
+            margin: 10px auto;
+        }
+
+        .userPic {
+            position: absolute;
+            top: 50%;
+            left: 2px;
+            width: 12%;
+            height: 61%;
+            // border: $border;
+            margin-top: -20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            border-radius: 50%;
+
+            img {
+                width: 90%;
+                //
+                margin: auto;
+            }
+
+            .lobbyUserPic {
+                transform: scale(1.2);
+                // border-radius: 50%;
+            }
+        }
+
+        .nickname {
+            position: absolute;
+            top: 34%;
+            left: 17%;
+            color: #ffd36d;
+            font-size: 14px;
+            width: 79%;
+            height: 25px;
+            // border: $border;
+            text-align: left;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    .CLobbyContent {
+        width: 100%;
+        height: 90%;
+        margin: auto;
+        justify-content: space-around;
+        padding-left: 3px;
+        padding-bottom: 50px;
+        overflow-y: auto;
+
+        .lobbyGameBg {
+            height: 100%;
+            margin: 3px 4px;
+            width: 31%;
+            // border: 1px solid green;
+        }
+    }
+
+    .swiperPadding {
+        width: 99%;
+        // border: 2px solid yellow;
+        margin: auto;
+    }
+
+    .disPic {
+        // -webkit-filter: grayscale(1);
+        max-height: 100%;
+        max-width: 100%;
+        // filter: grayscale(1);
+    }
+
+    .disGray {
+        -webkit-filter: grayscale(1);
+    }
+
+    .NodisGray {
+        -webkit-filter: grayscale(0) !important;
+    }
+
+    .GameIconAll {
+        position: relative;
+        text-align: center;
+        // border: $border;
+        // display: flex;
+        // justify-content: center;
+        // align-items: center;
+    }
+
+    .filter-lable {
+        color: #ccc;
+        padding: 20px 0px 0px 20px;
+        font-size: 12px;
+    }
+
+    .golden-search {
+        padding: 20px 20px 0px 20px;
+
+        .golden-input {
+            border: solid #b67612 1px;
+            display: flex;
+            width: 100%;
+            border-radius: 10px;
+            height: 40px;
+            line-height: 40px;
+            padding-left: 10px;
+            color: #ffd36d;
+            background: #27080c;
+
+            .left {
+                flex: 0 0 85%;
+            }
+
+            .right {
+                width: 100%;
+                text-align: center;
+                border-left: solid 1px #b67612;
+                padding-right: 10px;
+                padding-left: 10px;
+            }
+
+            img {
+                width: 19px;
+                height: 19px;
+            }
+        }
+    }
+
+    input.hideInput {
+        border: none;
+        background: transparent;
+        outline: none;
+        color: #ffd36d;
+        width: 95%;
+    }
+
+    .gameCategoryWrapper {
+        padding-top: 16px;
+        overflow-x: auto;
+        padding-left: 16px;
+        padding-bottom: 16px;
+        white-space: nowrap;
+    }
+
+    .gameCardWrapper {
+        display: flex;
+        flex-wrap: wrap;
+
+        .gameCard {
+            flex: 0 0 33.3%;
+            max-width: 33.3%;
+            padding: 5px;
+            margin-bottom: 6px;
+        }
+
+        .gameNameText {
+            font-size: 13px;
+            color: #f2e3ff;
+            text-align: center;
+        }
+
+        img.newTag {
+            position: absolute;
+            left: 1px;
+            top: 1px;
+            height: 25px;
+            border-top-left-radius: 15px;
+        }
+
+        img.hotTag {
+            position: absolute;
+            right: 1px;
+            top: 1px;
+            height: 25px;
+            border-top-right-radius: 15px;
+        }
+
+        .imgBG {
+            position: relative;
+            text-align: center;
+            width: 100%;
+            border: solid 2px #D84B4B;
+            border-radius: 17px;
+            background: linear-gradient(to bottom, #382B27 0%, #211B24 15%, #070708 100%);
+
+        }
+
+        .gameImg {
+            border-radius: 15px;
+            width: 100%;
+            height: 104px;
+            margin: auto;
+            border: solid 2px #FFCCCC;
+        }
+
+    }
+
+    .styleFontHeader {
+        text-align: center;
+        color: #ffd36d;
+        font-size: 16px;
+        padding-top: 25px;
+        height: 60px;
+        background-size: 100% 100%;
+        background-image: url("../../img/C711_Mobile/Points_header.png");
+
+        img.logoImg {
+            width: 100px;
+            height: 30px;
+        }
+    }
+
+    .eventContent {
+        padding-top: 65px;
+        padding-bottom: 65px;
+    }
+
+    .eventCards {
+        width: 90%;
+        margin: auto;
+    }
+
+    .eventPageBanner {
+        height: 126px;
+        width: 100%;
+        margin-bottom: 8px;
+        border-radius: 10px;
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+
+    .filterCard {
+        display: inline-block;
+        margin-right: 10px;
+        color: #FFF;
+        font-size: 12px;
+        text-align: center;
+        font-weight: 100;
+    }
+
+    .filterIcon {
+        height: 48px;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
+    .GameIconBg {
+        padding-top: 1px;
+        max-width: 100%;
+        width: 100%;
+        max-height: 100%;
+    }
+
+    .GameIcon {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        a {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .gameImage {
+                max-height: 95%;
+                max-width: 95%;
+            }
+        }
+
+        .newHotPic {
+            position: absolute;
+            z-index: 2;
+            width: 50px;
+        }
+
+        .hotPic {
+            top: -1px;
+            right: -2px;
+        }
+
+        .newPic {
+            top: -1px;
+            left: -2px;
+        }
+
+        .lockPic {
+            position: absolute;
+            top: -1px;
+            right: -4px;
+            z-index: 2;
+            width: 40px;
+        }
+
+        .maintain {
+            bottom: 5px;
+            left: -3px;
+            width: 85%;
+            z-index: 88;
+        }
+
+        .maintainfont {
+            position: absolute;
+            z-index: 98;
+            bottom: 4px;
+            // top: 50%;
+            left: 2px;
+            font-size: 11px;
+            font-weight: bolder;
+            color: #af1f00;
+            // border: 2px solid red;
+            // margin-top: 20px;
+            width: 72%;
+            height: 23%;
+            text-align: left;
+            display: inline-block;
+            // height: 19px;
+        }
+    }
+
+    #noSwiper {
+        width: 33%;
+
+        .GameIconAll {
+            position: relative;
+            text-align: center;
+            margin: 3px 2px;
+            // border: $border;
+            // display: flex;
+            // justify-content: center;
+            // align-items: center;
+        }
+
+        .GameIconBg {
+            padding-top: 1px;
+            max-width: 97%;
+            max-height: 100%;
+        }
+
+        .GameIcon {
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            margin: auto;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            a {
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+
+                .gameImage {
+                    max-height: 95%;
+                    max-width: 95%;
+                }
+            }
+
+            .newHotPic {
+                position: absolute;
+                z-index: 2;
+                width: 50px;
+            }
+
+            .hotPic {
+                top: -1px;
+                right: -2px;
+            }
+
+            .newPic {
+                top: -1px;
+                left: -2px;
+            }
+
+            .maintain {
+                bottom: 5px;
+                left: -3px;
+                width: 85%;
+                z-index: 88;
+            }
+
+            .maintainfont {
+                position: absolute;
+                z-index: 98;
+                bottom: 4px;
+                // top: 50%;
+                left: 2px;
+                font-size: 11px;
+                font-weight: bolder;
+                color: #af1f00;
+                // border: 2px solid red;
+                // margin-top: 20px;
+                width: 72%;
+                height: 23%;
+                text-align: left;
+                display: inline-block;
+                // height: 19px;
+            }
+        }
+    }
+
+    .C711_Mcarousel {
+        // border: 2px solid yellow;
+        height: 120px;
+        width: 100%;
+    }
+
+    .carouselPic {
+        width: 100%;
+        position: relative;
+        overflow: hidden;
+        // height: 40%;
+        padding: 1px;
+        height: 120px;
+        margin-top: -1px;
+
+        .bannerImg {
+            width: 400px;
+            /*圖片寬度*/
+            position: absolute;
+            left: 50%;
+            height: 100%;
+            max-height: 100%;
+            margin-left: -200px;
+            /*圖片寬度一半*/
+            overflow: hidden;
+            behavior: expression(this.style.width=document.documentElement.offsetWidth);
+
+            img {
+                max-height: 100%;
+                height: 100%;
+                // width: 100%;
+            }
+        }
+    }
+
+    .bannerLobby {
+        // margin-top: 50px;
+        height: 120px;
+        width: 100%;
+        // position: absolute;
+        position: fixed;
+        bottom: 52px;
+    }
+
+    // Forgetpw
+    .forgetTitleFont {
+        color: #fff;
+        font-size: 14px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .forgetFont {
+        margin: 20px auto;
+        font-size: 10px;
+        text-align: right;
+        color: #a8bac9;
+    }
+
+    .yellow_borderDropdown {
+        // border: $border;
+        border-radius: 0px 0px 10px 10px;
+        padding: 1px;
+        background: #81500b;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .gray_dropdownBg {
+        background-color: #312836;
+        color: #fff;
+        border-radius: 0px 0px 10px 10px;
+        width: 100%;
+        margin-top: 0px;
+
+        // margin-left: 1%;
+        a {
+            color: #fff;
+            font-size: 15px;
+        }
+    }
+
+    .yellowBorder {
+        border: #81500b 1px solid;
+    }
+
+    .dropdown-menu.show {
+        width: 100%;
+    }
+
+    //GameApp.vue
+    .appFontTitle {
+        font-size: 15px;
+        text-align: left;
+        margin-left: 3px;
+    }
+
+    .OpenFont {
+        margin: 10px auto;
+    }
+
+    .OpenBtn {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+
+        .androIosBtn {
+            padding: 1px;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            width: 110px;
+            height: 40px;
+            margin: 10px 8px;
+        }
+
+        .AndroidBtn {
+            background-image: url("../../img/C711_Mobile/Android.png");
+        }
+
+        .IosBtn {
+            background-image: url("../../img/C711_Mobile/IOS.png");
+        }
+    }
+
+    .iconPic {
+        width: 80%;
+        margin: 15px auto;
+
+        .picLeft {
+            width: 30%;
+
+            img {
+                width: 50%;
+            }
+        }
+
+        .fontLeft {
+            width: 70%;
+            font-size: 13px;
+            text-align: left;
+        }
+    }
+
+    .pwFont {
+        // padding-left: 5px;
+        width: 85%;
+        text-align: left;
+    }
+
+    .ctrlCPic {
+        width: 10%;
+    }
+
+    .iosOpenFont {
+        margin: auto;
+        width: 95%;
+        text-align: left;
+        font-size: 15px;
+
+        .pwrule {
+            font-size: 13px;
+            color: #ffd36d;
+        }
+    }
+
+    .modalBalance {
+        font-size: 15px;
+        line-height: 30px;
+        font-weight: bolder;
+    }
+
+    //StoredValue.vue
+    .pointFont {
+        // color: #fe5f00;
+        color: #fe5f00;
+        font-weight: bolder;
+        font-size: 18px;
+        margin-bottom: 10px;
+    }
+
+    .bankPic {
+        position: relative;
+
+        .PicD {
+            position: absolute;
+            top: 8px;
+            right: 10px;
+
+            img {
+                width: 13px;
+            }
+        }
+    }
+
+    .StoredValueBank {
+        // border: $border;
+        width: 100%;
+        margin: auto 20px;
+        text-align: left;
+
+        .Bank {
+            font-size: 18px;
+            font-weight: bolder;
+        }
+
+        .BankName {
+            color: #ffe992;
+            margin: 5px auto;
+        }
+    }
+
+    .oneWalletPrompt {
+        width: 90%;
+        margin: 20px auto;
+        font-size: 14px;
+        text-align: left;
+    }
+
+    // DateSelection.vue
+    .DategaryFont {
+        color: #a8bac9;
+        font-size: 15px;
+        font-weight: bolder;
+        text-align: center;
+        margin: 10px auto;
+    }
+
+    .dateSelect {
+        // border: $border;
+        margin: 10px auto;
+        width: 80%;
+        font-size: 15px;
+        font-weight: bolder;
+        line-height: 30px;
+    }
+
+    .datepicker {
+        width: 100%;
+        margin: 10px auto;
+
+        input {
+            width: 100%;
+            box-shadow: 1px 1px 3px 2px#000 inset;
+            /**/
+            border-radius: 10px;
+            border: #b67612;
+            background: #4a3934;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #4a3934 1%,
+                    #312836 49%,
+                    #141418 90%,
+                    #141418 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #4a3934 1%,
+                    #312836 49%,
+                    #141418 90%,
+                    #141418 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #4a3934 1%,
+                    #312836 49%,
+                    #141418 90%,
+                    #141418 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            color: #fff;
+            font-size: 14px;
+        }
+    }
+
+    .datepicker>input {
+        color: #fff !important;
+        border: 1px solid #b67612 !important;
+    }
+
+    .datepicker>input.focus {
+        border-color: #b67612;
+    }
+
+    .datepicker-popup {
+        background-color: #312836 !important;
+        color: #fff;
+        border-radius: 0px 0px 10px 10px;
+        // width: 100%;
+        margin: auto;
+        border: 1px solid #b67612 !important;
+        margin-top: -1px;
+    }
+
+    // RecordList.vue
+    .RecordListCon {
+        margin: 2px auto;
+        width: 100%;
+
+        thead {
+            color: #fff;
+            font-size: 15px;
+            line-height: 15px;
+
+            th {
+                vertical-align: middle;
+                border: none;
+            }
+
+            .number {
+                width: 25%;
+            }
+
+            .cardnumber {
+                width: 30%;
+            }
+
+            .date {
+                width: 25%;
+            }
+
+            .gamer {
+                width: 25%;
+            }
+
+            .cardgamer {
+                width: 30%;
+            }
+
+            .point {
+                width: 30%;
+                margin: auto;
+            }
+
+            .cardpoint {
+                width: 30%;
+            }
+        }
+
+        tbody {
+            color: #fff;
+            font-size: 13px;
+
+            th {
+                border: none;
+                vertical-align: middle;
+            }
+
+            td {
+                border: none;
+                vertical-align: middle;
+            }
+        }
+
+        .colorR {
+            color: #fe5f00;
+        }
+
+        .colorG {
+            color: #00c3fe;
+        }
+    }
+
+    // setting.vue 共用
+    // .yellowBorderMargin {
+    //     margin-top: 20px;
+    // }
+    .setPic {
+        position: relative;
+
+        .SettingNameLeft {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .SettingNameRight {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+
+        .SettingInputLeft {
+            position: absolute;
+            top: 8px;
+            left: 11px;
+        }
+
+        .SettingInputRight {
+            position: absolute;
+            top: 8px;
+            right: 35px;
+        }
+
+        .redEnvelLogo {
+            width: 14px;
+            margin: auto 10px;
+        }
+
+        .recordLogoPic {
+            width: 16px;
+            margin: auto 10px;
+        }
+
+        .logoPic {
+            width: 18px;
+            margin: auto 10px;
+        }
+
+        .Lpic {
+            width: 8px;
+        }
+    }
+
+    img.editIcon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .infoPanel {
+        padding: 33px 25px 25px 25px;
+        background: #1f0909;
+        border-radius: 0px 0px 20px 20px;
+        border: solid 1px #b67612;
+        border-top: none;
+    }
+
+    .walletInfo {
+        .pointRow {
+            text-align: center;
+            color: #fff;
+            position: relative;
+
+            .refreshBtn {
+                position: absolute;
+                right: 10px;
+                top: -3px;
+
+                img {
+                    width: 25px;
+                    height: 25px;
+                }
+            }
+        }
+
+        .amountRow {
+            text-align: center;
+            color: #ffd36d;
+            font-size: 40px;
+        }
+
+        .pointAddBtn {
+            margin-top: 10px;
+            text-align: center;
+
+            img {
+                margin-right: 15px;
+                width: 48px;
+                height: 25px;
+            }
+        }
+    }
+
+    .setting-link-panel {
+        padding: 25px 25px 25px 25px;
+
+        .yellow_borderInput {
+            margin-bottom: 18px;
+        }
+
+        img.logoPic {
+            width: 16px;
+        }
+    }
+
+    .Listinputbg.editInputBG,
+    .editInputBG {
+        background-color: #27080c;
+    }
+
+    // SettingPersonal.vue
+    .personalPic {
+        position: relative;
+        width: 70%;
+        margin: auto;
+
+        .circlePic {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 7px;
+            width: 100px;
+            height: 100px;
+            border: $border;
+            border: 1px solid #b67612;
+            border-radius: 50%;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                // width: 100%;
+                max-width: 100%;
+                max-height: 100%;
+                // height: 100%;
+                transform: scale(1.1);
+            }
+        }
+
+        .camera {
+            position: absolute;
+            right: 55px;
+            bottom: -15px;
+            width: 50px;
+        }
+    }
+
+    .transition {
+        width: 100%;
+        margin: auto;
+        position: absolute;
+        bottom: 0;
+    }
+
+    .fadeMenu {
+        width: 90%;
+        margin: 5px auto;
+        border-radius: 10px;
+        border: #aa6402 1px solid;
+        color: #ffd36d;
+        background: #6c1a1b;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #6c1a1b 0%, #360d0e 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #6c1a1b 0%, #360d0e 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #6c1a1b 0%, #360d0e 100%);
+
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        .fadeBottomBorder {
+            border-bottom: gray 1px solid;
+        }
+
+        .fadeFont {
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+    }
+
+    // about.vue eventDescription
+    .about {
+        button[aria-expanded="true"] {
+            border: 1px solid #111217;
+            background: #d50f0c;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+
+        .termsAndConditions {
+            transform: translate3d(1px, 40px, 0px) !important;
+        }
+
+        .aboutCon {
+            padding: 10px;
+            font-size: 13px;
+        }
+    }
+
+    // events.vue
+    .eventsConFont {
+        color: #fff;
+        text-align: left;
+        font-size: 13px;
+        font-weight: bolder;
+        // border: $border;
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+        .eventPr {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+            margin: 10px auto;
+        }
+
+        .eventPrR {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+
+            img {
+                // margin-left:20px;
+                width: 25px;
+            }
+        }
+    }
+
+    .eventsTitle {
+        width: 100%;
+        margin: auto;
+        line-height: 30px;
+        text-align: left;
+
+        .eventsLogo {
+            width: 12%;
+
+            img {
+                margin-top: -10px;
+                width: 25px;
+            }
+        }
+
+        .eventsFont {
+            color: #ffd36d;
+            font-size: 15px;
+            width: 75%;
+
+            span {
+                color: rgb(126, 124, 124);
+                font-size: 13px;
+            }
+        }
+
+        .eventTicket {
+            width: 13%;
+
+            img {
+                margin-top: -5px;
+                margin-right: 10px;
+                width: 28px;
+            }
+        }
+    }
+
+    .eventTime {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 14px;
+        text-align: left;
+        font-weight: normal;
+    }
+
+    .reddeemTime {
+        width: 100%;
+        margin: auto;
+        color: #fe5f42;
+        font-size: 14px;
+        text-align: left;
+        font-weight: normal;
+    }
+
+    .remarks {
+        width: 100%;
+        margin: auto;
+        font-size: 14px;
+        text-align: left;
+        font-weight: bolder;
+    }
+
+    .eventsProgress {
+        width: 100%;
+        margin: 15px auto 8px auto;
+    }
+
+    .gamer_Btn {
+        width: 100%;
+        margin: auto;
+        // border: $border;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .slotGameFont {
+        color: rgb(109, 216, 255);
+        text-align: left;
+        font-weight: bolder;
+    }
+
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+            font-weight: bold;
+        }
+    }
+
+    .bar_Btn {
+        cursor: pointer;
+    }
+
+    .eventsPointFont {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+        }
+    }
+
+    .eventsBtn {
+        width: 100%;
+        margin: 15px auto;
+    }
+
+    // EventDescription.vue
+    .EventDescriptTitle {
+        color: #ffd36d;
+        font-size: 15px;
+        text-align: left;
+        line-height: 30px;
+
+        .eventPr {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: left;
+        }
+
+        .eventPrR {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: right;
+
+            img {
+                margin-top: -5px;
+                margin-left: 20px;
+                width: 25px;
+            }
+        }
+    }
+
+    .eventDesGame {
+        transform: translate3d(1px, 42px, 0px) !important;
+    }
+
+    .EventDescriptTime {
+        margin: 5px auto;
+        text-align: left;
+    }
+
+    .EventDescriptFont {
+        white-space: pre-wrap;
+        text-align: left;
+        margin: 3px auto;
+        padding-left: 2px;
+    }
+
+    .EventDescriptProgress {
+        width: 100%;
+        margin: 18px auto 8px auto;
+    }
+
+    .EventDescriptDate {
+        margin: 2px auto;
+        text-align: left;
+
+        // padding-left: 5px;
+        span {
+            color: #f8806a;
+        }
+    }
+
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: left;
+    }
+
+    .buttonClick {
+        margin-top: 40px;
+    }
+
+    .company {
+        width: 80%;
+        line-height: 25px;
+        margin: 20px auto;
+        font-size: 15px;
+        font-weight: bolder;
+    }
+
+    // eventTicket.vue
+    .ticketTitle {
+        color: #ffd36d;
+        font-size: 15px;
+        text-align: left;
+        margin: 10px;
+    }
+
+    .ticketNumAll {
+        width: 100%;
+        // border: $border;
+        margin: auto;
+
+        .ticketNum {
+            text-align: left;
+            margin: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ae6a07;
+
+            img {
+                margin-top: -5px;
+                margin-left: 5px;
+                width: 18px;
+            }
+
+            span {
+                margin-left: 8px;
+            }
+
+            .ticketUser {
+                margin-top: 5px;
+                text-align: right;
+                margin-right: 5px;
+                color: gray;
+            }
+        }
+    }
+
+    // game.vue
+    .GamePlay {
+        width: 100%;
+        height: 100%;
+        padding-top: 3px;
+        // border: 2px red solid;
+        // -webkit-overflow-scrolling: touch !important;
+        overflow-y: scroll;
+        -webkit-overflow-scrolling: touch;
+        -moz-overflow-scrolling: touch;
+        -o-overflow-scrolling: touch;
+        -ms-overflow-scrolling: touch;
+        // touch-action: auto;
+        // touch-action: manipulation;
+        // .iframeG {
+        //     -webkit-overflow-scrolling: touch !important;
+        // }
+        position: relative;
+    }
+
+    .vendorID4 {
+        // border: $border;
+        width: 85%;
+        margin: auto;
+        text-align: center;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .closeBtn {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+        }
+
+        img {
+            width: 75%;
+        }
+    }
+
+    .eventBtnD {
+        position: absolute;
+        top: -15px;
+        left: 0;
+        z-index: 999999;
+    }
+
+    // point.vue
+    .btnFixedBg {
+        width: 100%;
+        margin: auto;
+        height: 60px;
+        text-align: center;
+        position: fixed;
+        z-index: 10;
+
+        // border: $border;
+        .pointBtn {
+            width: 90%;
+            height: 60px;
+            margin: auto;
+            padding-top: 10px;
+
+            .pointBtnLeftRight {
+                position: relative;
+
+                .pointBtnBg {
+                    position: absolute;
+                    top: 5px;
+                    left: 0;
+                    right: 0;
+                    font-size: 15px;
+                    color: #ffe992;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+
+    .PointsItem {
+        width: 100%;
+        margin: auto;
+        padding-top: 60px;
+        padding-bottom: 66px;
+
+        // background-color: #330908;
+        .pointSelect {
+            // border: $border;
+            width: 50%;
+
+            .GamerPoint {
+                width: 85%;
+                margin: 10px auto;
+                position: relative;
+
+                img {
+                    width: 100%;
+                }
+
+                .pointTitle {
+                    position: absolute;
+                    top: 0px;
+                    left: 0;
+                    right: 0;
+                    height: 22%;
+                    // border: $border;
+                }
+
+                .pointBg {
+                    position: relative;
+                    text-align: left;
+                    margin-left: 8px;
+                    margin-top: 9px;
+
+                    img {
+                        width: 82%;
+                        height: 25px;
+                    }
+
+                    .pointdigital {
+                        position: absolute;
+                        top: 3px;
+                        right: 25%;
+                        font-size: 10px;
+                    }
+
+                    .pointdigitalsmall {
+                        position: absolute;
+                        top: 3px;
+                        right: 0;
+                        left: 2px;
+                        font-size: 8px;
+                        text-align: center;
+                    }
+                }
+
+                .reBtn {
+                    position: absolute;
+                    top: 9px;
+                    right: 0;
+
+                    img {
+                        width: 55%;
+                    }
+                }
+
+                .PointsImg {
+                    // border: $border;
+                    position: absolute;
+                    top: 21%;
+                    left: 0;
+                    right: 0;
+                    height: 54%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        max-height: 90%;
+                        max-width: 90%;
+                    }
+                }
+
+                .pointButton {
+                    position: absolute;
+                    top: 76%;
+                    left: 0;
+                    right: 0;
+                    height: 24%;
+
+                    // border: $border;
+                    .ButtonInOut {
+                        width: 50%;
+                        margin: 8px auto;
+
+                        // border: $border;
+                        img {
+                            width: 33%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .PointModalBg {
+        margin: auto;
+        width: 100%;
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #fff;
+        font-weight: bolder;
+        text-align: center;
+
+        img {
+            width: 95%;
+        }
+
+        .pointModalTitle {
+            position: absolute;
+            top: 1%;
+            left: 0;
+            right: 0;
+            height: 9%;
+            line-height: 45px;
+        }
+
+        .pointModalClose {
+            position: absolute;
+            top: 25%;
+            right: 25px;
+            width: 25px;
+        }
+
+        .pointModalInput {
+            position: absolute;
+            top: 10%;
+            left: 0;
+            right: 0;
+            height: 24%;
+            margin: auto;
+            text-align: center;
+
+            .pointTO {
+                width: 70%;
+                margin: 20px auto;
+
+                .pointToFont {
+                    width: 40%;
+                    text-align: center;
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+
+                .pointToImg {
+                    width: 20%;
+
+                    img {
+                        width: 15px;
+                    }
+                }
+            }
+        }
+
+        .pointModalNumber {
+            position: absolute;
+            top: 34%;
+            left: 0;
+            right: 0;
+            height: 38%;
+            width: 78%;
+            margin: auto;
+            // border: 1px solid yellow;
+            padding: 1px 2px;
+
+            // justify-content: space-between;
+            .pointBtnMargin {
+                width: 30%;
+                margin: 1.5%;
+                padding: auto 1px;
+
+                .pointBtnSize {
+                    text-align: center;
+                    color: #f3d84d;
+                    height: 2.5em;
+                }
+            }
+        }
+
+        .pointModalBtn {
+            position: absolute;
+            top: 72%;
+            left: 0;
+            right: 0;
+            height: 24%;
+            // border: 1px solid green;
+        }
+    }
+
+    // GameList.vue
+    .GameMenu {
+        // position: fixed;
+        width: 100%;
+        margin: auto;
+        // border: 2px solid red;
+        height: 60px;
+
+        .ListMenu {
+            width: 100%;
+            margin: auto;
+            padding-top: 15px;
+            position: relative;
+            height: 60px;
+
+            // border: $border;
+            .fixBg {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 115px;
+                // border: $border;
+                height: 90%;
+                overflow: hidden;
+                z-index: 9;
+                // background-image: url(../../img/C711_Mobile/gamelistTitleBg.png);
+                // background-size: 100%;
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .fixedBtn {
+                position: absolute;
+                top: 10px;
+                left: 2%;
+                // width: 25%;
+                z-index: 10;
+
+                .allgames {
+                    font-size: 12px;
+                    // border: 2px solid red;
+                }
+            }
+
+            .gametype {
+                position: absolute;
+                top: 9px;
+                // left: 42%;
+                left: 31%;
+                display: inline-block;
+                width: 75%;
+                font-size: 12px;
+                // border: 2px solid red;
+            }
+
+            .listBg {
+                margin: auto 5px;
+                display: inline-block;
+                height: 35px;
+                color: #ffe992;
+                font-size: 13px;
+                text-align: center;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .GameItemAll {
+        .Gift {
+            position: absolute;
+            bottom: -2px;
+            left: -2.5%;
+            z-index: 10;
+            width: 38%;
+        }
+    }
+
+    .gameList {
+        width: 100%;
+        margin: auto;
+        margin-bottom: 5px;
+
+        // border: $border;
+        .swiperPic {
+            .gamePicAll {
+                width: 93%;
+                margin: auto;
+                // border: 2px solid red;
+                position: relative;
+
+                .GameItemB {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .NewHotBtn {
+                    position: absolute;
+                    top: -2px;
+                    left: -2.5%;
+                    z-index: 10;
+                    width: 35%;
+                }
+
+                .Gift {
+                    position: absolute;
+                    bottom: -2px;
+                    left: -2.5%;
+                    z-index: 10;
+                    width: 35%;
+                }
+
+                .ListLockPic {
+                    position: absolute;
+                    top: -2px;
+                    right: -6px;
+                    z-index: 20;
+                    width: 50px;
+                }
+
+                // 置中放大
+                // .gameListCon {
+                //     position: absolute;
+                //     top: 2px;
+                //     left: 1.5%;
+                //     width: 96%;
+                //     height: 96%;
+                //     border-radius: 15px;
+                //     // border: 2px solid blue;
+                //     overflow: hidden;
+                //     display: flex;
+                //     align-items: center;
+                //     justify-content: center;
+                //     img {
+                //         width: 100%;
+                //     }
+                // }
+                .gameListCon {
+                    position: absolute;
+                    top: 2px;
+                    left: 2.5%;
+                    width: 96%;
+                    height: 96%;
+                    border-radius: 15px;
+                    // border: 2px solid blue;
+                    overflow: hidden;
+                    // display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        // width: 100%;
+                        // max-width: 100%;
+                    }
+                }
+
+                .gamePic {
+                    // transform: scale(1.1);
+                    max-width: 100%;
+                    min-height: 100%;
+                    min-width: 100%;
+                }
+
+                .gamePTpic {
+                    max-width: 100%;
+                    min-height: 100%;
+                    min-width: 100%;
+                }
+            }
+
+            .gameName {
+                width: 88%;
+                margin: auto;
+                margin-top: 5px;
+                text-align: center;
+                // border: $border;
+                font-size: 14px;
+                color: #ffe992;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .GameItemAll {
+        width: 100%;
+        margin: auto;
+        margin-top: 6px;
+
+        .swiperItemPic {
+            width: 100%;
+
+            .gamePicItemAll {
+                width: 93%;
+                margin: auto;
+                // border: 2px solid red;
+                position: relative;
+
+                .GameItemBG {
+                    width: 100%;
+                    height: 100%;
+                }
+
+                .GiftS {
+                    position: absolute;
+                    bottom: -1px;
+                    left: -4px;
+                    z-index: 9;
+                    width: 45px;
+                }
+
+                .ListLockPicS {
+                    position: absolute;
+                    top: -1px;
+                    right: -4px;
+                    width: 40px;
+                    z-index: 9;
+                }
+
+                .gameListItemCon {
+                    position: absolute;
+                    top: 3px;
+                    // margin-top: -43px;
+                    left: 2%;
+                    width: 96%;
+                    height: 95%;
+                    // border: 2px solid blue;
+                    border-radius: 13px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    img {
+                        // width: 100%;
+                    }
+
+                    .gameItemPic {
+                        // min-width: 100%;
+                        // min-height: 100%;
+                        // max-width: 100%;
+                        max-height: 100%;
+                        display: block;
+                        margin: 0 auto;
+                        // border-radius: 15px;
+                        // transform: scale(1.7);
+                    }
+                }
+            }
+
+            .gameItemName {
+                width: 90%;
+                margin: auto;
+                margin-top: 5px;
+                text-align: center;
+                // border: $border;
+                font-size: 11px;
+                color: #ffe992;
+                height: 40px;
+                overflow: hidden;
+            }
+        }
+    }
+
+    .bannerGameList {
+        height: 120px;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+    }
+
+    // talk.vue
+    .chatIframe {
+        width: 100%;
+        // height: 100%;
+        -webkit-overflow-scrolling: touch !important;
+        overflow-y: auto;
+        // padding-bottom: 60px;
+        // border: 2px solid blue;
+    }
+
+    .iframeChat {
+        width: 100%;
+        height: 100%;
+    }
+
+    .specialB {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 25px;
+        z-index: 9;
+        width: 100%;
+    }
+
+    .bottomIcon {
+        z-index: 9;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 50px;
+        display: flex;
+        // justify-content: space-around;
+        justify-content: space-between;
+        width: 60%;
+        margin: auto;
+
+        .whatapp {
+            // border: 2px solid red;
+            // width: 20%;
+            margin: auto;
+            text-align: center;
+
+            .whatappPic {
+                width: 50px;
+                margin: auto;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .whatappFont {
+                font-size: small;
+                color: #fff;
+                font-weight: bold;
+                line-height: 23px;
+            }
+        }
+    }
+
+    .ScratchCardAll {
+        padding-top: 5px;
+        width: 100%;
+        height: 100vh;
+        margin: auto;
+        position: relative;
+
+        .scratchCardGIF {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            // height: 100%;
+            margin: auto;
+            // border: 2px solid #fff;
+            z-index: 500;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .scratchCardPIC {
+            width: 100%;
+            text-align: center;
+            margin: auto;
+
+            img {
+                width: 100%;
+            }
+        }
+
+        .scratchCardMask {
+            position: absolute;
+            top: 40px;
+            left: 0;
+            width: 100%;
+            margin: auto;
+            // border: 2px solid #fff;
+            z-index: 500;
+
+            img {
+                margin-top: 35%;
+                width: 340px;
+                height: 340px;
+                // border: 2px solid #fff;
+            }
+        }
+
+        img {
+            height: 92vh;
+        }
+    }
+
+    //Lottery
+    .Lottery {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+
+    .Events_bar {
+        width: 100%;
+        height: 44px;
+    }
+
+    .LotteryAll {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        margin-top: 10px;
+        position: relative;
+
+        .LotteryBgPic {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .LotteryTitle {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .LotteryGo {
+            // border:2px solid green;
+            width: 100%;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+
+    .displayNone {
+        display: none;
+    }
+
+    .displayBlock {
+        display: block;
+    }
+
+    // 拔開關用
+    .displayFlex {
+        // border: $border;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    // 2.無框按鈕
+    .btn-blue {
+        // 天藍
+        // width: 125px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+        cursor: pointer;
+        background: linear-gradient(rgb(185, 224, 255) 0%,
+                #0c63bc 50%,
+                rgb(26, 108, 190) 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 9px 30px;
+            border-radius: 10px;
+            background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    // 2.無框按鈕
+    .btn-lottery {
+        width: 125px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    .btn-grey {
+        width: 140px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(rgb(65, 65, 65) 0%,
+                #504a59 50%,
+                #2a2832 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 9px 45px;
+            border-radius: 10px;
+            background: linear-gradient(#766361,
+                    #504a59 50%,
+                    #2a2832 90%,
+                    #19181c);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+        }
+    }
+
+    .btn-orangeSetting {
+        // 橘色
+        // width: 125px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    .btn-orange {
+        // 橘色
+        // width: 125px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 9px 30px;
+            border-radius: 10px;
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    // 並排用 固定大小
+    .btn-blueTwo {
+        // 天藍
+        width: 110px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        text-align: center;
+        margin: auto;
+        // display: inline-block;
+        cursor: pointer;
+        background: linear-gradient(rgb(185, 224, 255) 0%,
+                #0c63bc 50%,
+                rgb(26, 108, 190) 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 9px 10px;
+            border-radius: 10px;
+            background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    .btn-orangeTwo {
+        // 橘色
+        width: 110px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        margin: auto;
+
+        // display: inline-block;
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            display: block;
+            padding: 9px 10px;
+            border-radius: 10px;
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    .fullad {
+        width: 100%;
+        border-radius: 8px;
+        border: 2px solid red;
+        padding: 5px;
+        background-color: #000;
+    }
+
+    .closead {
+        position: absolute;
+        top: 25px;
+        right: 0;
+        width: 25px;
+        z-index: 10;
+    }
+
+    .Congratulations {
+        position: absolute;
+        top: 43px;
+        left: 0px;
+        right: 0px;
+        width: 100%;
+        margin: auto;
+
+        img {
+            width: 98%;
+        }
+    }
+
+    // YOUTUBE全版
+    .fullYoutube {
+        padding: 15px;
+        width: 100%;
+        font-size: 15px;
+        color: #fff;
+
+        .fullgamer {
+            margin: 5px auto;
+
+            span {
+                font-weight: bolder;
+                font-size: 17px;
+            }
+        }
+
+        .fullgame {
+            width: 90%;
+            margin: 5px auto;
+            color: orange;
+            font-size: 16px;
+            font-weight: bolder;
+            margin-bottom: 10px;
+
+            // display: flex;
+            // justify-content: space-around;
+            img {
+                height: 23px;
+                margin-right: 5px;
+                margin-top: -8px;
+            }
+
+            .fullPicFont {
+                height: 23px;
+                line-height: 25px;
+                font-size: 17px;
+            }
+
+            .fullRedFont {
+                height: 23px;
+                line-height: 25px;
+                font-size: 19px;
+                color: red;
+            }
+        }
+
+        .fullSe {
+            width: 90%;
+            text-align: left;
+            margin: 5px auto;
+        }
+
+        .fullIframe {}
+    }
+
+    .homeFullEvent {
+        width: 100%;
+    }
+
+    .homeFullClose {
+        position: absolute;
+        top: 6%;
+        right: 15px;
+        width: 22px;
+    }
+
+    .homeFullFont {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        text-align: center;
+        width: 90%;
+        margin: auto;
+        margin-top: -40px;
+
+        // border: $border;
+        p {
+            color: #ffd36d;
+            font-weight: bold;
+        }
+
+        span {
+            font-size: 15px;
+        }
+    }
+
+    .homeFullPic {
+        position: absolute;
+        bottom: -2%;
+        right: 10px;
+
+        img {
+            width: 50px;
+        }
+    }
+
+    .eventModebtn {
+        width: 80%;
+        margin: auto;
+    }
+
+    // 彈窗Pop_UP: 提示
+    .popUp_block {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 99999;
+        background-color: rgba(0, 0, 0, 0.6);
+
+        .wrap {
+            width: 90%;
+            position: absolute;
+            top: 2%;
+            left: 50%;
+            transform: translateY(-50%) translateX(-50%);
+            background-color: #2b2c33;
+            text-align: center;
+            border-radius: 10px;
+            box-shadow: 0 8px 10px -2px rgba(0, 0, 0, 0.5);
+
+            .case_wrapIframe {
+                width: 100%;
+                position: absolute;
+                top: 0;
+                left: 0;
+                // transform: translateX(-50%) translateY(-55%);
+                text-align: center;
+                border: 3px solid #8c4d0e;
+                border-radius: 20px;
+
+                // border: 3px solid yellow;
+                &>div {
+                    border: 3px solid #a4252b;
+                    border-radius: 17px;
+                    background: linear-gradient(#880b1b 0%,
+                            #640606 12%,
+                            #480419 18%,
+                            #480419 85%,
+                            #520a45 100%);
+                }
+
+                .title {
+                    font-size: 1.1rem;
+                    padding: 15px;
+                    position: relative;
+                    color: #efbc61;
+                    font-weight: 600;
+
+                    .close_icon {
+                        width: 20px;
+                        position: absolute;
+                        transform: translateY(-50%);
+                        top: 50%;
+                        right: 15px;
+                        cursor: pointer;
+                    }
+                }
+            }
+        }
+    }
+
+    .form {
+        border-top: 2px solid #73101d;
+        border-bottom: 1px solid #73101d;
+        font-size: 14px;
+        width: 90%;
+        margin: auto;
+        padding-top: 10px;
+        color: #fff;
+        text-align: left;
+
+        .orangeTitle {
+            margin: 5px auto;
+
+            span {
+                color: red;
+                font-size: 15px;
+                font-weight: bolder;
+            }
+
+            img {
+                width: 90%;
+            }
+
+            .forceFont {
+                font-size: 14px;
+                line-height: 28px;
+            }
+
+            .orcolor {
+                color: #fd7e14;
+                font-size: 14px;
+                font-weight: bold;
+            }
+        }
+
+        .redFont {
+            margin: 10px auto;
+            color: red;
+            font-size: 15px;
+            font-weight: bolder;
+        }
+
+        .formTitle {
+            margin-left: -5px;
+            font-size: 15px;
+            font-weight: bolder;
+            color: #fd7e14;
+        }
+    }
+
+    .footer {
+        padding: 10px;
+
+        div {
+            margin: auto;
+        }
+    }
+
+    // EVENT 登入活動
+    .goldBorder {
+        width: 85%;
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .pointbtnBorder_all {
+        margin: 24px auto;
+        border-radius: 9px;
+    }
+
+    .eventDiv {
+        margin: 1px;
+        width: 99.5%;
+        border: 1px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+        // background-color: #2b2b33f5;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .eventDivbg {
+        background: #211d23;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #211d23 0%, #2b2c33 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #211d23 0%, #2b2c33 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #211d23 1%, #2b2c33 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .eventlottyDiv {
+        background: #383838;
+        /* Old browsers */
+        background: -moz-linear-gradient(top, #383838 0%, #5c5c5c 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top, #383838 0%, #5c5c5c 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom, #383838 0%, #5c5c5c 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //   按鈕：外框（銀色）
+    .silverBorder {
+        width: 40%;
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #848484 0%,
+                #f8f8f8 10%,
+                #ededed 30%,
+                #bcbcbc 50%,
+                #848484 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #848484 0%,
+                #f8f8f8 10%,
+                #ededed 30%,
+                #bcbcbc 50%,
+                #848484 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #848484 0%,
+                #f8f8f8 10%,
+                #ededed 30%,
+                #bcbcbc 50%,
+                #848484 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .btnBorder_all {
+        margin: 24px auto;
+        padding: 1px;
+        border-radius: 9px;
+    }
+
+    //   按鈕：藍色
+    .blueBtn {
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #ffffff 0%,
+                #8ca8f1 10%,
+                #4a79c9 30%,
+                #093e6a 50%,
+                #0041b7 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #ffffff 0%,
+                #8ca8f1 10%,
+                #4a79c9 30%,
+                #093e6a 50%,
+                #0041b7 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #ffffff 0%,
+                #8ca8f1 10%,
+                #4a79c9 30%,
+                #093e6a 50%,
+                #0041b7 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .blueBtn:hover {
+        color: #d5d5d5;
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #b1b1b1 0%,
+                #6879a8 10%,
+                #315184 30%,
+                #072d4d 50%,
+                #001a4a 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #b1b1b1 0%,
+                #6879a8 10%,
+                #315184 30%,
+                #072d4d 50%,
+                #001a4a 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #b1b1b1 0%,
+                #6879a8 10%,
+                #315184 30%,
+                #072d4d 50%,
+                #001a4a 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //   按鈕：黃色
+    .yellowBtn {
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #b1b1b1 0%,
+                #fbf9af 10%,
+                #e99a00 30%,
+                #934d00 50%,
+                #ea9000 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #b1b1b1 0%,
+                #fbf9af 10%,
+                #e99a00 30%,
+                #934d00 50%,
+                #ea9000 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #b1b1b1 0%,
+                #fbf9af 10%,
+                #e99a00 30%,
+                #934d00 50%,
+                #ea9000 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .yellowBtn:hover {
+        color: #d5d5d5;
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #b1b1b1 0%,
+                #d1b023 10%,
+                #a77005 30%,
+                #5a2f00 50%,
+                #9f6200 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #b1b1b1 0%,
+                #d1b023 10%,
+                #a77005 30%,
+                #5a2f00 50%,
+                #9f6200 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #b1b1b1 0%,
+                #d1b023 10%,
+                #a77005 30%,
+                #5a2f00 50%,
+                #9f6200 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .btn_all {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        height: 32px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border: 1px #000 solid;
+        border-radius: 9px;
+        color: #fff;
+        font-size: 14px;
+        letter-spacing: 2px;
+        text-align: center;
+        line-height: 16px;
+        position: relative;
+    }
+
+    .epidemicPic {
+        width: 95%;
+        margin: auto;
+        margin-top: 30px;
+    }
+
+    .epid_pic {
+        width: 100%;
+        margin: 20px auto;
+        color: #fff;
+        text-align: left;
+        font-size: 15px;
+        font-weight: bold;
+
+        span {
+            margin: 5px auto;
+        }
+
+        img {
+            width: 100%;
+        }
+    }
+
+    /*代理相關頁面*/
+    #agentPage {
+        color: #fff;
+        font-size: 12px;
+
+        .scrollDiv {
+            overflow-y: scroll;
+            padding-bottom: 40px;
+        }
+
+        .summaryWrapper {
+            width: 100%;
+            padding: 10px 15px 65px 15px;
+        }
+
+        .bottom-fixed-img {
+            margin-top: 15px;
+            z-index: 99;
+
+            // position: absolute;
+            // bottom: 65px;
+            padding: 0px 15px;
+
+            img {
+                border-radius: 5px;
+                width: 100%;
+                max-height: 105%;
+                border: solid 3px #fff;
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        .topTable {
+            width: 100%;
+            color: #fff;
+
+            tr {
+                text-align: center;
+            }
+
+            th {
+                line-height: 14px;
+                background: #222;
+                padding: 10px 5px;
+            }
+
+            td {
+                padding: 5px 5px;
+            }
+
+            td,
+            th {
+                border: solid 1px #fdd04e;
+            }
+
+            .border-top-left {
+                border-top-left-radius: 7px;
+            }
+
+            .border-top-right {
+                border-top-right-radius: 7px;
+            }
+
+            .border-btm-left {
+                border-bottom-left-radius: 7px;
+            }
+
+            .border-btm-right {
+                border-bottom-right-radius: 7px;
+            }
+        }
+
+        table.topTable {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        #qrcode {
+            text-align: center;
+        }
+
+        #qrcode {
+            img {
+                display: none !important;
+            }
+
+            canvas {
+                display: inline-block !important;
+            }
+
+            img,
+            canvas {
+                height: 75px;
+                border: solid 5px #fff;
+            }
+        }
+
+        .qr-share-title {
+            text-align: center;
+            margin-top: 20%;
+            font-size: 16px;
+        }
+
+        .q-img-button {
+            float: right;
+            height: 35px;
+            margin-top: -5px;
+        }
+
+        .logo-img {
+            max-width: 200px;
+            width: 60%;
+        }
+
+        .ad-small-img {
+            width: 80%;
+            margin-right: 7px;
+        }
+
+        #qrcodeBig {
+            img {
+                display: none !important;
+            }
+
+            canvas {
+                display: inline-block !important;
+            }
+
+            img,
+            canvas {
+                height: 255px;
+                border: solid 10px #fff;
+            }
+        }
+
+        .flexDiv {
+            display: flex;
+            width: 100%;
+        }
+
+        .ad_popup {
+            margin-top: 33%;
+            width: 100%;
+
+            .imgWrapper {
+                width: 100%;
+                position: relative;
+                z-index: 100;
+            }
+
+            .closeBtn {
+                position: absolute;
+                width: 26px;
+                top: 5px;
+                right: 5px;
+            }
+
+            .adImgBox {
+                position: relative;
+
+                .info-btn {
+                    position: absolute;
+                    right: 10px;
+                    bottom: 10px;
+                    z-index: 100;
+                }
+            }
+        }
+
+        .innerText {
+            width: 85%;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .flexDiv input,
+        .flexDiv .fakeInput {
+            width: 100%;
+            position: relative;
+            margin: 3px 0px;
+            border-radius: 10px;
+            height: 40px;
+            line-height: 40px;
+            color: #aaa;
+            background: #222;
+            border: solid 1px #c3b626;
+            padding-left: 7px;
+
+            .innerText {
+                width: 85%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .copyBtn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                height: 15px;
+                width: 15px;
+            }
+        }
+
+        .float-r {
+            float: right;
+        }
+
+        .f25 {
+            width: 25%;
+        }
+
+        .f30 {
+            width: 25%;
+        }
+
+        .f40 {
+            width: 40%;
+        }
+
+        .f50 {
+            width: 50%;
+        }
+
+        .f60 {
+            width: 60%;
+        }
+
+        .f70 {
+            width: 70%;
+        }
+
+        .f75 {
+            width: 75%;
+        }
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            height: 38px;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        button.orange {
+            background: -webkit-gradient(linear,
+                    left top,
+                    left bottom,
+                    from(#f95c01),
+                    color-stop(50%, #c93b09),
+                    to(#991a11));
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+        }
+
+        button.yellow {
+            background: #e6dc97;
+            background: -webkit-gradient(linear,
+                    left top,
+                    left bottom,
+                    color-stop(1%, #e6dc97),
+                    color-stop(39%, #d9b23d),
+                    color-stop(94%, #a86100),
+                    color-stop(94%, #a86100),
+                    to(#c5984a));
+            background: linear-gradient(to bottom,
+                    #e6dc97 1%,
+                    #d9b23d 39%,
+                    #a86100 94%,
+                    #a86100 94%,
+                    #c5984a 100%);
+        }
+
+        button.blue {
+            background: -webkit-gradient(linear,
+                    left top,
+                    left bottom,
+                    from(#0087fb),
+                    color-stop(50%, #0c63bc),
+                    to(#12468d));
+            background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+        }
+
+        input[type="search"]::-webkit-search-cancel-button {
+            /* Remove default */
+            height: 10px;
+            width: 10px;
+            font-size: 30px;
+            background: #000;
+        }
+
+        .gameListBgAll {
+            height: 34px;
+            font-size: 13px;
+            line-height: 20px;
+            text-align: center;
+            margin-right: 5px;
+            width: auto;
+        }
+
+        .tabRow {
+            padding: 15px;
+        }
+
+        .table-bg {
+            background-image: url(../../img/agent/agent_table_background3.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .test12 {
+            width: 15px;
+        }
+
+        table.layout5050 {
+            width: 100%;
+            table-layout: fixed;
+
+            td {
+                width: 50%;
+                min-width: 50%;
+            }
+        }
+
+        table.agent_data {
+            min-height: 300px;
+
+            td {
+                text-align: center;
+                min-width: 125px;
+                min-height: 65px;
+                height: 65px;
+                padding: 5px;
+                border-bottom: solid 1px #ae6a07;
+            }
+
+            td.full {
+                min-width: 400px;
+            }
+
+            td.dark-bg {
+                font-size: 14px;
+                background: rgba(0, 0, 0, 0.5);
+                white-space: break-spaces;
+            }
+        }
+
+        div.scrollmenu {
+            background-color: #333;
+            overflow: auto;
+            white-space: nowrap;
+        }
+
+        .lastTime {
+            margin-top: 10px;
+            color: #ccc;
+            font-size: 12px;
+        }
+
+        button.m-size {
+            width: auto;
+            min-width: 150px;
+        }
+    }
+
+    /*end of agentPage*/
+
+    #agentRules {
+        color: #fff;
+        overflow-y: scroll;
+        max-height: 750px;
+        padding-bottom: 250px;
+
+        .coin-icon {
+            margin-top: 0px !important;
+            height: 18px;
+            width: 18px;
+        }
+
+        .bigTitleRow {
+            display: flex;
+            position: relative;
+
+            .r-img {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+            }
+        }
+
+        .bigTitle {
+            width: 70%;
+            font-size: 14px;
+            color: #ffd36d;
+            margin: 0px 10px;
+        }
+
+        .wrapper-d {
+            border-radius: 10px;
+            background: linear-gradient(#4a3934 0%,
+                    #312836 33%,
+                    #141418 66% #621919 100%);
+
+            border: solid 1px #c58014;
+            padding: 10px;
+            font-size: 12px;
+        }
+
+        table.ruleLevels {
+            width: 100%;
+            margin-top: 15px;
+
+            $border-yellow: #817348;
+
+            th,
+            td {
+                text-align: right;
+                border-bottom: solid 1px $border-yellow;
+            }
+
+            th {
+                border-top: solid 1px $border-yellow;
+                color: #f7c11a;
+                font-weight: 700;
+                height: 40px;
+                padding: 2px;
+                text-align: center;
+            }
+
+            td {
+                font-weight: 100;
+                color: #ccc;
+                text-align: center;
+            }
+        }
+
+        .eachQ {
+            margin-bottom: 25px;
+
+            .Question {
+                font-weight: 700;
+            }
+
+            .Answer {
+                font-weight: 100;
+                color: #ccc;
+
+                ol {
+                    display: inline-block;
+                }
+
+                ol li {
+                    padding: 1px 20px;
+                    list-style-type: decimal;
+                }
+            }
+
+            img {
+                margin-top: 20px;
+            }
+        }
+    }
+
+    /*end of agentRule*/
+
+    .text-c {
+        text-align: center;
+
+        .button {
+            display: inline-block;
+        }
+    }
+
+    .popup-red {
+        width: 95%;
+        margin-top: 25%;
+        margin-left: auto;
+        margin-right: auto;
+        background-image: url(../../img/C711_Mobile/bg/popup-red-bg.png);
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        padding: 15px;
+        position: relative;
+
+        .closeBtn-yellow {
+            background-image: url(../../img/C711_Mobile/icon/close_btn_yellow.png);
+            background-repeat: no-repeat;
+            background-size: 100% 100%;
+            display: inline-block;
+            position: absolute;
+            margin-right: 10px;
+            top: 15px;
+            right: 10px;
+            width: 25px;
+            height: 25px;
+        }
+
+        .formatText {
+            position: absolute;
+            min-width: 13px;
+            top: 10px;
+            right: 8px;
+        }
+
+        .ListInputAllR {
+            padding: 0.5em 1.25em;
+        }
+
+        .labelText {
+            font-weight: 700;
+            font-size: 14px;
+            line-height: 14px;
+        }
+
+        .box {
+            height: 40px;
+
+            .v-middle {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .box:before {
+            content: "";
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+        }
+
+        .title_row {
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .panel-purple {
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 95%;
+            background: #1f041a;
+            padding: 10px;
+            height: 300px;
+            text-align: center;
+            font-weight: 100;
+            font-size: 14px;
+            border: solid 2px #74101e;
+        }
+
+        .panel-black {
+            margin-left: auto;
+            margin-right: auto;
+            padding-top: 30px;
+            width: 95%;
+            background: rgba(0, 0, 0, 0.7);
+            height: 200px;
+        }
+    }
+
+    .flex-layout {
+        display: flex;
+    }
+
+    .popup-red.medium {
+        height: 375px;
+    }
+
+    .rightBottomPopup {
+        position: absolute;
+        right: 15px;
+        bottom: 25px;
+        color: #fff;
+        font-weight: 700;
+        z-index: 99999;
+        background: #58a378;
+        border: solid 2px #286a27;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    .rightBottomPopup.visible {
+        visibility: visible;
+        opacity: 1;
+        transition: opacity 0.65s linear;
+    }
+
+    .rightBottomPopup.hidden-effect {
+        visibility: hidden;
+        opacity: 0;
+        transition: visibility 0s 0.65s, opacity 0.65s linear;
+    }
+}

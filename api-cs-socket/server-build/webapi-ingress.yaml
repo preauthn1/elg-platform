@@ -1,0 +1,33 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cs-socket-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "customerservice-socket-static-ip"    
+spec:
+  tls:
+    - secretName: everluckgames-ingress
+    - secretName: xsgcasino-ingress
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - path: /example.invalid/
+        backend:
+          serviceName: cs-socket-service2
+          servicePort: socket-port
+      - path: /*
+        backend:
+          serviceName: cs-socket-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - path: /example.invalid/
+        backend:
+          serviceName: cs-socket-service2
+          servicePort: socket-port
+      - path: /*
+        backend:
+          serviceName: cs-socket-service
+          servicePort: nginx-port

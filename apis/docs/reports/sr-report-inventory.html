@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SR 報表盤點 — 用途、依據資料表與多幣別改造影響</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-tick" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+  <symbol id="i-db" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></symbol>
+  <symbol id="i-list" viewBox="0 0 24 24"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></symbol>
+  <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="6" x2="12" y2="18"/><path d="M15 9.5a2.5 2.5 0 0 0-2.5-2h-1a2.5 2.5 0 0 0 0 5h1a2.5 2.5 0 0 1 0 5h-1A2.5 2.5 0 0 1 9 14.5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="10" y1="15" x2="10" y2="9"/><line x1="14" y1="15" x2="14" y2="9"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg></div>
+      <div class="name">SR 報表盤點</div>
+    </div>
+    <div class="menu-label">現況與改造影響</div>
+    <ul class="menu">
+      <li><a href="#summary" class="active"><span class="ic"><svg><use href="#i-pin"/></svg></span>盤點總覽</a></li>
+      <li><a href="#risk"><span class="ic"><svg><use href="#i-crash"/></svg></span>改造風險分級</a></li>
+      <li><a href="#reports"><span class="ic"><svg><use href="#i-list"/></svg></span>報表清單</a></li>
+      <li><a href="#tables"><span class="ic"><svg><use href="#i-db"/></svg></span>依據資料表反查</a></li>
+      <li><a href="#findings"><span class="ic"><svg><use href="#i-search"/></svg></span>盤點意外發現</a></li>
+      <li><a href="#open"><span class="ic"><svg><use href="#i-help"/></svg></span>待確認事項</a></li>
+    </ul>
+    <div class="foot">內部討論用 · 2026-08-19<br>多幣別錢包案的下游影響盤點<br>主簡報見 <code style="color:#9e95f5;background:rgba(255,255,255,.06)">multi-currency-wallet-target-flow</code></div>
+  </aside>
+
+  <main class="content">
+    <div class="topbar">
+      <div>
+        <div class="crumb">多幣別錢包 <b>/</b> SR 報表盤點</div>
+        <h1>SR 報表用途、依據資料表與改造影響</h1>
+      </div>
+      <div class="chips">
+        <span class="chip">35＋ 支路由</span>
+        <span class="chip">28 支碰 TBR／SBR</span>
+        <span class="chip">4 Controller ＋ 1 Repository</span>
+        <span class="chip">內部討論稿</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <section id="summary" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>盤點總覽</h2>
+          <p class="desc">起因：<b>SBR（<span class="mono">summary_bet_records</span>）是 SR 報表的主要資料來源</b>，多幣別改造要動 TBR／SBR，就必須先知道會炸到哪些報表。本份盤點回答兩件事——<b>每支 SR 報表的用途</b>與<b>它依據哪些資料表</b>，並標出多幣別改造的影響等級。</p>
+        </div>
+        <div class="card-body">
+          <div class="stats">
+            <div class="stat"><div class="avatar av-primary"><svg><use href="#i-list"/></svg></div><div><div class="num">35＋</div><div class="lbl">SR 系列對外路由<br>跨 4 支 Controller</div></div></div>
+            <div class="stat"><div class="avatar av-danger"><svg><use href="#i-crash"/></svg></div><div><div class="num">28</div><div class="lbl">讀 TBR／SBR 的方法<br>改造必須逐一處理</div></div></div>
+            <div class="stat"><div class="avatar av-warning"><svg><use href="#i-coin"/></svg></div><div><div class="num">3</div><div class="lbl">多幣別上線<b>即刻</b>失準<br>不必等 TBR／SBR 改</div></div></div>
+            <div class="stat"><div class="avatar av-secondary"><svg><use href="#i-pause"/></svg></div><div><div class="num">3</div><div class="lbl">確認為死代碼的方法<br>改造可直接排除</div></div></div>
+          </div>
+
+          <h3>實作分佈</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:290px">實作位置</th><th style="width:120px">讀 TBR／SBR</th><th>說明</th></tr></thead>
+              <tbody>
+                <tr><td><span class="mono">ReportController.php</span><br><span class="badge b-secondary">8,215 行 · 86 方法</span></td><td class="center"><b>13</b> 支</td><td>SR 主體。舊版 <span class="mono">report/*</span> 端點，含 sr02～sr26 與數支非 SR 命名的報表</td></tr>
+                <tr><td><span class="mono">NewReportController.php</span><br><span class="badge b-secondary">2,429 行 · 27 方法</span></td><td class="center"><b>7</b> 支</td><td>新版 <span class="mono">newreport/*</span> 端點。SR11 對帳表的新實作與 SR11y 變體</td></tr>
+                <tr><td><span class="mono">SummaryBetRecordRepository.php</span><br><span class="badge b-warning">易漏</span></td><td class="center"><b>7</b> 支</td><td><svg class="ni"><use href="#i-alert"/></svg> <b>SQL 藏在 Repository 層</b>——六支輸贏排行報表的 Controller 只是轉呼叫，只掃 Controller 會整批漏掉</td></tr>
+                <tr><td><span class="mono">ReportSummaryController.php</span></td><td class="center"><b>1</b> 支</td><td>「數據分析」站台級統計，走 Redis 逐日快取</td></tr>
+                <tr><td><span class="mono">Report2Controller.php</span></td><td class="center"><span class="dash">0</span></td><td>sr97／98／99 充提報表——<b>不讀 TBR／SBR，但讀 orders／withdrawal_orders</b>，反而是風險最迫切的一批（見第 2 節）</td></tr>
+                <tr><td><span class="mono">SimpleSettlementReportController.php</span></td><td class="center"><span class="dash">0</span></td><td>代理簡易結算報表，本次未深入</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <svg class="ni"><use href="#i-check"/></svg> <b>判準說明</b>：本盤點的「混幣風險」＝<b>該查詢是否對金額做 SUM／彙總，且分組維度不含幣別</b>。經資料庫實測，<span class="mono">summary_bet_records</span>、<span class="mono">total_bet_records</span>、<span class="mono">transaction_logs</span>、<span class="mono">wallet_transaction_logs</span>、<span class="mono">summary_event_records</span>、<span class="mono">summary_agent_achievements</span>、<span class="mono">three_hierarchy_bonus_report</span> 等表<b>目前完全沒有 currency 欄位</b>——所以現況<b>不存在</b>混幣 bug（沒有幣別可混）。風險是改造後才成立的，唯一例外是第 2 節的 L1 那三支。
+          </div>
+        </div>
+      </section>
+
+      <section id="risk" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>多幣別改造風險分級</h2>
+          <p class="desc">依「何時會錯」與「錯了誰受影響」分五級。<b>L1 與 L2 是需要優先處置的</b>。</p>
+        </div>
+        <div class="card-body">
+
+          <div class="risk high">
+            <div class="rh"><span class="sev">L1 立即</span><span class="rt">多幣別一上線就失準，不必等 TBR／SBR 改造</span></div>
+            <p><b>對象：<span class="mono">sr97</span>／<span class="mono">sr98</span>／<span class="mono">sr99</span></b>（充提明細表，<span class="mono">Report2Controller</span>）。<br><br>
+            原因與其他報表不同：<span class="mono">orders</span> 與 <span class="mono">withdrawal_orders</span> <b>本來就有 <span class="mono">currency_id</span></b>——查詢已經 leftJoin <span class="mono">currencies</span> 並在明細列顯示 <span class="mono">currency_name</span>。但彙總層的 <span class="mono">DepositSummary()</span> 與 <span class="mono">WithdrawalSummary()</span> 做的是<b>無 GROUP BY 的全量 <span class="mono">SUM(amount)</span></b>，只回傳單一 <span class="mono">total_amount</span>／<span class="mono">total_point</span>。<br><br>
+            也就是說：<b>底表早就支援多幣別，只有加總邏輯忽略幣別</b>。同一查詢範圍一旦同時存在兩種幣別的訂單，摘要數字立刻是混幣值。這三支不需要等 schema 改造，多幣別會員或代理一出現就會錯。</p>
+          </div>
+
+          <div class="risk high">
+            <div class="rh"><span class="sev">L2 敏感</span><span class="rt">改造後會錯，且結果直接餵給財務／股東決策</span></div>
+            <div class="tbl-scroll">
+              <table>
+                <thead><tr><th style="width:230px">報表</th><th>為什麼敏感</th></tr></thead>
+                <tbody>
+                  <tr><td><b>會員業績報表</b><br><span class="mono">report/performance_report</span></td><td>SUM 結果掛鉤 <span class="mono">shareholder_payout_logs</span>（股東佔成派發記錄），是<b>派發金額的對帳依據</b>。三處 SUM 皆無幣別維度</td></tr>
+                  <tr><td><b>公司輸贏</b><br><span class="mono">report/companyWinLose</span><br><span class="badge b-secondary">內部 tpowerVendorTotal</span></td><td>公司層級財務對帳。本質就是要跨會員跨代理彙總成單一總數，<b>混幣後無法察覺</b>——只會看到一個「看起來合理」的錯數字</td></tr>
+                  <tr><td><b>股東即時報表</b><br><span class="mono">report/user_instant_bets</span></td><td>股東即時監控當日盤口。即時性高，混幣會即時誤導判斷</td></tr>
+                  <tr><td><b>數據分析</b><br><span class="mono">report/statistical</span></td><td>站台首頁級指標（押注額、玩家輸贏），<span class="mono">GROUP BY sdate</span> 只依日期彙總。<svg class="ni"><use href="#i-alert"/></svg> <b>另有 Redis 逐日快取</b>——快取 key 若不納入幣別維度，會把混幣後的錯值鎖在快取裡</td></tr>
+                  <tr><td><b>SR15 代理對帳報表</b><br><span class="mono">report/sr15</span></td><td>由 <b>6 支子查詢</b>拼成，涉及 <b>9 張表</b>，每支各自 <span class="mono">GROUP BY agent_id</span> 對整條代理線所有會員、所有遊戲商直接 SUM。改造成本以「逐支子查詢補幣別分組＋外層 join 按幣別展開」計</td></tr>
+                  <tr><td><b>SR19 代理結帳報表</b><br><span class="mono">report/sr19</span>、<span class="mono">report/sr19Detail</span></td><td>SR15 的達成率視角變體，<b>5 支子查詢／7 張表</b>。<span class="mono">sr19Detail</span> 另對 <span class="mono">summary_agent_achievements</span> 做 4D 與 Other 兩段彙總</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="risk mid">
+            <div class="rh"><span class="sev">L3 一般</span><span class="rt">改造後會錯，屬代理／會員層級報表</span></div>
+            <p>共約 <b>17 支</b>，全部是「對金額 SUM 但分組維度不含幣別」：</p>
+            <ul class="clean">
+              <li><b>SR11 對帳表（舊版）</b>：<span class="mono">sr11Top</span>／<span class="mono">sr11Agent</span>／<span class="mono">sr11Member</span>、<span class="mono">report/platformReconciliation*</span> 三支</li>
+              <li><b>SR11 對帳表（新版）</b>：<span class="mono">newreport/platformReconciliation*</span> 三支＋<span class="mono">sr11y</span> 系列三支</li>
+              <li><b>SR12 遊戲投注記錄</b>：<span class="mono">summary_data</span> 對 bet／valid_bet／payout／win_lose／rolling_chip／commission 全量加總</li>
+              <li><b>輸贏排行六支</b>：玩家／代理／團隊的 Ranking 與 Detail（SQL 在 <span class="mono">SummaryBetRecordRepository</span>）。會員與代理排行的 GROUP BY 連 <span class="mono">vendor_id</span> 都不分</li>
+              <li><b>會員行為數據</b>：<span class="mono">member_behavior_data</span>／<span class="mono">_total</span>——把總儲值、總提款、總紅利、總返水、總押注、總輸贏六個數字疊在同一列，<b>只要押注這欄混幣，整列畫像失真</b></li>
+              <li><b>SR02／SR03</b>：<span class="mono">sr02Agent</span>、<span class="mono">sr03User</span>、<span class="mono">sr03Member</span>——對 <span class="mono">transaction_logs.point</span> 做 SUM。其中 <span class="mono">sr03User</span> <b>完全沒有分組維度</b>，是全域單一總計</li>
+              <li><b>SR26</b>：除明細外另有無 GROUP BY 的 <span class="mono">sum_change_point</span> 全量 SUM</li>
+              <li><b>SR14 逐注明細</b>：<span class="mono">report/bet_detail</span>——讀 TBR，透過中介表 <span class="mono">total_bet_record_transaction_logs</span> 反查。風險取決於該中介表的關聯是否隱含幣別綁定（<b>待確認</b>）</li>
+            </ul>
+          </div>
+
+          <div class="risk low">
+            <div class="rh"><span class="sev">L4 低</span><span class="rt">純明細列表，無 SUM／GROUP BY</span></div>
+            <p><span class="mono">sr02Member</span>、<span class="mono">sr05</span>（客服轉入轉出）、<span class="mono">sr06</span>（平台轉入轉出）、<span class="mono">sr07</span>（紅包）、<span class="mono">ssr07</span>（會員互轉）、<span class="mono">sr08</span>（補點）、<span class="mono">sr14</span>（現金紀錄）、<span class="mono">sr21</span>（禮碼）、<span class="mono">sr22</span>（優惠錢包）、<span class="mono">sr23</span>、<span class="mono">sr24</span>——共 <b>11 支</b>。<br><br>
+            這批只逐筆列出、不做彙總，所以不會混幣相加。但<b>仍需處理顯示層</b>：金額欄位（<span class="mono">point</span>／<span class="mono">balance</span>）目前沒有幣別標籤，多幣別後同一列表混雜不同幣別會讓人讀錯。</p>
+          </div>
+
+          <div class="risk low">
+            <div class="rh"><span class="sev">L5 無關</span><span class="rt">不涉金額，或已是死代碼</span></div>
+            <p><span class="cn">①</span> <b><span class="mono">sr18</span> 客服效率統計</b>：只算工單件數與處理秒數，不涉及金額，改造無影響。<br>
+            <span class="cn">②</span> <b>三支 V-Lottery 方法為死代碼</b>：<span class="mono">platformReconciliationLottery</span>、<span class="mono">platformReconciliationLotteryMember</span>、<span class="mono">platformReconciliationDetailLottery</span>（<span class="mono">NewReportController</span>）——全檔除自身定義外無任何呼叫點，推測是舊功能下架後的孤兒。改造可直接排除，建議一併清理。<br>
+            <span class="cn">③</span> <b>SR16／SR17（VJackpot／W-VJackpot）</b>：後台選單啟用中但後端查無實作，<span class="mono">report_sr16</span> 只是選單權限碼。</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="reports" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>報表清單</h2>
+          <p class="desc">依用途分組。「中文名」取自後台選單表 <span class="mono">agent_menus</span>（權威來源）；查無選單者標注為依程式邏輯推斷。</p>
+        </div>
+        <div class="card-body">
+
+          <h3>對帳與彙總類（改造主戰場）</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:130px">代號</th><th style="width:150px">中文名</th><th>用途與依據資料表</th><th style="width:80px">風險</th></tr></thead>
+              <tbody>
+                <tr><td><b>SR11</b><br><span class="mono">sr11Top／Agent／Member</span></td><td>遊戲平台對帳報表</td><td>依代理線／代理／會員彙總各遊戲商與遊戲分類的押注、輸贏、中彩金、分成。<br><b>表</b>：<span class="mono">summary_bet_records</span>、games、game_types、members、agents、vendors。<b>時間</b>：<span class="mono">summary_time</span></td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+                <tr><td><b>SR11 新版</b><br><span class="mono">newreport/platformReconciliation*</span></td><td>遊戲平台對帳報表</td><td>SR11 的新實作，多了 <span class="mono">vendor_customized_items</span>（代理自訂遊戲商顯示名）與兩層子查詢；總表另 union 活動、無限代、手續費、三層代四類。<br><b>表</b>：同上＋<span class="mono">vendor_customized_items</span>、<span class="mono">summary_event_records</span></td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+                <tr><td><b>SR11y</b><br><span class="mono">sr11yTotal／Detail／Member</span></td><td>SR11 開洗分明細表 New</td><td>SR11 變體：<span class="mono">vendor_id</span> 語意擴充（1～1000 為遊戲、1001 以上對應 <span class="mono">summary_event_records.id</span> 的活動類型），合併顯示活動獎勵文字。<br><b>表</b>：同 SR11 新版</td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+                <tr><td><b>SR12</b><br><span class="mono">report/sr12</span></td><td>新平台下注記錄</td><td>遊戲投注明細＋列表上方彙總小計。強制 <span class="mono">USE INDEX</span>（payout_time 或 bet_time）。<br><b>表</b>：<span class="mono">total_bet_records</span>、members、agents、vendors、games、game_names、vendor_customized_items。<b>時間</b>：<span class="mono">bet_time</span> 或 <span class="mono">payout_time</span> 二擇一</td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+                <tr><td><b>SR15</b><br><span class="mono">report/sr15</span></td><td>代理對帳報表</td><td>整條代理線的綜合損益：投注、輸贏、佣金、活動獎金、無限代獎金、三代分潤、回收金額，算出 <span class="mono">total_score</span>。<b>6 支子查詢／9 張表</b>。<br><b>表</b>：<span class="mono">summary_bet_records</span>、<span class="mono">summary_event_record_agents</span>、transaction_logs、<span class="mono">unlimit_bonusreport(_agents)</span>、<span class="mono">three_hierarchy_bonus_report(_agents)</span>、<span class="mono">event_v2_recycles</span>、<span class="mono">event_v2_user_joins</span>、wallet_transaction_logs、agents、members</td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>SR19</b><br><span class="mono">report/sr19</span>、<span class="mono">sr19Detail</span></td><td>代理結帳報表</td><td>SR15 的達成率視角變體，<b>5 支子查詢／7 張表</b>，多了業績佣金。<br><b>表</b>：SR15 扣除回收與單錢包活動兩項，改用 <span class="mono">summary_event_records</span>（<svg class="ni"><use href="#i-alert"/></svg> 與 SR15 的 <span class="mono">summary_event_record_agents</span> 是<b>不同表</b>、命名極相似）＋<span class="mono">summary_agent_achievements</span></td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>輸贏排行</b><br><span class="mono">member／agent／teamWinLose*</span></td><td>玩家／代理／團隊<br>輸贏排行報表</td><td>指定期間與遊戲商的輸贏排行榜（Top 30／Top 10）及明細。<b>SQL 在 <span class="mono">SummaryBetRecordRepository</span></b>，Controller 只轉呼叫。<br><b>表</b>：<span class="mono">summary_bet_records</span>（玩家／代理）、<span class="mono">summary_bet_record_agent_teams</span>（團隊）、members、agents、vendors</td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+                <tr><td><b>公司輸贏</b><br><span class="mono">report/companyWinLose</span></td><td>（無選單，推斷）</td><td>公司層級各遊戲商總押注、輸贏、派彩、洗碼、成本。<br><b>表</b>：<span class="mono">summary_bet_records</span>、members、agents、vendors、vendor_customized_items</td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>數據分析</b><br><span class="mono">report/statistical</span></td><td>數據分析</td><td>站台級每日統計：登入／註冊／投注人數、押注額、玩家輸贏、儲提金額、次日留存、30 天活躍。<b>走 Redis 逐日快取</b>。<br><b>表</b>：member_login_logs、<span class="mono">summary_bet_records</span>、members、transaction_logs、wallet_transaction_logs、<span class="mono">summary_transaction_logs</span></td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>會員業績報表</b><br><span class="mono">report/performance_report</span></td><td>（無選單，推斷）</td><td>股東佔成派發依據：符合 <span class="mono">shareholder_payout_logs</span> 當日有資料的會員押注／輸贏彙總＋各遊戲商細項。<br><b>表</b>：<span class="mono">summary_bet_records</span>、members、agents、<span class="mono">shareholder_payout_logs</span>、vendors</td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>股東即時報表</b><br><span class="mono">report/user_instant_bets</span></td><td>（無選單，推斷）</td><td>當日 24 小時窗、依股東分類設定（<span class="mono">calc_bet=1</span>）的代理線押注即時彙總。<br><b>表</b>：<span class="mono">shareholder_categories</span>、<span class="mono">shareholder_category_settings</span>、games、agents、members、<span class="mono">summary_bet_records</span></td><td class="center"><span class="badge b-danger">L2</span></td></tr>
+                <tr><td><b>會員行為數據</b><br><span class="mono">member_behavior_data</span>／<span class="mono">_total</span></td><td>（無選單，推斷）</td><td>六大數字疊一列：總儲值、總提款、總紅利、總返水、總押注、總輸贏。<br><b>表</b>：transaction_logs、wallet_transaction_logs、<span class="mono">rolling_chip_logs</span>、event_v1／v2 相關表、<span class="mono">three_hierarchy_bonus_report</span>、<span class="mono">summary_bet_records</span>、members、agents、<span class="mono">member_codes</span></td><td class="center"><span class="badge b-warning">L3</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>充提與金流類</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:130px">代號</th><th style="width:150px">中文名</th><th>用途與依據資料表</th><th style="width:80px">風險</th></tr></thead>
+              <tbody>
+                <tr><td><b>SR99</b><br><span class="mono">report/sr99</span></td><td>SR99 充提明細表</td><td>全平台（會員＋代理）充提明細，deposit 與 withdrawal 兩段 UNION 後分頁，附摘要總計。<br><b>表</b>：<span class="mono">orders</span>、<span class="mono">withdrawal_orders</span>、agent_cash_flows、cash_flows、order_types、order_type_names、order_images、bank_accounts、banks、<b><span class="mono">currencies</span>、<span class="mono">currency_names</span></b>、members、agents、<span class="mono">withdrawal_payout_records</span></td><td class="center"><span class="badge b-danger">L1</span></td></tr>
+                <tr><td><b>SR98</b><br><span class="mono">report/sr98</span></td><td>SR98 代理開洗分明細表</td><td>代理層級開洗分明細（含線上／線下／代付／自助洗分 source 篩選）。表同 SR99</td><td class="center"><span class="badge b-danger">L1</span></td></tr>
+                <tr><td><b>SR97</b><br><span class="mono">report/sr97</span></td><td>（無選單，推斷）</td><td>單一代理本身的開洗分明細。表同 SR99</td><td class="center"><span class="badge b-danger">L1</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fnote"><svg class="ni"><use href="#i-alert"/></svg> 這三支的底表<b>已經有 currency 維度</b>（明細列已顯示 <span class="mono">currency_name</span>），問題只在摘要層 <span class="mono">DepositSummary()</span>／<span class="mono">WithdrawalSummary()</span> 的全量 SUM 沒有依幣別分組——所以是 L1（上線即錯），而非改造後才錯。</div>
+
+          <h3>明細類（低風險，但顯示層要處理）</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:130px">代號</th><th style="width:160px">中文名</th><th>用途</th><th>主要依據資料表</th></tr></thead>
+              <tbody>
+                <tr><td><b>SR02</b>（Agent／Member）</td><td>sr02 開洗分明細表</td><td>依代理彙總／依會員逐筆列出開分洗分</td><td><span class="mono">transaction_logs</span>、members、agents、orders、agent_cash_flows、cash_flows</td></tr>
+                <tr><td><b>SR03</b>（User／Member）</td><td>sr03 開洗分統計表<br><span class="badge b-secondary">選單已停用</span></td><td>全站總計／依會員彙總開洗分</td><td><span class="mono">transaction_logs</span>、members、agents</td></tr>
+                <tr><td><b>SR05</b></td><td>sr05 客服轉入轉出明細表<br><span class="badge b-secondary">選單已停用</span></td><td>客服人工開洗分逐筆明細，供稽核</td><td><span class="mono">transaction_logs</span>、members、agents</td></tr>
+                <tr><td><b>SR06</b></td><td>sr06 平台轉入轉出明細表</td><td>主錢包與遊戲商錢包間轉入轉出明細（兩子查詢 UNION）</td><td><span class="mono">transaction_logs</span>、<span class="mono">wallet_transaction_logs</span>、members、agents、vendors、vendor_customized_items</td></tr>
+                <tr><td><b>SR07</b></td><td>sr07 紅包明細表</td><td>紅包類異動明細（type 6～9）</td><td><span class="mono">transaction_logs</span>、members、agents</td></tr>
+                <tr><td><b>SSR07</b></td><td>sr07T 轉帳明細表</td><td>會員間互轉的轉入轉出明細</td><td><span class="mono">member_transfer_logs</span>、members、agents</td></tr>
+                <tr><td><b>SR08</b></td><td>SR08 補點紀錄</td><td>補帳明細（type 14）</td><td><span class="mono">transaction_logs</span>、members、agents</td></tr>
+                <tr><td><b>SR14</b></td><td>SR14 現金紀錄表</td><td>單一會員餘額變化全紀錄（逐筆，含變更前後餘額）</td><td><span class="mono">transaction_logs</span>、members、agents、vendors、withdrawal_orders</td></tr>
+                <tr><td><b>SR14 明細</b><br><span class="mono">report/bet_detail</span></td><td>（SR14 展開）</td><td>點某筆交易後展開對應的逐注明細<span class="badge b-warning">L3</span></td><td><span class="mono">total_bet_records</span>、<span class="mono">total_bet_record_transaction_logs</span>（中介表）、transaction_logs／wallet_transaction_logs</td></tr>
+                <tr><td><b>SR21</b></td><td>SR21 禮碼紀錄明細表</td><td>會員禮碼（rolling chip）異動明細</td><td><span class="mono">rolling_chip_logs</span>、members、agents、vendors</td></tr>
+                <tr><td><b>SR22</b></td><td>SR22 優惠錢包紀錄明細表</td><td>優惠錢包異動明細</td><td><span class="mono">promotion_wallet_logs</span>、members、agents、vendors</td></tr>
+                <tr><td><b>SR23</b></td><td>（無選單，推斷）</td><td>代理錢包異動總覽：代理幫會員開分＋代理間轉點（UNION）</td><td><span class="mono">wallet_transaction_logs</span>、<span class="mono">wallet_transaction_log_agents</span>、agents、members</td></tr>
+                <tr><td><b>SR24</b></td><td>（無選單，推斷）</td><td>單一會員點數錢包完整流水帳（全型別）</td><td><span class="mono">wallet_transaction_logs</span>、members、agents、vendors</td></tr>
+                <tr><td><b>SR26</b></td><td>（無選單，推斷）</td><td>代理間轉點明細＋合計<span class="badge b-warning">L3</span>（有全量 SUM）</td><td><span class="mono">wallet_transaction_log_agents</span>、agents</td></tr>
+                <tr><td><b>SR13</b></td><td>SR13 代理分數紀錄</td><td>代理間洗分開分明細（<span class="mono">NewReportController</span>，性質與 sr11 系列不同）</td><td><span class="mono">transaction_log_agents</span>、<span class="mono">transaction_logs</span></td></tr>
+                <tr><td><b>SR18</b></td><td>sr18 客服效率統計</td><td>客服工單件數與處理耗時（不涉金額）<span class="badge b-success">L5</span></td><td><span class="mono">customer_audit_times</span>、agents</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="tables" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>依據資料表反查</h2>
+          <p class="desc">從資料表的角度看：改動這張表，會影響哪些報表。這一節是<b>改造時的檢查清單</b>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:250px">資料表</th><th style="width:90px">影響報表數</th><th>受影響的報表</th></tr></thead>
+              <tbody>
+                <tr><td><span class="mono">summary_bet_records</span><br><span class="badge b-danger">改造核心</span></td><td class="center"><b>21</b></td><td>SR11×3、SR11 新版×3（＋3 支死代碼）、SR11y×3、SR15、SR19、輸贏排行×4、公司輸贏、數據分析、會員業績、股東即時、會員行為×2</td></tr>
+                <tr><td><span class="mono">total_bet_records</span><br><span class="badge b-danger">改造核心</span></td><td class="center"><b>2</b></td><td>SR12、SR14 逐注明細（<span class="mono">bet_detail</span>）</td></tr>
+                <tr><td><span class="mono">transaction_logs</span></td><td class="center"><b>10</b></td><td>SR02×2、SR03×2、SR05、SR06、SR07、SR08、SR14、SR13、SR15／SR19 子查詢、會員行為、數據分析</td></tr>
+                <tr><td><span class="mono">wallet_transaction_logs</span></td><td class="center"><b>6</b></td><td>SR06、SR23、SR24、SR15 子查詢、會員行為、數據分析</td></tr>
+                <tr><td><span class="mono">orders</span>、<span class="mono">withdrawal_orders</span><br><span class="badge b-warning">已有 currency</span></td><td class="center"><b>3</b></td><td>SR97、SR98、SR99</td></tr>
+                <tr><td><span class="mono">summary_agent_achievements</span></td><td class="center"><b>2</b></td><td>SR19、SR19Detail</td></tr>
+                <tr><td><span class="mono">summary_bet_record_agent_teams</span></td><td class="center"><b>2</b></td><td>團隊輸贏排行＋明細</td></tr>
+                <tr><td><span class="mono">summary_event_record_agents</span></td><td class="center"><b>1</b></td><td>SR15（<svg class="ni"><use href="#i-alert"/></svg> 別與 SR19 的 <span class="mono">summary_event_records</span> 搞混）</td></tr>
+                <tr><td><span class="mono">summary_event_records</span></td><td class="center"><b>2</b></td><td>SR19、SR11 新版／SR11y（活動類型對照）</td></tr>
+                <tr><td><span class="mono">unlimit_bonusreport(_agents)</span></td><td class="center"><b>2</b></td><td>SR15、SR19（各以 UNION ALL 併代理與會員兩張表）</td></tr>
+                <tr><td><span class="mono">three_hierarchy_bonus_report(_agents)</span></td><td class="center"><b>3</b></td><td>SR15、SR19、會員行為數據</td></tr>
+                <tr><td><span class="mono">shareholder_payout_logs</span></td><td class="center"><b>1</b></td><td>會員業績報表（股東佔成派發依據）</td></tr>
+                <tr><td><span class="mono">rolling_chip_logs</span>、<span class="mono">promotion_wallet_logs</span></td><td class="center"><b>2</b></td><td>SR21、SR22（＋會員行為數據用 rolling_chip_logs）</td></tr>
+                <tr><td><span class="mono">member_transfer_logs</span></td><td class="center"><b>1</b></td><td>SSR07</td></tr>
+                <tr><td><span class="mono">wallet_transaction_log_agents</span></td><td class="center"><b>2</b></td><td>SR23、SR26</td></tr>
+                <tr><td><span class="mono">summary_transaction_logs</span></td><td class="center"><b>1</b></td><td>數據分析</td></tr>
+                <tr><td><span class="mono">customer_audit_times</span></td><td class="center"><b>1</b></td><td>SR18（不涉金額）</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout warn">
+            <svg class="ni"><use href="#i-alert"/></svg> <b>時間切分欄位不統一，是改造與對帳的隱形陷阱</b>：SBR 類報表用 <span class="mono">summary_time</span>（SBR 列寫入時間），SR12 用 <span class="mono">bet_time</span> 或 <span class="mono">payout_time</span> 二擇一，明細類報表用各表的 <span class="mono">created_at</span>，SR15／SR19 的每支子查詢<b>各用各自表的時間欄位</b>並統一與 <span class="mono">expired_time</span>（結帳時間）取較早者。多幣別改造若動到時間欄位或分表切口，這些差異要逐支確認。
+          </div>
+        </div>
+      </section>
+
+      <section id="findings" class="card">
+        <div class="card-head">
+          <h2><span class="idx">5</span>盤點意外發現</h2>
+          <p class="desc">與多幣別無直接關係，但既然掃到了就記錄下來，供後續評估是否另案處理。</p>
+        </div>
+        <div class="card-body">
+
+          <div class="risk high">
+            <div class="rh"><span class="sev">易漏改</span><span class="rt">SR11 對帳表有新舊兩套並存的獨立實作</span></div>
+            <p><span class="mono">report/platformReconciliationMember</span>（舊，<span class="mono">ReportController</span>）與 <span class="mono">newreport/platformReconciliationMember</span>（新，<span class="mono">NewReportController</span>）<b>方法同名但是兩份完全獨立的程式碼</b>，兩條路由都還掛著。新版多了代理自訂遊戲商名稱與兩層子查詢，舊版直接 join <span class="mono">vendors</span>。<br><br>
+            <b>風險</b>：改造若只動了 <span class="mono">newreport/*</span> 這條線，舊版仍會混幣。<b>待確認</b>：舊版路由是否還有前端／代理後台在呼叫（本次只讀 API_Agent，未查 WEB_AgentBackend 呼叫端）——若已完全切到新版，這條屬可汰除的重複端點。</p>
+          </div>
+
+          <div class="risk mid">
+            <div class="rh"><span class="sev">疑似缺陷</span><span class="rt">sr02Agent 引用了未 join 的表別名</span></div>
+            <p><span class="mono">sr02Agent</span> 的 query builder 從未 <span class="mono">join</span>／<span class="mono">leftJoin</span> <span class="mono">agents</span>（別名 <span class="mono">a</span>），但後續多處引用 <span class="mono">a.hierarchy_path</span>、<span class="mono">a.username</span>、<span class="mono">a.id</span>。同檔其他方法都有顯式 join，唯獨這支缺漏。<br><br>
+            若此路由仍在被呼叫，執行時應會拋 <span class="mono">Unknown column 'a.xxx'</span>。兩種可能：<span class="cn">①</span> 已是死路由；<span class="cn">②</span> 已知壞掉但未修。<b>建議另開票追查</b>，不在多幣別改造範圍內。<br><br>
+            另有一個相關發現：<span class="mono">report/sr03Agent</span> 這條路由<b>指向的是 <span class="mono">sr02Agent</span> 方法</b>（同一份實作服務兩個端點）。</p>
+          </div>
+
+          <div class="risk mid">
+            <div class="rh"><span class="sev">安全</span><span class="rt">sr06 有字串拼接的 whereRaw</span></div>
+            <p><span class="mono">sr06</span> 把 <span class="mono">$request-&gt;member_username</span>、<span class="mono">nickname</span>、<span class="mono">agent_username</span> <b>直接拼進 SQL 字串</b>（<span class="mono">whereRaw</span>），非參數綁定。屬既有寫法、非本次變更。<br><br>
+            <b>未驗證</b>：是否有上層過濾或 middleware 防護，本次盤點未追查可利用性。列此僅供評估是否另案處理。</p>
+          </div>
+
+          <div class="risk low">
+            <div class="rh"><span class="sev">可清理</span><span class="rt">死代碼與無實作的選單</span></div>
+            <p><span class="cn">①</span> <b>三支 V-Lottery 方法</b>（<span class="mono">platformReconciliationLottery</span>／<span class="mono">LotteryMember</span>／<span class="mono">DetailLottery</span>）全檔無呼叫點，推測舊功能下架遺留。<b>未驗證</b>：判定依據為同檔案全文 grep 方法名，若有動態呼叫（<span class="mono">$this-&gt;$methodName()</span>）會漏掉——本次未發現動態呼叫寫法，仍建議人工複核。<br>
+            <span class="cn">②</span> <b>SR16／SR17（VJackpot／W-VJackpot）</b>選單啟用中、<span class="mono">url</span> 為空、後端查無實作，<span class="mono">report_sr16</span> 僅為權限碼。<br>
+            <span class="cn">③</span> 選單中<b>已停用</b>（<span class="mono">status=0</span>）者：SR03、SR05、舊 <span class="mono">report_sr11_new</span>、儲值／轉點／會員註冊報表。</p>
+          </div>
+
+          <div class="callout">
+            <svg class="ni"><use href="#i-search"/></svg> <b>盤點方法本身的教訓</b>：一開始只掃 Controller 層，結論是「<span class="mono">Report2Controller</span> 不碰 TBR／SBR，六支輸贏排行不在改造範圍」——<b>這是錯的</b>。實際 SQL 藏在 <span class="mono">SummaryBetRecordRepository</span>，Controller 只是轉呼叫。補掃 Repository／Service／Model 三層後確認只有這一支漏網（Services 與 Models 層 0 命中）。<b>下次盤點類似的舊系統，Repository 層要一起掃。</b>
+          </div>
+        </div>
+      </section>
+
+      <section id="open" class="card">
+        <div class="card-head">
+          <h2><span class="idx">6</span>待確認事項</h2>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:230px">事項</th><th>說明</th><th style="width:120px">誰能決定</th></tr></thead>
+              <tbody>
+                <tr><td><b>L1 三支的處置時機</b></td><td><span class="mono">sr97</span>／<span class="mono">sr98</span>／<span class="mono">sr99</span> 是多幣別上線即錯，需先決定：摘要改為<b>依幣別分列</b>，或<b>強制單一幣別查詢</b>。這是產品決策，會改變報表長相</td><td><span class="badge b-info">技術＋業務</span></td></tr>
+                <tr><td><b>彙總報表的呈現方式</b></td><td>所有 L2／L3 報表都面臨同一個產品問題：混幣時是<b>拆成多列（每幣別一列）</b>、<b>加幣別篩選器</b>、還是<b>換算為單一報表幣別</b>？換算就牽涉匯率來源與時點</td><td><span class="badge b-info">技術＋業務</span></td></tr>
+                <tr><td><b>舊版 SR11 路由是否汰除</b></td><td><span class="mono">report/platformReconciliation*</span> 若已無呼叫端可直接汰除，省下一整套改造。需查 WEB_AgentBackend 與代理後台前端</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>bet_detail 中介表的幣別綁定</b></td><td><span class="mono">total_bet_record_transaction_logs</span> 的關聯是否隱含幣別綁定——若同一筆交易可對照到跨幣別注單，這支的 SUM 就有風險；若一筆交易必然同幣別則無</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>數據分析的快取設計</b></td><td><span class="mono">report/statistical</span> 的 Redis 逐日快取 key 是否納入幣別維度。不處理會把混幣後的錯值鎖在快取</td><td><span class="badge b-primary">技術</span></td></tr>
+                <tr><td><b>SR26 的 wallet_type_id=3 語意</b></td><td>限定 <span class="mono">wallet_type_id = 3</span>，推測近似「全民代理／佔成」錢包，但專案內找不到對照定義。<b>未驗證</b>——與多幣別的錢包類型重新規劃（決議 <span class="cn">⑬</span>）可能相關</td><td><span class="badge b-warning">需問原作者</span></td></tr>
+                <tr><td><b>SR16／SR17 是否清理</b></td><td>選單啟用但無實作。清理選單或補實作，屬營運決策</td><td><span class="badge b-info">技術＋業務</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="fnote"><svg class="ni"><use href="#i-search"/></svg> <b>本份報告的 AI 參與程度與未驗證項</b>：內容 100% 由 AI 產出——報表清單與依據資料表來自 5 個 subagent 對 <span class="mono">API_Agent/_release</span> 的原始碼靜態盤點（逐支讀碼、行號經 grep 核對），中文名取自 <span class="mono">agent_menus</span> 資料庫實查，「底表無 currency 欄位」經 <span class="mono">information_schema</span> 實查確認（14 張表全數無 currency 欄位）。<b>未驗證部分</b>：<span class="cn">①</span> 未實際執行任何報表查詢或比對線上輸出；<span class="cn">②</span> 三支 Lottery 死代碼的判定基於 grep，未排除動態呼叫；<span class="cn">③</span> 標「無選單，推斷」的報表用途來自程式邏輯推斷，非產品文件；<span class="cn">④</span> 未查 WEB_AgentBackend 等前端呼叫端，故無法斷定哪些路由實際已停用。首次據此排改造工作量前建議逐項人工複核。</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+</div>
+
+<script>
+  const links = document.querySelectorAll('.menu a');
+  const sections = [...links].map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  const onScroll = () => {
+    const y = window.scrollY + 120;
+    let current = sections[0];
+    for (const s of sections) { if (s.offsetTop <= y) current = s; }
+    links.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + current.id));
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>
+</body>
+</html>

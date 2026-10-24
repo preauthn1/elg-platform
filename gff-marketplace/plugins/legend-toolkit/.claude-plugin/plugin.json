@@ -1,0 +1,6 @@
+{
+  "name": "legend-toolkit",
+  "description": "Legend 系列舊專案維運技能（以環境部署為主）：RD-Studio 多站台部署（deploy-rd-studio，dev / prod vw / prod tpower 三環境上版）＋ WEB_AgentBackend / API_Agent / WEB_CustomerServiceSocket 多站台分支上版（deploy-agent-stack），並附人工操作用的 make 腳本（script/）。",
+  "author": { "name": "rb" },
+  "keywords": ["legend", "rd-studio", "web-agentbackend", "api-agent", "deploy", "部署", "多站台", "維運"]
+}

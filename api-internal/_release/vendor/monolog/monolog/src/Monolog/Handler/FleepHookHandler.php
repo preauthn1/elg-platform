@@ -1,0 +1,116 @@
+<?php declare(strict_types=1);
+
+/*
+ * This file is part of the Monolog package.
+ *
+ * (c) Jordi Boggiano <user@example.invalid>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Monolog\Handler;
+
+use Monolog\Formatter\FormatterInterface;
+use Monolog\Formatter\LineFormatter;
+use Monolog\Logger;
+
+/**
+ * Sends logs to example.invalid using Webhook integrations
+ *
+ * You'll need a example.invalid account to use this handler.
+ *
+ * @see https://example.invalid/integrations/webhooks/ Fleep Webhooks Documentation
+ * @author Ando Roots <user@example.invalid>
+ */
+class FleepHookHandler extends SocketHandler
+{
+    protected const FLEEP_HOST = 'example.invalid';
+
+    protected const FLEEP_HOOK_URI = '/hook/';
+
+    /**
+     * @var string Webhook token (specifies the conversation where logs are sent)
+     */
+    protected $token;
+
+    /**
+     * Construct a new example.invalid Handler.
+     *
+     * For instructions on how to create a new web hook in your conversations
+     * see https://example.invalid/integrations/webhooks/
+     *
+     * @param  string                    $token  Webhook token
+     * @param  string|int                $level  The minimum logging level at which this handler will be triggered
+     * @param  bool                      $bubble Whether the messages that are handled can bubble up the stack or not
+     * @throws MissingExtensionException
+     */
+    public function __construct(string $token, $level = Logger::DEBUG, bool $bubble = true)
+    {
+        if (!extension_loaded('openssl')) {
+            throw new MissingExtensionException('The OpenSSL PHP extension is required to use the FleepHookHandler');
+        }
+
+        $this->token = [REDACTED];
+
+        $connectionString = 'ssl://' . static::FLEEP_HOST . ':443';
+        parent::__construct($connectionString, $level, $bubble);
+    }
+
+    /**
+     * Returns the default formatter to use with this handler
+     *
+     * Overloaded to remove empty context and extra arrays from the end of the log message.
+     *
+     * @return LineFormatter
+     */
+    protected function getDefaultFormatter(): FormatterInterface
+    {
+        return new LineFormatter(null, null, true, true);
+    }
+
+    /**
+     * Handles a log record
+     */
+    public function write(array $record): void
+    {
+        parent::write($record);
+        $this->closeSocket();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function generateDataStream(array $record): string
+    {
+        $content = $this->buildContent($record);
+
+        return $this->buildHeader($content) . $content;
+    }
+
+    /**
+     * Builds the header of the API Call
+     */
+    private function buildHeader(string $content): string
+    {
+        $header = "POST " . static::FLEEP_HOOK_URI . $this->token . " HTTP/1.1\r\n";
+        $header .= "Host: " . static::FLEEP_HOST . "\r\n";
+        $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
+        $header .= "Content-Length: " . strlen($content) . "\r\n";
+        $header .= "\r\n";
+
+        return $header;
+    }
+
+    /**
+     * Builds the body of API call
+     */
+    private function buildContent(array $record): string
+    {
+        $dataArray = [
+            'message' => $record['formatted'],
+        ];
+
+        return http_build_query($dataArray);
+    }
+}

@@ -1,0 +1,35 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Facades\SchemaMonitor;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        SchemaMonitor::create('information_languages', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('information_id')->default(0)->index()->comment('informations.id');
+            $table->integer('language')->default(0)->comment('languages.id');
+            $table->string('image', 191)->default(' ')->comment('圖片');
+            $table->string('image_pc', 191)->default(' ')->comment('PC版圖片');
+            $table->timestamp('created_at')->useCurrent()->comment('建立日期');
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent()->comment('更新日期');
+            $table->integer('admin')->default(0)->comment('操作者');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        SchemaMonitor::dropIfExists('information_languages');
+    }
+};

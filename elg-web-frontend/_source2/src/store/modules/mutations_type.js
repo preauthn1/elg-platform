@@ -1,0 +1,106 @@
+// Menu
+export const MENUTYPE = "MENUTYPE";
+// Login check event
+export const SHOW_JOIN_EVENT = "SHOW_JOIN_EVENT";
+export const HIDE_JOIN_EVENT = "HIDE_JOIN_EVENT";
+export const GET_CHECK_EVENT = "GET_CHECK_EVENT";
+export const SHOW_UNLOCK_EVENT = "SHOW_UNLOCK_EVENT";
+export const HIDE_UNLOCK_EVENT = "HIDE_UNLOCK_EVENT";
+export const GET_UNLOCK_EVENT = "GET_UNLOCK_EVENT";
+export const GET_LOGIN_EVENT = "GET_LOGIN_EVENT";
+export const SHOW_EVENT_OVER = "SHOW_EVENT_OVER";
+export const HIDE_EVENT_OVER = "HIDE_EVENT_OVER";
+//List
+export const GET_LOTTERY = "GET_LOTTERY";
+export const GET_MEMBER = "GET_MEMBER";
+export const GET_BANNER = "GET_BANNER";
+export const GET_BANNER4 = "GET_BANNER4";
+export const GET_COUNTRIES = "GET_COUNTRIES";
+export const GET_TIMEZONES = "GET_TIMEZONES";
+export const GET_LANGUAGES = "GET_LANGUAGES";
+
+// global api request
+export const SHOW_API_RES = "SHOW_API_RES";
+export const HIDE_API_RES = "HIDE_API_RES";
+
+//setting
+export const GET_AVATAR = "GET_AVATAR";
+export const GET_NICKNAME = "GET_NICKNAME";
+
+//Gamelist
+export const GET_GAME_LIST = "GET_GAME_LIST";
+export const GET_GAME_LIST_PAGE = "GET_GAME_LIST_PAGE";
+export const GET_EVENT_GAME_PAGE = "GET_EVENT_GAME_PAGE";
+export const GET_HOT_LIST = "GET_HOT_LIST";
+export const GET_NEW_LIST = "GET_NEW_LIST";
+export const GET_OFTEN_LIST = "GET_OFTEN_LIST";
+export const GET_GAME_TYPES = "GET_GAME_TYPES";
+export const CHANGE_FAVORITE = "CHANGE_FAVORITE";
+export const GET_Favorite_Length = "GET_Favorite_Length";
+
+// gameApp
+export const GET_VENDOR_INFO = "GET_VENDOR_INFO";
+export const GET_VENDOR_GAMES = "GET_VENDOR_GAMES";
+
+// game
+export const GET_GAMEURL = "GET_GAMEURL";
+export const GET_GAME = "GET_GAME";
+export const GET_PT_DATA = "GET_PT_DATA";
+export const GET_EVENTGAME_DETAIL = "GET_EVENTGAME_DETAIL";
+export const SHOW_VENDORID4_OPEN = "SHOW_VENDORID4_OPEN";
+export const HIDE_VENDORID4 = "HIDE_VENDORID4";
+export const SHOW_VENDORID4_PCOPEN = "SHOW_VENDORID4_PCOPEN";
+export const HIDE_VENDORID4_PC = "HIDE_VENDORID4_PC";
+//vendors
+export const GET_VENDORS = "GET_VENDORS";
+export const GET_VENDOR = "GET_VENDOR";
+export const GET_VENDOR_GAMETYPES = "GET_VENDOR_GAMETYPES";
+
+export const GET_LOBBY_VENDORS_LIST = "GET_LOBBY_VENDORS_LIST";
+export const GET_VENDORS_BALANCE = "GET_VENDORS_BALANCE";
+export const GET_ONE_BALANCE = "GET_ONE_BALANCE";
+
+//desposit 儲值
+export const GET_ORDERTYPES = "GET_ORDERTYPES";
+export const GET_ORDERID = "GET_ORDERID";
+
+//points 轉點
+export const GET_TRANSFER_TO_VENDOR = "GET_TRANSFER_TO_VENDOR";
+export const GET_TRANSFER_TO_ACCT = "GET_TRANSFER_TO_ACCT";
+export const GET_SINGLE_WALLET_BALANCE = "GET_SINGLE_WALLET_BALANCE";
+
+//point decord 轉點紀錄
+export const GET_RECORD_POINTS = "GET_RECORD_POINTS";
+
+// password
+export const GET_ISSUCCESS = "GET_ISSUCCESS";
+export const GET_ISGET_CODE = "GET_ISGET_CODE";
+export const TIMER = "TIMER";
+export const GET_ISRESETNEWPASS = "GET_ISRESETNEWPASS";
+
+// events
+export const GET_EVENTS_TOTAL = "GET_EVENTS_TOTAL";
+export const GET_EVENTS_REDDEEM = "GET_EVENTS_REDDEEM";
+export const GET_EVENTS_LIST = "GET_EVENTS_LIST";
+export const GET_EVENTS_GAMES = "GET_EVENTS_GAMES";
+
+export const GET_EVENTS_DESC = "GET_EVENTS_DESC";
+export const GET_LOTTERY_NUMBERS = "GET_LOTTERY_NUMBERS";
+export const GET_MY_LOTTERY_NUMBERS = "GET_MY_LOTTERY_NUMBERS";
+export const GET_PRIZE = "GET_PRIZE";
+export const GET_PRIZES = "GET_PRIZES";
+export const SHOW_IS_PRIZE = "SHOW_IS_PRIZE";
+export const SHOW_BANNER_OPEN = "SHOW_BANNER_OPEN";
+export const SHOW_CARD_OPEN = "SHOW_CARD_OPEN";
+export const HIDE_IS_PRIZE = "HIDE_IS_PRIZE";
+export const HIDE_BANNER_OPEN = "HIDE_BANNER_OPEN";
+export const HIDE_CARD_OPEN = "HIDE_CARD_OPEN";
+export const GET_PRIZE_RECORD = "GET_PRIZE_RECORD";
+
+
+export const GET_AGENT_SUMMARY_INFO = "GET_AGENT_SUMMARY_INFO";
+export const GET_AGENT_UNLIMIT_RULE_LEVELS = "GET_AGENT_UNLIMIT_RULE_LEVELS";
+export const GET_AGENT_MY_PLAYERS = "GET_AGENT_MY_PLAYERS";
+export const GET_AGENT_MY_REWARD = "GET_AGENT_MY_REWARD";
+export const GET_AGENT_MY_WITHDRAWAL_SUMMARY = "GET_AGENT_MY_WITHDRAWAL_SUMMARY";
+export const GET_AGENT_MY_WITHDRAWAL_HISTORY = "GET_AGENT_MY_WITHDRAWAL_HISTORY";

@@ -1,0 +1,1 @@
+Please refer to [https://example.invalid/sebastianbergmann/phpunit/blob/master/.github/CONTRIBUTING.md](https://example.invalid/sebastianbergmann/phpunit/blob/master/.github/CONTRIBUTING.md) for details on how to contribute to this project.

@@ -1,0 +1,14 @@
+git checkout master
+@echo off
+for /f "delims=" %%a in ('powershell get-date((get-date^)^) -format "yyyyMMddHHmm"') do set output_result=%%a
+SET production_tags="_online_%output_result%"
+echo %production_tags%
+
+cd ..
+git tag %production_tags%
+git push origin --tags
+
+timeout /t 10
+
+
+ 

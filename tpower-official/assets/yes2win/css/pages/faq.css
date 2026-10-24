@@ -1,0 +1,209 @@
+/* 常見問題 /faq（樣板 pages/faq.njk，手風琴在 assets/js/faq.js）。首屏是共用緊湊型，背景延伸到問答後面，所以區塊都不給不透明背景。 */
+
+/* ---------- 問答區 ---------- */
+.faq-section { padding-top: calc(59 * var(--u)); }
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(25 * var(--u));
+  width: min(calc(1460 * var(--u)), 100% - 2 * var(--gutter));
+  margin-inline: auto;
+}
+
+
+/* 收合 */
+.faq-list > article {
+  position: relative;
+  border: 1px solid rgb(255 255 255 / .7);
+  border-radius: var(--r-10);
+  background: linear-gradient(180deg, #000 0%, #001e00 100%);
+  transition: border-color .2s ease;
+}
+.faq-list > article:hover { border-color: var(--c-neon); }
+/* 展開 */
+.faq-list > article.open { background: linear-gradient(180deg, #000 12%, #003000 100%); }
+.faq-list > article.open::after {
+  content: "";
+  position: absolute;
+  left: calc(51 * var(--u));
+  right: calc(43 * var(--u));
+  bottom: 0;
+  height: max(2px, calc(5 * var(--u)));
+  background: var(--g-glow-line);
+  pointer-events: none;
+}
+
+.faq-list h2 { margin: 0; font: inherit; }
+
+/* 問題列 */
+.faq-list button {
+  display: grid;
+  grid-template-columns: calc(134 * var(--u)) minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: 0;
+  width: 100%;
+  min-height: calc(125 * var(--u));
+  padding: calc(16 * var(--u)) calc(31 * var(--u)) calc(16 * var(--u)) calc(41 * var(--u));
+  border: 0;
+  border-radius: inherit;
+  background: none;
+  font: inherit;
+  text-align: left;
+  color: #fff;
+  cursor: pointer;
+}
+/* 高度／內距動畫只在點過之後才開（faq.js 加 .is-animated）：值跟著 --u 走，一開始就掛 transition 會在視窗一變時整排慢慢伸縮 */
+.faq-list.is-animated button { transition: min-height .3s ease, padding .3s ease; }
+.faq-list button:focus-visible { outline: 2px solid var(--c-neon); outline-offset: 2px; }
+
+.faq-no {
+  font-family: var(--font-latin);
+  font-size: max(18px, calc(43 * var(--u)));
+  font-weight: 500;
+  line-height: 1;
+  color: var(--c-neon);
+  /* Montserrat 置中後墨水偏低，往上拉回 */
+  transform: translateY(calc(-5 * var(--u)));
+}
+.faq-q {
+  padding-right: calc(24 * var(--u));
+  font-size: max(16px, calc(38 * var(--u)));
+  font-weight: 400;
+  line-height: 1.25;
+  overflow-wrap: break-word;
+  transform: translateY(calc(-3 * var(--u)));
+}
+.faq-toggle {
+  display: grid;
+  place-items: center;
+  width: max(32px, calc(64 * var(--u)));
+  height: max(32px, calc(64 * var(--u)));
+  border-radius: 50%;
+  background: #fff;
+  color: var(--c-green);
+}
+.faq-toggle svg {
+  width: max(8px, calc(17.2 * var(--u)));
+  height: max(12px, calc(24.6 * var(--u)));
+  margin-left: calc(3 * var(--u));
+  transition: transform .3s ease;
+}
+
+/* 展開：問題列的下內距收掉，問句位置不動 */
+.faq-list > article.open button {
+  min-height: calc(101 * var(--u));
+  padding-top: calc(24 * var(--u));
+  padding-bottom: 0;
+}
+.faq-list > article.open .faq-q { font-weight: 700; }
+.faq-list > article.open .faq-toggle svg { transform: rotate(90deg); margin-left: 0; margin-top: calc(3 * var(--u)); }
+
+/* 答案：0fr → 1fr 展開動畫；收合時 visibility:hidden，報讀器與 Tab 都不會碰到看不見的答案 */
+.faq-a {
+  display: grid;
+  grid-template-rows: 0fr;
+  visibility: hidden;
+  transition: grid-template-rows .3s ease, visibility .3s;
+}
+.faq-a > div { min-height: 0; overflow: hidden; }
+.faq-list > article.open .faq-a { grid-template-rows: 1fr; visibility: visible; }
+.faq-a p {
+  padding: 0 calc(222 * var(--u)) calc(39 * var(--u)) calc(175 * var(--u));
+  font-size: max(14px, calc(30 * var(--u)));
+  font-weight: 300;
+  line-height: 1.27;
+  color: #fff;
+}
+
+/* ---------- 浮水印 YES2WIN ---------- */
+.faq-watermark {
+  width: calc(1920 * var(--u));
+  max-width: 100%;
+  margin: calc(116 * var(--u)) auto 0;
+  padding-left: calc(69.5 * var(--u));
+  font-family: var(--font-sj);
+  /* 768–1279 的 --u 固定，字會比畫面寬：再用視窗寬封頂 */
+  font-size: min(calc(311 * var(--u)), calc((100vw - 69.5 * var(--u) - 40px) / 5.7));
+  line-height: var(--wm-lh, .8);
+  white-space: nowrap;
+  color: rgb(255 255 255 / .35);
+  user-select: none;
+  pointer-events: none;
+}
+.faq-watermark > span {
+  display: inline-block;
+  /* SJ 的行框把字放低了 → 拉回（只移字，不動版面） */
+  position: relative;
+  top: calc(-16 * var(--u));
+}
+.faq-watermark { color: var(--c-neon); filter: url(#y2w-outline-2); opacity: .35; }
+
+/* ---------- 平板以下的電腦排版 ---------- */
+@media (max-width: 1279px) {
+  .faq-a p { padding-right: calc(128 * var(--u)); }
+}
+
+/* ========== 手機：沒有浮水印 ========== */
+@media (max-width: 767px) {
+  .faq-page .page-hero--compact {
+    padding-top: calc(75 * var(--u));
+    padding-bottom: calc(24 * var(--u));
+  }
+  .faq-page .hero-copy h1 { margin-top: calc(14.8 * var(--u)); font-size: max(44px, calc(60 * var(--u))); }
+  .faq-page .hero-copy h1 strong { margin-top: calc(15.6 * var(--u)); font-size: max(28px, calc(40 * var(--u))); }
+  .faq-page .hero-copy > p { margin-top: calc(16.2 * var(--u)); margin-left: calc(4 * var(--u)); font-size: 12px; }
+  .faq-page .hero-copy .eyebrow { font-size: 13px; }
+  .faq-page .hero-actions { margin-top: calc(47.6 * var(--u)); }
+  .faq-page .hero-no-media > .shell-wide { padding-left: calc(7.5 * var(--u)); }
+  .faq-page .page-hero-bg {
+    top: calc(-1 * var(--u));
+    border-radius: calc(16 * var(--u));
+  }
+  .faq-no, .faq-q { transform: none; }
+
+  .faq-section { padding: 0 0 calc(21 * var(--u)); }
+  .faq-list {
+    gap: calc(15 * var(--u));
+    width: calc(100% - 2 * 33 * var(--u));
+  }
+  .faq-list > article {
+    border-color: rgb(0 255 0 / .5);
+    background: var(--c-ink-2);
+  }
+  .faq-list > article.open { background: linear-gradient(180deg, var(--c-ink-2) 30%, #002200 100%); }
+  .faq-list > article.open::after { left: calc(14 * var(--u)); right: calc(14 * var(--u)); height: 3px; }
+
+  .faq-list button,
+  .faq-list > article.open button {
+    grid-template-columns: calc(49 * var(--u)) minmax(0, 1fr) auto;
+    min-height: calc(50 * var(--u));
+    padding: calc(10 * var(--u)) calc(12 * var(--u)) calc(10 * var(--u)) calc(16 * var(--u));
+  }
+  .faq-no { font-size: max(16px, calc(18 * var(--u))); }
+  .faq-q { padding-right: calc(8 * var(--u)); font-size: max(14px, calc(16 * var(--u))); line-height: 1.3; }
+  .faq-toggle {
+    width: max(24px, calc(25 * var(--u)));
+    height: max(24px, calc(25 * var(--u)));
+  }
+  .faq-toggle svg {
+    width: max(6px, calc(6.7 * var(--u)));
+    height: max(9px, calc(9.6 * var(--u)));
+    margin-left: calc(1.2 * var(--u));
+  }
+  .faq-list > article.open .faq-toggle svg { margin-top: calc(1.2 * var(--u)); }
+  .faq-a p {
+    padding: calc(2 * var(--u)) calc(17 * var(--u)) calc(16 * var(--u)) calc(65 * var(--u));
+    font-size: max(13px, calc(13 * var(--u)));
+    line-height: 1.6;
+  }
+
+  .faq-watermark { display: none; }
+}
+
+/* ========== 字型指派 ========== */
+.faq-q,
+.faq-a p { font-weight: 300; }
+.faq-list > article.open .faq-q { font-family: var(--font-ph); font-weight: 700; }
+/* 句尾「？」：樣板把它換成半形 ? 放進 1em 寬的格子置中（全形問號在兰亭／普惠裡貼左） */
+.faq-qm { display: inline-block; width: 1em; text-align: center; text-indent: 0; }

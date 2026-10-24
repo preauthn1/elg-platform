@@ -1,0 +1,32 @@
+{
+    "repositories": {
+        "resource-dev-package": {
+            "type": "path",
+            "url": "../../components/resource",
+            "options": {
+                "symlink": true
+            }
+        },
+        "support-package": {
+            "type": "vcs",
+            "url": "ssh://user@example.invalid:1022/target/components/support.git"
+        },
+        "resource-package": {
+            "type": "vcs",
+            "url": "ssh://user@example.invalid:1022/target/components/resource.git"
+        }
+    },
+
+    "require": {
+        "target/resource": "master@dev"
+    },
+    "config": {
+        "vendor-dir": "components",
+        "preferred-install": "dist",
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "gitlab-domains": [
+            "example.invalid"
+        ]
+    }
+}

@@ -1,0 +1,48 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-internal-deployment
+spec:
+  selector:
+    matchLabels:
+      app: api-internal
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: api-internal
+    spec:
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: nginx
+          image: "example.invalid/tp-wz3-rd/api-internal-nginx-image:latest"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: fluentd
+          image: "example.invalid/tp-wz3-rd/api-internal-fluentd-image:latest"
+          resources:
+            requests:
+              cpu: 50m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: php
+          image: "example.invalid/tp-wz3-rd/api-internal-image:latest"
+          resources:
+            requests:
+              cpu: 100m
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; chmod -R 777 storage"]

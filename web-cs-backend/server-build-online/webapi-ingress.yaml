@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: cs-backend-web-ingress
+  annotations:
+    example.invalid/ingress.global-static-ip-name: "customerservice-backend-static-ip"    
+spec:
+  tls:
+    - secretName: everluckgames-ingress
+    - secretName: cs-backend-ingress
+    - secretName: cs-backend-tm66s-com-nginx-0728175902
+  rules:
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: cs-backend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: cs-backend-web-service
+          servicePort: nginx-port
+  - host: example.invalid
+    http:
+      paths:
+      - backend:
+          serviceName: cs-backend-web-service
+          servicePort: nginx-port

@@ -1,0 +1,20 @@
+/* ElImageViewer 的關閉、翻頁與工具列按鈕，背景色取的是文字色 token
+   （--el-text-color-regular，本專案為近白色），圖示顏色卻是寫死的 #fff，
+   等於白底白字。遮罩本身恆為半透明黑，故統一改深色底。
+
+   ElementPlus 的樣式隨元件 chunk 載入，會排在本檔之後，同權重下後者勝，
+   因此這裡一律用兩個 class（元素同時帶 __btn 與各自的 class）把權重墊高。 */
+.el-image-viewer__btn.el-image-viewer__close,
+.el-image-viewer__btn.el-image-viewer__prev,
+.el-image-viewer__btn.el-image-viewer__next,
+.el-image-viewer__btn.el-image-viewer__actions {
+  background-color: rgb(0 0 0 / 60%);
+  border-color: transparent;
+  opacity: 1;
+}
+
+.el-image-viewer__btn.el-image-viewer__close:hover,
+.el-image-viewer__btn.el-image-viewer__prev:hover,
+.el-image-viewer__btn.el-image-viewer__next:hover {
+  background-color: rgb(0 0 0 / 80%);
+}

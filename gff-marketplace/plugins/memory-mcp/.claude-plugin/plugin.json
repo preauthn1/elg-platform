@@ -1,0 +1,6 @@
+{
+  "name": "memory-mcp",
+  "description": "共用長期記憶 MCP（memory，又稱「魔鏡」，直連 LAN 共享服務），全員可用；位址與 API key 由環境變數 MEMORY_MCP_URL、MEMORY_API_KEY 提供",
+  "author": { "name": "rb" },
+  "keywords": ["memory", "mcp", "記憶", "共用", "魔鏡"]
+}

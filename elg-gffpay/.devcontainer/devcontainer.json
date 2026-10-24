@@ -1,0 +1,21 @@
+{
+    "name": "Laravel Dev Container",
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "bmewburn.vscode-intelephense-client",
+                "onecentlin.laravel-blade",
+                "ms-azuretools.vscode-docker",
+                "mhutchie.git-graph"
+            ]
+        }
+    },
+    "forwardPorts": [8000],
+    "mounts": [
+        "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    ],
+    "remoteUser": "root"
+} 

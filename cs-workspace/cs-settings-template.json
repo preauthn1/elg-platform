@@ -1,0 +1,16 @@
+{
+  "extraKnownMarketplaces": {
+    "gff-marketplace": {
+      "source": {
+        "source": "git",
+        "url": "http://example.invalid:1688/target/gffv3/GFF-Marketplace.git"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "memory-mcp@gff-marketplace": true,
+    "gcp-mcp@gff-marketplace": true,
+    "gitlab-mcp@gff-marketplace": true,
+    "op-toolkit@gff-marketplace": true
+  }
+}

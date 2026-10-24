@@ -1,0 +1,15 @@
+image: dotsunited/git-ftp
+
+build:
+  script:
+    # Sync to SFTP
+    - ls ./
+    - pwd
+    - git ftp push -u upuser -p dI20tgkd sftp://0.0.0.0 -vv --auto-init --syncroot . --remote-root /data/servers/fake/seo-site
+    - ls -al
+    - ./build-scripts/execute_remote_build.sh
+  tags:
+    - golang
+  only:
+    - develop
+    - main

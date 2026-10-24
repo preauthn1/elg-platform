@@ -1,0 +1,258 @@
+# 共用 extra_hosts：php-fpm / php-fpm8 / horizon 三個容器都要能解析 *.local 到 host
+x-extra_hosts: &common_hosts
+    - "agent-api.local:host-gateway"
+    - "agent-web.local:host-gateway"
+    - "agent-web2.local:host-gateway"
+    - "cronjob.local:host-gateway"
+    - "external-api.local:host-gateway"
+    - "front-api.local:host-gateway"
+    - "internal-api.local:host-gateway"
+    - "socket-api.local:host-gateway"
+    - "apis.local:host-gateway"
+    - "dbc.local:host-gateway"
+
+# 共用 logging：json-file 輪替，避免 docker log 無上限吃滿磁碟
+x-logging: &common-logging
+    driver: "json-file"
+    options:
+        max-size: "100m"
+        max-file: "3"
+
+services:
+    # Nginx service
+    web:
+        image: nginx:${NGINX_VERSION:-alpine}
+        container_name: web
+        ports:
+            - "80:80"
+            - "443:443"
+        volumes:
+            - ${WORKSPACE_PATH}:/var/www:cached
+            - ${AUTO_WORKSPACE_PATH}:/var/www-auto:cached
+            - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+            - ./nginx/upstream.conf:/etc/nginx/conf.d/upstream.conf:ro
+            - ./nginx/sites/:/etc/nginx/sites-available:ro
+            - ./nginx/logs:/var/log/nginx
+            - ./nginx/nginx-reload.sh:/docker-entrypoint.d/50-nginx-reload.sh:ro
+        depends_on:
+            php-fpm:
+                condition: service_started
+            php-fpm8:
+                condition: service_started
+        restart: unless-stopped
+        logging: *common-logging
+        networks:
+            - default
+
+    #  PHP-FPM workspace for admin service
+    php-fpm:
+        build:
+            context: ./php-fpm
+            args:
+                - PHP_VERSION=${PHP_VERSION}
+                - NODEJS_VERSION=${NODEJS_VERSION}
+                - TIMEZONE=${TIMEZONE}
+                - INSTALL_ZSH=${INSTALL_ZSH}
+        container_name: php-fpm
+        volumes:
+            - ${WORKSPACE_PATH}:/var/www:cached
+            - ${AUTO_WORKSPACE_PATH}:/var/www-auto:cached
+            - ./php-fpm/ini/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
+            - ${SSH_KEY_PATH}:/root/.ssh/id_rsa:ro
+            - ${SSH_KEY_PATH}.pub:/root/.ssh/id_rsa.pub:ro
+            - ~/.ssh/known_hosts:/root/.ssh/known_hosts
+            - ~/.gitconfig:/root/.gitconfig:ro
+            - ./php-fpm/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+            - ./php-fpm/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./php-fpm/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+        extra_hosts: *common_hosts
+        depends_on:
+            mysql8:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        tty: true
+        restart: unless-stopped
+        logging: *common-logging
+        networks:
+            - default
+
+    #  PHP-FPM workspace for admin service
+    php-fpm8:
+        build:
+            context: ./php-fpm8
+            args:
+                - PHP_VERSION=${PHP8_VERSION}
+                - NODEJS_VERSION=${NODEJS_VERSION}
+                - TIMEZONE=${TIMEZONE}
+                - INSTALL_ZSH=${INSTALL_ZSH}
+        container_name: php-fpm8
+        volumes:
+            - ${WORKSPACE_PATH}:/var/www:cached
+            - ${AUTO_WORKSPACE_PATH}:/var/www-auto:cached
+            - ./php-fpm8/ini/php${PHP8_VERSION}.ini:/usr/local/etc/php/php.ini
+            - ${SSH_KEY_PATH}:/root/.ssh/id_rsa:ro
+            - ${SSH_KEY_PATH}.pub:/root/.ssh/id_rsa.pub:ro
+            - ~/.ssh/known_hosts:/root/.ssh/known_hosts
+            - ~/.gitconfig:/root/.gitconfig:ro
+            - ./php-fpm8/php-fpm.d/www.conf:/usr/local/etc/php-fpm.d/www.conf
+            - ./php-fpm8/conf.d/xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./php-fpm8/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+        extra_hosts: *common_hosts
+        depends_on:
+            mysql8:
+                condition: service_healthy
+            redis:
+                condition: service_healthy
+        tty: true
+        restart: unless-stopped
+        logging: *common-logging
+        networks:
+            - default
+
+    # Laravel Horizon queue worker（同時支援 WORKSPACE_PATH 與 AUTO_WORKSPACE_PATH）
+    horizon:
+        profiles:
+            - disabled
+        build:
+            context: ./php-fpm8
+            args:
+                - PHP_VERSION=${PHP8_VERSION}
+                - NODEJS_VERSION=${NODEJS_VERSION}
+                - TIMEZONE=${TIMEZONE}
+                - INSTALL_ZSH=${INSTALL_ZSH}
+        container_name: horizon
+        working_dir: /
+        environment:
+            - HORIZON_APP_PATH=${HORIZON_APP_PATH:-/var/www/APIs}
+        command:
+            - sh
+            - -lc
+            - |
+                if [ ! -f "$${HORIZON_APP_PATH}/artisan" ]; then
+                    echo "horizon: artisan not found: $${HORIZON_APP_PATH}/artisan" >&2
+                    exit 1
+                fi
+                cd "$${HORIZON_APP_PATH}"
+                exec php artisan horizon
+        # Horizon 收 SIGTERM 後需要時間讓 job 跑完，比照 supervisor stopwaitsecs=60
+        stop_grace_period: 60s
+        volumes:
+            - ${WORKSPACE_PATH}:/var/www:cached
+            - ${AUTO_WORKSPACE_PATH}:/var/www-auto:cached
+            - ./php-fpm8/ini/php${PHP8_VERSION}.ini:/usr/local/etc/php/php.ini
+            # 專用停用檔：與 php-fpm8 的 xdebug.ini 脫鉤，該檔解除註解除錯時不影響 horizon
+            # （xdebug 常駐開銷會使 master 超過 horizon memory_limit=64MB 而重啟迴圈）
+            - ./php-fpm8/conf.d/xdebug-disabled.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
+            - ./php-fpm8/conf.d/error_reporting.ini:/usr/local/etc/php/conf.d/error_reporting.ini
+        extra_hosts: *common_hosts
+        depends_on:
+            redis:
+                condition: service_healthy
+            mysql8:
+                condition: service_healthy
+        restart: unless-stopped
+        logging: *common-logging
+        networks:
+            - default
+
+    mysql8:
+        build:
+            context: ./mysql8
+            args:
+                - MYSQL_VERSION=${MYSQL8_VERSION}
+        container_name: mysql8
+        ports:
+            - "${MYSQL8_PORT}:3306"
+        environment:
+            - MYSQL_DATABASE=${MYSQL_DATABASE}
+            - MYSQL_USER=${MYSQL_USER}
+            - MYSQL_PASSWORD=[REDACTED]
+            - MYSQL_ROOT_PASSWORD=[REDACTED]
+            - TZ=${TIMEZONE}
+        volumes:
+            - ./mysql8/data:/var/lib/mysql
+            - ./mysql8/log:/var/log/mysql
+            - ./mysql8/config:/etc/mysql/conf.d
+        healthcheck:
+            test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+            start_period: 30s
+        restart: unless-stopped
+        logging: *common-logging
+        deploy:
+            resources:
+                limits:
+                    memory: 2G
+                reservations:
+                    memory: 512M
+        networks:
+            - default
+
+    # Node 24：前端開發用（vben monorepo，engines: node ^22.18 || ^24）
+    node24:
+        image: node:${NODEJS24_VERSION:-24}
+        container_name: node24
+        working_dir: /var/www
+        ports:
+            - "5777:5777"
+            - "5320:5320"
+        environment:
+            - COREPACK_ENABLE_DOWNLOAD_PROMPT=0
+            # pnpm-lock.yaml 記錄的 tarball 來源是官方 registry，鏡像站（agent-backend/.npmrc）
+            # 對部分套件（如 @jspm/fetch@0.1.0）回報的 metadata 網址不同，
+            # 會觸發 pnpm 的供應鏈完整性檢查而擋下安裝（ERR_PNPM_TARBALL_URL_MISMATCH）。
+            # 僅覆寫這個容器的 registry，不動 .npmrc，其他人/CI 不受影響。
+            - npm_config_registry=https://example.invalid
+            # host 裝的 node_modules 記錄的 store 是 ~/Library/pnpm/store，容器內是 /var/www/.pnpm-store，
+            # 路徑不一致時 pnpm 會要求砍掉重灌並互動確認；tty: true 讓它停在提示等人按 Y 而永遠卡住。
+            # CI=true 讓 pnpm 關閉 confirmModulesPurge 直接重灌（pnpm 官方非互動路徑）。
+            - CI=true
+            # agent-backend 的 git commit 在容器內做（lefthook 的 pre-commit / commit-msg 需要容器內的 node_modules），
+            # 作者身分沿用 host 的 ~/.gitconfig（下方唯讀掛載）。host 掛入的 .git owner 與容器內執行者不同，
+            # 會觸發 git 的 dubious ownership 保護；safe.directory 改由 GIT_CONFIG_* 環境變數注入（git ≥ 2.31），
+            # 不再 `git config --global --add`——唯讀的 .gitconfig 寫不進去，且每次重啟都會多疊一筆重複項。
+            - GIT_CONFIG_COUNT=1
+            - GIT_CONFIG_KEY_0=safe.directory
+            - "GIT_CONFIG_VALUE_0=*"
+        volumes:
+            - ${WORKSPACE_PATH}:/var/www:cached
+            - ~/.gitconfig:/root/.gitconfig:ro
+        extra_hosts: *common_hosts
+        # 更新 corepack 後啟用 pnpm（版本依專案 package.json 的 packageManager），裝依賴並起 vite dev
+        # 用 dev:ele 而非 dev：repo 有 gateway / web-ele 兩個 app，`pnpm dev` 會跳互動選單卡住；agent-web2 vhost 接的是 web-ele:5777
+        # dubious ownership 的處理見上方 GIT_CONFIG_* 環境變數（原本在這裡 git config --global --add safe.directory）
+        command: sh -c "cd agent-backend && npm i -g corepack && corepack enable pnpm && pnpm install --registry=https://example.invalid && pnpm dev:ele"
+        tty: true
+        restart: unless-stopped
+        logging: *common-logging
+        networks:
+            - default
+
+    # Redis service
+    redis:
+        image: redis:${REDIS_VERSION:-latest}
+        container_name: redis
+        ports:
+            - "${REDIS_PORT}:6379"
+        healthcheck:
+            test: ["CMD", "redis-cli", "ping"]
+            interval: 10s
+            timeout: 5s
+            retries: 5
+        restart: unless-stopped
+        logging: *common-logging
+        deploy:
+            resources:
+                limits:
+                    memory: 512M
+                reservations:
+                    memory: 128M
+        networks:
+            - default
+
+networks:
+    default:
+        driver: bridge

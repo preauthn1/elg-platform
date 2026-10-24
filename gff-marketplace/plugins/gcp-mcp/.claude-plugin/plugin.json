@@ -1,0 +1,6 @@
+{
+  "name": "gcp-mcp",
+  "description": "GCP Observability MCP server（全員查詢 Cloud Logging 之共用基礎）。純 MCP server；多白標 GCP log 排查 skill（gcp-log-troubleshoot）已遷 apis-toolkit。",
+  "author": { "name": "rb" },
+  "keywords": ["gcp", "cloud-logging", "observability", "mcp", "gcp-log", "白標", "團隊基礎"]
+}

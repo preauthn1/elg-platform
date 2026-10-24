@@ -1,0 +1,115 @@
+stages:
+  - prepare
+
+prepare:
+  stage: prepare
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8-minimal:ae4fd248
+  tags:
+    - php8
+  needs:
+    - calculate_migration_hash
+  extends:
+    - .default_cache
+    - .default_variables
+    - .default_service
+    - .php_memory_variable
+  rules:
+    - when: always
+  before_script:
+      # 準備 .env.testing 和 .env
+      - |
+        cp .env.testing-ci .env.testing
+        cp .env.testing-ci .env
+        uname -a
+
+      # merge request 時執行 local merge
+      - |
+        if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ] && [ "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" = "main" ]; then
+          apt-get update && apt-get install -y git
+          git config --global user.email "user@example.invalid"
+          git config --global user.name "runner"
+
+          echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+          git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+          git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+          git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+        fi
+  script:
+    # 準備 vendor (composer install)
+    - |
+      if [ ! -d vendor ] || [ -z "$(ls -A vendor)" ]; then
+        echo "Running composer install"
+        apt-get update -yqq
+        apt-get install libicu-dev -yqq
+        docker-php-ext-install intl
+        composer config --global process-timeout 2000
+        # 設置 PHP 記憶體限制以避免 filament:upgrade 時記憶體耗盡
+        # 使用環境變數 PHP_MEMORY_LIMIT (預設 2G) 而非無限制，符合業界標準
+        export COMPOSER_MEMORY_LIMIT=${PHP_MEMORY_LIMIT:-2G}
+        php -d memory_limit=${PHP_MEMORY_LIMIT:-2G} $(which composer) install --no-progress --no-interaction --prefer-dist
+      else
+        echo "Using cached vendor/"
+      fi
+
+    # 準備 key
+    - php -d memory_limit=${PHP_MEMORY_LIMIT:-2G} artisan key:generate
+
+    # 等待 MySQL 服務就緒
+    - |
+      until mysql --ssl=0 -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD -e "SELECT 1"; do
+        echo "等待 MySQL 服務就緒..."
+        sleep 1
+      done
+
+    # 建立主資料庫（確保資料庫存在，migrate:fresh 只會操作表結構）
+    - |
+      echo "建立主資料庫: $MYSQL_DATABASE"
+      mysql --ssl=0 -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD -e "
+      CREATE DATABASE IF NOT EXISTS \`${MYSQL_DATABASE}\`
+      CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+      "
+
+    # migrate
+    - |
+      # 使用從 calculate_migration_hash job 匯出的 MIGRATION_HASH 環境變數
+      echo "Pre Migration hash: $(cat migration_hash.txt 2>/dev/null)"
+      echo "Cur Migration hash: $MIGRATION_HASH"
+
+      # 檢查是否存在 dump 或 hash 改變
+      if [ ! -f init.sql ] || [ ! -f init_log.sql ] || [ "$(cat migration_hash.txt 2>/dev/null)" != "$MIGRATION_HASH" ]; then
+        echo "init.sql/init_log.sql 不存在或 migration 變更，執行 migrate:fresh"
+        php -d memory_limit=${PHP_MEMORY_LIMIT:-2G} artisan migrate:fresh
+
+        # 備份主資料庫
+        mysqldump --ssl=0 -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --routines $MYSQL_DATABASE > init.sql
+
+        # 保存當前 hash        
+        echo $MIGRATION_HASH > migration_hash.txt
+        echo "已更新 init.sql、init_log.sql 與 migration_hash.txt"
+      else
+        echo "使用現有 dump，hash 未變"
+        # 恢復主資料庫
+        mysql --ssl=0 -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD $MYSQL_DATABASE < init.sql
+      fi
+
+     
+
+    # 檢查 PSR-4 autoloading standard    
+    - |
+      echo "檢查 PSR-4 autoloading standard"
+      composer dump-autoload > dump_output.txt 2>&1 
+      cat dump_output.txt
+      if grep -q "does not comply with psr-4 autoloading standard" dump_output.txt; then
+        echo "❌ PSR-4 autoloading check failed"
+        exit 1
+      fi
+      echo "✅ PSR-4 autoloading check passed"
+    
+    # 檢查 pint
+    - |
+      echo "檢查 pint"
+      vendor/bin/pint --test
+
+    # 單元測試
+    - php artisan test --testsuite=Unit
+    - php artisan test --testsuite=Feature

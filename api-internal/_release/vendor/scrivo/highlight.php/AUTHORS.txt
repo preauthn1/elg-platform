@@ -1,0 +1,306 @@
+Syntax highlighting with language autodetection in PHP.
+
+-------------------------------------------------------------------------------
+
+Current maintainer(s):
+
+    Vladimir Jimenez <user@example.invalid>
+
+Former maintainers:
+
+    Geert Bergman (original author) <user@example.invalid>
+
+Contributor(s):
+
+    Carsten Brandt <user@example.invalid>
+    Daniel Lynge
+    Daniel Gómez Pan <user@example.invalid>
+    Martin Folkers <user@example.invalid>
+
+-------------------------------------------------------------------------------
+
+highlight.js (the reference project)
+
+Current core developers (alphabetical):
+
+    Gidi Meir Morris <user@example.invalid>
+    Jan T. Sott <user@example.invalid>
+    Josh Goebel <user@example.invalid>
+    Li Xuanji <user@example.invalid>
+    Marcos Cáceres <user@example.invalid>
+    Sang Dang <user@example.invalid>
+
+Former maintainers:
+
+    Ivan Sagalaev (original author) <user@example.invalid>
+    Jeremy Hull <user@example.invalid>
+    Oleg Efimov <user@example.invalid>
+
+-------------------------------------------------------------------------------
+
+Language and style definitions (copied from the highlight.js project)
+
+    Aahan Krish <user@example.invalid>
+    Adam Joseph Cook <user@example.invalid>
+    Ahmad Awais <user@example.invalid>
+    Alberto Gimeno <user@example.invalid>
+    Alejandro Isaza <user@example.invalid>
+    Aleksandar Ruzicic <user@example.invalid>
+    Alex Arslan <user@example.invalid>
+    Alex McKibben <user@example.invalid>
+    Alexander Lichter <user@example.invalid>
+    Alexander Makarov <user@example.invalid>
+    Alexander Marenin <user@example.invalid>
+    Alexander Myadzel <user@example.invalid>
+    Alexis Hénaut <user@example.invalid>
+    Andres Täht <user@example.invalid>
+    Andrew Farmer <user@example.invalid>
+    Andrew Fedorov <user@example.invalid>
+    Andrey Vlasovskikh <user@example.invalid>
+    Angel G. Olloqui <user@example.invalid>
+    Anthony Dugois <user@example.invalid>
+    Anthony Scemama <user@example.invalid>
+    Antoine Boisier-Michaud <user@example.invalid>
+    Anton Kochkov <user@example.invalid>
+    Anton Kovalyov <user@example.invalid>
+    Antono Vasiljev <user@example.invalid>
+    Arctic Ice Studio <user@example.invalid>
+    Arthur Bikmullin <user@example.invalid>
+    Benjamin Auder <user@example.invalid>
+    Benjamin Pannell <user@example.invalid>
+    Billy Quith <user@example.invalid>
+    Boone Severson <user@example.invalid>
+    Boris Cherny <user@example.invalid>
+    Bram de Haan <user@example.invalid>
+    Brendan Rocks <user@example.invalid>
+    Brent Bradbury <user@example.invalid>
+    Brian Beck <user@example.invalid>
+    Brian Quistorff <user@example.invalid>
+    Bruno Dias <user@example.invalid>
+    Bryant Williams <user@example.invalid>
+    Builder's Brewery <user@example.invalid>
+    Camil Staps <user@example.invalid>
+    Carl Baxter <user@example.invalid>
+    Carlo Kok <user@example.invalid>
+    Casey Duncan <user@example.invalid>
+    Cedric Sohrauer <user@example.invalid>
+    Chris Eidhof <user@example.invalid>
+    Chris Kiehl <user@example.invalid>
+    Christophe de Dinechin <user@example.invalid>
+    Christopher Kaster <user@example.invalid>
+    Cédric Néhémie <user@example.invalid>
+    Damian Mee <user@example.invalid>
+    Damien White <user@example.invalid>
+    Dan Allen <user@example.invalid>
+    Dan Panzarella <user@example.invalid>
+    Dan Tao <user@example.invalid>
+    Daniel Gamage <user@example.invalid>
+    Daniel Kvasnicka <user@example.invalid>
+    Daniel Rosenwasser <user@example.invalid>
+    David Anson <user@example.invalid>
+    David Mohundro <user@example.invalid>
+    Denis Bardadym <user@example.invalid>
+    Denis Ciccale <user@example.invalid>
+    Dennis Titze <user@example.invalid>
+    Dirk Kirsten <user@example.invalid>
+    Dmitri Roudakov <user@example.invalid>
+    Dmitriy Tarasov <user@example.invalid>
+    Dmitry Kovega <user@example.invalid>
+    Dmitry Medvinsky <user@example.invalid>
+    Dmytrii Nagirniak <user@example.invalid>
+    Domen Kožar <user@example.invalid>
+    Dotan Dimet <user@example.invalid>
+    Dr. Drang <user@example.invalid>
+    Duncan Paterson <user@example.invalid>
+    Edwin Dalorzo <user@example.invalid>
+    Egor Rogov <user@example.invalid>
+    Eric Bailey <user@example.invalid>
+    Eric Knibbe <user@example.invalid>
+    Erik Osheim <user@example.invalid>
+    Erik Paluka <user@example.invalid>
+    Eugene Nizhibitsky <user@example.invalid>
+    Evgeny Stepanischev <user@example.invalid>
+    Flaviu Tamas <user@example.invalid>
+    G8t Guy <user@example.invalid>
+    Gavin Siu <user@example.invalid>
+    Google Inc. (David Benjamin) <user@example.invalid>
+    Greg Cline <user@example.invalid>
+    Gu Yiling <user@example.invalid>
+    Guannan Wei <user@example.invalid>
+    Guillaume Gomez <user@example.invalid>
+    Guillaume Laforge <user@example.invalid>
+    Gustavo Costa <user@example.invalid>
+    Hakan Özler <user@example.invalid>
+    Hale Chan <user@example.invalid>
+    Harmon <user@example.invalid>
+    Heiko August <user@example.invalid>
+    Henrik Feldt <user@example.invalid>
+    Herbert Shin <user@example.invalid>
+    Igor Kalnitsky <user@example.invalid>
+    Ike Ku <user@example.invalid>
+    Ilya Baryshev <user@example.invalid>
+    Ilya Vassilevsky <user@example.invalid>
+    innocenat <user@example.invalid>
+    Ivan Dementev <user@example.invalid>
+    Jacob Childress <user@example.invalid>
+    Jan Berkel <user@example.invalid>
+    Jan Kühle <user@example.invalid>
+    Janis Voigtländer <user@example.invalid>
+    Jason Diamond <user@example.invalid>
+    Jason Jacobson <user@example.invalid>
+    Jason Tate <user@example.invalid>
+    Jay Strybis <user@example.invalid>
+    Jeff Escalante <user@example.invalid>
+    Jeffrey Arnold <user@example.invalid>
+    Jen Evers-Corvina <user@example.invalid>
+    Joe Cheng <user@example.invalid>
+    Joe Eli McIlvain <user@example.invalid>
+    John Crepezzi <user@example.invalid>
+    John Foster <user@example.invalid>
+    Jon Evans <user@example.invalid>
+    Jonas Follesø <user@example.invalid>
+    Jonathan Suever <user@example.invalid>
+    Jordi Petit <user@example.invalid>
+    Jose Molina Colmenero <user@example.invalid>
+    Josh Adams <user@example.invalid>
+    Joël Porquet <user@example.invalid>
+    JP Verkamp <user@example.invalid>
+    Jun Yang <user@example.invalid>
+    Kasper Andersen <user@example.invalid>
+    Kassio Borges <user@example.invalid>
+    Kelley van Evert <user@example.invalid>
+    Kenneth Fuglsang <user@example.invalid>
+    Kenta Sato <user@example.invalid>
+    Kenton Hamaluik <user@example.invalid>
+    Kirk Kimmel <user@example.invalid>
+    Konstantin Evdokimenko <user@example.invalid>
+    Kristoffer Gronlund <user@example.invalid>
+    Kurt Emch <user@example.invalid>
+    Ladislav Prskavec <user@example.invalid>
+    Lars Schulna <user@example.invalid>
+    Laurent Voullemier <user@example.invalid>
+    Loren Segal <user@example.invalid>
+    Louis Barranqueiro <user@example.invalid>
+    Lucas Mazza <user@example.invalid>
+    Lucas Werkmeister <user@example.invalid>
+    Luigi Maselli <user@example.invalid>
+    Luke Holder <user@example.invalid>
+    Magnus Madsen <user@example.invalid>
+    MajestiC <user@example.invalid>
+    Manh Tuan <user@example.invalid>
+    Marc Fornos <user@example.invalid>
+    Martin Braun <user@example.invalid>
+    Martin Clausen <user@example.invalid>
+    Martin Dilling-Hansen <user@example.invalid>
+    Marvin Saignat <user@example.invalid>
+    Matt Diephouse <user@example.invalid>
+    Matt Evans <user@example.invalid>
+    Matthew Daly <user@example.invalid>
+    Max Mikhailov <user@example.invalid>
+    Maxim Dikun <user@example.invalid>
+    Mehdi Dogguy <user@example.invalid>
+    Melissa Geels <user@example.invalid>
+    Meseta <user@example.invalid>
+    Michael Allen <user@example.invalid>
+    Michael Johnston <user@example.invalid>
+    Michael Rodler <user@example.invalid>
+    Michal Gabrukiewicz <user@example.invalid>
+    Mick MacCallum <user@example.invalid>
+    Mickaël Delahaye <user@example.invalid>
+    Mikko Kouhia <user@example.invalid>
+    Morten Piibeleht <user@example.invalid>
+    mucaho <user@example.invalid>
+    MY Sun <user@example.invalid>
+    Nate Cook <user@example.invalid>
+    Nathan Grigg <user@example.invalid>
+    Nebuleon Fumika <user@example.invalid>
+    Nic West <user@example.invalid>
+    Nicholas Blumhardt <user@example.invalid>
+    Nicolas Braud-Santoni <user@example.invalid>
+    Nicolas Le Gall <user@example.invalid>
+    Nicolas LLOBERA <user@example.invalid>
+    Nikita Ledyaev <user@example.invalid>
+    Nikita Savchenko <user@example.invalid>
+    Nikolay Lisienko <user@example.invalid>
+    Nikolay Zakharov <user@example.invalid>
+    noformnocontent <user@example.invalid>
+    Oleg Volchkov <user@example.invalid>
+    Panu Horsmalahti <user@example.invalid>
+    Pascal Hurni <user@example.invalid>
+    Pedro Oliveira <user@example.invalid>
+    Peter Leonov <user@example.invalid>
+    Peter Piwowarski <user@example.invalid>
+    Philipp A. <user@example.invalid>
+    Philipp Wolfer <user@example.invalid>
+    Philippe Charrière <user@example.invalid>
+    Poren Chiang <user@example.invalid>
+    prince <user@example.invalid>
+    pumbur <user@example.invalid>
+    Qeole <user@example.invalid>
+    Radek Liska <user@example.invalid>
+    Raivo Laanemets <user@example.invalid>
+    Ralf Bitter <user@example.invalid>
+    Raphaël Assénat <user@example.invalid>
+    Raphaël Parrëe <user@example.invalid>
+    Rene Saarsoo <user@example.invalid>
+    Robert Dodier <user@example.invalid>
+    Robin Ward <user@example.invalid>
+    Roman Shmatov <user@example.invalid>
+    Ruslan Keba <user@example.invalid>
+    Sam Wu <user@example.invalid>
+    Samia Ali <user@example.invalid>
+    Samuel Reed <user@example.invalid>
+    Sean T. Allen <user@example.invalid>
+    Sejin Jeon <user@example.invalid>
+    Seongwon Lee <user@example.invalid>
+    Sergey Baranov <user@example.invalid>
+    Sergey Bronnikov <user@example.invalid>
+    Sergey Ignatov <user@example.invalid>
+    Sergey Mashkov <user@example.invalid>
+    Sergey Sobko <user@example.invalid>
+    Sergey Tikhomirov <user@example.invalid>
+    Sergey Vidyuk <user@example.invalid>
+    Shuen-Huei Guan <user@example.invalid>
+    Simon Madine <user@example.invalid>
+    Stanislav Belov <user@example.invalid>
+    Stefan Bechert <user@example.invalid>
+    Stefan Wienert <user@example.invalid>
+    Stefania Mellai <user@example.invalid>
+    Stephan Boyer <user@example.invalid>
+    Stephan Kountso <user@example.invalid>
+    Sylvestre Ledru <user@example.invalid>
+    Søren Enevoldsen <user@example.invalid>
+    Taif Alimov <user@example.invalid>
+    Taisuke Fujimoto <user@example.invalid>
+    Taneli Vatanen <user@example.invalid>
+    Taras <user@example.invalid>
+    Taufik Nurrohman <user@example.invalid>
+    Thomas Applencourt <user@example.invalid>
+    Thomas Reichel <user@example.invalid>
+    Tim Schumacher <user@example.invalid>
+    Travis Odom <user@example.invalid>
+    Trey Shugart <user@example.invalid>
+    Tristano Ajmone <user@example.invalid>
+    Tristian Kelly <user@example.invalid>
+    Troy Kershaw <user@example.invalid>
+    Tsuyusato Kitsune <user@example.invalid>
+    Vadimtro <user@example.invalid>
+    Vah <user@example.invalid>
+    Valerii Hiora <user@example.invalid>
+    Vasily Mikhailitchenko <user@example.invalid>
+    Vasily Polovnyov <user@example.invalid>
+    Victor Karamzin <user@example.invalid>
+    Victor Zhou <user@example.invalid>
+    Vincent Zurczak <user@example.invalid>
+    Vladimir Epifanov <user@example.invalid>
+    Vladimir Ermakov <user@example.invalid>
+    Vladimir Gubarkov <user@example.invalid>
+    Vladimir Moskva <user@example.invalid>
+    Vsevolod Solovyov <user@example.invalid>
+    Yoshihide Jimbo <user@example.invalid>
+    Yuri Ivanov <user@example.invalid>
+    Yuri Mazursky <user@example.invalid>
+    Yury Selivanov <user@example.invalid>
+    Zaripov Yura <user@example.invalid>
+    Zaven Muradyan <user@example.invalid>
+    Zena Treep <user@example.invalid>

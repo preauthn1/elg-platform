@@ -1,0 +1,35 @@
+INSERT INTO `xsgcasino`.`vendor_infos` (
+  `name`,
+  `type`,
+  `vendor_id`,
+  `currency`,
+  `rate`,
+  `transfer_min_amount`,
+  `info`,
+  `prepared_account_number`,
+  `account_prefix`,
+  `cost`,
+  `remark`,
+  `status`,
+  `rolling_chip_status`,
+  `admin`,
+  `deposit_limit`
+)
+VALUES
+(
+  'META GAMING SW',
+  0,
+  252,
+  'MYR',
+  1.00000,
+  0.01000,
+  '{\"API_URL\":\"https://example.invalid/api/opgateway/v1/op\",\"OPERATOR_ID\":\"mtgKZ000001UATMYR\",\"SECRET\":\"HCFRWW32TUSE9NXS\",\"SUFFIX\":\"mtmyr3504\",\"CURRENCY\":\"MYR\"}',
+  1,
+  'mtg',
+  0.0000,
+  '',
+  0,
+  0,
+  0,
+  0.0000
+);

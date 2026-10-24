@@ -1,0 +1,6 @@
+﻿{
+  "name": "staabm/example.invalid",
+  "autoload": {
+    "classmap": ["xhprof/classes"]
+  }
+}

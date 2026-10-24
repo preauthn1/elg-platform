@@ -1,0 +1,195 @@
+build:
+  image: google/cloud-sdk:522.0.0
+  stage: prepare
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_TAG =~ /^release_\d+$/
+      when: on_success
+    - if: $CI_COMMIT_BRANCH == "cicd/stage-build"
+      when: manual
+  tags:
+    - php8
+  variables:
+    AR_PATH: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - name: docker:18-dind
+      command: ["--mtu=1400"]
+  before_script:
+    - docker info
+    - docker version
+    - docker buildx version
+    - docker buildx ls
+    - gcloud --version && docker --version && kubectl version --client
+    # 將 gcr-key.json 存到臨時目錄避免被包含在 build image 中
+    - mkdir -p /tmp/gcr
+    - echo "${GCR_RW_KEY_BASE64}" | base64 -d > /tmp/gcr/gcr-key.json
+    - gcloud auth activate-service-account --key-file /tmp/gcr/gcr-key.json
+    - docker login -u _json_key --password-stdin https://asia-east1-docker.pkg.dev < /tmp/gcr/gcr-key.json
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}:latest || true
+    - echo "IMAGE_NAME = ${AR_PATH}/${CI_PROJECT_PATH}"
+    - echo "TAG_NAME = ${CI_COMMIT_SHA:0:8}"
+    # 清理臨時檔案
+    - rm -rf /tmp/gcr
+  script:
+    # Pin BuildKit image：浮動 tag buildx-stable-1 自 v0.31.0 起內建 runc 1.3.6，
+    # 其 masked paths tmpfs(nr_inodes=1) 遮蔽在 runner 主機舊 kernel(4.15) 上回 EINVAL，
+    # 所有 RUN 步驟於 container init 即失敗（opencontainers/runc#5348）。
+    # 待 BuildKit 綁上含 fallback 修復的 runc（>=1.5.1 或 1.3.7）後再改 pin 新版。
+    - docker buildx create --name pinned-bk --driver docker-container --driver-opt image=moby/buildkit:v0.30.0 --use
+    - docker buildx build --platform linux/amd64 -f .gitlab-ci/build/Dockerfile -t ${AR_PATH}/${CI_PROJECT_PATH}:latest --cache-from ${AR_PATH}/${CI_PROJECT_PATH}:latest --build-arg BUILDKIT_INLINE_CACHE=1 --provenance=false --push .
+    - docker pull ${AR_PATH}/${CI_PROJECT_PATH}:latest || true
+    - docker tag ${AR_PATH}/${CI_PROJECT_PATH}:latest ${AR_PATH}/${CI_PROJECT_PATH}:${CI_COMMIT_SHA:0:8}
+    - docker push ${AR_PATH}/${CI_PROJECT_PATH}:${CI_COMMIT_SHA:0:8}
+
+release-dev (latest):
+  # 部署開始後不可被新 push 取消，半途中斷會留下部署到一半的環境
+  interruptible: false
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: on_success
+  needs:
+    - test
+    - prepare
+    - build
+  variables:
+    # 目標專案的 project access token
+    PRIVATE_TOKEN: [REDACTED]
+    # 目標專案的 pipeline trigger token
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - apk add --update --no-cache curl jq bash git
+  script:
+    - git checkout ${CI_COMMIT_BRANCH}
+    - git pull
+    # latest commit sha (git rev-parse HEAD)
+    - LATEST_COMMIT_SHA=$(git rev-parse HEAD)
+    # latest commit short sha (git rev-parse --short=8 HEAD)
+    - LATEST_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD)
+    # latest commit message
+    - LATEST_COMMIT_MESSAGE=$(git log -1 --pretty=%B)
+    # latest commit title
+    - LATEST_COMMIT_TITLE=$(git log -1 --pretty=%B | head -n 1)
+    - echo ${LATEST_COMMIT_SHORT_SHA}
+    - json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=main -F variables[SRC_PROJECT]=${CI_PROJECT_PATH} -F variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH} -F variables[Message]=${LATEST_COMMIT_TITLE} -F variables[SRC_SHA]=${LATEST_COMMIT_SHA} -F variables[SRC_SHORT_SHA]=${LATEST_COMMIT_SHORT_SHA} ${REPO_ENV_URL})
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - echo "Debug url as $web_url"
+    - echo $pipeline_id;
+    - chmod +x .gitlab-ci/build/checkstatus.sh
+    - ./.gitlab-ci/build/checkstatus.sh $pipeline_id
+    - echo "If you have any questions, Debug url as $web_url"
+  tags:
+    - golang
+
+release-dev (specify):
+  # 部署開始後不可被新 push 取消，半途中斷會留下部署到一半的環境
+  interruptible: false
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "cicd/stage-build"
+      when: manual
+  allow_failure: true
+  needs:
+    - test
+    - prepare
+    - build
+  variables:
+    # 目標專案的 project access token
+    PRIVATE_TOKEN: [REDACTED]
+    # 目標專案的 pipeline trigger token
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - apk add --update --no-cache curl jq bash
+  script:
+    - json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=main -F variables[SRC_PROJECT]=${CI_PROJECT_PATH} -F variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH} -F variables[Message]=${CI_COMMIT_TITLE} -F variables[SRC_SHA]=${CI_COMMIT_SHA} -F variables[SRC_SHORT_SHA]=${CI_COMMIT_SHORT_SHA} ${REPO_ENV_URL})
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - echo "Debug url as $web_url"
+    - echo $pipeline_id;
+    - chmod +x .gitlab-ci/build/checkstatus.sh
+    - ./.gitlab-ci/build/checkstatus.sh $pipeline_id
+    - echo "If you have any questions, Debug url as $web_url"
+  tags:
+    - golang
+
+release-prod:
+  # 部署開始後不可被新 push 取消，半途中斷會留下部署到一半的環境
+  interruptible: false
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^release_\d+$/
+      when: on_success
+  # build 與 test 同屬 prepare stage 且無 needs 關係（兩者平行），只 needs build 時
+  # 有 needs 的 job 會無視 stage 順序、需求一滿足即執行，等同測試紅了仍會把部署
+  # trigger 打去 project 526。與 release-dev (latest) 對齊，補上 test / prepare。
+  needs:
+    - build
+    - test
+    - prepare
+  variables:
+    # 目標專案的 project access token
+    PRIVATE_TOKEN: [REDACTED]
+    # 目標專案的 pipeline trigger token
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - echo ${CI_COMMIT_TAG}
+    - apk add --update --no-cache curl jq bash
+  script:
+    - json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=main -F variables[SRC_PROJECT]=${CI_PROJECT_PATH} -F variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH} -F variables[SRC_COMMIT_TAG]=${CI_COMMIT_TAG} -F variables[Message]=${CI_COMMIT_TITLE} -F variables[SRC_SHA]=${CI_COMMIT_SHA} -F variables[SRC_SHORT_SHA]=${CI_COMMIT_SHORT_SHA} ${REPO_ENV_URL})
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - echo "For production deployment, please visit $web_url to select your target environment"
+  tags:
+    - golang
+  
+release-dev (測試 cicd develop 部署腳本):
+  # 部署開始後不可被新 push 取消，半途中斷會留下部署到一半的環境
+  interruptible: false
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "cicd/stage-build"
+      when: manual
+  allow_failure: true
+  needs:
+    - test
+    - prepare
+    - build
+  variables:
+    # 目標專案的 project access token
+    PRIVATE_TOKEN: [REDACTED]
+    # 目標專案的 pipeline trigger token
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - apk add --update --no-cache curl jq bash
+  script:
+    - json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=develop -F variables[SRC_PROJECT]=${CI_PROJECT_PATH} -F variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH} -F variables[Message]=${CI_COMMIT_TITLE} -F variables[SRC_SHA]=${CI_COMMIT_SHA} -F variables[SRC_SHORT_SHA]=${CI_COMMIT_SHORT_SHA} ${REPO_ENV_URL})
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - echo "Debug url as $web_url"
+    - echo $pipeline_id;
+    - chmod +x .gitlab-ci/build/checkstatus.sh
+    - ./.gitlab-ci/build/checkstatus.sh $pipeline_id
+    - echo "If you have any questions, Debug url as $web_url"
+  tags:
+    - golang

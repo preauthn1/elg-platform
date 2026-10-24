@@ -1,0 +1,159 @@
+.el-overlay-dialog .el-dialog {
+  max-width: calc(100vw - 24px);
+}
+
+/* 桌機：含表格的彈窗改成依內容需要的寬度自動加寬，太寬則左右各留 12px。
+   min-width 取該彈窗自己宣告的寬度（ElDialog 的 width 會寫進 --el-dialog-width），
+   所以原本就夠寬的彈窗維持原樣，只有被固定寬度壓縮的報表才會變寬。 */
+@media (min-width: 769px) {
+  .el-overlay-dialog .el-dialog:has(.el-table) {
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    min-width: min(var(--el-dialog-width, 700px), calc(100vw - 24px));
+
+    /* 高度不超過畫面（扣掉 EP 的上外距與下方留白），內容改由下面的
+       .el-dialog__body 自己捲動，橫向捲軸才會落在畫面內，
+       不必把彈窗往下拉到底才看得到那條捲軸 */
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vh - var(--el-dialog-margin-top, 15vh) - 70px);
+  }
+
+  /* Element Plus 對表格各層設了 max-width:100%，會讓上面的 fit-content
+     量不到表格真正需要的寬度。只解除上限、不覆蓋 EP 自己算出的寬度，
+     欄寬因此維持不被壓縮（橫向捲動仍交給 EP 原生機制處理）。 */
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table__inner-wrapper,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table__header-wrapper,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table__body-wrapper,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table__footer-wrapper,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-scrollbar,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-scrollbar__wrap,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-scrollbar__view,
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-table table {
+    max-width: none !important;
+  }
+
+  .el-overlay-dialog .el-dialog:has(.el-table) .el-dialog__body {
+    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow: auto;
+  }
+
+  /* 部分彈窗內容自帶一層 max-h-[..] overflow-y-auto，它的高度沒把彈窗標題與
+     內距算進去，會比 body 略高而自成捲動容器。取消它的捲動，統一由 body 負責，
+     下面表格資料區的位置才可預期。 */
+  .el-overlay-dialog
+    .el-dialog:has(.el-table)
+    .el-dialog__body
+    > [class*='overflow-y-auto'] {
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  /* 表格資料區限高：EP 的橫向捲軸是 position:absolute;bottom:2px，釘在整個
+     .el-scrollbar 的底部，表格很長時會被推到畫面外好幾千 px（要一路拉到底才
+     看得到）。限高後那條捲軸就落在畫面內，列數超出時由表格自己垂直捲動、
+     表頭固定。min() 的第二項預留標題、篩選與內距的空間，讓彈窗內容剛好塞滿
+     不外溢——外層 body 因此不會再出現第二條垂直捲軸。 */
+  .el-overlay-dialog
+    .el-dialog:has(.el-table)
+    .el-table__body-wrapper
+    .el-scrollbar__wrap {
+    max-height: min(50vh, calc(100vh - 520px));
+  }
+}
+
+@media (max-width: 768px) {
+  /*
+   * 手機螢幕窄，釘住的欄位會蓋掉大半個表格，故解除固定改為整列橫捲。
+   * table-layout="auto" 的表格沒有 header-wrapper，表頭 th 渲染在 body-wrapper 裡，
+   * 要另外列 body-wrapper 的 th，否則表頭仍釘住、數據卻跟著捲（target/tickets#4362 SR28）。
+   */
+  .el-table .el-table__header-wrapper tr th.el-table-fixed-column--left,
+  .el-table .el-table__header-wrapper tr th.el-table-fixed-column--right,
+  .el-table .el-table__body-wrapper tr th.el-table-fixed-column--left,
+  .el-table .el-table__body-wrapper tr th.el-table-fixed-column--right,
+  .el-table .el-table__body-wrapper tr td.el-table-fixed-column--left,
+  .el-table .el-table__body-wrapper tr td.el-table-fixed-column--right,
+  .el-table .el-table__footer-wrapper tr td.el-table-fixed-column--left,
+  .el-table .el-table__footer-wrapper tr td.el-table-fixed-column--right {
+    position: static !important;
+  }
+
+  .el-table .el-table-fixed-column--left.is-last-column::before,
+  .el-table .el-table-fixed-column--right.is-first-column::before {
+    box-shadow: none !important;
+  }
+
+  /* 手機：彈窗近全寬、貼近頂端 */
+  .el-overlay-dialog .el-dialog {
+    --el-dialog-margin-top: 3vh;
+
+    width: calc(100vw - 16px) !important;
+    max-width: calc(100vw - 16px);
+  }
+
+  .el-dialog .el-form-item {
+    display: block;
+  }
+
+  .el-dialog .el-form-item__label {
+    justify-content: flex-start !important;
+    width: auto !important;
+    padding: 0 0 4px;
+    text-align: left !important;
+  }
+
+  .el-dialog .el-form-item__label-wrap {
+    margin-left: 0 !important;
+  }
+
+  .el-dialog .el-form-item__content {
+    margin-left: 0 !important;
+  }
+
+  /* 手機：卡片內的搜尋表單也讓 label 置頂靠左、欄位佔滿整行，
+     避免 label-width:auto 被寬欄位（如把下拉當 label）撐出大片左側空白 */
+  .el-card .el-form-item {
+    display: block;
+  }
+
+  .el-card .el-form-item__label {
+    justify-content: flex-start !important;
+    width: auto !important;
+    padding: 0 0 4px;
+    text-align: left !important;
+  }
+
+  .el-card .el-form-item__label-wrap {
+    margin-left: 0 !important;
+  }
+
+  .el-card .el-form-item__content {
+    margin-left: 0 !important;
+  }
+
+  /* 手機：日期區間選單並排兩個月曆會超出畫面。
+     不動內部佈局，只把面板限制在畫面寬度內、可左右捲動（月曆維持原樣不重疊）。 */
+  .el-picker__popper {
+    max-width: calc(100vw - 12px) !important;
+  }
+
+  .el-date-range-picker.el-picker-panel {
+    max-width: calc(100vw - 12px) !important;
+  }
+
+  .el-date-range-picker .el-picker-panel__body-wrapper {
+    overflow-x: auto;
+  }
+}
+
+/* 詳細資料彈窗的值可能是連續無空白的長字串（三方單號、帳號、雜湊），表格是自動
+   佈局，`overflow-wrap: break-word` 又不列入 min-content 計算，整張表因此被撐到
+   比彈窗寬，標籤欄被壓成一字一行、彈窗也被推出畫面外。改成 anywhere 讓斷點納入
+   min-content，表格才收得回容器寬度。 */
+.el-dialog .el-descriptions__cell {
+  overflow-wrap: anywhere;
+}

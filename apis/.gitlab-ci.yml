@@ -1,0 +1,40 @@
+# 一般分支只跑 MR pipeline：$CI_OPEN_MERGE_REQUESTS 在 push 當下判定，
+# 「先 push 再開 MR」的首推仍會雙跑，故一般分支的 push 一律不起 branch pipeline。
+# master（release gate 要驗）/ develop（觸發 dev 部署）/ cicd/stage-build 保留；
+# tag / 排程 / trigger 照常
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "master" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "cicd/stage-build")
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+      when: never
+    - when: always
+
+# 同一條分支有新 push 時，GitLab 取消舊 pipeline 裡還在跑的 job（需專案設定 Auto-cancel redundant pipelines 開啟）：
+# 新 commit 已包含舊的內容，舊的跑完也沒用，卻佔著 runner 節點 CPU。部署 job 一律設 false，見 build.yml
+default:
+  interruptible: true
+
+variables:
+  AR_PATH: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+
+stages:
+  - lint
+  - prepare
+  - build
+  - deploy
+  - approval
+
+include:
+  - local: '.gitlab-ci/lint/commit_message.yml'
+  - local: '.gitlab-ci/lint/code_quality.yml'
+  - local: '.gitlab-ci/templates/_cache.yml'
+  - local: '.gitlab-ci/templates/_variable.yml'
+  - local: '.gitlab-ci/templates/_service.yml'
+  - local: '.gitlab-ci/prepare/calculate_migration_hash.yml'
+  - local: '.gitlab-ci/prepare/prepare.yml'
+  - local: '.gitlab-ci/prepare/test.yml'
+  - local: '.gitlab-ci/build/build.yml'
+  - local: '.gitlab-ci/approval/approval.yml'
+  - local: '.gitlab-ci/pm-confirm/pm-confirm.yml'
+  - local: '.gitlab-ci/qa-verify/qa-verify.yml'

@@ -1,0 +1,4422 @@
+{
+  "settings": {
+    "baseUrl": "https://newofficial.tpower.game",
+    "languages": [
+      "en",
+      "zh-CN",
+      "ms"
+    ],
+    "defaultLanguage": "en",
+    "langMeta": {
+      "en": {
+        "slug": "en",
+        "htmlLang": "en"
+      },
+      "zh-CN": {
+        "slug": "cn",
+        "htmlLang": "zh-CN"
+      },
+      "ms": {
+        "slug": "ms",
+        "htmlLang": "ms"
+      }
+    },
+    "verificationFileNames": [],
+    "copyright": {
+      "en": "©{year} TPOWER All rights reserved.",
+      "zh-CN": "©{year} TPOWER 版权所有",
+      "ms": "©{year} TPOWER Hak cipta terpelihara"
+    },
+    "headerCta": {
+      "registerLabel": {
+        "en": "Join now",
+        "zh-CN": "立即加入",
+        "ms": "Sertai sekarang"
+      },
+      "registerPath": "/partners",
+      "guideLabel": {
+        "en": "Guide",
+        "zh-CN": "使用指南",
+        "ms": "Panduan"
+      },
+      "guidePath": "/guide"
+    },
+    "redirect": {
+      "rules": [
+        {
+          "contains": "zh",
+          "to": "zh-CN"
+        },
+        {
+          "contains": "ms",
+          "to": "ms"
+        },
+        {
+          "contains": "en",
+          "to": "en"
+        }
+      ]
+    }
+  },
+  "site_tagline": {
+    "brand": "TPOWER",
+    "slogan": {
+      "en": "Strength · Passion · Infinite possibilities",
+      "zh-CN": "实力 · 热爱 · 无限可能",
+      "ms": "Kekuatan · Semangat · Kemungkinan tanpa batas"
+    }
+  },
+  "pages": [
+    {
+      "code": "home",
+      "name": "首頁",
+      "path": "/",
+      "navLabel": {
+        "en": "Home",
+        "zh-CN": "首页",
+        "ms": "Laman utama"
+      },
+      "eyebrow": {
+        "en": "WELCOME TO TPOWER",
+        "zh-CN": "WELCOME TO TPOWER",
+        "ms": "WELCOME TO TPOWER"
+      },
+      "title": {
+        "en": "Power in hand",
+        "zh-CN": "权力在手",
+        "ms": "Kuasa dalam tangan"
+      },
+      "sub": {
+        "en": "Prosperity for all",
+        "zh-CN": "全民富有",
+        "ms": "Kemakmuran untuk semua"
+      },
+      "desc": {
+        "en": "From platform scale and growth to our ambassadors and cross-industry sponsorships — get to know the force behind TPOWER.",
+        "zh-CN": "从平台规模与发展轨迹，到代言阵容与跨界赞助，全面认识 TPOWER 不断向前的品牌力量。",
+        "ms": "Daripada skala dan pertumbuhan platform sehingga ambassador dan penajaan silang industri — kenali kekuatan di sebalik TPOWER."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": "/uploads/hero-home.webp"
+    },
+    {
+      "code": "advantages",
+      "name": "核心優勢",
+      "path": "/advantages",
+      "navLabel": {
+        "en": "Advantages",
+        "zh-CN": "核心优势",
+        "ms": "Kelebihan"
+      },
+      "eyebrow": {
+        "en": "CORE ADVANTAGES",
+        "zh-CN": "CORE ADVANTAGES",
+        "ms": "CORE ADVANTAGES"
+      },
+      "title": {
+        "en": "Core Advantages",
+        "zh-CN": "核心优势",
+        "ms": "Kelebihan Utama"
+      },
+      "sub": {
+        "en": "Why it is worth choosing",
+        "zh-CN": "为什么值得选择",
+        "ms": "Mengapa ia berbaloi dipilih"
+      },
+      "desc": {
+        "en": "Stability, security, efficiency, content and service — building a more complete platform experience.",
+        "zh-CN": "以稳定、安全、效率、内容与服务，构建更完整的平台体验。",
+        "ms": "Kestabilan, keselamatan, kecekapan, kandungan dan perkhidmatan — membina pengalaman platform yang lebih lengkap."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "promotions",
+      "name": "熱門活動",
+      "path": "/promotions",
+      "navLabel": {
+        "en": "Promotions",
+        "zh-CN": "热门活动",
+        "ms": "Promosi"
+      },
+      "eyebrow": {
+        "en": "FEATURED PROMOTIONS",
+        "zh-CN": "FEATURED PROMOTIONS",
+        "ms": "FEATURED PROMOTIONS"
+      },
+      "title": {
+        "en": "Featured Promotions",
+        "zh-CN": "热门活动",
+        "ms": "Promosi Pilihan"
+      },
+      "sub": {
+        "en": "New rewards, always arriving",
+        "zh-CN": "精彩礼遇持续登场",
+        "ms": "Ganjaran baharu, sentiasa tiba"
+      },
+      "desc": {
+        "en": "Find the latest TPOWER campaigns and exclusive rewards, with clear entry steps, eligibility and full terms.",
+        "zh-CN": "发现 TPOWER 最新活动与专属礼遇，清楚掌握参与方式、活动资格及重要条款。",
+        "ms": "Temui kempen TPOWER terkini dan ganjaran eksklusif, lengkap dengan langkah penyertaan, kelayakan dan terma penuh."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "games",
+      "name": "遊戲內容",
+      "path": "/games",
+      "navLabel": {
+        "en": "Games",
+        "zh-CN": "游戏内容",
+        "ms": "Permainan"
+      },
+      "eyebrow": {
+        "en": "GAMES",
+        "zh-CN": "GAMES",
+        "ms": "GAMES"
+      },
+      "title": {
+        "en": "Everything you love",
+        "zh-CN": "精彩内容",
+        "ms": "Semua yang anda gemari"
+      },
+      "sub": {
+        "en": "In one place",
+        "zh-CN": "一站汇聚",
+        "ms": "Di satu tempat"
+      },
+      "desc": {
+        "en": "A growing line-up of games and premium entertainment brands. From popular slots to live sport — one destination for all of it.",
+        "zh-CN": "汇聚多元游戏内容与优质娱乐品牌，持续扩展更丰富的平台娱乐版图。从热门电子游戏到体育赛事，不同娱乐选择，一站尽享。",
+        "ms": "Barisan permainan dan jenama hiburan premium yang terus berkembang. Daripada slot popular sehingga sukan langsung — semuanya di satu destinasi."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "brand",
+      "name": "品牌影像",
+      "path": "/brand",
+      "navLabel": {
+        "en": "Brand",
+        "zh-CN": "品牌影像",
+        "ms": "Jenama"
+      },
+      "eyebrow": {
+        "en": "TPOWER BRAND STORIES",
+        "zh-CN": "TPOWER BRAND STORIES",
+        "ms": "TPOWER BRAND STORIES"
+      },
+      "title": {
+        "en": "Brand Stories",
+        "zh-CN": "品牌影像",
+        "ms": "Kisah Jenama"
+      },
+      "sub": {
+        "en": "Every highlight, on record",
+        "zh-CN": "记录每一个高光时刻",
+        "ms": "Setiap sorotan, terakam"
+      },
+      "desc": {
+        "en": "Ambassador campaigns, event sponsorships, brand films and music videos — the many sides of TPOWER.",
+        "zh-CN": "汇聚代言作品、赛事赞助、品牌影片、MV 与音乐企划，感受 TPOWER 的多元魅力。",
+        "ms": "Kempen ambassador, penajaan acara, filem jenama dan video muzik — pelbagai wajah TPOWER."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#archive",
+      "bg": ""
+    },
+    {
+      "code": "contact",
+      "name": "官方聯繫",
+      "path": "/contact/channels",
+      "navLabel": {
+        "en": "Contact",
+        "zh-CN": "官方联系",
+        "ms": "Hubungi"
+      },
+      "eyebrow": {
+        "en": "OFFICIAL CHANNELS",
+        "zh-CN": "OFFICIAL CHANNELS",
+        "ms": "OFFICIAL CHANNELS"
+      },
+      "title": {
+        "en": "Official Channels",
+        "zh-CN": "官方渠道",
+        "ms": "Saluran Rasmi"
+      },
+      "sub": {
+        "en": "Reach TPOWER safely",
+        "zh-CN": "安心联系 TPOWER",
+        "ms": "Hubungi TPOWER dengan selamat"
+      },
+      "desc": {
+        "en": "Contact us only through the Telegram, WhatsApp or business email that TPOWER has officially published.",
+        "zh-CN": "通过 TPOWER 正式公布的 Telegram、WhatsApp 或商务邮箱与我们联系。",
+        "ms": "Hubungi kami hanya melalui Telegram, WhatsApp atau e-mel perniagaan yang telah diterbitkan secara rasmi oleh TPOWER."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#contact-form",
+      "bg": ""
+    },
+    {
+      "code": "guide",
+      "name": "使用指南",
+      "path": "/guide",
+      "navLabel": {
+        "en": "Guide",
+        "zh-CN": "使用指南",
+        "ms": "Panduan"
+      },
+      "eyebrow": {
+        "en": "GETTING STARTED",
+        "zh-CN": "GETTING STARTED",
+        "ms": "GETTING STARTED"
+      },
+      "title": {
+        "en": "Guide",
+        "zh-CN": "使用指南",
+        "ms": "Panduan"
+      },
+      "sub": {
+        "en": "Every step, clear and simple",
+        "zh-CN": "每一步都简单清楚",
+        "ms": "Setiap langkah, jelas dan mudah"
+      },
+      "desc": {
+        "en": "From signing up and logging in to deposits, withdrawals and installing the APK — get the everyday steps down quickly.",
+        "zh-CN": "从注册、登录到存款、提款与 APK 安装，快速掌握常用操作流程。",
+        "ms": "Daripada pendaftaran dan log masuk sehingga deposit, pengeluaran dan pemasangan APK — kuasai langkah harian dengan cepat."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "faq",
+      "name": "常見問題",
+      "path": "/faq",
+      "navLabel": {
+        "en": "FAQ",
+        "zh-CN": "常见问题",
+        "ms": "Soalan lazim"
+      },
+      "eyebrow": {
+        "en": "HELP CENTRE",
+        "zh-CN": "HELP CENTRE",
+        "ms": "HELP CENTRE"
+      },
+      "title": {
+        "en": "FAQ",
+        "zh-CN": "常见问题",
+        "ms": "Soalan Lazim"
+      },
+      "sub": {
+        "en": "Find your answer fast",
+        "zh-CN": "快速找到你要的答案",
+        "ms": "Cari jawapan anda dengan pantas"
+      },
+      "desc": {
+        "en": "Answers to the questions we are asked most, on the platform, promotion rules, partnerships and safety policy.",
+        "zh-CN": "集中解答平台体验、活动规则、合作方式与安全政策等常见疑问。",
+        "ms": "Jawapan kepada soalan yang paling kerap ditanya, tentang platform, peraturan promosi, kerjasama dan polisi keselamatan."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "partners",
+      "name": "代理招募",
+      "path": "/partners",
+      "navLabel": {
+        "en": "Partners",
+        "zh-CN": "代理招募",
+        "ms": "Ejen"
+      },
+      "eyebrow": {
+        "en": "TPOWER AGENT PROGRAM",
+        "zh-CN": "TPOWER AGENT PROGRAM",
+        "ms": "TPOWER AGENT PROGRAM"
+      },
+      "title": {
+        "en": "Agent programme",
+        "zh-CN": "代理招募",
+        "ms": "Program ejen"
+      },
+      "sub": {
+        "en": "Growing a bigger market together",
+        "zh-CN": "携手开拓更大的市场",
+        "ms": "Membesarkan pasaran bersama-sama"
+      },
+      "desc": {
+        "en": "Join the TPOWER agent partner programme — a broad product range, operational support and clear terms, for long-term market growth together.",
+        "zh-CN": "加入 TPOWER 代理伙伴计划，依托丰富产品、运营支持与清晰合作机制，共同拓展长期市场机会。",
+        "ms": "Sertai program rakan ejen TPOWER — rangkaian produk yang luas, sokongan operasi dan terma yang jelas, untuk pertumbuhan pasaran jangka panjang bersama."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "blog",
+      "name": "品牌資訊",
+      "path": "/blog",
+      "navLabel": {
+        "en": "Insights",
+        "zh-CN": "品牌资讯",
+        "ms": "Berita"
+      },
+      "eyebrow": {
+        "en": "TPOWER INSIGHTS",
+        "zh-CN": "TPOWER INSIGHTS",
+        "ms": "TPOWER INSIGHTS"
+      },
+      "title": {
+        "en": "TPOWER Insights",
+        "zh-CN": "品牌资讯",
+        "ms": "TPOWER Insights"
+      },
+      "sub": {
+        "en": "Keep up with the platform",
+        "zh-CN": "掌握平台最新动态",
+        "ms": "Ikuti perkembangan platform"
+      },
+      "desc": {
+        "en": "Platform upgrades, game content and brand partnerships — the latest from TPOWER.",
+        "zh-CN": "从平台升级、游戏内容到品牌合作，及时了解 TPOWER 的最新发展与重要消息。",
+        "ms": "Peningkatan platform, kandungan permainan dan kerjasama jenama — yang terkini daripada TPOWER."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    },
+    {
+      "code": "compliance",
+      "name": "信任與安全",
+      "path": "/compliance",
+      "navLabel": {
+        "en": "Trust & safety",
+        "zh-CN": "信任与安全",
+        "ms": "Kepercayaan & keselamatan"
+      },
+      "eyebrow": {
+        "en": "TRUST & SAFETY CENTRE",
+        "zh-CN": "TRUST & SAFETY CENTRE",
+        "ms": "TRUST & SAFETY CENTRE"
+      },
+      "title": {
+        "en": "Trust & Safety Centre",
+        "zh-CN": "信任与安全中心",
+        "ms": "Pusat Kepercayaan & Keselamatan"
+      },
+      "sub": {
+        "en": "Every key policy, on one page",
+        "zh-CN": "重要政策，一页清楚掌握",
+        "ms": "Setiap polisi penting, dalam satu halaman"
+      },
+      "desc": {
+        "en": "Trust and compliance, responsible play, privacy and terms, and identity and fund security — the key principles, in one place.",
+        "zh-CN": "集中了解安全与合规、理性娱乐、隐私与使用条款，以及身份与资金安全的重要原则。",
+        "ms": "Kepercayaan dan pematuhan, permainan bertanggungjawab, privasi dan terma, serta keselamatan identiti dan dana — prinsip utama, di satu tempat."
+      },
+      "cta": {
+        "en": "Learn more",
+        "zh-CN": "了解更多",
+        "ms": "Ketahui lanjut"
+      },
+      "ctaVal": "#content",
+      "bg": ""
+    }
+  ],
+  "contacts": [
+    {
+      "id": "contact-001",
+      "type": "Telegram",
+      "name": {
+        "en": "TELEGRAM",
+        "zh-CN": "TELEGRAM",
+        "ms": "TELEGRAM"
+      },
+      "value": {
+        "en": "Official account coming soon",
+        "zh-CN": "官方账号即将公布",
+        "ms": "Akaun rasmi akan diumumkan"
+      },
+      "link": "",
+      "sort": 1,
+      "on": true
+    },
+    {
+      "id": "contact-002",
+      "type": "WhatsApp",
+      "name": {
+        "en": "WHATSAPP",
+        "zh-CN": "WHATSAPP",
+        "ms": "WHATSAPP"
+      },
+      "value": {
+        "en": "Official number coming soon",
+        "zh-CN": "官方号码即将公布",
+        "ms": "Nombor rasmi akan diumumkan"
+      },
+      "link": "",
+      "sort": 2,
+      "on": true
+    },
+    {
+      "id": "contact-003",
+      "type": "Email",
+      "name": {
+        "en": "Business email",
+        "zh-CN": "商务邮箱",
+        "ms": "E-mel perniagaan"
+      },
+      "value": {
+        "en": "Business contact details coming soon",
+        "zh-CN": "商务联系资料即将更新",
+        "ms": "Maklumat hubungan perniagaan akan dikemas kini"
+      },
+      "link": "",
+      "sort": 3,
+      "on": true
+    }
+  ],
+  "home_blocks": {
+    "headings": {
+      "stats": {
+        "eyebrow": {
+          "en": "PLATFORM AT A GLANCE",
+          "zh-CN": "PLATFORM AT A GLANCE",
+          "ms": "PLATFORM AT A GLANCE"
+        },
+        "title": {
+          "en": "Platform at a glance",
+          "zh-CN": "平台核心数据",
+          "ms": "Platform secara ringkas"
+        },
+        "sub": {
+          "en": "Strength, proven by real numbers",
+          "zh-CN": "实力，以真实表现见证",
+          "ms": "Kekuatan yang dibuktikan angka sebenar"
+        },
+        "desc": {}
+      },
+      "journey": {
+        "eyebrow": {
+          "en": "OUR JOURNEY",
+          "zh-CN": "OUR JOURNEY",
+          "ms": "OUR JOURNEY"
+        },
+        "title": {
+          "en": "From the start to a bigger stage",
+          "zh-CN": "从起点，到更大的舞台",
+          "ms": "Dari permulaan ke pentas yang lebih besar"
+        },
+        "sub": {
+          "en": "Every step opens new possibilities",
+          "zh-CN": "每一步，都在拓展新的可能",
+          "ms": "Setiap langkah membuka kemungkinan baharu"
+        },
+        "desc": {}
+      },
+      "ambassador": {
+        "eyebrow": {
+          "en": "AMBASSADOR LEGACY",
+          "zh-CN": "AMBASSADOR LEGACY",
+          "ms": "AMBASSADOR LEGACY"
+        },
+        "title": {
+          "en": "Brand ambassadors",
+          "zh-CN": "品牌代言阵容",
+          "ms": "Ambassador jenama"
+        },
+        "sub": {
+          "en": "Every collaboration is a highlight",
+          "zh-CN": "每一次合作，都是高光时刻",
+          "ms": "Setiap kerjasama ialah satu sorotan"
+        },
+        "desc": {}
+      },
+      "sponsors": {
+        "eyebrow": {
+          "en": "SPONSORSHIP HIGHLIGHTS",
+          "zh-CN": "SPONSORSHIP HIGHLIGHTS",
+          "ms": "SPONSORSHIP HIGHLIGHTS"
+        },
+        "title": {
+          "en": "Partnering with the biggest stages",
+          "zh-CN": "携手顶尖舞台",
+          "ms": "Bekerjasama dengan pentas terbesar"
+        },
+        "sub": {
+          "en": "Extending our brand reach",
+          "zh-CN": "让品牌影响力持续延伸",
+          "ms": "Meluaskan jangkauan jenama kami"
+        },
+        "desc": {}
+      }
+    },
+    "navCards": [
+      {
+        "no": "01",
+        "name": {
+          "en": "Platform data",
+          "zh-CN": "平台风光数据",
+          "ms": "Data platform"
+        },
+        "en": {
+          "en": "PLATFORM DATA",
+          "zh-CN": "PLATFORM DATA",
+          "ms": "PLATFORM DATA"
+        },
+        "link": "#content"
+      },
+      {
+        "no": "02",
+        "name": {
+          "en": "Our history",
+          "zh-CN": "发展历史",
+          "ms": "Sejarah kami"
+        },
+        "en": {
+          "en": "HISTORY",
+          "zh-CN": "HISTORY",
+          "ms": "HISTORY"
+        },
+        "link": "#journey"
+      },
+      {
+        "no": "03",
+        "name": {
+          "en": "Ambassadors",
+          "zh-CN": "历任代言人",
+          "ms": "Ambassador"
+        },
+        "en": {
+          "en": "AMBASSADORS",
+          "zh-CN": "AMBASSADORS",
+          "ms": "AMBASSADORS"
+        },
+        "link": "/brand/ambassadors"
+      },
+      {
+        "no": "04",
+        "name": {
+          "en": "Sponsorships",
+          "zh-CN": "历年赞助",
+          "ms": "Penajaan"
+        },
+        "en": {
+          "en": "SPONSORSHIPS",
+          "zh-CN": "SPONSORSHIPS",
+          "ms": "SPONSORSHIPS"
+        },
+        "link": "/brand/sponsorships"
+      }
+    ],
+    "milestones": [
+      {
+        "no": "01",
+        "title": {
+          "en": "Launch · starting with experience",
+          "zh-CN": "启程 · 从体验出发",
+          "ms": "Pelancaran · bermula dengan pengalaman"
+        },
+        "desc": {
+          "en": "Starting from the user, TPOWER keeps refining its products and services towards a simpler, smoother and more complete digital entertainment experience.",
+          "zh-CN": "从用户体验出发，TPOWER 持续完善平台产品与服务，打造更简单、更流畅、更完整的数字娱乐体验。",
+          "ms": "Bermula daripada pengguna, TPOWER terus memperhalus produk dan perkhidmatannya ke arah pengalaman hiburan digital yang lebih ringkas, lebih lancar dan lebih lengkap."
+        }
+      },
+      {
+        "no": "02",
+        "title": {
+          "en": "Expansion · a richer entertainment map",
+          "zh-CN": "拓展 · 丰富娱乐版图",
+          "ms": "Perluasan · peta hiburan yang lebih kaya"
+        },
+        "desc": {
+          "en": "New entertainment and quality partners keep arriving — from popular games to wider categories, the choice keeps growing.",
+          "zh-CN": "持续引入多元娱乐内容与优质合作资源，从热门游戏到不同娱乐领域，让平台选择不断丰富。",
+          "ms": "Hiburan baharu dan rakan kongsi berkualiti terus tiba — daripada permainan popular sehingga kategori yang lebih luas, pilihan terus bertambah."
+        }
+      },
+      {
+        "no": "03",
+        "title": {
+          "en": "Growth · building a complete ecosystem",
+          "zh-CN": "成长 · 构建完整生态",
+          "ms": "Pertumbuhan · membina ekosistem yang lengkap"
+        },
+        "desc": {
+          "en": "Content, payments, membership and customer service — an ecosystem where every part adds to the experience.",
+          "zh-CN": "从内容、支付、会员体系到客户服务，持续完善平台生态，让每一个环节都成为更好体验的一部分。",
+          "ms": "Kandungan, pembayaran, keahlian dan perkhidmatan pelanggan — sebuah ekosistem yang setiap bahagiannya menambah nilai kepada pengalaman."
+        }
+      },
+      {
+        "no": "04",
+        "title": {
+          "en": "Breakthrough · wider brand reach",
+          "zh-CN": "突破 · 扩大品牌影响",
+          "ms": "Terobosan · jangkauan jenama yang lebih luas"
+        },
+        "desc": {
+          "en": "Brand partnerships, sporting events, entertainment projects and crossover content keep widening TPOWER's reach and taking it to a bigger stage.",
+          "zh-CN": "通过品牌合作、体育赛事、娱乐活动与跨界内容，不断扩大 TPOWER 的品牌影响力，走向更广阔的舞台。",
+          "ms": "Kerjasama jenama, acara sukan, projek hiburan dan kandungan silang industri terus meluaskan jangkauan TPOWER dan membawanya ke pentas yang lebih besar."
+        }
+      }
+    ],
+    "ambassador": {
+      "title": {
+        "en": "Ambassador highlights",
+        "zh-CN": "代言人精彩回顾",
+        "ms": "Sorotan ambassador"
+      },
+      "desc": {
+        "en": "Year by year, revisit each ambassador's campaign films, brand shoots, interviews and behind-the-scenes stories.",
+        "zh-CN": "沿着合作年份，重温历任代言人的品牌大片、形象作品、访谈内容与幕后故事。",
+        "ms": "Tahun demi tahun, tinjau kembali filem kempen, sesi fotografi jenama, wawancara dan kisah di sebalik tabir setiap ambassador."
+      },
+      "btn": {
+        "en": "Explore ambassador features",
+        "zh-CN": "探索代言人作品",
+        "ms": "Terokai rencana ambassador"
+      },
+      "link": "/brand/ambassadors",
+      "img": "/uploads/ambassador-legacy.webp"
+    },
+    "sponsorCards": [
+      {
+        "title": {
+          "en": "Sports highlights",
+          "zh-CN": "体育赛事精彩瞬间",
+          "ms": "Sorotan sukan"
+        },
+        "link": "/brand/sponsorships",
+        "img": "/uploads/sponsor-sports.webp"
+      },
+      {
+        "title": {
+          "en": "Esports partnership moments",
+          "zh-CN": "电竞舞台合作纪录",
+          "ms": "Detik kerjasama esports"
+        },
+        "link": "/brand/sponsorships",
+        "img": "/uploads/sponsor-esports.webp"
+      },
+      {
+        "title": {
+          "en": "Brand events and crossover projects",
+          "zh-CN": "品牌活动与跨界企划",
+          "ms": "Acara jenama dan projek silang industri"
+        },
+        "link": "/brand/films",
+        "img": "/uploads/sponsor-brand.webp"
+      }
+    ]
+  },
+  "page_blocks": {
+    "advantages": {
+      "headings": {
+        "overview": {
+          "eyebrow": {
+            "en": "ADVANTAGES AT A GLANCE",
+            "zh-CN": "ADVANTAGES AT A GLANCE",
+            "ms": "ADVANTAGES AT A GLANCE"
+          },
+          "title": {
+            "en": "Six core strengths",
+            "zh-CN": "六大核心优势",
+            "ms": "Enam kekuatan utama"
+          },
+          "sub": {
+            "en": "See at a glance why we are worth choosing",
+            "zh-CN": "快速了解，为什么值得选择",
+            "ms": "Lihat sekilas mengapa kami berbaloi dipilih"
+          },
+          "desc": {
+            "en": ""
+          }
+        },
+        "ecosystem": {
+          "eyebrow": {
+            "en": "ONE COMPLETE EXPERIENCE",
+            "zh-CN": "ONE COMPLETE EXPERIENCE",
+            "ms": "ONE COMPLETE EXPERIENCE"
+          },
+          "title": {
+            "en": "Six core strengths",
+            "zh-CN": "六大核心优势",
+            "ms": "Enam kekuatan utama"
+          },
+          "sub": {
+            "en": "Building the full platform experience together",
+            "zh-CN": "共同构建完整平台体验",
+            "ms": "Membina pengalaman platform yang lengkap bersama-sama"
+          },
+          "desc": {
+            "en": ""
+          }
+        }
+      },
+      "items": [
+        {
+          "id": "fast-stable",
+          "variant": "speed",
+          "en": "FAST & STABLE",
+          "title": {
+            "en": "Fast & stable",
+            "zh-CN": "极速稳定",
+            "ms": "Pantas & stabil"
+          },
+          "summary": {
+            "en": "A stable architecture and optimised routing for a smoother experience.",
+            "zh-CN": "稳定架构与线路优化，提供更加顺畅的平台体验。",
+            "ms": "Seni bina yang stabil dan penghalaan yang dioptimumkan untuk pengalaman yang lebih lancar."
+          },
+          "subtitle": {
+            "en": "Solid architecture · smooth experience",
+            "zh-CN": "稳定架构 · 流畅体验",
+            "ms": "Seni bina kukuh · pengalaman lancar"
+          },
+          "desc": {
+            "en": "System architecture, network routing and access performance are continually tuned for a fast, stable and smooth experience.",
+            "zh-CN": "持续优化平台系统架构、网络线路与访问性能，为用户提供快速、稳定、顺畅的线上娱乐体验。",
+            "ms": "Seni bina sistem, penghalaan rangkaian dan prestasi capaian sentiasa dilaraskan untuk pengalaman yang pantas, stabil dan lancar."
+          },
+          "tags": {
+            "en": [
+              "Stable uptime",
+              "Fast response",
+              "Optimised routing",
+              "Mobile ready"
+            ],
+            "zh-CN": [
+              "稳定运行",
+              "快速响应",
+              "多线路优化",
+              "移动端适配"
+            ],
+            "ms": [
+              "Masa aktif stabil",
+              "Respons pantas",
+              "Penghalaan dioptimumkan",
+              "Sedia untuk mudah alih"
+            ]
+          },
+          "short": {
+            "en": "Stability",
+            "zh-CN": "稳定",
+            "ms": "Kestabilan"
+          },
+          "visual": {
+            "coreLabel": "SYSTEM CORE",
+            "coreState": "ONLINE",
+            "coreNote": "",
+            "headLabel": "",
+            "rowState": "",
+            "status": [
+              {
+                "label": {
+                  "en": "Optimised routing",
+                  "zh-CN": "多线路优化",
+                  "ms": "Penghalaan dioptimumkan"
+                }
+              },
+              {
+                "label": {
+                  "en": "Stable uptime",
+                  "zh-CN": "稳定运行",
+                  "ms": "Masa aktif yang stabil"
+                }
+              },
+              {
+                "label": {
+                  "en": "Mobile ready",
+                  "zh-CN": "移动端适配",
+                  "ms": "Sedia untuk mudah alih"
+                }
+              }
+            ],
+            "steps": [],
+            "layers": [],
+            "items": [],
+            "footer": {}
+          }
+        },
+        {
+          "id": "games",
+          "variant": "gameCategories",
+          "en": "ENDLESS ENTERTAINMENT",
+          "title": {
+            "en": "Endless entertainment",
+            "zh-CN": "丰富游戏",
+            "ms": "Hiburan tanpa batas"
+          },
+          "summary": {
+            "en": "Popular entertainment across categories, for every kind of player.",
+            "zh-CN": "汇聚多类型热门娱乐内容，满足不同玩家需求。",
+            "ms": "Hiburan popular merentas kategori, untuk setiap jenis pemain."
+          },
+          "subtitle": {
+            "en": "Diverse entertainment · all in one place",
+            "zh-CN": "多元娱乐 · 一站畅玩",
+            "ms": "Hiburan pelbagai · semuanya di satu tempat"
+          },
+          "desc": {
+            "en": "Popular entertainment across every category, giving every player a richer one-stop choice.",
+            "zh-CN": "汇聚不同类型的热门娱乐内容，为不同玩家提供更加丰富的一站式游戏选择。",
+            "ms": "Hiburan popular merentas setiap kategori, memberi setiap pemain pilihan sehenti yang lebih kaya."
+          },
+          "tags": {
+            "en": [
+              "Live casino",
+              "Slots",
+              "Sports",
+              "Lottery",
+              "Fishing",
+              "Card & board"
+            ],
+            "zh-CN": [
+              "真人娱乐",
+              "电子游戏",
+              "体育赛事",
+              "彩票",
+              "捕鱼",
+              "棋牌"
+            ],
+            "ms": [
+              "Kasino langsung",
+              "Slot",
+              "Sukan",
+              "Loteri",
+              "Memancing",
+              "Kad & papan"
+            ]
+          },
+          "short": {
+            "en": "Games",
+            "zh-CN": "游戏",
+            "ms": "Permainan"
+          },
+          "visual": {
+            "coreLabel": "",
+            "coreState": "",
+            "coreNote": "",
+            "headLabel": "",
+            "rowState": "",
+            "status": [],
+            "steps": [],
+            "layers": [],
+            "items": [],
+            "footer": {}
+          }
+        },
+        {
+          "id": "transactions",
+          "variant": "transaction",
+          "en": "FAST TRANSACTIONS",
+          "title": {
+            "en": "Fast transactions",
+            "zh-CN": "快速存取",
+            "ms": "Transaksi pantas"
+          },
+          "summary": {
+            "en": "Streamlined deposits and withdrawals that keep money moving simply.",
+            "zh-CN": "优化充值与提款流程，让资金操作更加简单高效。",
+            "ms": "Deposit dan pengeluaran yang diperkemas supaya dana terus bergerak dengan mudah."
+          },
+          "subtitle": {
+            "en": "Efficient payments · simple and quick",
+            "zh-CN": "高效支付 · 简单便捷",
+            "ms": "Pembayaran cekap · ringkas dan pantas"
+          },
+          "desc": {
+            "en": "Deposits and withdrawals keep getting simpler and faster to complete.",
+            "zh-CN": "持续优化充值与提款流程，让用户能够更加简单、高效地完成资金操作。",
+            "ms": "Deposit dan pengeluaran terus menjadi lebih ringkas dan lebih pantas untuk diselesaikan."
+          },
+          "tags": {
+            "en": [
+              "Deposit",
+              "Withdrawal",
+              "Platform wallet",
+              "Transaction history"
+            ],
+            "zh-CN": [
+              "充值",
+              "提款",
+              "平台钱包",
+              "交易记录"
+            ],
+            "ms": [
+              "Deposit",
+              "Pengeluaran",
+              "Dompet platform",
+              "Sejarah transaksi"
+            ]
+          },
+          "short": {
+            "en": "Payment",
+            "zh-CN": "支付",
+            "ms": "Pembayaran"
+          },
+          "visual": {
+            "coreLabel": "",
+            "coreState": "",
+            "coreNote": "",
+            "headLabel": "",
+            "rowState": "",
+            "status": [],
+            "steps": [
+              {
+                "label": {
+                  "en": "Deposit",
+                  "zh-CN": "充值",
+                  "ms": "Deposit"
+                }
+              },
+              {
+                "label": {
+                  "en": "System processing",
+                  "zh-CN": "系统处理",
+                  "ms": "Pemprosesan sistem"
+                }
+              },
+              {
+                "label": {
+                  "en": "Platform wallet",
+                  "zh-CN": "平台钱包",
+                  "ms": "Dompet platform"
+                }
+              },
+              {
+                "label": {
+                  "en": "Done",
+                  "zh-CN": "完成",
+                  "ms": "Selesai"
+                }
+              }
+            ],
+            "layers": [],
+            "items": [],
+            "footer": {}
+          }
+        },
+        {
+          "id": "security",
+          "variant": "security",
+          "en": "SECURITY FIRST",
+          "title": {
+            "en": "Security first",
+            "zh-CN": "安全保障",
+            "ms": "Keselamatan diutamakan"
+          },
+          "summary": {
+            "en": "Layered account and data protection across the platform.",
+            "zh-CN": "多层账户与数据保护机制，提升平台安全体验。",
+            "ms": "Perlindungan akaun dan data berlapis di seluruh platform."
+          },
+          "subtitle": {
+            "en": "Layered protection · guarding your account",
+            "zh-CN": "多重防护 · 守护账户",
+            "ms": "Perlindungan berlapis · menjaga akaun anda"
+          },
+          "desc": {
+            "en": "Account protection, data security, risk monitoring and layered defences keep your details and your account safe.",
+            "zh-CN": "通过账户保护、数据安全、风险监控及多层防护机制，为用户资料与账户安全提供更加完善的保障。",
+            "ms": "Perlindungan akaun, keselamatan data, pemantauan risiko dan pertahanan berlapis memastikan maklumat dan akaun anda selamat."
+          },
+          "tags": {
+            "en": [
+              "Account protection",
+              "Data security",
+              "Risk monitoring",
+              "Secure connection"
+            ],
+            "zh-CN": [
+              "账户保护",
+              "数据安全",
+              "风险监控",
+              "安全连接"
+            ],
+            "ms": [
+              "Perlindungan akaun",
+              "Keselamatan data",
+              "Pemantauan risiko",
+              "Sambungan selamat"
+            ]
+          },
+          "short": {
+            "en": "Security",
+            "zh-CN": "安全",
+            "ms": "Keselamatan"
+          },
+          "visual": {
+            "coreLabel": "SECURITY",
+            "coreState": "",
+            "coreNote": "MULTI-LAYER PROTECTION",
+            "headLabel": "",
+            "rowState": "",
+            "status": [],
+            "steps": [],
+            "layers": [
+              {
+                "label": {
+                  "en": "Account protection",
+                  "zh-CN": "账户保护",
+                  "ms": "Perlindungan akaun"
+                }
+              },
+              {
+                "label": {
+                  "en": "Data security",
+                  "zh-CN": "数据安全",
+                  "ms": "Keselamatan data"
+                }
+              },
+              {
+                "label": {
+                  "en": "Risk monitoring",
+                  "zh-CN": "风险监控",
+                  "ms": "Pemantauan risiko"
+                }
+              },
+              {
+                "label": {
+                  "en": "Secure connection",
+                  "zh-CN": "安全连接",
+                  "ms": "Sambungan selamat"
+                }
+              }
+            ],
+            "items": [],
+            "footer": {}
+          }
+        },
+        {
+          "id": "fairness",
+          "variant": "fairness",
+          "en": "FAIR & TRANSPARENT",
+          "title": {
+            "en": "Fair & transparent",
+            "zh-CN": "公平透明",
+            "ms": "Adil & telus"
+          },
+          "summary": {
+            "en": "Transparency in game rules, gameplay notes and settlement.",
+            "zh-CN": "重视游戏规则、玩法说明与结算机制的透明度。",
+            "ms": "Ketelusan dalam peraturan permainan, nota permainan dan penyelesaian."
+          },
+          "subtitle": {
+            "en": "Clear rules · a fair experience",
+            "zh-CN": "规则清晰 · 公平体验",
+            "ms": "Peraturan jelas · pengalaman yang adil"
+          },
+          "desc": {
+            "en": "Transparency in game rules, gameplay notes and settlement, so you know exactly how a game works.",
+            "zh-CN": "重视游戏规则、玩法说明及结算机制的透明度，让用户可以更加清楚地了解游戏流程与相关规则。",
+            "ms": "Ketelusan dalam peraturan permainan, nota permainan dan penyelesaian, supaya anda tahu dengan tepat cara sesuatu permainan berfungsi."
+          },
+          "tags": {
+            "en": [
+              "Game rules",
+              "Settlement terms",
+              "Result display",
+              "Clear information"
+            ],
+            "zh-CN": [
+              "游戏规则",
+              "结算说明",
+              "结果展示",
+              "信息透明"
+            ],
+            "ms": [
+              "Peraturan permainan",
+              "Terma penyelesaian",
+              "Paparan keputusan",
+              "Maklumat jelas"
+            ]
+          },
+          "short": {
+            "en": "Fairness",
+            "zh-CN": "公平",
+            "ms": "Keadilan"
+          },
+          "visual": {
+            "coreLabel": "",
+            "coreState": "",
+            "coreNote": "",
+            "headLabel": "",
+            "rowState": "",
+            "status": [],
+            "steps": [],
+            "layers": [],
+            "items": [
+              {
+                "title": {
+                  "en": "Game rules",
+                  "zh-CN": "游戏规则",
+                  "ms": "Peraturan permainan"
+                },
+                "desc": {
+                  "en": "Rules and gameplay clearly presented",
+                  "zh-CN": "规则与玩法清晰呈现",
+                  "ms": "Peraturan dan cara bermain dipaparkan dengan jelas"
+                },
+                "label": {}
+              },
+              {
+                "title": {
+                  "en": "Settlement terms",
+                  "zh-CN": "结算说明",
+                  "ms": "Terma penyelesaian"
+                },
+                "desc": {
+                  "en": "Settlement logic that is easy to follow",
+                  "zh-CN": "关键结算逻辑容易理解",
+                  "ms": "Logik penyelesaian yang mudah diikuti"
+                },
+                "label": {}
+              },
+              {
+                "title": {
+                  "en": "Result display",
+                  "zh-CN": "结果展示",
+                  "ms": "Paparan keputusan"
+                },
+                "desc": {
+                  "en": "Key results shown in full",
+                  "zh-CN": "重要结果完整展示",
+                  "ms": "Keputusan penting dipaparkan sepenuhnya"
+                },
+                "label": {}
+              },
+              {
+                "title": {
+                  "en": "Clear information",
+                  "zh-CN": "信息透明",
+                  "ms": "Maklumat yang jelas"
+                },
+                "desc": {
+                  "en": "Information stated clearly and consistently",
+                  "zh-CN": "资讯表达清楚一致",
+                  "ms": "Maklumat dinyatakan dengan jelas dan konsisten"
+                },
+                "label": {}
+              }
+            ],
+            "footer": {}
+          }
+        },
+        {
+          "id": "support",
+          "variant": "support",
+          "en": "PREMIUM SUPPORT",
+          "title": {
+            "en": "Premium support",
+            "zh-CN": "专业服务",
+            "ms": "Sokongan premium"
+          },
+          "summary": {
+            "en": "Trained support staff on hand to resolve issues promptly.",
+            "zh-CN": "提供专业客服支持，及时协助处理用户相关问题。",
+            "ms": "Kakitangan sokongan terlatih sedia membantu menyelesaikan masalah dengan segera."
+          },
+          "subtitle": {
+            "en": "Expert support · fast response",
+            "zh-CN": "专业支持 · 快速响应",
+            "ms": "Sokongan pakar · maklum balas pantas"
+          },
+          "desc": {
+            "en": "Trained support for account, game, deposit, withdrawal and other platform questions, answered promptly.",
+            "zh-CN": "提供专业客户服务支持，针对账户、游戏、充值、提款及其他平台相关问题及时提供协助。",
+            "ms": "Sokongan terlatih untuk soalan tentang akaun, permainan, deposit, pengeluaran dan platform, dijawab dengan segera."
+          },
+          "tags": {
+            "en": [
+              "Account help",
+              "Game support",
+              "Deposits & withdrawals",
+              "Issue reports",
+              "Live support"
+            ],
+            "zh-CN": [
+              "账户服务",
+              "游戏协助",
+              "充值提款",
+              "问题反馈",
+              "在线客服"
+            ],
+            "ms": [
+              "Bantuan akaun",
+              "Sokongan permainan",
+              "Deposit & pengeluaran",
+              "Laporan masalah",
+              "Sokongan langsung"
+            ]
+          },
+          "short": {
+            "en": "Support",
+            "zh-CN": "服务",
+            "ms": "Sokongan"
+          },
+          "visual": {
+            "coreLabel": "",
+            "coreState": "",
+            "coreNote": "",
+            "headLabel": "LIVE SUPPORT",
+            "rowState": "READY",
+            "status": [],
+            "steps": [],
+            "layers": [],
+            "items": [
+              {
+                "title": {},
+                "desc": {},
+                "label": {
+                  "en": "Account help",
+                  "zh-CN": "账户服务",
+                  "ms": "Bantuan akaun"
+                }
+              },
+              {
+                "title": {},
+                "desc": {},
+                "label": {
+                  "en": "Game support",
+                  "zh-CN": "游戏协助",
+                  "ms": "Sokongan permainan"
+                }
+              },
+              {
+                "title": {},
+                "desc": {},
+                "label": {
+                  "en": "Deposits & withdrawals",
+                  "zh-CN": "充值提款",
+                  "ms": "Deposit & pengeluaran"
+                }
+              },
+              {
+                "title": {},
+                "desc": {},
+                "label": {
+                  "en": "Issue reports",
+                  "zh-CN": "问题反馈",
+                  "ms": "Laporan masalah"
+                }
+              },
+              {
+                "title": {},
+                "desc": {},
+                "label": {
+                  "en": "Multilingual",
+                  "zh-CN": "多语言支持",
+                  "ms": "Berbilang bahasa"
+                }
+              }
+            ],
+            "footer": {
+              "en": "A trained team, online and ready",
+              "zh-CN": "专业团队持续在线协助",
+              "ms": "Pasukan terlatih, dalam talian dan sedia membantu"
+            }
+          }
+        }
+      ],
+      "ecosystem": {
+        "coreLabel": "PLATFORM"
+      },
+      "final": {
+        "eyebrow": {
+          "en": "BUILT FOR A BETTER EXPERIENCE",
+          "zh-CN": "BUILT FOR A BETTER EXPERIENCE",
+          "ms": "BUILT FOR A BETTER EXPERIENCE"
+        },
+        "title": {
+          "en": "Every advantage",
+          "zh-CN": "每一项优势",
+          "ms": "Setiap kelebihan"
+        },
+        "title2": {},
+        "sub": {
+          "en": "All for a better experience",
+          "zh-CN": "都为了更好的体验",
+          "ms": "Semuanya untuk pengalaman yang lebih baik"
+        },
+        "desc": {
+          "en": "System stability, game content, safeguards, payment speed and customer service — every key part of the platform, continually improved.",
+          "zh-CN": "从系统稳定、游戏内容，到安全机制、支付效率与客户服务，我们持续优化平台每一个关键环节。",
+          "ms": "Kestabilan sistem, kandungan permainan, perlindungan, kelajuan pembayaran dan perkhidmatan pelanggan — setiap bahagian penting platform, diperbaik secara berterusan."
+        },
+        "cta": {
+          "en": "Explore the platform",
+          "zh-CN": "探索平台",
+          "ms": "Terokai platform"
+        },
+        "ctaVal": "#content"
+      }
+    },
+    "games": {
+      "headings": {
+        "providers": {
+          "eyebrow": {
+            "en": "GAME PROVIDERS",
+            "zh-CN": "GAME PROVIDERS",
+            "ms": "GAME PROVIDERS"
+          },
+          "title": {
+            "en": "Bringing quality game brands together",
+            "zh-CN": "汇聚优质游戏品牌",
+            "ms": "Menghimpunkan jenama permainan berkualiti"
+          },
+          "sub": {
+            "en": "Building a rich game ecosystem",
+            "zh-CN": "构建丰富的游戏生态",
+            "ms": "Membina ekosistem permainan yang kaya"
+          },
+          "desc": {
+            "en": "Connecting more games and entertainment brands, so every choice feels complete.",
+            "zh-CN": "持续连接不同游戏内容与娱乐品牌，让每一种娱乐选择都更完整。",
+            "ms": "Menghubungkan lebih banyak permainan dan jenama hiburan, supaya setiap pilihan terasa lengkap."
+          }
+        },
+        "featured": {
+          "eyebrow": {
+            "en": "FEATURED PROVIDERS",
+            "zh-CN": "FEATURED PROVIDERS",
+            "ms": "FEATURED PROVIDERS"
+          },
+          "title": {
+            "en": "Featured providers",
+            "zh-CN": "重点游戏商",
+            "ms": "Penyedia pilihan"
+          },
+          "sub": {
+            "en": "Get to know our featured content",
+            "zh-CN": "深入认识主推内容",
+            "ms": "Kenali kandungan pilihan kami"
+          },
+          "desc": {
+            "en": "From slots to sports, a selection of the platform's key partner content.",
+            "zh-CN": "从电子游戏到体育赛事，精选平台重点合作内容进行展示。",
+            "ms": "Daripada slot sehingga sukan, pilihan kandungan rakan kongsi utama platform."
+          }
+        },
+        "ecosystem": {
+          "eyebrow": {
+            "en": "GROWING ECOSYSTEM",
+            "zh-CN": "GROWING ECOSYSTEM",
+            "ms": "GROWING ECOSYSTEM"
+          },
+          "title": {
+            "en": "An ever-expanding entertainment map",
+            "zh-CN": "持续扩展的娱乐版图",
+            "ms": "Peta hiburan yang terus meluas"
+          },
+          "sub": {
+            "en": "Diverse content, connected",
+            "zh-CN": "多元内容，共同连接",
+            "ms": "Kandungan pelbagai, saling berhubung"
+          },
+          "desc": {
+            "en": "From slots and sports to wider entertainment, TPOWER keeps enriching its line-up and partner network to give players more to choose from.",
+            "zh-CN": "从电子游戏、体育赛事到更多娱乐内容，TPOWER 持续丰富游戏阵容与合作资源，为用户带来更多样化的娱乐选择。",
+            "ms": "Daripada slot dan sukan sehingga hiburan yang lebih luas, TPOWER terus memperkaya barisan permainan dan rangkaian rakan kongsinya untuk memberi pemain lebih banyak pilihan."
+          }
+        }
+      },
+      "ecosystem": {
+        "coreLabel": "GAME ECOSYSTEM",
+        "more": {
+          "label": "MORE",
+          "name": {
+            "en": "More to explore",
+            "zh-CN": "更多内容",
+            "ms": "Lagi untuk diterokai"
+          }
+        }
+      },
+      "final": {
+        "eyebrow": {
+          "en": "THE COLLECTION KEEPS GROWING",
+          "zh-CN": "THE COLLECTION KEEPS GROWING",
+          "ms": "THE COLLECTION KEEPS GROWING"
+        },
+        "title": {
+          "en": "More highlights",
+          "zh-CN": "更多精彩",
+          "ms": "Lebih banyak sorotan"
+        },
+        "title2": {
+          "en": "Always growing",
+          "zh-CN": "持续加入",
+          "ms": "Sentiasa berkembang"
+        },
+        "sub": {},
+        "desc": {
+          "en": "An ever-growing library and partner line-up, so there is always something new to find.",
+          "zh-CN": "不断扩展游戏内容与合作阵容，让每一次探索，都有新的选择。",
+          "ms": "Perpustakaan permainan dan barisan rakan kongsi yang terus bertambah, jadi sentiasa ada sesuatu yang baharu untuk ditemui."
+        },
+        "cta": {
+          "en": "View the line-up",
+          "zh-CN": "查看游戏阵容",
+          "ms": "Lihat barisan permainan"
+        },
+        "ctaVal": "#content"
+      }
+    },
+    "promotions": {
+      "tabs": {
+        "current": {
+          "en": "Promotions",
+          "zh-CN": "热门活动",
+          "ms": "Promosi"
+        },
+        "past": {
+          "en": "Archive",
+          "zh-CN": "往期回顾",
+          "ms": "Arkib"
+        }
+      },
+      "headings": {
+        "current": {
+          "eyebrow": {
+            "en": "FEATURED PROMOTIONS",
+            "zh-CN": "FEATURED PROMOTIONS",
+            "ms": "FEATURED PROMOTIONS"
+          },
+          "title": {
+            "en": "Promotions",
+            "zh-CN": "热门活动",
+            "ms": "Promosi"
+          },
+          "sub": {
+            "en": "Read the rules, then enjoy",
+            "zh-CN": "先看规则，再享精彩",
+            "ms": "Baca peraturan, kemudian nikmati"
+          },
+          "desc": {
+            "en": "Before joining, check the dates, eligibility, how to take part and the full terms.",
+            "zh-CN": "参加活动前，请留意活动时间、适用资格、参与方式及完整条款。",
+            "ms": "Sebelum menyertai, semak tarikh, kelayakan, cara penyertaan dan terma penuh."
+          }
+        },
+        "past": {
+          "eyebrow": {
+            "en": "PROMOTION ARCHIVE",
+            "zh-CN": "PROMOTION ARCHIVE",
+            "ms": "PROMOTION ARCHIVE"
+          },
+          "title": {
+            "en": "Archive",
+            "zh-CN": "往期回顾",
+            "ms": "Arkib"
+          },
+          "sub": {
+            "en": "Read the rules, then enjoy",
+            "zh-CN": "先看规则，再享精彩",
+            "ms": "Baca peraturan, kemudian nikmati"
+          },
+          "desc": {
+            "en": "Before joining, check the dates, eligibility, how to take part and the full terms.",
+            "zh-CN": "参加活动前，请留意活动时间、适用资格、参与方式及完整条款。",
+            "ms": "Sebelum menyertai, semak tarikh, kelayakan, cara penyertaan dan terma penuh."
+          }
+        }
+      },
+      "archive": {
+        "page": {
+          "en": "Promotion archive",
+          "zh-CN": "活动往期回顾",
+          "ms": "Arkib promosi"
+        },
+        "eyebrow": {
+          "en": "PROMOTION ARCHIVE",
+          "zh-CN": "PROMOTION ARCHIVE",
+          "ms": "PROMOTION ARCHIVE"
+        },
+        "title": {
+          "en": "Archive",
+          "zh-CN": "往期回顾",
+          "ms": "Arkib"
+        },
+        "sub": {
+          "en": "Every highlight, on the record",
+          "zh-CN": "每次精彩都有记录",
+          "ms": "Setiap sorotan, terakam"
+        },
+        "desc": {
+          "en": "Past brand promotions arranged by date, so you can revisit every special project and reward.",
+          "zh-CN": "按时间整理历年品牌活动，重温每一次特别企划与精彩回馈。",
+          "ms": "Promosi jenama yang lalu disusun mengikut tarikh, supaya anda dapat meninjau kembali setiap projek istimewa dan ganjarannya."
+        },
+        "cta": {
+          "en": "Learn more",
+          "zh-CN": "了解更多",
+          "ms": "Ketahui lanjut"
+        },
+        "ctaVal": "#content"
+      },
+      "cta": {
+        "en": "View promotion",
+        "zh-CN": "查看活动详情",
+        "ms": "Lihat promosi"
+      },
+      "pastCta": {
+        "en": "View promotion",
+        "zh-CN": "查看活动详情",
+        "ms": "Lihat promosi"
+      }
+    },
+    "blog": {
+      "headings": {
+        "featured": {
+          "eyebrow": {
+            "en": "FEATURED STORY",
+            "zh-CN": "FEATURED STORY",
+            "ms": "FEATURED STORY"
+          },
+          "title": {
+            "en": "Featured story",
+            "zh-CN": "最新焦点",
+            "ms": "Rencana pilihan"
+          },
+          "sub": {
+            "en": "Keep up with what TPOWER is doing",
+            "zh-CN": "了解 TPOWER 的近期动态",
+            "ms": "Ikuti apa yang TPOWER lakukan"
+          },
+          "desc": {
+            "en": ""
+          }
+        },
+        "latest": {
+          "eyebrow": {
+            "en": "LATEST UPDATES",
+            "zh-CN": "LATEST UPDATES",
+            "ms": "LATEST UPDATES"
+          },
+          "title": {
+            "en": "Latest updates",
+            "zh-CN": "最新资讯",
+            "ms": "Kemas kini terkini"
+          },
+          "sub": {
+            "en": "Platform news, always updating",
+            "zh-CN": "平台发展，持续更新",
+            "ms": "Berita platform, sentiasa dikemas kini"
+          },
+          "desc": {
+            "en": ""
+          }
+        }
+      }
+    },
+    "brand": {
+      "headings": {
+        "archive": {
+          "eyebrow": {
+            "en": "TPOWER VISUAL STORIES",
+            "zh-CN": "TPOWER VISUAL STORIES",
+            "ms": "TPOWER VISUAL STORIES"
+          },
+          "title": {
+            "en": "Brand media library",
+            "zh-CN": "品牌影像馆",
+            "ms": "Perpustakaan media jenama"
+          },
+          "sub": {
+            "en": "Relive every highlight",
+            "zh-CN": "重温每一个高光时刻",
+            "ms": "Hidupkan kembali setiap sorotan"
+          },
+          "desc": {
+            "en": "People, events, music and brand stories — TPOWER's many sides, on screen.",
+            "zh-CN": "从人物、赛事到音乐与品牌故事，以影像感受 TPOWER 的多元魅力。",
+            "ms": "Individu, acara, muzik dan kisah jenama — pelbagai wajah TPOWER, di layar."
+          }
+        }
+      },
+      "rights": {
+        "label": "CONTENT & COPYRIGHT",
+        "text": {
+          "en": "Likenesses, music, event footage and partner marks are used within their licensed scope. Copyright remains with the respective rights holders.",
+          "zh-CN": "人物肖像、音乐、赛事画面及合作伙伴标识均依照相关授权范围使用，内容版权归相应权利人所有。",
+          "ms": "Imej individu, muzik, rakaman acara dan tanda dagangan rakan kongsi digunakan dalam skop lesen masing-masing. Hak cipta kekal milik pemegang hak yang berkenaan."
+        }
+      },
+      "categories": [
+        {
+          "cat": "代言人",
+          "path": "/brand/ambassadors",
+          "label": {
+            "en": "Ambassadors",
+            "zh-CN": "代言人",
+            "ms": "Ambassador"
+          },
+          "page": {
+            "en": "Ambassador features",
+            "zh-CN": "代言人作品",
+            "ms": "Rencana ambassador"
+          },
+          "eyebrow": {
+            "en": "AMBASSADOR STORIES",
+            "zh-CN": "AMBASSADOR STORIES",
+            "ms": "AMBASSADOR STORIES"
+          },
+          "title": {
+            "en": "Ambassador features",
+            "zh-CN": "代言人作品",
+            "ms": "Rencana ambassador"
+          },
+          "sub": {
+            "en": "Defining the brand together",
+            "zh-CN": "共同定义品牌风格",
+            "ms": "Membentuk jenama bersama-sama"
+          },
+          "desc": {
+            "en": "Campaign films, brand shoots, interviews and behind-the-scenes footage from our ambassadors over the years.",
+            "zh-CN": "回顾历年代言人的广告大片、形象作品、访谈内容与幕后花絮。",
+            "ms": "Filem kempen, sesi fotografi jenama, wawancara dan rakaman di sebalik tabir daripada ambassador kami sepanjang tahun."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#archive"
+        },
+        {
+          "cat": "贊助",
+          "path": "/brand/sponsorships",
+          "label": {
+            "en": "Sponsorships",
+            "zh-CN": "赞助",
+            "ms": "Penajaan"
+          },
+          "page": {
+            "en": "Sponsorship highlights",
+            "zh-CN": "赞助精彩瞬间",
+            "ms": "Sorotan penajaan"
+          },
+          "eyebrow": {
+            "en": "SPONSORSHIP HIGHLIGHTS",
+            "zh-CN": "SPONSORSHIP HIGHLIGHTS",
+            "ms": "SPONSORSHIP HIGHLIGHTS"
+          },
+          "title": {
+            "en": "Sponsorship highlights",
+            "zh-CN": "赞助精彩瞬间",
+            "ms": "Sorotan penajaan"
+          },
+          "sub": {
+            "en": "Standing with the passion",
+            "zh-CN": "与热爱并肩前行",
+            "ms": "Bersama dalam semangat yang sama"
+          },
+          "desc": {
+            "en": "Revisit TPOWER's partnerships and live moments across sport, esports, culture and regional events.",
+            "zh-CN": "重温 TPOWER 在体育、电竞、文化及区域活动中的精彩合作与现场时刻。",
+            "ms": "Tinjau kembali kerjasama dan detik langsung TPOWER dalam sukan, esports, budaya dan acara serantau."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#archive"
+        },
+        {
+          "cat": "品牌",
+          "path": "/brand/films",
+          "label": {
+            "en": "Brand",
+            "zh-CN": "品牌",
+            "ms": "Jenama"
+          },
+          "page": {
+            "en": "Brand films",
+            "zh-CN": "品牌影片",
+            "ms": "Filem jenama"
+          },
+          "eyebrow": {
+            "en": "BRAND FILMS",
+            "zh-CN": "BRAND FILMS",
+            "ms": "BRAND FILMS"
+          },
+          "title": {
+            "en": "Brand films",
+            "zh-CN": "品牌影片",
+            "ms": "Filem jenama"
+          },
+          "sub": {
+            "en": "Telling our story on screen",
+            "zh-CN": "用影像讲述力量",
+            "ms": "Menceritakan kisah kami di layar"
+          },
+          "desc": {
+            "en": "Brand stories, anniversary features and official campaigns, capturing TPOWER's growth and breakthroughs on screen.",
+            "zh-CN": "从品牌故事、周年特辑到官方广告，以影像记录 TPOWER 的成长与突破。",
+            "ms": "Kisah jenama, rencana ulang tahun dan kempen rasmi, merakam pertumbuhan dan terobosan TPOWER di layar."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#archive"
+        },
+        {
+          "cat": "音樂",
+          "path": "/brand/music",
+          "label": {
+            "en": "Music",
+            "zh-CN": "音乐",
+            "ms": "Muzik"
+          },
+          "page": {
+            "en": "Music & MV",
+            "zh-CN": "音乐与 MV",
+            "ms": "Muzik & MV"
+          },
+          "eyebrow": {
+            "en": "MUSIC & MV",
+            "zh-CN": "MUSIC & MV",
+            "ms": "MUSIC & MV"
+          },
+          "title": {
+            "en": "Music & MV",
+            "zh-CN": "音乐与 MV",
+            "ms": "Muzik & MV"
+          },
+          "sub": {
+            "en": "Keeping the brand in rhythm",
+            "zh-CN": "让品牌节奏持续发声",
+            "ms": "Mengekalkan rentak jenama"
+          },
+          "desc": {
+            "en": "Official theme songs, music videos, artist collaborations and crossover releases.",
+            "zh-CN": "收录官方主题曲、音乐录影带、艺人合作及跨界娱乐作品。",
+            "ms": "Lagu tema rasmi, video muzik, kolaborasi artis dan keluaran silang industri."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#archive"
+        }
+      ]
+    },
+    "contact": {
+      "heading": {
+        "eyebrow": {
+          "en": "OFFICIAL CONTACT",
+          "zh-CN": "OFFICIAL CONTACT",
+          "ms": "OFFICIAL CONTACT"
+        },
+        "title": {
+          "en": "Tell us what you need",
+          "zh-CN": "告诉我们你的需求",
+          "ms": "Beritahu kami keperluan anda"
+        },
+        "sub": {
+          "en": "Simpler, faster conversations",
+          "zh-CN": "让沟通更简单、更高效",
+          "ms": "Perbualan yang lebih ringkas dan pantas"
+        },
+        "desc": {
+          "en": ""
+        }
+      }
+    },
+    "guide": {
+      "sections": [
+        {
+          "code": "register",
+          "path": "/guide/register",
+          "name": {
+            "en": "Register guide",
+            "zh-CN": "注册指南",
+            "ms": "Panduan pendaftaran"
+          },
+          "page": {
+            "en": "Register guide",
+            "zh-CN": "注册指南",
+            "ms": "Panduan pendaftaran"
+          },
+          "eyebrow": {
+            "en": "REGISTER GUIDE",
+            "zh-CN": "REGISTER GUIDE",
+            "ms": "REGISTER GUIDE"
+          },
+          "title": {
+            "en": "Register guide",
+            "zh-CN": "注册指南",
+            "ms": "Panduan pendaftaran"
+          },
+          "sub": {
+            "en": "A few steps and you are in",
+            "zh-CN": "简单几步，快速开始",
+            "ms": "Beberapa langkah dan anda sudah masuk"
+          },
+          "desc": {
+            "en": "The key steps for opening a TPOWER account, entering your details and keeping it secure.",
+            "zh-CN": "了解 TPOWER 账户注册、资料填写及账户安全的重要步骤。",
+            "ms": "Langkah utama untuk membuka akaun TPOWER, memasukkan maklumat anda dan memastikannya selamat."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#content",
+          "heading": {
+            "eyebrow": {
+              "en": "Register guide",
+              "zh-CN": "注册指南",
+              "ms": "Panduan pendaftaran"
+            },
+            "title": {
+              "en": "Create your TPOWER account",
+              "zh-CN": "创建你的 TPOWER 账户",
+              "ms": "Buka akaun TPOWER anda"
+            },
+            "sub": {
+              "en": "A few steps and you are in",
+              "zh-CN": "简单几步，快速开始",
+              "ms": "Beberapa langkah dan anda sudah masuk"
+            },
+            "desc": {
+              "en": "Use the official entry point, and check the page and your details before continuing.",
+              "zh-CN": "请认准官方入口，并在确认页面与资料无误后再进行下一步操作。",
+              "ms": "Gunakan pautan rasmi, dan semak halaman serta maklumat anda sebelum meneruskan."
+            }
+          },
+          "steps": [
+            {
+              "title": {
+                "en": "Open the official sign-up page",
+                "zh-CN": "进入官方注册页面",
+                "ms": "Buka halaman pendaftaran rasmi"
+              },
+              "desc": {
+                "en": "Register only through an entry point TPOWER has officially announced. Avoid links of unknown origin.",
+                "zh-CN": "只通过 TPOWER 正式公布的入口注册，避免使用来源不明的链接。",
+                "ms": "Daftar hanya melalui pautan yang telah diumumkan secara rasmi oleh TPOWER. Elakkan pautan yang sumbernya tidak diketahui."
+              }
+            },
+            {
+              "title": {
+                "en": "Fill in your account details",
+                "zh-CN": "填写账户基本资料",
+                "ms": "Isi maklumat akaun anda"
+              },
+              "desc": {
+                "en": "Enter accurate, verifiable details exactly as the page asks.",
+                "zh-CN": "按照页面要求填写真实、准确且可供核验的资料。",
+                "ms": "Masukkan maklumat yang tepat dan boleh disahkan, tepat seperti yang diminta pada halaman itu."
+              }
+            },
+            {
+              "title": {
+                "en": "Confirm your phone or contact details",
+                "zh-CN": "确认手机或联络资料",
+                "ms": "Sahkan nombor telefon atau maklumat hubungan anda"
+              },
+              "desc": {
+                "en": "Complete the verification the page asks for, so you can receive account notices later.",
+                "zh-CN": "根据页面提示完成必要验证，确保日后可以正常接收账户通知。",
+                "ms": "Lengkapkan pengesahan yang diminta pada halaman itu, supaya anda dapat menerima notis akaun kelak."
+              }
+            },
+            {
+              "title": {
+                "en": "Keep your credentials safe",
+                "zh-CN": "安全保存账户信息",
+                "ms": "Simpan kelayakan anda dengan selamat"
+              },
+              "desc": {
+                "en": "Set a password that is hard to guess, and never share your password, codes or security details.",
+                "zh-CN": "设置不易猜测的密码，不向任何人透露密码、验证码或安全资料。",
+                "ms": "Tetapkan kata laluan yang sukar diteka, dan jangan sesekali berkongsi kata laluan, kod atau maklumat keselamatan anda."
+              }
+            }
+          ],
+          "notice": {
+            "title": {
+              "en": "Safety reminder",
+              "zh-CN": "安全提醒",
+              "ms": "Peringatan keselamatan"
+            },
+            "desc": {
+              "en": "Actual pages, availability and options may differ by version or region — the official site is definitive. Our staff will never ask for your password or verification code.",
+              "zh-CN": "实际页面、开放方式与操作选项可能因版本或地区而不同，请以官方主站显示为准。官方人员不会索取你的密码或验证码。",
+              "ms": "Halaman, ketersediaan dan pilihan yang sebenar mungkin berbeza mengikut versi atau wilayah — laman rasmi adalah yang berkuat kuasa. Kakitangan kami tidak akan sesekali meminta kata laluan atau kod pengesahan anda."
+            }
+          }
+        },
+        {
+          "code": "login",
+          "path": "/guide/login",
+          "name": {
+            "en": "Login guide",
+            "zh-CN": "登录指南",
+            "ms": "Panduan log masuk"
+          },
+          "page": {
+            "en": "Login guide",
+            "zh-CN": "登录指南",
+            "ms": "Panduan log masuk"
+          },
+          "eyebrow": {
+            "en": "LOGIN GUIDE",
+            "zh-CN": "LOGIN GUIDE",
+            "ms": "LOGIN GUIDE"
+          },
+          "title": {
+            "en": "Login guide",
+            "zh-CN": "登录指南",
+            "ms": "Panduan log masuk"
+          },
+          "sub": {
+            "en": "Sign in to your account safely",
+            "zh-CN": "安全进入你的账户",
+            "ms": "Log masuk ke akaun anda dengan selamat"
+          },
+          "desc": {
+            "en": "Sign in through the official entry point, and know what to watch for.",
+            "zh-CN": "通过官方入口登录，并了解账户资料与登录安全注意事项。",
+            "ms": "Log masuk melalui pautan rasmi, dan ketahui perkara yang perlu diberi perhatian."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#content",
+          "heading": {
+            "eyebrow": {
+              "en": "Login guide",
+              "zh-CN": "登录指南",
+              "ms": "Panduan log masuk"
+            },
+            "title": {
+              "en": "Sign in to your account safely",
+              "zh-CN": "安全登录你的账户",
+              "ms": "Log masuk ke akaun anda dengan selamat"
+            },
+            "sub": {
+              "en": "Straight into your experience",
+              "zh-CN": "快速进入专属体验",
+              "ms": "Terus ke pengalaman anda"
+            },
+            "desc": {
+              "en": "Use the official entry point, and check the page and your details before continuing.",
+              "zh-CN": "请认准官方入口，并在确认页面与资料无误后再进行下一步操作。",
+              "ms": "Gunakan pautan rasmi, dan semak halaman serta maklumat anda sebelum meneruskan."
+            }
+          },
+          "steps": [
+            {
+              "title": {
+                "en": "Open the official login page",
+                "zh-CN": "打开官方登录页面",
+                "ms": "Buka halaman log masuk rasmi"
+              },
+              "desc": {
+                "en": "Check the address and the page before signing in. Do not use links from messages you did not expect.",
+                "zh-CN": "登录前确认网址及页面资料正确，避免通过陌生讯息中的链接进入。",
+                "ms": "Semak alamat dan halaman sebelum log masuk. Jangan gunakan pautan daripada mesej yang tidak anda jangkakan."
+              }
+            },
+            {
+              "title": {
+                "en": "Enter your registered account details",
+                "zh-CN": "输入已注册的账户资料",
+                "ms": "Masukkan maklumat akaun berdaftar anda"
+              },
+              "desc": {
+                "en": "Use the account name, phone number or other credentials you set at sign-up.",
+                "zh-CN": "使用注册时建立的账户名称、手机号码或其他指定登录资料。",
+                "ms": "Gunakan nama akaun, nombor telefon atau kelayakan lain yang anda tetapkan semasa pendaftaran."
+              }
+            },
+            {
+              "title": {
+                "en": "Complete verification",
+                "zh-CN": "完成安全验证",
+                "ms": "Lengkapkan pengesahan"
+              },
+              "desc": {
+                "en": "If the page asks for a code or extra verification, follow the official steps.",
+                "zh-CN": "如页面要求验证码或额外验证，请依照官方流程完成。",
+                "ms": "Jika halaman meminta kod atau pengesahan tambahan, ikut langkah rasmi yang diberikan."
+              }
+            },
+            {
+              "title": {
+                "en": "Check your account",
+                "zh-CN": "检查账户状态",
+                "ms": "Semak akaun anda"
+              },
+              "desc": {
+                "en": "Once inside, check your details and balance. If anything looks wrong, sign out and contact us through an official channel.",
+                "zh-CN": "进入账户后确认资料及余额；发现异常时立即登出并联系官方渠道。",
+                "ms": "Setelah masuk, semak maklumat dan baki anda. Jika ada apa-apa yang tidak kena, log keluar dan hubungi kami melalui saluran rasmi."
+              }
+            }
+          ],
+          "notice": {
+            "title": {
+              "en": "Safety reminder",
+              "zh-CN": "安全提醒",
+              "ms": "Peringatan keselamatan"
+            },
+            "desc": {
+              "en": "Actual pages, availability and options may differ by version or region — the official site is definitive. Our staff will never ask for your password or verification code.",
+              "zh-CN": "实际页面、开放方式与操作选项可能因版本或地区而不同，请以官方主站显示为准。官方人员不会索取你的密码或验证码。",
+              "ms": "Halaman, ketersediaan dan pilihan yang sebenar mungkin berbeza mengikut versi atau wilayah — laman rasmi adalah yang berkuat kuasa. Kakitangan kami tidak akan sesekali meminta kata laluan atau kod pengesahan anda."
+            }
+          }
+        },
+        {
+          "code": "deposit",
+          "path": "/guide/deposit",
+          "name": {
+            "en": "Deposit guide",
+            "zh-CN": "存款指南",
+            "ms": "Panduan deposit"
+          },
+          "page": {
+            "en": "Deposit guide",
+            "zh-CN": "存款指南",
+            "ms": "Panduan deposit"
+          },
+          "eyebrow": {
+            "en": "DEPOSIT GUIDE",
+            "zh-CN": "DEPOSIT GUIDE",
+            "ms": "DEPOSIT GUIDE"
+          },
+          "title": {
+            "en": "Deposit guide",
+            "zh-CN": "存款指南",
+            "ms": "Panduan deposit"
+          },
+          "sub": {
+            "en": "Check every detail carefully",
+            "zh-CN": "清楚核对每一项资料",
+            "ms": "Semak setiap perincian dengan teliti"
+          },
+          "desc": {
+            "en": "How to choose a method, confirm the amount and keep your record.",
+            "zh-CN": "了解选择存款方式、确认金额与保存交易记录的基本流程。",
+            "ms": "Cara memilih kaedah, mengesahkan jumlah dan menyimpan rekod anda."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#content",
+          "heading": {
+            "eyebrow": {
+              "en": "Deposit guide",
+              "zh-CN": "存款指南",
+              "ms": "Panduan deposit"
+            },
+            "title": {
+              "en": "Make a deposit",
+              "zh-CN": "完成账户存款",
+              "ms": "Buat deposit"
+            },
+            "sub": {
+              "en": "Confirm every detail clearly",
+              "zh-CN": "清楚确认每一项资料",
+              "ms": "Sahkan setiap perincian dengan jelas"
+            },
+            "desc": {
+              "en": "Use the official entry point, and check the page and your details before continuing.",
+              "zh-CN": "请认准官方入口，并在确认页面与资料无误后再进行下一步操作。",
+              "ms": "Gunakan pautan rasmi, dan semak halaman serta maklumat anda sebelum meneruskan."
+            }
+          },
+          "steps": [
+            {
+              "title": {
+                "en": "Open the account funds page",
+                "zh-CN": "进入账户资金页面",
+                "ms": "Buka halaman dana akaun"
+              },
+              "desc": {
+                "en": "Sign in and open the deposit function from inside your account. Never transfer to a personal or unverified account.",
+                "zh-CN": "登录后从账户内进入存款功能，不向个人或未核实账户转账。",
+                "ms": "Log masuk dan buka fungsi deposit dari dalam akaun anda. Jangan sesekali membuat pemindahan kepada akaun peribadi atau akaun yang tidak disahkan."
+              }
+            },
+            {
+              "title": {
+                "en": "Pick a deposit method that suits you",
+                "zh-CN": "选择适合的存款方式",
+                "ms": "Pilih kaedah deposit yang sesuai untuk anda"
+              },
+              "desc": {
+                "en": "Choose a bank, e-wallet or other payment method from the options the page actually offers.",
+                "zh-CN": "根据页面实际开放选项选择银行、电子钱包或其他支付方式。",
+                "ms": "Pilih bank, e-dompet atau kaedah pembayaran lain daripada pilihan yang benar-benar disediakan pada halaman itu."
+              }
+            },
+            {
+              "title": {
+                "en": "Check the amount and payee details",
+                "zh-CN": "核对金额与收款资料",
+                "ms": "Semak jumlah dan maklumat penerima"
+              },
+              "desc": {
+                "en": "Before you submit, re-check the amount, currency, payee details and applicable terms.",
+                "zh-CN": "提交前再次确认金额、币种、收款资料及适用条件。",
+                "ms": "Sebelum menghantar, semak semula jumlah, mata wang, maklumat penerima dan terma yang terpakai."
+              }
+            },
+            {
+              "title": {
+                "en": "Keep your receipt",
+                "zh-CN": "保存交易记录",
+                "ms": "Simpan resit anda"
+              },
+              "desc": {
+                "en": "Keep the reference number or receipt, then confirm the status from your account page.",
+                "zh-CN": "完成后保留参考编号或凭证，并从账户页面确认处理状态。",
+                "ms": "Simpan nombor rujukan atau resit, kemudian sahkan statusnya daripada halaman akaun anda."
+              }
+            }
+          ],
+          "notice": {
+            "title": {
+              "en": "Safety reminder",
+              "zh-CN": "安全提醒",
+              "ms": "Peringatan keselamatan"
+            },
+            "desc": {
+              "en": "Actual pages, availability and options may differ by version or region — the official site is definitive. Our staff will never ask for your password or verification code.",
+              "zh-CN": "实际页面、开放方式与操作选项可能因版本或地区而不同，请以官方主站显示为准。官方人员不会索取你的密码或验证码。",
+              "ms": "Halaman, ketersediaan dan pilihan yang sebenar mungkin berbeza mengikut versi atau wilayah — laman rasmi adalah yang berkuat kuasa. Kakitangan kami tidak akan sesekali meminta kata laluan atau kod pengesahan anda."
+            }
+          }
+        },
+        {
+          "code": "withdrawal",
+          "path": "/guide/withdrawal",
+          "name": {
+            "en": "Withdrawal guide",
+            "zh-CN": "提款指南",
+            "ms": "Panduan pengeluaran"
+          },
+          "page": {
+            "en": "Withdrawal guide",
+            "zh-CN": "提款指南",
+            "ms": "Panduan pengeluaran"
+          },
+          "eyebrow": {
+            "en": "WITHDRAWAL GUIDE",
+            "zh-CN": "WITHDRAWAL GUIDE",
+            "ms": "WITHDRAWAL GUIDE"
+          },
+          "title": {
+            "en": "Withdrawal guide",
+            "zh-CN": "提款指南",
+            "ms": "Panduan pengeluaran"
+          },
+          "sub": {
+            "en": "Know exactly how it works",
+            "zh-CN": "轻松掌握处理流程",
+            "ms": "Ketahui dengan tepat cara ia berfungsi"
+          },
+          "desc": {
+            "en": "How to confirm your details, submit a request and track its status.",
+            "zh-CN": "了解提款资料确认、申请提交及处理状态查询步骤。",
+            "ms": "Cara mengesahkan maklumat anda, menghantar permintaan dan menjejaki statusnya."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#content",
+          "heading": {
+            "eyebrow": {
+              "en": "Withdrawal guide",
+              "zh-CN": "提款指南",
+              "ms": "Panduan pengeluaran"
+            },
+            "title": {
+              "en": "Submit a withdrawal",
+              "zh-CN": "提交提款申请",
+              "ms": "Hantar permintaan pengeluaran"
+            },
+            "sub": {
+              "en": "Know exactly how it works",
+              "zh-CN": "轻松掌握处理流程",
+              "ms": "Ketahui dengan tepat cara ia berfungsi"
+            },
+            "desc": {
+              "en": "Use the official entry point, and check the page and your details before continuing.",
+              "zh-CN": "请认准官方入口，并在确认页面与资料无误后再进行下一步操作。",
+              "ms": "Gunakan pautan rasmi, dan semak halaman serta maklumat anda sebelum meneruskan."
+            }
+          },
+          "steps": [
+            {
+              "title": {
+                "en": "Open the withdrawal page",
+                "zh-CN": "进入提款功能页面",
+                "ms": "Buka halaman pengeluaran"
+              },
+              "desc": {
+                "en": "Sign in, open the funds or withdrawal area, and check your account meets the requirements.",
+                "zh-CN": "登录后进入账户资金或提款专区，确认账户已符合相关条件。",
+                "ms": "Log masuk, buka bahagian dana atau pengeluaran, dan pastikan akaun anda memenuhi keperluan yang ditetapkan."
+              }
+            },
+            {
+              "title": {
+                "en": "Choose a withdrawal method",
+                "zh-CN": "选择提款方式",
+                "ms": "Pilih kaedah pengeluaran"
+              },
+              "desc": {
+                "en": "Choose a method registered in your own name, and check the name and account details match.",
+                "zh-CN": "选择本人可使用的提款方式，并确认姓名与账户资料一致。",
+                "ms": "Pilih kaedah yang berdaftar atas nama anda sendiri, dan pastikan nama serta maklumat akaun sepadan."
+              }
+            },
+            {
+              "title": {
+                "en": "Fill in and check your request",
+                "zh-CN": "填写并核对申请",
+                "ms": "Isi dan semak permintaan anda"
+              },
+              "desc": {
+                "en": "Confirm the amount, payee details and the notes shown on the page before submitting.",
+                "zh-CN": "确认提款金额、收款资料及页面显示的重要说明后再提交。",
+                "ms": "Sahkan jumlah, maklumat penerima dan nota yang dipaparkan pada halaman itu sebelum menghantar."
+              }
+            },
+            {
+              "title": {
+                "en": "Track the status",
+                "zh-CN": "查看处理状态",
+                "ms": "Jejaki statusnya"
+              },
+              "desc": {
+                "en": "Track progress in your transaction history. If you need help, have your reference number ready and contact an official channel.",
+                "zh-CN": "通过账户交易记录查询进度；如需协助，请准备申请编号联系官方渠道。",
+                "ms": "Jejaki kemajuannya dalam sejarah transaksi anda. Jika perlukan bantuan, sediakan nombor rujukan anda dan hubungi saluran rasmi."
+              }
+            }
+          ],
+          "notice": {
+            "title": {
+              "en": "Safety reminder",
+              "zh-CN": "安全提醒",
+              "ms": "Peringatan keselamatan"
+            },
+            "desc": {
+              "en": "Actual pages, availability and options may differ by version or region — the official site is definitive. Our staff will never ask for your password or verification code.",
+              "zh-CN": "实际页面、开放方式与操作选项可能因版本或地区而不同，请以官方主站显示为准。官方人员不会索取你的密码或验证码。",
+              "ms": "Halaman, ketersediaan dan pilihan yang sebenar mungkin berbeza mengikut versi atau wilayah — laman rasmi adalah yang berkuat kuasa. Kakitangan kami tidak akan sesekali meminta kata laluan atau kod pengesahan anda."
+            }
+          }
+        },
+        {
+          "code": "apk",
+          "path": "/guide/apk",
+          "name": {
+            "en": "APK install",
+            "zh-CN": "APK 安装",
+            "ms": "Pemasangan APK"
+          },
+          "page": {
+            "en": "APK install guide",
+            "zh-CN": "APK 安装指南",
+            "ms": "Panduan pemasangan APK"
+          },
+          "eyebrow": {
+            "en": "APK INSTALLATION",
+            "zh-CN": "APK INSTALLATION",
+            "ms": "APK INSTALLATION"
+          },
+          "title": {
+            "en": "APK install guide",
+            "zh-CN": "APK 安装指南",
+            "ms": "Panduan pemasangan APK"
+          },
+          "sub": {
+            "en": "Official channels only, installed with confidence",
+            "zh-CN": "认准官方渠道，安心安装",
+            "ms": "Saluran rasmi sahaja, dipasang dengan yakin"
+          },
+          "desc": {
+            "en": "How to download the Android APK officially, grant install permission and confirm the version.",
+            "zh-CN": "了解 Android APK 的官方下载、安装授权及版本确认方式。",
+            "ms": "Cara memuat turun APK Android secara rasmi, memberi kebenaran pemasangan dan mengesahkan versinya."
+          },
+          "cta": {
+            "en": "Learn more",
+            "zh-CN": "了解更多",
+            "ms": "Ketahui lanjut"
+          },
+          "ctaVal": "#content",
+          "heading": {
+            "eyebrow": {
+              "en": "APK install",
+              "zh-CN": "APK 安装",
+              "ms": "Pemasangan APK"
+            },
+            "title": {
+              "en": "Install the official APK",
+              "zh-CN": "安装官方 APK",
+              "ms": "Pasang APK rasmi"
+            },
+            "sub": {
+              "en": "Official channels only, installed with confidence",
+              "zh-CN": "认准官方渠道，安心安装",
+              "ms": "Saluran rasmi sahaja, dipasang dengan yakin"
+            },
+            "desc": {
+              "en": "Use the official entry point, and check the page and your details before continuing.",
+              "zh-CN": "请认准官方入口，并在确认页面与资料无误后再进行下一步操作。",
+              "ms": "Gunakan pautan rasmi, dan semak halaman serta maklumat anda sebelum meneruskan."
+            }
+          },
+          "steps": [
+            {
+              "title": {
+                "en": "Go to the official download page",
+                "zh-CN": "前往官方下载安装页",
+                "ms": "Pergi ke halaman muat turun rasmi"
+              },
+              "desc": {
+                "en": "Download the APK only from a page TPOWER has officially published. Do not install files forwarded by third parties.",
+                "zh-CN": "只从 TPOWER 官方公布的页面下载 APK，不安装第三方转发文件。",
+                "ms": "Muat turun APK hanya daripada halaman yang telah diterbitkan secara rasmi oleh TPOWER. Jangan pasang fail yang dihantar oleh pihak ketiga."
+              }
+            },
+            {
+              "title": {
+                "en": "Check the file and version",
+                "zh-CN": "确认文件与版本",
+                "ms": "Semak fail dan versinya"
+              },
+              "desc": {
+                "en": "Check the app name, version and release notes before downloading, so you do not install an outdated package.",
+                "zh-CN": "下载前查看应用名称、版本及更新说明，避免使用过期安装包。",
+                "ms": "Semak nama aplikasi, versi dan nota keluaran sebelum memuat turun, supaya anda tidak memasang pakej yang sudah lapuk."
+              }
+            },
+            {
+              "title": {
+                "en": "Follow your device prompts",
+                "zh-CN": "依照设备提示安装",
+                "ms": "Ikut gesaan pada peranti anda"
+              },
+              "desc": {
+                "en": "Android may ask you to allow installs from this source temporarily. Turn the permission off again once you are done.",
+                "zh-CN": "Android 设备可能要求临时允许该来源安装，完成后建议关闭相关授权。",
+                "ms": "Android mungkin meminta anda membenarkan pemasangan daripada sumber ini untuk sementara waktu. Matikan kebenaran itu semula setelah selesai."
+              }
+            },
+            {
+              "title": {
+                "en": "Open the app and confirm",
+                "zh-CN": "开启应用并确认",
+                "ms": "Buka aplikasi dan sahkan"
+              },
+              "desc": {
+                "en": "Check the app opens normally after installing. If anything is wrong, delete the file and contact an official channel.",
+                "zh-CN": "安装后确认应用可以正常打开；如出现异常，请删除文件并联系官方渠道。",
+                "ms": "Pastikan aplikasi dapat dibuka seperti biasa selepas dipasang. Jika ada apa-apa yang tidak kena, hapuskan fail itu dan hubungi saluran rasmi."
+              }
+            }
+          ],
+          "notice": {
+            "title": {
+              "en": "Safety reminder",
+              "zh-CN": "安全提醒",
+              "ms": "Peringatan keselamatan"
+            },
+            "desc": {
+              "en": "Actual pages, availability and options may differ by version or region — the official site is definitive. Our staff will never ask for your password or verification code.",
+              "zh-CN": "实际页面、开放方式与操作选项可能因版本或地区而不同，请以官方主站显示为准。官方人员不会索取你的密码或验证码。",
+              "ms": "Halaman, ketersediaan dan pilihan yang sebenar mungkin berbeza mengikut versi atau wilayah — laman rasmi adalah yang berkuat kuasa. Kakitangan kami tidak akan sesekali meminta kata laluan atau kod pengesahan anda."
+            }
+          }
+        }
+      ]
+    },
+    "faq": {
+      "items": [
+        {
+          "q": {
+            "en": "How do I open a TPOWER account?",
+            "zh-CN": "如何注册 TPOWER 账户？",
+            "ms": "Bagaimana cara membuka akaun TPOWER?"
+          },
+          "a": {
+            "en": "Start from the official sign-up entry point, fill in the details requested and complete the required verification. Afterwards keep your account name and password safe, and never share a verification code.",
+            "zh-CN": "请从官方注册入口开始，填写页面要求的基本资料并完成必要验证。注册后请妥善保存账户与密码，不要向他人透露验证码。",
+            "ms": "Mulakan daripada pautan pendaftaran rasmi, isi maklumat yang diminta dan lengkapkan pengesahan yang diperlukan. Selepas itu, simpan nama akaun dan kata laluan anda dengan selamat, dan jangan sesekali berkongsi kod pengesahan."
+          }
+        },
+        {
+          "q": {
+            "en": "What if I cannot sign in?",
+            "zh-CN": "无法登录账户怎么办？",
+            "ms": "Bagaimana jika saya tidak dapat log masuk?"
+          },
+          "a": {
+            "en": "First check the address, your account details and your connection. If you still cannot sign in, stop retrying and contact us through an official channel.",
+            "zh-CN": "请先确认网址、账户资料及网络状态。如多次输入仍无法登录，请停止重复尝试，并通过官方联系渠道寻求协助。",
+            "ms": "Semak dahulu alamat laman, maklumat akaun dan sambungan anda. Jika masih tidak dapat log masuk, berhenti mencuba dan hubungi kami melalui saluran rasmi."
+          }
+        },
+        {
+          "q": {
+            "en": "Where can I check my deposit and withdrawal status?",
+            "zh-CN": "在哪里查看存款和提款状态？",
+            "ms": "Di mana saya boleh menyemak status deposit dan pengeluaran?"
+          },
+          "a": {
+            "en": "Sign in and check the status on your funds or transaction history page. Exact labels and steps may vary by platform version.",
+            "zh-CN": "登录后可从账户资金或交易记录页面查看处理状态。实际栏目名称及处理流程可能因平台版本而不同。",
+            "ms": "Log masuk dan semak statusnya pada halaman dana atau sejarah transaksi anda. Label dan langkah yang tepat mungkin berbeza mengikut versi platform."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I install the official APK safely?",
+            "zh-CN": "如何安全安装官方 APK？",
+            "ms": "Bagaimana cara memasang APK rasmi dengan selamat?"
+          },
+          "a": {
+            "en": "Get the installer only from the download page TPOWER has officially published. Never install an APK forwarded by a stranger or of unknown origin.",
+            "zh-CN": "只通过 TPOWER 官方公布的下载页面获取安装包。请勿安装陌生人转发或来历不明的 APK 文件。",
+            "ms": "Dapatkan pemasang hanya daripada halaman muat turun yang diterbitkan secara rasmi oleh TPOWER. Jangan sesekali memasang APK yang dihantar oleh orang yang tidak dikenali atau yang sumbernya tidak diketahui."
+          }
+        },
+        {
+          "q": {
+            "en": "Where can I read the full promotion rules?",
+            "zh-CN": "在哪里查看活动完整规则？",
+            "ms": "Di mana saya boleh membaca peraturan promosi yang penuh?"
+          },
+          "a": {
+            "en": "Select \"View promotion\" on any card to see the dates, eligibility, reward conditions, wagering requirements and key terms.",
+            "zh-CN": "点击活动卡片的“查看活动详情”，即可了解活动时间、参与资格、奖励条件、流水要求及重要条款。",
+            "ms": "Pilih \"Lihat promosi\" pada mana-mana kad untuk melihat tarikh, kelayakan, syarat ganjaran, keperluan pertaruhan dan terma penting."
+          }
+        },
+        {
+          "q": {
+            "en": "What games does the platform offer?",
+            "zh-CN": "平台提供哪些游戏内容？",
+            "ms": "Permainan apa yang ditawarkan platform ini?"
+          },
+          "a": {
+            "en": "The games page shows slots, sports and other categories as they are actually integrated. The live line-up is whatever the platform currently displays.",
+            "zh-CN": "游戏内容页面会按实际接入情况展示电子游戏、体育赛事及其他娱乐类型；实际开放阵容以平台最新显示为准。",
+            "ms": "Halaman permainan memaparkan slot, sukan dan kategori lain mengikut yang benar-benar telah disepadukan. Barisan yang aktif ialah apa yang dipaparkan oleh platform pada masa ini."
+          }
+        },
+        {
+          "q": {
+            "en": "Which regions can apply to partner?",
+            "zh-CN": "哪些地区可以申请合作？",
+            "ms": "Wilayah mana yang boleh memohon untuk menjadi rakan kongsi?"
+          },
+          "a": {
+            "en": "Which markets are open depends on strategy, compliance requirements and the team's profile. Eligibility is confirmed by our business team.",
+            "zh-CN": "合作开放范围会依据市场策略、合规要求与团队条件评估，具体资格请以商务团队回复为准。",
+            "ms": "Pasaran yang dibuka bergantung pada strategi, keperluan pematuhan dan profil pasukan. Kelayakan disahkan oleh pasukan perniagaan kami."
+          }
+        },
+        {
+          "q": {
+            "en": "How is partner revenue calculated?",
+            "zh-CN": "合作收益如何计算？",
+            "ms": "Bagaimana pendapatan rakan kongsi dikira?"
+          },
+          "a": {
+            "en": "Revenue is calculated from qualifying performance, cost items, the agreed share and the settlement cycle. Every detail is set out in the formal agreement.",
+            "zh-CN": "收益将依据有效表现、成本项目、合作比例与结算周期计算，所有细节都会在正式协议中清楚列明。",
+            "ms": "Pendapatan dikira berdasarkan prestasi yang layak, item kos, kadar bahagian yang dipersetujui dan kitaran penyelesaian. Setiap perincian dinyatakan dalam perjanjian rasmi."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I contact TPOWER?",
+            "zh-CN": "如何联系 TPOWER？",
+            "ms": "Bagaimana cara menghubungi TPOWER?"
+          },
+          "a": {
+            "en": "See the official contact page for the published Telegram, WhatsApp and business email details. Never give account or payment information to an unverified account.",
+            "zh-CN": "请前往官方联系页面查看正式公布的 Telegram、WhatsApp 或商务邮箱。请勿向未经核实的账号提供账户或资金资料。",
+            "ms": "Rujuk halaman hubungan rasmi untuk maklumat Telegram, WhatsApp dan e-mel perniagaan yang telah diterbitkan. Jangan sesekali memberikan maklumat akaun atau pembayaran kepada akaun yang tidak disahkan."
+          }
+        },
+        {
+          "q": {
+            "en": "How do I keep play responsible?",
+            "zh-CN": "如何保持理性娱乐？",
+            "ms": "Bagaimana cara memastikan permainan kekal bertanggungjawab?"
+          },
+          "a": {
+            "en": "Set an affordable budget and time limit before you start. Do not borrow and do not chase losses. If play begins to affect your mood, finances or daily life, stop straight away.",
+            "zh-CN": "开始前设定可承担的预算与时间，不借款、不追赶损失；当娱乐影响情绪、财务或日常生活时，应立即暂停。",
+            "ms": "Tetapkan bajet yang mampu ditanggung dan had masa sebelum anda bermula. Jangan berhutang dan jangan cuba menebus kerugian. Jika permainan mula menjejaskan emosi, kewangan atau kehidupan harian anda, berhenti dengan segera."
+          }
+        }
+      ]
+    },
+    "partners": {
+      "headings": {
+        "benefits": {
+          "eyebrow": {
+            "en": "BECOME A TPOWER AGENT",
+            "zh-CN": "BECOME A TPOWER AGENT",
+            "ms": "BECOME A TPOWER AGENT"
+          },
+          "title": {
+            "en": "Join the TPOWER agent partner programme",
+            "zh-CN": "加入 TPOWER 代理伙伴计划",
+            "ms": "Sertai program rakan ejen TPOWER"
+          },
+          "sub": {
+            "en": "Product, operations and marketing support in one place",
+            "zh-CN": "产品、运营与推广支持，一站到位",
+            "ms": "Sokongan produk, operasi dan pemasaran di satu tempat"
+          },
+          "desc": {
+            "en": "Connect your market reach with the platform's capability, and start partnering the simple way.",
+            "zh-CN": "连接你的市场资源与平台能力，用更简单的方式开始代理合作。",
+            "ms": "Hubungkan jangkauan pasaran anda dengan keupayaan platform, dan mulakan kerjasama dengan cara yang mudah."
+          }
+        },
+        "steps": {
+          "eyebrow": {
+            "en": "HOW TO START",
+            "zh-CN": "HOW TO START",
+            "ms": "HOW TO START"
+          },
+          "title": {
+            "en": "Three steps to get started",
+            "zh-CN": "三步开启代理合作",
+            "ms": "Tiga langkah untuk bermula"
+          },
+          "sub": {
+            "en": "Simple process, direct contact",
+            "zh-CN": "流程简单，沟通直接",
+            "ms": "Proses ringkas, hubungan terus"
+          },
+          "desc": {
+            "en": ""
+          }
+        }
+      },
+      "benefits": [
+        {
+          "title": {
+            "en": "Wide product range",
+            "zh-CN": "丰富产品",
+            "ms": "Rangkaian produk yang luas"
+          },
+          "desc": {
+            "en": "Diverse entertainment that gives marketing more to work with.",
+            "zh-CN": "多元娱乐内容，为市场推广提供更多选择。",
+            "ms": "Hiburan yang pelbagai memberi pemasaran lebih banyak bahan untuk digunakan."
+          }
+        },
+        {
+          "title": {
+            "en": "Marketing support",
+            "zh-CN": "推广支持",
+            "ms": "Sokongan pemasaran"
+          },
+          "desc": {
+            "en": "Brand assets, promotion content and practical marketing tools.",
+            "zh-CN": "提供品牌素材、活动内容与实用推广工具。",
+            "ms": "Aset jenama, kandungan promosi dan alat pemasaran yang praktikal."
+          }
+        },
+        {
+          "title": {
+            "en": "Operational help",
+            "zh-CN": "运营协助",
+            "ms": "Bantuan operasi"
+          },
+          "desc": {
+            "en": "A dedicated contact to get you operating sooner.",
+            "zh-CN": "专属团队对接，协助你更快进入运营状态。",
+            "ms": "Orang hubungan khusus supaya anda dapat mula beroperasi dengan lebih cepat."
+          }
+        },
+        {
+          "title": {
+            "en": "Clear reporting",
+            "zh-CN": "清晰数据",
+            "ms": "Laporan yang jelas"
+          },
+          "desc": {
+            "en": "Key performance and partnership data, clearly presented.",
+            "zh-CN": "重要表现与合作信息清楚呈现，方便掌握进度。",
+            "ms": "Prestasi utama dan data kerjasama, dipaparkan dengan jelas."
+          }
+        }
+      ],
+      "support": {
+        "eyebrow": {
+          "en": "PLATFORM SUPPORT",
+          "zh-CN": "PLATFORM SUPPORT",
+          "ms": "PLATFORM SUPPORT"
+        },
+        "title": {
+          "en": "What the platform gives you",
+          "zh-CN": "平台为你提供",
+          "ms": "Apa yang platform sediakan untuk anda"
+        },
+        "sub": {
+          "en": "Practical, straightforward support",
+          "zh-CN": "实用而清楚的支持",
+          "ms": "Sokongan yang praktikal dan berterus-terang"
+        },
+        "desc": {
+          "en": "From product setup to day-to-day operations, support at every key stage so you can focus on growing your market.",
+          "zh-CN": "从产品准备到日常运营，关键环节都有对应协助，让你可以更专注于市场发展。",
+          "ms": "Daripada persiapan produk sehingga operasi harian, sokongan pada setiap peringkat penting supaya anda dapat menumpukan perhatian pada pertumbuhan pasaran."
+        },
+        "items": [
+          {
+            "title": {
+              "en": "Product support",
+              "zh-CN": "产品支持",
+              "ms": "Sokongan produk"
+            },
+            "desc": {
+              "en": "Continually expanding our content and entertainment line-up",
+              "zh-CN": "持续扩展平台内容与娱乐阵容",
+              "ms": "Terus meluaskan barisan kandungan dan hiburan kami"
+            }
+          },
+          {
+            "title": {
+              "en": "Marketing assets",
+              "zh-CN": "市场素材",
+              "ms": "Aset pemasaran"
+            },
+            "desc": {
+              "en": "Brand visuals and promotional material provided",
+              "zh-CN": "提供品牌视觉与活动推广内容",
+              "ms": "Visual jenama dan bahan promosi disediakan"
+            }
+          },
+          {
+            "title": {
+              "en": "Support & technology",
+              "zh-CN": "客服与技术",
+              "ms": "Sokongan & teknologi"
+            },
+            "desc": {
+              "en": "Help with day-to-day operational questions",
+              "zh-CN": "协助处理运营期间的相关问题",
+              "ms": "Bantuan untuk persoalan operasi harian"
+            }
+          },
+          {
+            "title": {
+              "en": "Settlement support",
+              "zh-CN": "结算协助",
+              "ms": "Sokongan penyelesaian"
+            },
+            "desc": {
+              "en": "Partner data and settlement information clearly presented",
+              "zh-CN": "合作数据与结算信息清晰呈现",
+              "ms": "Data rakan kongsi dan maklumat penyelesaian dipaparkan dengan jelas"
+            }
+          }
+        ]
+      },
+      "steps": [
+        {
+          "title": {
+            "en": "Submit your application",
+            "zh-CN": "提交申请",
+            "ms": "Hantar permohonan anda"
+          },
+          "desc": {
+            "en": "Share your basic details and target market so we understand your plan.",
+            "zh-CN": "留下基本资料与市场方向，让我们了解你的合作计划。",
+            "ms": "Kongsikan maklumat asas dan pasaran sasaran anda supaya kami memahami rancangan anda."
+          }
+        },
+        {
+          "title": {
+            "en": "Talk to our team",
+            "zh-CN": "专人沟通",
+            "ms": "Berbincang dengan pasukan kami"
+          },
+          "desc": {
+            "en": "Our partnerships team gets in touch to confirm your needs and the right model.",
+            "zh-CN": "合作团队与你联系，确认需求与适合的合作方式。",
+            "ms": "Pasukan kerjasama kami akan menghubungi anda untuk mengesahkan keperluan dan model yang sesuai."
+          }
+        },
+        {
+          "title": {
+            "en": "Start the partnership",
+            "zh-CN": "开通合作",
+            "ms": "Mulakan kerjasama"
+          },
+          "desc": {
+            "en": "Once review and terms are confirmed, you can start operating.",
+            "zh-CN": "完成审核与方案确认后，即可开始代理运营。",
+            "ms": "Setelah semakan dan terma disahkan, anda boleh mula beroperasi."
+          }
+        }
+      ],
+      "finalCta": {
+        "eyebrow": {
+          "en": "BECOME OUR PARTNER",
+          "zh-CN": "BECOME OUR PARTNER",
+          "ms": "BECOME OUR PARTNER"
+        },
+        "title": {
+          "en": "Ready to become a",
+          "zh-CN": "准备好成为",
+          "ms": "Sedia untuk menjadi"
+        },
+        "title2": {},
+        "sub": {
+          "en": "a TPOWER agent?",
+          "zh-CN": "TPOWER 代理？",
+          "ms": "ejen TPOWER?"
+        },
+        "desc": {
+          "en": "Send us your basic details and we will follow up through an official channel. Eligibility, terms and the plan are confirmed by formal review and agreement.",
+          "zh-CN": "提交基本资料，我们会通过官方渠道与你沟通合作方向。资格、方案及条款以正式审核与协议为准。",
+          "ms": "Hantarkan maklumat asas anda dan kami akan menghubungi anda melalui saluran rasmi. Kelayakan, terma dan rancangan disahkan melalui semakan dan perjanjian rasmi."
+        },
+        "cta": {},
+        "ctaVal": "/contact/channels",
+        "btn": {
+          "en": "Apply now",
+          "zh-CN": "立即申请",
+          "ms": "Mohon sekarang"
+        },
+        "markTop": "LET'S GROW",
+        "markBottom": "TOGETHER"
+      }
+    },
+    "compliance": {
+      "headings": {
+        "policies": {
+          "eyebrow": {
+            "en": "POLICY CENTRE",
+            "zh-CN": "POLICY CENTRE",
+            "ms": "POLICY CENTRE"
+          },
+          "title": {
+            "en": "Key policies and safety principles",
+            "zh-CN": "重要政策与安全原则",
+            "ms": "Polisi utama dan prinsip keselamatan"
+          },
+          "sub": {
+            "en": "Pick a topic to read the full details",
+            "zh-CN": "选择项目，快速查看完整说明",
+            "ms": "Pilih satu topik untuk membaca butiran penuh"
+          },
+          "desc": {
+            "en": "This page is a plain-language summary of the key principles. In practice the latest official policy, terms of service and applicable regulations apply.",
+            "zh-CN": "本页面提供简明政策摘要，方便快速理解各项重要原则；实际执行以最新正式政策、服务条款及适用规定为准。",
+            "ms": "Halaman ini ialah ringkasan dalam bahasa mudah bagi prinsip utama. Dalam pelaksanaannya, polisi rasmi terkini, terma perkhidmatan dan peraturan yang terpakai adalah yang berkuat kuasa."
+          }
+        }
+      },
+      "panels": [
+        {
+          "code": "compliance",
+          "tab": {
+            "en": "Trust & compliance",
+            "zh-CN": "安全与合规",
+            "ms": "Kepercayaan & pematuhan"
+          },
+          "kicker": "TRUST & COMPLIANCE",
+          "title": {
+            "en": "Trust & compliance",
+            "zh-CN": "安全与合规",
+            "ms": "Kepercayaan & pematuhan"
+          },
+          "sub": {
+            "en": "Long-term trust built on transparency and responsibility",
+            "zh-CN": "以透明和责任建立长期信任",
+            "ms": "Kepercayaan jangka panjang dibina atas ketelusan dan tanggungjawab"
+          },
+          "desc": {
+            "en": "TPOWER takes applicable law, regional eligibility, platform security and transparency seriously. What is offered, and on what terms, follows the relevant regulations and formal documentation.",
+            "zh-CN": "TPOWER 重视适用法律、地区资格、平台安全与资讯透明。所有服务开放范围及合作条件，均应依据相关规定与正式文件执行。",
+            "ms": "TPOWER mementingkan undang-undang yang terpakai, kelayakan mengikut wilayah, keselamatan platform dan ketelusan. Apa yang ditawarkan, dan atas terma yang mana, adalah mengikut peraturan berkaitan dan dokumentasi rasmi."
+          },
+          "policies": [
+            {
+              "title": {
+                "en": "Region and eligibility",
+                "zh-CN": "地区与使用资格",
+                "ms": "Wilayah dan kelayakan"
+              },
+              "desc": {
+                "en": "What is available varies with local law, age requirements and applicable policy. Please confirm you qualify before using the service.",
+                "zh-CN": "服务开放范围会因所在地法律、年龄要求及适用政策而不同。用户应在使用前确认自身符合相关资格。",
+                "ms": "Apa yang tersedia berbeza mengikut undang-undang tempatan, keperluan umur dan polisi yang terpakai. Sila pastikan anda layak sebelum menggunakan perkhidmatan ini."
+              }
+            },
+            {
+              "title": {
+                "en": "Transparent information",
+                "zh-CN": "重要资讯透明",
+                "ms": "Maklumat yang telus"
+              },
+              "desc": {
+                "en": "Key conditions covering services, promotions and policies are presented clearly and updated promptly when they change.",
+                "zh-CN": "与服务、活动及政策有关的重要条件，应以清楚、容易理解的方式呈现，并在内容更新后及时调整。",
+                "ms": "Syarat penting yang meliputi perkhidmatan, promosi dan polisi dipaparkan dengan jelas dan dikemas kini dengan segera apabila berubah."
+              }
+            },
+            {
+              "title": {
+                "en": "Platform safeguards",
+                "zh-CN": "平台安全机制",
+                "ms": "Perlindungan platform"
+              },
+              "desc": {
+                "en": "Ongoing attention to system stability, account protection, data security and unusual-activity monitoring reduces the risk of unauthorised access and misuse.",
+                "zh-CN": "持续关注系统稳定、账户保护、资料安全与异常活动监测，降低未经授权访问及不当使用风险。",
+                "ms": "Perhatian berterusan terhadap kestabilan sistem, perlindungan akaun, keselamatan data dan pemantauan aktiviti luar biasa mengurangkan risiko capaian tanpa kebenaran dan penyalahgunaan."
+              }
+            },
+            {
+              "title": {
+                "en": "Policy and record keeping",
+                "zh-CN": "政策与纪录管理",
+                "ms": "Polisi dan penyimpanan rekod"
+              },
+              "desc": {
+                "en": "Key policies and notices are kept under version control. Where this summary differs from the formal terms, the latest official version applies.",
+                "zh-CN": "重要政策与说明应保留适当版本纪录。若网站摘要与正式条款不同，应以最新正式版本为准。",
+                "ms": "Polisi dan notis penting disimpan dengan kawalan versi. Jika ringkasan ini berbeza daripada terma rasmi, versi rasmi terkini adalah yang berkuat kuasa."
+              }
+            }
+          ],
+          "notice": {
+            "label": "IMPORTANT NOTICE",
+            "desc": {
+              "en": "The operating entity, licence details, scope of authorisation and how to verify them are set out in verifiable official documents and the latest announcements.",
+              "zh-CN": "具体运营主体、牌照资料、许可范围及验证方式，以可供核实的正式文件与最新官方公告为准。",
+              "ms": "Entiti pengendali, butiran lesen, skop kebenaran dan cara mengesahkannya dinyatakan dalam dokumen rasmi yang boleh disemak serta pengumuman terkini."
+            }
+          }
+        },
+        {
+          "code": "responsible",
+          "tab": {
+            "en": "Responsible play",
+            "zh-CN": "理性娱乐",
+            "ms": "Permainan bertanggungjawab"
+          },
+          "kicker": "RESPONSIBLE ENTERTAINMENT",
+          "title": {
+            "en": "Responsible play",
+            "zh-CN": "理性娱乐",
+            "ms": "Permainan bertanggungjawab"
+          },
+          "sub": {
+            "en": "Keeping play relaxed, healthy and under control",
+            "zh-CN": "让娱乐保持轻松、健康与可控",
+            "ms": "Memastikan permainan kekal santai, sihat dan terkawal"
+          },
+          "desc": {
+            "en": "Play should be a free, clear-headed and affordable choice. Plan your time and budget in advance, and pause as soon as it starts affecting daily life.",
+            "zh-CN": "娱乐应建立在自主、清醒和可承担的基础上。预先规划时间与预算，并在体验影响日常生活时及时暂停。",
+            "ms": "Bermain sepatutnya menjadi pilihan yang bebas, berfikiran jernih dan mampu ditanggung. Rancang masa dan bajet anda lebih awal, dan berhenti sebaik sahaja ia mula menjejaskan kehidupan harian."
+          },
+          "policies": [
+            {
+              "title": {
+                "en": "Meet the legal age",
+                "zh-CN": "符合合法年龄",
+                "ms": "Mencapai umur yang sah"
+              },
+              "desc": {
+                "en": "Only users who meet the legal age where they live and qualify for the service may take part. Minors may not use the platform.",
+                "zh-CN": "只有达到所在地法定年龄并符合服务资格的用户，才可参与相关娱乐活动。未成年人不得使用。",
+                "ms": "Hanya pengguna yang mencapai umur sah di tempat mereka menetap dan layak menerima perkhidmatan ini boleh menyertainya. Kanak-kanak di bawah umur tidak dibenarkan menggunakan platform ini."
+              }
+            },
+            {
+              "title": {
+                "en": "Set your time and budget",
+                "zh-CN": "设定时间与预算",
+                "ms": "Tetapkan masa dan bajet anda"
+              },
+              "desc": {
+                "en": "Set a budget you can afford and a finish time before you start. Do not borrow, do not use money meant for living costs, and take breaks.",
+                "zh-CN": "开始前设定可承受的娱乐预算与结束时间，不借款、不挪用生活费用，并安排适当休息。",
+                "ms": "Tetapkan bajet yang mampu ditanggung dan masa berhenti sebelum anda bermula. Jangan berhutang, jangan gunakan wang untuk perbelanjaan hidup, dan berhenti sebentar dari semasa ke semasa."
+              }
+            },
+            {
+              "title": {
+                "en": "Never chase losses",
+                "zh-CN": "避免追赶损失",
+                "ms": "Jangan cuba menebus kerugian"
+              },
+              "desc": {
+                "en": "Outcomes are uncertain. Do not increase your stake to win back losses, and do not continue while upset or otherwise not thinking clearly.",
+                "zh-CN": "娱乐结果存在不确定性。不要为了追回损失而增加投入，也不要在情绪激动或判断受影响时继续参与。",
+                "ms": "Keputusan tidak dapat dipastikan. Jangan tingkatkan pertaruhan untuk menebus kerugian, dan jangan teruskan ketika sedang terganggu emosi atau tidak berfikir dengan jernih."
+              }
+            },
+            {
+              "title": {
+                "en": "Spot the warning signs",
+                "zh-CN": "识别风险信号",
+                "ms": "Kenali tanda amaran"
+              },
+              "desc": {
+                "en": "If you find yourself hiding it, going over budget, losing sleep or work time, or struggling to stop, step back and take a break.",
+                "zh-CN": "若出现隐瞒行为、超出预算、影响睡眠工作或难以停止等情况，应重新评估并暂时停止使用。",
+                "ms": "Jika anda mula menyembunyikannya, melebihi bajet, kurang tidur atau mengabaikan kerja, atau sukar untuk berhenti, berundur dan berhenti seketika."
+              }
+            }
+          ],
+          "notice": {
+            "label": "IMPORTANT NOTICE",
+            "desc": {
+              "en": "If you are finding it hard to stop, or play is affecting your finances, mood, work or relationships, pause now and seek help from a professional service where you live.",
+              "zh-CN": "若你发现自己难以停止，或娱乐行为已经影响财务、情绪、工作与人际关系，请立即暂停并向所在地的专业机构寻求协助。",
+              "ms": "Jika anda sukar untuk berhenti, atau permainan mula menjejaskan kewangan, emosi, kerja atau hubungan anda, berhenti sekarang dan dapatkan bantuan daripada perkhidmatan profesional di tempat anda."
+            }
+          }
+        },
+        {
+          "code": "privacy",
+          "tab": {
+            "en": "Privacy & Terms",
+            "zh-CN": "隐私与使用条款",
+            "ms": "Privasi & Terma"
+          },
+          "kicker": "PRIVACY & TERMS",
+          "title": {
+            "en": "Privacy & Terms",
+            "zh-CN": "隐私与使用条款",
+            "ms": "Privasi & Terma"
+          },
+          "sub": {
+            "en": "Clear about data, rights and responsibilities alike",
+            "zh-CN": "让资料使用、权利与责任同样清楚",
+            "ms": "Jelas tentang data, hak dan tanggungjawab"
+          },
+          "desc": {
+            "en": "We take transparency and clear limits on data use seriously. Site content, account responsibilities, service rules and data handling are governed by the formal privacy policy and terms of use.",
+            "zh-CN": "我们重视资料处理的透明度与使用边界。本网站内容、账户责任、服务规则及资料处理方式，应以正式隐私政策与使用条款为准。",
+            "ms": "Kami mementingkan ketelusan dan batasan yang jelas terhadap penggunaan data. Kandungan laman, tanggungjawab akaun, peraturan perkhidmatan dan pengendalian data adalah tertakluk kepada polisi privasi dan terma penggunaan yang rasmi."
+          },
+          "policies": [
+            {
+              "title": {
+                "en": "What we collect and why",
+                "zh-CN": "资料收集与使用",
+                "ms": "Apa yang kami kumpulkan dan mengapa"
+              },
+              "desc": {
+                "en": "Account, contact, device and transaction data is processed only as far as needed to provide the service, maintain security, improve the experience and meet applicable obligations.",
+                "zh-CN": "只在提供服务、维护安全、改善体验及履行适用义务所需的范围内处理账户、联系、设备或交易相关资料。",
+                "ms": "Data akaun, hubungan, peranti dan transaksi diproses hanya sekadar yang diperlukan untuk menyediakan perkhidmatan, mengekalkan keselamatan, memperbaik pengalaman dan memenuhi kewajipan yang terpakai."
+              }
+            },
+            {
+              "title": {
+                "en": "Protection and retention",
+                "zh-CN": "资料保护与保留",
+                "ms": "Perlindungan dan penyimpanan"
+              },
+              "desc": {
+                "en": "Access limits and safeguards are matched to the nature of the data, which is kept only for lawful purposes, operational need or the required period.",
+                "zh-CN": "依据资料性质采取适当的访问限制与安全措施，并仅在合法目的、运营需要或规定期限内保存。",
+                "ms": "Had capaian dan langkah perlindungan disesuaikan dengan sifat data, yang disimpan hanya untuk tujuan yang sah, keperluan operasi atau tempoh yang ditetapkan."
+              }
+            },
+            {
+              "title": {
+                "en": "Your account, your responsibility",
+                "zh-CN": "账户与使用责任",
+                "ms": "Akaun anda, tanggungjawab anda"
+              },
+              "desc": {
+                "en": "Provide accurate details, keep your account information safe, and follow applicable law, promotion rules and the platform's formal terms of service.",
+                "zh-CN": "用户应提供准确资料、妥善保护账户信息，并遵守适用法律、活动规则及平台正式服务条款。",
+                "ms": "Berikan maklumat yang tepat, simpan maklumat akaun anda dengan selamat, dan patuhi undang-undang yang terpakai, peraturan promosi serta terma perkhidmatan rasmi platform."
+              }
+            },
+            {
+              "title": {
+                "en": "Content and rights",
+                "zh-CN": "内容与权利说明",
+                "ms": "Kandungan dan hak"
+              },
+              "desc": {
+                "en": "Trade marks, imagery, likenesses and partner marks on this site are protected. They may not be copied or used commercially without authorisation.",
+                "zh-CN": "网站中的商标、影像、人物肖像及合作伙伴标识受相关权利保护，未经授权不得复制或用于商业用途。",
+                "ms": "Tanda dagangan, imej, imej individu dan tanda rakan kongsi di laman ini adalah dilindungi. Ia tidak boleh disalin atau digunakan secara komersial tanpa kebenaran."
+              }
+            }
+          ],
+          "notice": {
+            "label": "IMPORTANT NOTICE",
+            "desc": {
+              "en": "Never send passwords, verification codes, full payment details or other highly sensitive information through a general enquiry form. Read the separate policy of any third-party service before using it.",
+              "zh-CN": "请勿通过一般咨询表单提交密码、验证码、完整支付资料或其他高度敏感信息。使用第三方服务前，请同时阅读其独立政策。",
+              "ms": "Jangan sesekali menghantar kata laluan, kod pengesahan, butiran pembayaran penuh atau maklumat sangat sensitif yang lain melalui borang pertanyaan umum. Bacalah polisi berasingan mana-mana perkhidmatan pihak ketiga sebelum menggunakannya."
+            }
+          }
+        },
+        {
+          "code": "identity",
+          "tab": {
+            "en": "Identity & fund security",
+            "zh-CN": "身份与资金安全",
+            "ms": "Keselamatan identiti & dana"
+          },
+          "kicker": "AML / KYC",
+          "title": {
+            "en": "Identity & fund security",
+            "zh-CN": "身份与资金安全",
+            "ms": "Keselamatan identiti & dana"
+          },
+          "sub": {
+            "en": "Necessary checks that keep the platform safe",
+            "zh-CN": "以必要核验维护安全平台环境",
+            "ms": "Pemeriksaan yang perlu bagi memastikan platform selamat"
+          },
+          "desc": {
+            "en": "Identity checks and risk review confirm who you are, that you are of legal age and that your account details are correct, and help detect unusual transactions, fund risk and unauthorised account activity.",
+            "zh-CN": "身份核验与风险审查用于确认用户身份、法定年龄及账户资料，并协助识别异常交易、资金风险与未经授权的账户活动。",
+            "ms": "Pemeriksaan identiti dan semakan risiko mengesahkan siapa anda, bahawa anda mencapai umur sah dan maklumat akaun anda betul, serta membantu mengesan transaksi luar biasa, risiko dana dan aktiviti akaun tanpa kebenaran."
+          },
+          "policies": [
+            {
+              "title": {
+                "en": "Identity and age checks",
+                "zh-CN": "身份与年龄核验",
+                "ms": "Pemeriksaan identiti dan umur"
+              },
+              "desc": {
+                "en": "We may request valid identification, proof of address or other documents to confirm the account holder's identity, age and eligibility.",
+                "zh-CN": "可要求有效身份证明、地址资料或其他必要文件，以确认账户持有人身份、年龄及使用资格。",
+                "ms": "Kami mungkin meminta pengenalan yang sah, bukti alamat atau dokumen lain untuk mengesahkan identiti, umur dan kelayakan pemegang akaun."
+              }
+            },
+            {
+              "title": {
+                "en": "Source of funds review",
+                "zh-CN": "资金来源审查",
+                "ms": "Semakan sumber dana"
+              },
+              "desc": {
+                "en": "Where applicable, we may reasonably review the source of funds, the payment method and its relationship to the account holder, to reduce fraud and illicit-funds risk.",
+                "zh-CN": "在适用情况下，可就资金来源、付款方式与账户持有人关系进行合理审查，以降低欺诈及非法资金风险。",
+                "ms": "Jika berkenaan, kami mungkin menyemak secara berpatutan sumber dana, kaedah pembayaran dan hubungannya dengan pemegang akaun, bagi mengurangkan risiko penipuan dan dana haram."
+              }
+            },
+            {
+              "title": {
+                "en": "Unusual activity monitoring",
+                "zh-CN": "异常活动监测",
+                "ms": "Pemantauan aktiviti luar biasa"
+              },
+              "desc": {
+                "en": "Unusual transaction patterns, multi-account abuse, unauthorised access and other high-risk behaviour are identified, reviewed and acted on.",
+                "zh-CN": "对异常交易模式、多账户滥用、未经授权访问及其他高风险行为进行必要识别、复核与处置。",
+                "ms": "Pola transaksi luar biasa, penyalahgunaan berbilang akaun, capaian tanpa kebenaran dan tingkah laku berisiko tinggi yang lain dikenal pasti, disemak dan ditangani."
+              }
+            },
+            {
+              "title": {
+                "en": "Protecting verification data",
+                "zh-CN": "核验资料保护",
+                "ms": "Melindungi data pengesahan"
+              },
+              "desc": {
+                "en": "Verification data is restricted to authorised staff and lawful purposes, and is protected, retained and deleted in line with applicable requirements.",
+                "zh-CN": "核验资料应限制于获授权人员及合法用途，并依据适用要求采取适当保护、保存与删除措施。",
+                "ms": "Data pengesahan dihadkan kepada kakitangan yang diberi kuasa dan tujuan yang sah, serta dilindungi, disimpan dan dihapuskan mengikut keperluan yang terpakai."
+              }
+            }
+          ],
+          "notice": {
+            "label": "IMPORTANT NOTICE",
+            "desc": {
+              "en": "Verification requirements vary by region, risk level and the transaction itself. We may reasonably request further information or temporarily limit an operation.",
+              "zh-CN": "核验要求可能因地区、风险程度或交易情况而不同。平台可在合理必要范围内要求补充资料或暂时限制相关操作。",
+              "ms": "Keperluan pengesahan berbeza mengikut wilayah, tahap risiko dan transaksi itu sendiri. Kami mungkin meminta maklumat lanjut secara berpatutan atau mengehadkan sesuatu operasi untuk sementara waktu."
+            }
+          }
+        }
+      ]
+    }
+  },
+  "statistics": {
+    "growthPerDay": 3,
+    "rows": [
+      {
+        "source": "註冊會員數",
+        "mult": 200,
+        "unit": "無",
+        "tickEverySeconds": 15,
+        "title": {
+          "en": "Registered members",
+          "zh-CN": "注册会员规模",
+          "ms": "Ahli berdaftar"
+        },
+        "desc": {
+          "en": "Over {value} registered members to date",
+          "zh-CN": "累计注册会员超 {value}",
+          "ms": "Lebih {value} ahli berdaftar sehingga kini"
+        },
+        "sort": 1
+      },
+      {
+        "source": "代理數",
+        "mult": 1000,
+        "unit": "無",
+        "tickEverySeconds": 15,
+        "title": {
+          "en": "Partner agents",
+          "zh-CN": "合作代理规模",
+          "ms": "Ejen rakan kongsi"
+        },
+        "desc": {
+          "en": "A partner network of {value}",
+          "zh-CN": "合作代理规模达 {value}",
+          "ms": "Rangkaian rakan kongsi seramai {value}"
+        },
+        "sort": 2
+      },
+      {
+        "source": "累計代理佣金",
+        "mult": 10,
+        "unit": "無",
+        "tickEverySeconds": 15,
+        "title": {
+          "en": "Agent commission",
+          "zh-CN": "代理佣金",
+          "ms": "Komisen ejen"
+        },
+        "desc": {
+          "en": "Over {value} paid out in agent commission",
+          "zh-CN": "累计派发代理佣金超 {value}",
+          "ms": "Lebih {value} telah dibayar sebagai komisen ejen"
+        },
+        "sort": 3
+      },
+      {
+        "source": "累計活動獎金",
+        "mult": 10,
+        "unit": "無",
+        "tickEverySeconds": 15,
+        "title": {
+          "en": "Promotion payouts",
+          "zh-CN": "活动奖金",
+          "ms": "Bayaran promosi"
+        },
+        "desc": {
+          "en": "Over {value} awarded in promotion prizes",
+          "zh-CN": "累计发放活动奖金超 {value}",
+          "ms": "Lebih {value} telah diberikan sebagai hadiah promosi"
+        },
+        "sort": 4
+      }
+    ]
+  },
+  "promotions": [
+    {
+      "id": "promo-001",
+      "label": {
+        "en": "WELCOME REWARD",
+        "zh-CN": "WELCOME REWARD",
+        "ms": "WELCOME REWARD"
+      },
+      "title": {
+        "en": "New member welcome offer",
+        "zh-CN": "新会员专属礼遇",
+        "ms": "Tawaran selamat datang ahli baharu"
+      },
+      "desc": {
+        "en": "Meet the stated conditions to unlock the FUMA GAMES and WUDI GAMING exclusives.",
+        "zh-CN": "完成指定条件，即可解锁 FUMA GAMES 与 WUDI GAMING 专属体验。",
+        "ms": "Penuhi syarat yang dinyatakan untuk membuka tawaran eksklusif FUMA GAMES dan WUDI GAMING."
+      },
+      "img": {
+        "en": "/uploads/promo-newmember.webp",
+        "zh-CN": "/uploads/promo-newmember.webp",
+        "ms": "/uploads/promo-newmember.webp"
+      },
+      "end": "2026-12-31 23:59:59",
+      "linkVal": "",
+      "sort": 1,
+      "on": true
+    },
+    {
+      "id": "promo-002",
+      "label": {
+        "en": "INVITE & EARN",
+        "zh-CN": "INVITE & EARN",
+        "ms": "INVITE & EARN"
+      },
+      "title": {
+        "en": "Refer a friend",
+        "zh-CN": "好友邀请奖励",
+        "ms": "Jemput rakan"
+      },
+      "desc": {
+        "en": "Invite a friend to join, and earn the reward once the conditions are met.",
+        "zh-CN": "邀请好友一同加入，达成活动条件即可获得对应奖励。",
+        "ms": "Jemput rakan untuk menyertai, dan dapatkan ganjaran setelah syarat dipenuhi."
+      },
+      "img": {
+        "en": "/uploads/promo-referral.webp",
+        "zh-CN": "/uploads/promo-referral.webp",
+        "ms": "/uploads/promo-referral.webp"
+      },
+      "end": "2026-11-30 23:59:59",
+      "linkVal": "",
+      "sort": 2,
+      "on": true
+    },
+    {
+      "id": "promo-003",
+      "label": {
+        "en": "SEASONAL EVENT",
+        "zh-CN": "SEASONAL EVENT",
+        "ms": "SEASONAL EVENT"
+      },
+      "title": {
+        "en": "Lunar New Year special",
+        "zh-CN": "新春限定企划",
+        "ms": "Istimewa Tahun Baharu Cina"
+      },
+      "desc": {
+        "en": "A limited-time theme with exclusive rewards. Full details follow the official announcement.",
+        "zh-CN": "限定主题、精彩内容与专属回馈，活动详情以正式公布为准。",
+        "ms": "Tema untuk tempoh terhad dengan ganjaran eksklusif. Butiran penuh menyusuli pengumuman rasmi."
+      },
+      "img": {
+        "en": "/uploads/promo-newyear.webp",
+        "zh-CN": "/uploads/promo-newyear.webp",
+        "ms": "/uploads/promo-newyear.webp"
+      },
+      "end": "2027-02-20 23:59:59",
+      "linkVal": "",
+      "sort": 3,
+      "on": true
+    },
+    {
+      "id": "promo-004",
+      "label": {
+        "en": "MID-AUTUMN",
+        "zh-CN": "MID-AUTUMN",
+        "ms": "MID-AUTUMN"
+      },
+      "title": {
+        "en": "Mid-Autumn reunion offer",
+        "zh-CN": "中秋团圆礼遇",
+        "ms": "Tawaran perhimpunan Pertengahan Musim Luruh"
+      },
+      "desc": {
+        "en": "A festive-season offer. This promotion has ended.",
+        "zh-CN": "节庆限定回馈，活动已结束。",
+        "ms": "Tawaran musim perayaan. Promosi ini telah tamat."
+      },
+      "img": {
+        "en": "/uploads/promo-archive.webp",
+        "zh-CN": "/uploads/promo-archive.webp",
+        "ms": "/uploads/promo-archive.webp"
+      },
+      "end": "2025-10-08 23:59:59",
+      "linkVal": "",
+      "sort": 4,
+      "on": true
+    },
+    {
+      "id": "promo-005",
+      "label": {
+        "en": "SUMMER FEST",
+        "zh-CN": "SUMMER FEST",
+        "ms": "SUMMER FEST"
+      },
+      "title": {
+        "en": "Summer festival",
+        "zh-CN": "夏日狂欢季",
+        "ms": "Festival musim panas"
+      },
+      "desc": {
+        "en": "This promotion has been withdrawn.",
+        "zh-CN": "活动已下架。",
+        "ms": "Promosi ini telah ditarik."
+      },
+      "img": {
+        "en": "/uploads/promo-archive.webp",
+        "zh-CN": "/uploads/promo-archive.webp",
+        "ms": "/uploads/promo-archive.webp"
+      },
+      "end": "2025-08-31 23:59:59",
+      "linkVal": "",
+      "sort": 5,
+      "on": false
+    }
+  ],
+  "game_categories": [
+    {
+      "code": "SLOT",
+      "label": "SLOT",
+      "name": {
+        "en": "Slots",
+        "zh-CN": "电子游戏",
+        "ms": "Slot"
+      },
+      "sort": 1,
+      "on": true
+    },
+    {
+      "code": "SPORTS",
+      "label": "SPORTS",
+      "name": {
+        "en": "Sports",
+        "zh-CN": "体育赛事",
+        "ms": "Sukan"
+      },
+      "sort": 2,
+      "on": true
+    },
+    {
+      "code": "LIVE",
+      "label": "LIVE",
+      "name": {
+        "en": "Live casino",
+        "zh-CN": "真人娱乐",
+        "ms": "Kasino langsung"
+      },
+      "sort": 3,
+      "on": true
+    },
+    {
+      "code": "FISHING",
+      "label": "FISHING",
+      "name": {
+        "en": "Fishing games",
+        "zh-CN": "捕鱼游戏",
+        "ms": "Permainan memancing"
+      },
+      "sort": 4,
+      "on": true
+    },
+    {
+      "code": "4D",
+      "label": "4D",
+      "name": {
+        "en": "Lottery",
+        "zh-CN": "彩票娱乐",
+        "ms": "Loteri"
+      },
+      "sort": 5,
+      "on": true
+    }
+  ],
+  "game_providers": [
+    {
+      "id": "provider-001",
+      "cat": "SLOT",
+      "name": "918KISS",
+      "desc": {
+        "en": "A popular slot platform with a wide spread of themes and titles.",
+        "zh-CN": "热门电子游戏娱乐平台，提供丰富主题与多元游戏内容。",
+        "ms": "Platform slot popular dengan pelbagai tema dan kandungan permainan."
+      },
+      "logo": "",
+      "featured": true,
+      "tags": {
+        "en": [
+          "Popular themes",
+          "Diverse content",
+          "Mobile ready"
+        ],
+        "zh-CN": [
+          "热门主题",
+          "多元内容",
+          "移动体验"
+        ],
+        "ms": [
+          "Tema popular",
+          "Kandungan pelbagai",
+          "Sedia untuk mudah alih"
+        ]
+      },
+      "featuredImage": "/uploads/games-slot.webp",
+      "sort": 1,
+      "on": true
+    },
+    {
+      "id": "provider-002",
+      "cat": "SLOT",
+      "name": "MEGA888",
+      "desc": {
+        "en": "Classic and current slot titles together, for plenty of choice online.",
+        "zh-CN": "集合多款经典与热门电子游戏，提供丰富的线上娱乐选择。",
+        "ms": "Menghimpunkan tajuk slot klasik dan popular untuk pilihan dalam talian yang luas."
+      },
+      "logo": "",
+      "featured": true,
+      "tags": {
+        "en": [
+          "Classic play",
+          "Wide choice",
+          "Always updating"
+        ],
+        "zh-CN": [
+          "经典玩法",
+          "丰富选择",
+          "持续更新"
+        ],
+        "ms": [
+          "Permainan klasik",
+          "Pilihan luas",
+          "Sentiasa dikemas kini"
+        ]
+      },
+      "featuredImage": "/uploads/article-games.webp",
+      "sort": 2,
+      "on": true
+    },
+    {
+      "id": "provider-003",
+      "cat": "SLOT",
+      "name": "PUSSY888",
+      "desc": {
+        "en": "Diverse slot content and rich themes for a more complete experience.",
+        "zh-CN": "多元电子游戏内容与丰富主题，带来更完整的娱乐体验。",
+        "ms": "Kandungan slot yang pelbagai dengan tema yang kaya untuk pengalaman yang lebih lengkap."
+      },
+      "logo": "",
+      "featured": true,
+      "tags": {
+        "en": [
+          "Varied themes",
+          "Deep lineup",
+          "Smooth play"
+        ],
+        "zh-CN": [
+          "多元主题",
+          "内容阵容",
+          "流畅体验"
+        ],
+        "ms": [
+          "Tema pelbagai",
+          "Barisan mendalam",
+          "Permainan lancar"
+        ]
+      },
+      "featuredImage": "/uploads/games-slot-2.webp",
+      "sort": 3,
+      "on": true
+    },
+    {
+      "id": "provider-004",
+      "cat": "SLOT",
+      "name": "VPOWER",
+      "desc": {
+        "en": "Varied themes and interactive mechanics that broaden the slot line-up.",
+        "zh-CN": "汇聚多样主题与互动玩法，扩展电子游戏内容阵容。",
+        "ms": "Tema pelbagai dan mekanik interaktif yang meluaskan barisan slot."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 4,
+      "on": true
+    },
+    {
+      "id": "provider-005",
+      "cat": "SLOT",
+      "name": "ACEWIN",
+      "desc": {
+        "en": "Slot content across categories to suit every taste.",
+        "zh-CN": "提供多类型电子游戏内容，满足不同玩家的娱乐喜好。",
+        "ms": "Kandungan slot merentas kategori untuk memenuhi setiap cita rasa."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 5,
+      "on": true
+    },
+    {
+      "id": "provider-006",
+      "cat": "SLOT",
+      "name": "ACE333",
+      "desc": {
+        "en": "Popular themes and varied mechanics for a fuller content offering.",
+        "zh-CN": "结合热门主题与多元玩法，带来丰富的平台内容选择。",
+        "ms": "Tema popular dan mekanik pelbagai untuk pilihan kandungan yang lebih penuh."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 6,
+      "on": true
+    },
+    {
+      "id": "provider-007",
+      "cat": "SLOT",
+      "name": "RGSLOT",
+      "desc": {
+        "en": "A steady stream of slot titles and themed experiences.",
+        "zh-CN": "持续提供多样化电子游戏内容与主题体验。",
+        "ms": "Aliran tetap tajuk slot dan pengalaman bertema."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 7,
+      "on": true
+    },
+    {
+      "id": "provider-008",
+      "cat": "SLOT",
+      "name": "GFG",
+      "desc": {
+        "en": "A wide range of themes adding more slot choices to the platform.",
+        "zh-CN": "以丰富游戏主题，为平台补充更多电子游戏选择。",
+        "ms": "Rangkaian tema yang luas menambah lagi pilihan slot pada platform."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 8,
+      "on": true
+    },
+    {
+      "id": "provider-009",
+      "cat": "SPORTS",
+      "name": "WBET",
+      "desc": {
+        "en": "A broad fixture list and varied ways to enjoy sports.",
+        "zh-CN": "提供丰富体育赛事内容与多样化体育娱乐体验。",
+        "ms": "Senarai perlawanan yang luas dan pelbagai cara menikmati sukan."
+      },
+      "logo": "",
+      "featured": true,
+      "tags": {
+        "en": [
+          "Top fixtures",
+          "Many sports",
+          "Live events"
+        ],
+        "zh-CN": [
+          "热门赛事",
+          "多项运动",
+          "赛事内容"
+        ],
+        "ms": [
+          "Perlawanan utama",
+          "Banyak sukan",
+          "Acara langsung"
+        ]
+      },
+      "featuredImage": "/uploads/games-sports.webp",
+      "sort": 9,
+      "on": true
+    },
+    {
+      "id": "provider-010",
+      "cat": "SPORTS",
+      "name": "M9BET",
+      "desc": {
+        "en": "Coverage across popular sports with plenty of ways to play.",
+        "zh-CN": "覆盖多项热门体育赛事，提供丰富体育娱乐选择。",
+        "ms": "Liputan merentas sukan popular dengan banyak cara untuk bermain."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 10,
+      "on": true
+    },
+    {
+      "id": "provider-011",
+      "cat": "LIVE",
+      "name": "AESEXY",
+      "desc": {
+        "en": "Immersive live interaction that enriches the platform's casino floor.",
+        "zh-CN": "提供沉浸式真人互动内容，丰富平台的现场娱乐体验。",
+        "ms": "Interaksi langsung yang mengasyikkan, memperkaya dewan kasino platform."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 11,
+      "on": true
+    },
+    {
+      "id": "provider-012",
+      "cat": "LIVE",
+      "name": "DREAM GAMING",
+      "desc": {
+        "en": "Varied live content for a more immersive choice.",
+        "zh-CN": "以多元真人内容，为玩家带来更具临场感的选择。",
+        "ms": "Kandungan langsung yang pelbagai untuk pilihan yang lebih mengasyikkan."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 12,
+      "on": true
+    },
+    {
+      "id": "provider-013",
+      "cat": "LIVE",
+      "name": "CT855",
+      "desc": {
+        "en": "A wide live-casino line-up with varied ways to play.",
+        "zh-CN": "提供丰富真人娱乐内容与多样互动玩法。",
+        "ms": "Barisan kasino langsung yang luas dengan pelbagai cara bermain."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 13,
+      "on": true
+    },
+    {
+      "id": "provider-014",
+      "cat": "LIVE",
+      "name": "PRAGMATIC PLAY",
+      "desc": {
+        "en": "Diverse live content that keeps widening the casino line-up.",
+        "zh-CN": "以多元现场内容，持续扩展真人娱乐阵容。",
+        "ms": "Kandungan langsung yang pelbagai, terus meluaskan barisan kasino."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 14,
+      "on": true
+    },
+    {
+      "id": "provider-015",
+      "cat": "FISHING",
+      "name": "LFC888",
+      "desc": {
+        "en": "Varied settings and mechanics for a fuller fishing experience.",
+        "zh-CN": "结合多样场景与互动机制，带来丰富捕鱼游戏体验。",
+        "ms": "Latar dan mekanik yang pelbagai untuk pengalaman memancing yang lebih penuh."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 15,
+      "on": true
+    },
+    {
+      "id": "provider-016",
+      "cat": "FISHING",
+      "name": "FUMA GAMES",
+      "desc": {
+        "en": "Fast-paced fishing and interactive entertainment.",
+        "zh-CN": "提供节奏鲜明的捕鱼与互动娱乐内容。",
+        "ms": "Permainan memancing dan hiburan interaktif yang pantas."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 16,
+      "on": true
+    },
+    {
+      "id": "provider-017",
+      "cat": "FISHING",
+      "name": "WUDI GAMING",
+      "desc": {
+        "en": "Rich settings and mechanics that widen the fishing line-up.",
+        "zh-CN": "以丰富场景与玩法，扩展平台捕鱼游戏阵容。",
+        "ms": "Latar dan mekanik yang kaya, meluaskan barisan permainan memancing."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 17,
+      "on": true
+    },
+    {
+      "id": "provider-018",
+      "cat": "FISHING",
+      "name": "BWG",
+      "desc": {
+        "en": "Varied fishing titles with light, responsive gameplay.",
+        "zh-CN": "提供多元捕鱼内容与轻快互动体验。",
+        "ms": "Tajuk memancing yang pelbagai dengan permainan yang ringan dan responsif."
+      },
+      "logo": "",
+      "featured": false,
+      "tags": {},
+      "featuredImage": "",
+      "sort": 18,
+      "on": true
+    }
+  ],
+  "media": [
+    {
+      "id": "media-001",
+      "cat": "代言人",
+      "title": {
+        "en": "Brand campaign film",
+        "zh-CN": "品牌形象大片",
+        "ms": "Filem kempen jenama"
+      },
+      "note": {
+        "en": "Annual brand film",
+        "zh-CN": "年度品牌大片",
+        "ms": "Filem jenama tahunan"
+      },
+      "cover": {
+        "en": "/uploads/media-ambassador.webp",
+        "zh-CN": "/uploads/media-ambassador.webp",
+        "ms": "/uploads/media-ambassador.webp"
+      },
+      "url": "https://youtu.be/xxxxxxxx",
+      "sort": 1,
+      "on": true
+    },
+    {
+      "id": "media-002",
+      "cat": "贊助",
+      "title": {
+        "en": "Match day highlights",
+        "zh-CN": "热血赛事影像",
+        "ms": "Sorotan hari perlawanan"
+      },
+      "note": {
+        "en": "Match highlights",
+        "zh-CN": "赛事精彩瞬间",
+        "ms": "Sorotan perlawanan"
+      },
+      "cover": {
+        "en": "/uploads/sponsor-sports.webp",
+        "zh-CN": "/uploads/sponsor-sports.webp",
+        "ms": "/uploads/sponsor-sports.webp"
+      },
+      "url": "https://example.invalid/sponsor2026.mp4",
+      "sort": 2,
+      "on": true
+    },
+    {
+      "id": "media-003",
+      "cat": "品牌",
+      "title": {
+        "en": "Brand journey feature",
+        "zh-CN": "品牌历程特辑",
+        "ms": "Rencana perjalanan jenama"
+      },
+      "note": {
+        "en": "More coming soon",
+        "zh-CN": "更多精彩内容即将上线",
+        "ms": "Lagi akan menyusul"
+      },
+      "cover": {
+        "en": "/uploads/media-films.webp",
+        "zh-CN": "/uploads/media-films.webp",
+        "ms": "/uploads/media-films.webp"
+      },
+      "url": "",
+      "sort": 3,
+      "on": true
+    },
+    {
+      "id": "media-004",
+      "cat": "音樂",
+      "title": {
+        "en": "Music & MV releases",
+        "zh-CN": "音乐与 MV 作品",
+        "ms": "Muzik & keluaran MV"
+      },
+      "note": {
+        "en": "Official theme song",
+        "zh-CN": "官方主题曲",
+        "ms": "Lagu tema rasmi"
+      },
+      "cover": {
+        "en": "/uploads/media-music.webp",
+        "zh-CN": "/uploads/media-music.webp",
+        "ms": "/uploads/media-music.webp"
+      },
+      "url": "https://youtu.be/yyyyyyyy",
+      "sort": 4,
+      "on": true
+    },
+    {
+      "id": "media-005",
+      "cat": "代言人",
+      "title": {
+        "en": "Ambassador interview feature",
+        "zh-CN": "代言人访谈特辑",
+        "ms": "Rencana wawancara ambassador"
+      },
+      "note": {
+        "en": "Behind the scenes",
+        "zh-CN": "幕后花絮",
+        "ms": "Di sebalik tabir"
+      },
+      "cover": {
+        "en": "/uploads/media-ambassador.webp",
+        "zh-CN": "/uploads/media-ambassador.webp",
+        "ms": "/uploads/media-ambassador.webp"
+      },
+      "url": "",
+      "sort": 5,
+      "on": false
+    }
+  ],
+  "article_categories": [
+    {
+      "code": "platform",
+      "label": "LATEST UPDATE",
+      "name": {
+        "en": "Platform updates",
+        "zh-CN": "平台动态",
+        "ms": "Perkembangan platform"
+      },
+      "sort": 1,
+      "on": true
+    },
+    {
+      "code": "games",
+      "label": "GAMES",
+      "name": {
+        "en": "Game ecosystem",
+        "zh-CN": "游戏生态",
+        "ms": "Ekosistem permainan"
+      },
+      "sort": 2,
+      "on": true
+    },
+    {
+      "code": "brand",
+      "label": "BRAND",
+      "name": {
+        "en": "Brand partnerships",
+        "zh-CN": "品牌合作",
+        "ms": "Kerjasama jenama"
+      },
+      "sort": 3,
+      "on": true
+    },
+    {
+      "code": "partners",
+      "label": "PARTNERS",
+      "name": {
+        "en": "Agent news",
+        "zh-CN": "代理资讯",
+        "ms": "Berita ejen"
+      },
+      "sort": 4,
+      "on": true
+    },
+    {
+      "code": "trust",
+      "label": "TRUST",
+      "name": {
+        "en": "Trust & safety",
+        "zh-CN": "安心体验",
+        "ms": "Kepercayaan & keselamatan"
+      },
+      "sort": 5,
+      "on": true
+    }
+  ],
+  "articles": [
+    {
+      "id": "article-001",
+      "slug": "post-001-platform",
+      "cat": "platform",
+      "label": {
+        "en": "LATEST UPDATE",
+        "zh-CN": "LATEST UPDATE",
+        "ms": "LATEST UPDATE"
+      },
+      "title": {
+        "en": "TPOWER keeps refining the whole platform experience",
+        "zh-CN": "TPOWER 持续优化平台整体体验",
+        "ms": "TPOWER terus memperhalus keseluruhan pengalaman platform"
+      },
+      "excerpt": {
+        "en": "System stability, mobile experience and everyday flows — every key part of the platform, continually improved.",
+        "zh-CN": "围绕系统稳定、移动端体验与操作流程，持续完善平台的每一个关键环节。",
+        "ms": "Kestabilan sistem, pengalaman mudah alih dan aliran harian — setiap bahagian penting platform, diperbaik secara berterusan."
+      },
+      "cover": "/uploads/sponsor-brand.webp",
+      "lead": {
+        "en": "The platform experience is not a single feature. It is every detail between opening a page, finding what you want and getting it done.",
+        "zh-CN": "平台体验并不是单一功能，而是从进入页面、寻找内容到完成操作的每一个细节。",
+        "ms": "Pengalaman platform bukan satu fungsi tunggal, tetapi setiap perincian daripada saat membuka halaman, mencari kandungan sehingga menyelesaikan tindakan."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Simpler and clearer to use",
+            "zh-CN": "让操作更简单清楚",
+            "ms": "Menjadikan penggunaan lebih ringkas dan jelas"
+          },
+          "desc": {
+            "en": "TPOWER keeps reworking page structure and the flows behind everyday features, so people on any device find what they need sooner and take fewer unnecessary steps.",
+            "zh-CN": "TPOWER 持续整理页面结构与常用功能流程，让不同设备的用户都能更快速地找到所需内容，减少不必要的操作步骤。",
+            "ms": "TPOWER terus menyusun struktur halaman dan aliran fungsi yang kerap digunakan, supaya pengguna pada mana-mana peranti dapat mencari kandungan yang diperlukan dengan lebih pantas, dengan langkah yang tidak perlu dikurangkan."
+          }
+        },
+        {
+          "title": {
+            "en": "Steadier performance over time",
+            "zh-CN": "持续提升稳定表现",
+            "ms": "Terus meningkatkan prestasi yang stabil"
+          },
+          "desc": {
+            "en": "We pay close attention to system architecture, network routing and how the site adapts on mobile, and keep adjusting them against real usage so the experience stays stable and smooth.",
+            "zh-CN": "我们重视系统架构、访问线路与移动端适配，并根据实际使用情况持续调整，让整体体验保持稳定、顺畅。",
+            "ms": "Kami mementingkan seni bina sistem, laluan capaian dan penyesuaian pada peranti mudah alih, serta melaraskannya secara berterusan berdasarkan penggunaan sebenar supaya pengalaman keseluruhan kekal stabil dan lancar."
+          }
+        },
+        {
+          "title": {
+            "en": "Every update has a clear direction",
+            "zh-CN": "每一次更新都有明确方向",
+            "ms": "Setiap kemas kini mempunyai arah yang jelas"
+          },
+          "desc": {
+            "en": "Further work continues around speed, security, content and service, so that every key part of the platform becomes more complete.",
+            "zh-CN": "后续优化将继续围绕速度、安全、内容与服务展开，让平台的每一个关键环节更加完整。",
+            "ms": "Penambahbaikan seterusnya akan terus berkisar pada kelajuan, keselamatan, kandungan dan perkhidmatan, supaya setiap bahagian penting platform menjadi lebih lengkap."
+          }
+        }
+      ],
+      "featured": true,
+      "sort": 1,
+      "on": true
+    },
+    {
+      "id": "article-002",
+      "slug": "post-002-games",
+      "cat": "games",
+      "label": {
+        "en": "GAMES",
+        "zh-CN": "GAMES",
+        "ms": "GAMES"
+      },
+      "title": {
+        "en": "More quality games keep arriving",
+        "zh-CN": "更多优质游戏内容持续加入",
+        "ms": "Lebih banyak permainan berkualiti terus tiba"
+      },
+      "excerpt": {
+        "en": "Connecting more game brands, and widening our slots, sports and wider entertainment offering.",
+        "zh-CN": "持续连接不同游戏品牌，进一步扩展电子游戏、体育赛事及多元娱乐内容。",
+        "ms": "Menghubungkan lebih banyak jenama permainan, dan meluaskan tawaran slot, sukan serta hiburan yang lebih luas."
+      },
+      "cover": "/uploads/article-games.webp",
+      "lead": {
+        "en": "A wide choice of content is one of the foundations a platform grows on.",
+        "zh-CN": "丰富的内容选择，是平台持续发展的重要基础。",
+        "ms": "Pilihan kandungan yang kaya ialah asas penting kepada pertumbuhan berterusan sebuah platform."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Expanding the entertainment line-up",
+            "zh-CN": "扩展多元娱乐阵容",
+            "ms": "Meluaskan barisan hiburan yang pelbagai"
+          },
+          "desc": {
+            "en": "From slots and sports to other kinds of entertainment, TPOWER keeps assessing new content and partner resources to widen the choice available.",
+            "zh-CN": "从电子游戏、体育赛事到其他娱乐类型，TPOWER 持续评估不同内容与合作资源，为用户带来更多选择。",
+            "ms": "Daripada slot dan acara sukan sehingga kategori hiburan yang lain, TPOWER terus menilai kandungan dan sumber kerjasama yang berbeza untuk memberi pengguna lebih banyak pilihan."
+          }
+        },
+        {
+          "title": {
+            "en": "Quality matters as much as quantity",
+            "zh-CN": "重视内容与体验品质",
+            "ms": "Mementingkan kualiti kandungan dan pengalaman"
+          },
+          "desc": {
+            "en": "New titles are judged on more than numbers. How they handle, how they perform on mobile and how complete they are all count, so every kind of player can explore with ease.",
+            "zh-CN": "新增内容不只关注数量，也会综合考虑操作体验、移动端表现与内容完整度，让不同类型的玩家都能轻松探索。",
+            "ms": "Kandungan baharu bukan sekadar soal kuantiti; pengalaman penggunaan, prestasi pada peranti mudah alih dan kelengkapan kandungan turut dipertimbangkan supaya setiap jenis pemain dapat menjelajah dengan mudah."
+          }
+        },
+        {
+          "title": {
+            "en": "A game ecosystem that keeps growing",
+            "zh-CN": "持续成长的游戏生态",
+            "ms": "Ekosistem permainan yang terus berkembang"
+          },
+          "desc": {
+            "en": "The line-up keeps changing as product plans and partnerships progress. What is actually available is confirmed by the platform's official announcements.",
+            "zh-CN": "平台游戏阵容会随着产品规划与合作进度持续更新，实际开放内容以平台正式公布为准。",
+            "ms": "Barisan permainan platform akan dikemas kini mengikut perancangan produk dan kemajuan kerjasama; kandungan yang benar-benar dibuka adalah tertakluk kepada pengumuman rasmi platform."
+          }
+        }
+      ],
+      "featured": false,
+      "sort": 2,
+      "on": true
+    },
+    {
+      "id": "article-003",
+      "slug": "post-003-partners",
+      "cat": "partners",
+      "label": {
+        "en": "PARTNERS",
+        "zh-CN": "PARTNERS",
+        "ms": "PARTNERS"
+      },
+      "title": {
+        "en": "The TPOWER agent partner programme is now open",
+        "zh-CN": "TPOWER 代理伙伴计划正式开放",
+        "ms": "Program rakan ejen TPOWER kini dibuka"
+      },
+      "excerpt": {
+        "en": "Product, operations, marketing and service support, for partners at every stage.",
+        "zh-CN": "提供产品、运营、推广与服务支持，与不同阶段的代理伙伴共同开拓市场。",
+        "ms": "Sokongan produk, operasi, pemasaran dan perkhidmatan, untuk rakan kongsi pada setiap peringkat."
+      },
+      "cover": "/uploads/article-partners.webp",
+      "lead": {
+        "en": "TPOWER has opened its agent partner programme, looking for partners who value long-term operation and market growth.",
+        "zh-CN": "TPOWER 正式开放代理伙伴计划，寻找重视长期经营与市场发展的合作伙伴。",
+        "ms": "TPOWER secara rasmi membuka program rakan ejen, mencari rakan kongsi yang mementingkan pengurusan jangka panjang dan pembangunan pasaran."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Open to partners at any stage",
+            "zh-CN": "适合不同阶段的伙伴",
+            "ms": "Sesuai untuk rakan kongsi pada peringkat yang berbeza"
+          },
+          "desc": {
+            "en": "Whether you are an individual just starting out, a small team, or an operation that already has a community and market resources, you are welcome to register your interest.",
+            "zh-CN": "无论是准备起步的个人、小型团队，还是已经拥有社群与市场资源的运营团队，都可以提交合作意向。",
+            "ms": "Sama ada individu yang baharu bermula, pasukan kecil, atau pasukan operasi yang telah memiliki komuniti dan sumber pasaran, semuanya boleh menghantar permohonan kerjasama."
+          }
+        },
+        {
+          "title": {
+            "en": "More than an agent account",
+            "zh-CN": "不只是提供代理账户",
+            "ms": "Bukan sekadar menyediakan akaun ejen"
+          },
+          "desc": {
+            "en": "Support covers product, promotional material, day-to-day communication, technical help and service, so partners expand with a clearer sense of direction.",
+            "zh-CN": "平台将围绕产品、推广素材、运营沟通、技术与服务等方向提供支持，协助伙伴更有方向地拓展市场。",
+            "ms": "Platform akan memberi sokongan dalam aspek produk, bahan promosi, komunikasi operasi, teknologi dan perkhidmatan, bagi membantu rakan kongsi meluaskan pasaran dengan lebih terarah."
+          }
+        },
+        {
+          "title": {
+            "en": "Confirmed by a formal agreement",
+            "zh-CN": "以正式方案确认合作",
+            "ms": "Kerjasama disahkan melalui perjanjian rasmi"
+          },
+          "desc": {
+            "en": "Eligibility, terms, settlement and eligible regions are all subject to review, and are governed by the formal agreement both sides finally confirm.",
+            "zh-CN": "代理资格、合作条件、结算方式与适用地区均需经过审核，并以双方最终确认的正式协议为准。",
+            "ms": "Kelayakan ejen, syarat kerjasama, kaedah penyelesaian dan wilayah yang terpakai semuanya melalui proses semakan, dan tertakluk kepada perjanjian rasmi yang disahkan oleh kedua-dua pihak."
+          }
+        }
+      ],
+      "featured": false,
+      "sort": 3,
+      "on": true
+    },
+    {
+      "id": "article-004",
+      "slug": "post-004-brand",
+      "cat": "brand",
+      "label": {
+        "en": "BRAND",
+        "zh-CN": "BRAND",
+        "ms": "BRAND"
+      },
+      "title": {
+        "en": "Brand partnerships keep expanding",
+        "zh-CN": "品牌合作版图持续拓展",
+        "ms": "Kerjasama jenama terus berkembang"
+      },
+      "excerpt": {
+        "en": "From sporting events to entertainment projects, partnerships that take TPOWER to a bigger stage.",
+        "zh-CN": "从体育赛事到娱乐企划，通过多元合作让 TPOWER 走向更大的舞台。",
+        "ms": "Daripada acara sukan sehingga projek hiburan, kerjasama yang membawa TPOWER ke pentas yang lebih besar."
+      },
+      "cover": "/uploads/sponsor-esports.webp",
+      "lead": {
+        "en": "Every brand partnership is a chance for TPOWER to connect with another field.",
+        "zh-CN": "每一次品牌合作，都是 TPOWER 与不同领域建立连接的重要机会。",
+        "ms": "Setiap kerjasama jenama ialah peluang penting bagi TPOWER untuk membina hubungan dengan bidang yang berbeza."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Reaching more stages",
+            "zh-CN": "连接更多精彩舞台",
+            "ms": "Menghubungkan lebih banyak pentas menarik"
+          },
+          "desc": {
+            "en": "TPOWER keeps an eye on sports, esports, entertainment events and crossover content, so the brand reaches a wider audience in more than one form.",
+            "zh-CN": "TPOWER 持续关注体育赛事、电竞、娱乐活动与跨界内容，让品牌通过不同形式触达更广泛的受众。",
+            "ms": "TPOWER terus memberi perhatian kepada acara sukan, esports, aktiviti hiburan dan kandungan silang industri, supaya jenama dapat menjangkau khalayak yang lebih luas melalui pelbagai bentuk."
+          }
+        },
+        {
+          "title": {
+            "en": "A partnership is more than exposure",
+            "zh-CN": "合作不只是品牌曝光",
+            "ms": "Kerjasama bukan sekadar pendedahan jenama"
+          },
+          "desc": {
+            "en": "We care about what a partnership actually contains, how it feels on site and what it is worth over time. Every project should carry a clear brand attitude and something people remember.",
+            "zh-CN": "我们重视合作内容、现场体验与长期价值，希望每一个项目都能呈现清楚的品牌态度与记忆点。",
+            "ms": "Kami mementingkan isi kerjasama, pengalaman di lokasi dan nilai jangka panjang, dengan harapan setiap projek dapat memaparkan sikap jenama dan detik yang diingati dengan jelas."
+          }
+        },
+        {
+          "title": {
+            "en": "Widening the brand's reach",
+            "zh-CN": "持续扩大品牌影响",
+            "ms": "Terus meluaskan pengaruh jenama"
+          },
+          "desc": {
+            "en": "Further partnerships will follow the brand's direction and the opportunities in each market. Individual projects are confirmed by official announcements.",
+            "zh-CN": "未来将根据品牌方向与市场机会探索更多合作可能，相关项目以正式公布内容为准。",
+            "ms": "Kemungkinan kerjasama yang lebih banyak akan diterokai mengikut arah jenama dan peluang pasaran; projek berkaitan adalah tertakluk kepada pengumuman rasmi."
+          }
+        }
+      ],
+      "featured": false,
+      "sort": 4,
+      "on": true
+    },
+    {
+      "id": "article-005",
+      "slug": "post-005-trust",
+      "cat": "trust",
+      "label": {
+        "en": "TRUST",
+        "zh-CN": "TRUST",
+        "ms": "TRUST"
+      },
+      "title": {
+        "en": "Building a safer, more transparent platform",
+        "zh-CN": "打造更安全透明的平台体验",
+        "ms": "Membina platform yang lebih selamat dan lebih telus"
+      },
+      "excerpt": {
+        "en": "Continually strengthening account protection, data security, risk monitoring and responsible play.",
+        "zh-CN": "持续完善账户保护、资料安全、风险监控与理性娱乐机制。",
+        "ms": "Terus memperkukuh perlindungan akaun, keselamatan data, pemantauan risiko dan permainan bertanggungjawab."
+      },
+      "cover": "/uploads/article-trust.webp",
+      "lead": {
+        "en": "A dependable long-term experience comes from clear rules, sensible protection and responsible use.",
+        "zh-CN": "稳定的长期体验，来自清楚的规则、适当的保护与负责任的使用方式。",
+        "ms": "Pengalaman jangka panjang yang stabil datang daripada peraturan yang jelas, perlindungan yang sewajarnya dan cara penggunaan yang bertanggungjawab."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Protecting accounts and personal data",
+            "zh-CN": "重视账户与资料保护",
+            "ms": "Mementingkan perlindungan akaun dan data"
+          },
+          "desc": {
+            "en": "We keep improving account protection, data handling and risk monitoring, and we ask everyone to keep their account details and verification information safe.",
+            "zh-CN": "平台持续完善账户保护、资料处理与风险监控流程，并提醒用户妥善保存账户资料与验证信息。",
+            "ms": "Platform terus menyempurnakan perlindungan akaun, pengendalian data dan proses pemantauan risiko, serta mengingatkan pengguna supaya menyimpan maklumat akaun dan pengesahan dengan rapi."
+          }
+        },
+        {
+          "title": {
+            "en": "Rules that are easy to follow",
+            "zh-CN": "让重要规则容易理解",
+            "ms": "Menjadikan peraturan penting mudah difahami"
+          },
+          "desc": {
+            "en": "Eligibility, game information and the terms that go with them should be set out clearly, so people understand the conditions and the important limits before taking part.",
+            "zh-CN": "活动资格、游戏说明与相关条款应以清楚方式呈现，让用户在参与前了解适用条件与重要限制。",
+            "ms": "Kelayakan promosi, penerangan permainan dan terma berkaitan sepatutnya dipaparkan dengan jelas, supaya pengguna memahami syarat yang terpakai dan batasan penting sebelum menyertainya."
+          }
+        },
+        {
+          "title": {
+            "en": "Keep it responsible",
+            "zh-CN": "保持理性娱乐",
+            "ms": "Kekalkan hiburan yang berhemah"
+          },
+          "desc": {
+            "en": "Decide how much time and money you are comfortable with before you start, and pause when it begins to affect your daily life or your mood.",
+            "zh-CN": "建议用户预先设定娱乐时间与可承受预算，并在体验影响日常生活或情绪时及时暂停。",
+            "ms": "Pengguna dinasihatkan menetapkan masa hiburan dan bajet yang mampu ditanggung lebih awal, serta berhenti dengan segera apabila pengalaman itu mula menjejaskan kehidupan harian atau emosi."
+          }
+        }
+      ],
+      "featured": false,
+      "sort": 5,
+      "on": true
+    },
+    {
+      "id": "article-006",
+      "slug": "post-006-insights",
+      "cat": "platform",
+      "label": {
+        "en": "INSIGHTS",
+        "zh-CN": "INSIGHTS",
+        "ms": "INSIGHTS"
+      },
+      "title": {
+        "en": "A great platform comes down to every detail",
+        "zh-CN": "优质平台，关键在于每一个细节",
+        "ms": "Platform yang baik terletak pada setiap perincian"
+      },
+      "excerpt": {
+        "en": "Content quality, transparent rules and service experience — the values the platform holds to.",
+        "zh-CN": "从内容品质、规则透明度到服务体验，了解平台长期重视的核心价值。",
+        "ms": "Kualiti kandungan, peraturan yang telus dan pengalaman perkhidmatan — nilai yang dipegang oleh platform ini."
+      },
+      "cover": "/uploads/ambassador-legacy.webp",
+      "lead": {
+        "en": "A genuinely good entertainment platform is not just a large catalogue. It is the care behind every detail of the experience.",
+        "zh-CN": "真正出色的娱乐平台，不只拥有丰富内容，更重视每一个体验细节。",
+        "ms": "Platform hiburan yang benar-benar cemerlang bukan sahaja mempunyai kandungan yang kaya, tetapi turut mementingkan setiap perincian pengalaman."
+      },
+      "sections": [
+        {
+          "title": {
+            "en": "Good content, transparent rules",
+            "zh-CN": "内容品质与规则透明",
+            "ms": "Kualiti kandungan dan peraturan yang telus"
+          },
+          "desc": {
+            "en": "Clear categories, promotion rules that are easy to read and eligibility that is stated plainly all help people find what suits them sooner.",
+            "zh-CN": "清楚的内容分类、容易理解的活动规则，以及明确的参与资格，能让用户更快速地找到适合自己的体验。",
+            "ms": "Pengkelasan kandungan yang jelas, peraturan promosi yang mudah difahami dan kelayakan penyertaan yang nyata membolehkan pengguna mencari pengalaman yang sesuai dengan lebih pantas."
+          }
+        },
+        {
+          "title": {
+            "en": "Stable and smooth to use",
+            "zh-CN": "稳定、顺畅的操作体验",
+            "ms": "Pengalaman penggunaan yang stabil dan lancar"
+          },
+          "desc": {
+            "en": "From loading speed and page structure to how the site adapts on mobile, every step should stay simple and clear, and keep improving against real usage.",
+            "zh-CN": "从访问速度、页面结构到移动端适配，每一个操作环节都应保持简单清楚，并持续根据实际使用情况优化。",
+            "ms": "Daripada kelajuan capaian dan struktur halaman sehingga penyesuaian pada peranti mudah alih, setiap bahagian penggunaan sepatutnya kekal ringkas dan jelas, serta terus diperbaik berdasarkan penggunaan sebenar."
+          }
+        },
+        {
+          "title": {
+            "en": "Service and responsible play",
+            "zh-CN": "服务体验与理性娱乐",
+            "ms": "Pengalaman perkhidmatan dan hiburan yang berhemah"
+          },
+          "desc": {
+            "en": "Clear service channels and sensible limits are what make an experience worth trusting over time. Setting your time and budget before you start keeps it relaxed and under control.",
+            "zh-CN": "清楚的服务渠道与适当的娱乐边界，共同构成长期值得信赖的体验。开始前设定时间与预算，也能让娱乐保持轻松可控。",
+            "ms": "Saluran perkhidmatan yang jelas dan batasan hiburan yang sewajarnya bersama-sama membentuk pengalaman yang boleh dipercayai dalam jangka panjang. Menetapkan masa dan bajet sebelum bermula juga membantu hiburan kekal santai dan terkawal."
+          }
+        }
+      ],
+      "featured": false,
+      "sort": 6,
+      "on": true
+    }
+  ]
+}

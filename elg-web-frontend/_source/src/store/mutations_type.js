@@ -1,0 +1,34 @@
+
+
+export const GET_MEMBER = 'GET_MEMBER'
+export const MENUTYPE = 'MENUTYPE' //
+export const HOMEGAMES_ARRAY = 'HOMEGAMES_ARRAY'// 
+// export const MENUTYPEID = 'MENUTYPEID'
+export const GET_COUNTRIES = 'GET_COUNTRIES' //
+export const GET_TIMEZONES = 'GET_TIMEZONES' //
+export const GET_LANGUAGES = 'GET_LANGUAGES' //
+export const GET_BANNER = 'GET_BANNER' //
+export const GET_ORDERTYPES = 'GET_ORDERTYPES'
+export const GAME_LIST = 'GAME_LIST'
+
+export const GAMETYPE_LIST = 'GAMETYPE_LIST'
+export const BROWSER_LANG = 'BROWSER_LANG'
+export const GET_PERCENT = 'GET_PERCENT'
+export const GET_EVENTS = 'GET_EVENTS'
+export const GET_GAMEURL = 'GET_GAMEURL'
+export const GET_URL_PARAM = 'GET_URL_PARAM'
+export const GET_VENDORS = 'GET_VENDORS'//
+export const GET_VENDOR = 'GET_VENDOR'
+export const GET_VENDORBALANCE = 'GET_VENDORBALANCE'
+export const GET_AG_BALANCE = 'GET_AG_BALANCE'
+export const GET_JOKER_BALANCE = 'GET_JOKER_BALANCE'
+export const GET_SCR_BALANCE = 'GET_SCR_BALANCE'
+export const GET_GD_BALANCE = 'GET_GD_BALANCE'
+export const GET_TRANSFER_TO_VENDOR = 'GET_TRANSFER_TO_VENDOR'
+export const GET_TRANSFER_TO_ACCT = 'GET_TRANSFER_TO_ACCT'
+export const GET_ID_F = 'GET_ID_F'
+export const GET_ID_B = 'GET_ID_B'
+export const GET_PORTIMG = 'GET_PORTIMG'
+export const GET_VALIDATE = 'GET_VALIDATE'
+export const GET_RECORD = 'GET_RECORD'
+export const GET_RECORD_TABLE = 'GET_RECORD_TABLE'

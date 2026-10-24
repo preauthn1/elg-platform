@@ -1,0 +1,17 @@
+$ORIGIN example.invalid.    ; designates the start of this zone file in the namespace
+$TTL 1h                 ; default expiration time of all resource records without their own TTL value
+example.invalid.  IN  SOA   example.invalid. example.invalid. ( 2007120710 1d 2h 4w 1h )
+example.invalid.  IN  NS    ns                    ; example.invalid is a nameserver for example.invalid
+example.invalid.  IN  NS    ns.somewhere.example. ; ns.somewhere.example is a backup nameserver for example.invalid
+example.invalid.  IN  MX    10 example.invalid.  ; example.invalid is the mailserver for example.invalid
+@             IN  MX    20 example.invalid. ; equivalent to above line, "@" represents zone origin
+@             IN  MX    50 mail3              ; equivalent to above line, but using a relative host name
+example.invalid.  IN  A     0.0.0.0             ; IPv4 address for example.invalid
+              IN  AAAA  2001:db8:10::1        ; IPv6 address for example.invalid
+ns            IN  A     0.0.0.0             ; IPv4 address for example.invalid
+              IN  AAAA  2001:db8:10::2        ; IPv6 address for example.invalid
+www           IN  CNAME example.invalid.          ; example.invalid is an alias for example.invalid
+wwwtest       IN  CNAME www                   ; example.invalid is another alias for example.invalid
+mail          IN  A     0.0.0.0             ; IPv4 address for example.invalid
+mail2         IN  A     0.0.0.0             ; IPv4 address for example.invalid
+mail3         IN  A     0.0.0.0             ; IPv4 address for example.invalid

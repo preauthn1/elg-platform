@@ -1,0 +1,15 @@
+{
+  "title": "Démos",
+  "elementPlus": "Element Plus",
+  "form": "Formulaire",
+  "vben": {
+    "title": "Projet",
+    "about": "À propos",
+    "document": "Documentation",
+    "antdv": "Version Ant Design Vue",
+    "antdv-next": "Version Antdv Next",
+    "naive-ui": "Version Naive UI",
+    "element-plus": "Version Element Plus",
+    "tdesign": "Version TDesign Vue"
+  }
+}

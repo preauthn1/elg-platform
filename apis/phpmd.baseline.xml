@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<phpmd-baseline>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Console/Commands/CashFlow/Bank/StandardizeBankCodesCommand.php" method="handle"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Console/Commands/CashFlow/Bank/StandardizeBankCodesCommand.php" method="analyzeMergeImpact"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Http/Controllers/Agent/MainController.php" method="login"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Http/Controllers/External/SingleWallets/BoleController.php" method="cost"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Http/Controllers/Frontend/RegisterController.php" method="__invoke"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="app/Http/Requests/Agent/EventV2/UpdateRequest.php" method="rules"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/EventService.php" method="checkBlockRule"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/EventService.php" method="buildLegacyEventRow"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="app/Services/EventService.php" method="buildLegacyEventRow"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/EventService.php" method="attachLegacyEventDetails"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/EventService.php" method="getLegacyEventDetail"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/EventService.php" method="attachLegacyEventDetailWithGames"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="app/Services/MemberTransferService.php" method="transferToLocal"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="app/Services/MemberTransferService.php" method="transferToVendor"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/Payment/Providers/DgPay/Deposit.php" method="getRequestData"/>
+  <violation rule="PHPMD\Rule\Design\LongMethod" file="app/Services/PaymentService.php" method="updateMemberBalance"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/PrizeService.php" method="checkPrizeBlock"/>
+  <violation rule="PHPMD\Rule\CyclomaticComplexity" file="app/Services/PrizeService.php" method="sendPrize"/>
+</phpmd-baseline>

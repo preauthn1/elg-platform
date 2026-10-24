@@ -1,0 +1,10 @@
+allowBuilds:
+  '@firebase/util': false
+  esbuild: true
+  lefthook: true
+  protobufjs: false
+  unrs-resolver: true
+  vue-demi: true
+minimumReleaseAgeExclude:
+  - happy-dom@20.14.3
+  - zod@4.6.1

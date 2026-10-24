@@ -1,0 +1,42 @@
+
+{
+  "hello":"Hello",
+  "next":"Next",
+  "signIn":"SignIn",
+  "signUp":"SignUp",
+  "realGame":"RealGame",
+  "electronicGame":"ElectronicGame",
+  "poker":"Poker",
+  "lottery":"Lottery",
+  "fish":"Fish",
+  "composite":"Composite",
+
+  "AccountName":"Account",
+  "AccountPassword":"Password",
+  "identify":"Verifycode",
+  "member":"Members Center",
+  "memberSignIn":"Members SignIn",
+  "forget":"Forget Password",
+  "memberSignUp":"Members SignUp",
+  "specification":"Specification",
+
+  "default1":"default1",
+  "default2":"default2",
+
+  "placement":"Placement Marketing",
+  "sponsor":"Sponsor",
+  "newGame":"New Games",
+  "hotGame":"Hot Games",
+
+  "favorite":"My Favorite",
+  "often":"Most Often Played",
+  "frequently":"Most Frequently",
+  "Lose":"Lose Most",
+  "Win":"Winning The Most",
+
+  "help":"Help",
+  "contact":"Contact Us",
+  "rule":"Terms & Conditions",
+  "privacy":"Privacy policy",
+  "cookies":"Cookies policy"
+}

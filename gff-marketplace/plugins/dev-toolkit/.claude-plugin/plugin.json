@@ -1,0 +1,7 @@
+{
+  "name": "dev-toolkit",
+  "description": "開發者的兩類工具：開發流程，以及動手前的設計與文件方法。流程：commit 規範（git-commit）＋ branch/MR/發布生命週期（release-workflow）＋ 本地分支對齊 origin（branch-sync）＋ GitLab Release 打 tag（gitlab-release）＋ harness 稽核（harness-audit）＋ 本地記憶整理（memory-tidy）。設計與文件方法：動手前的逼問式設計訪談（design-grilling）＋ 詞彙表與 ADR 維護（domain-modeling）＋ 測試先行的紅綠迴圈紀律（tdd，不自動觸發）＋ 通用 bug 排查紀律（bug-diagnosis）。僅開發者使用，不含 DB / 對帳（已遷 apis-toolkit）、不含部署（deploy-rd-studio / deploy-agent-stack 與 make 部署腳本 script/ 均已遷 legend-toolkit）。",
+  "dependencies": ["gitlab-mcp"],
+  "author": { "name": "rb" },
+  "keywords": ["git-commit", "release", "branch", "mr", "發布", "tag", "gitlab-release", "branch-sync", "拉最新", "同步分支", "harness-audit", "memory-tidy", "整理記憶", "design-grilling", "規劃", "逼問", "設計訪談", "domain-modeling", "詞彙表", "GLOSSARY.md", "ADR", "tdd", "測試先行", "bug-diagnosis", "debug", "排查", "找原因"]
+}

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<routes xmlns="http://example.invalid/schema/routing"
+    xmlns:xsi="http://example.invalid/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://example.invalid/schema/routing
+        https://example.invalid/schema/routing/routing-1.0.xsd">
+
+    <route id="blog" path="/blog">
+        <default key="_controller">
+            <string>AcmeBlogBundle:Blog:index</string>
+        </default>
+        <default key="values">
+            <map>
+                <list key="list">
+                    <bool>true</bool>
+                    <int>1</int>
+                    <float>3.5</float>
+                    <string>foo</string>
+                </list>
+            </map>
+        </default>
+    </route>
+</routes>

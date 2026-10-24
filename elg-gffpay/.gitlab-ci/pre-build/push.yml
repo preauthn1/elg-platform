@@ -1,0 +1,62 @@
+pre_build_checks:
+  stage: pre-build
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:ae4fd248
+  needs:
+    - job: prepare_dependencies
+      artifacts: true
+  extends:
+    - .default_variables
+    - .default_service
+  tags:
+    - php8
+  before_script:
+    - uname -a
+    - apt-get update && apt-get install -y redis-tools
+    - |
+      until mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 -e "SELECT 1"; do
+        echo "等待 MySQL 服務就緒..."
+        sleep 1
+      done
+    - |
+      mysql -h mysql -P 3307 -u root -p$MYSQL_ROOT_PASSWORD --ssl=0 $MYSQL_DATABASE < init.sql;
+      echo "已使用 init.sql 初始化数据库";
+  script:
+    # 1. PSR-4 Autoloading Check
+    - |
+      echo "========================================="
+      echo "🔍 檢查 PSR-4 Autoloading Standard"
+      echo "========================================="
+      composer dump-autoload > dump_output.txt 2>&1
+      cat dump_output.txt
+      if grep -q "does not comply with psr-4 autoloading standard" dump_output.txt; then
+        echo "❌ PSR-4 autoloading check failed"
+        exit 1
+      else
+        echo "✅ Composer autoload looks good"
+      fi
+    
+    # 2. Code Formatting Check (Pint)
+    - |
+      echo "========================================="
+      echo "🎨 檢查程式碼格式 (Pint)"
+      echo "========================================="
+      vendor/bin/pint --test
+    
+    # 3. Unit Tests
+    - |
+      echo "========================================="
+      echo "🧪 執行 Unit Tests"
+      echo "========================================="
+      php artisan test --testsuite=Unit
+    
+    # 4. Feature Tests
+    - |
+      echo "========================================="
+      echo "🧪 執行 Feature Tests"
+      echo "========================================="
+      php artisan test --testsuite=Feature
+    
+    - |
+      echo "========================================="
+      echo "✅ 所有檢查通過"
+      echo "========================================="

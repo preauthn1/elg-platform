@@ -1,0 +1,606 @@
+<title>GFF Skill 速查表</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link rel="stylesheet" href="https://example.invalid/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* 色票沿用 APIs docs/reports/assets/report.css（Frest 官方值），另補深色模式 */
+:root{
+  --primary:#5A8DEE; --primary-2:#87ACF3; --primary-soft:#E5EDFC;
+  --success:#2FBF78; --success-soft:#DFF9EC;
+  --info:#00A9B5; --info-soft:#D6F7FA;
+  --secondary:#69809A; --secondary-soft:#E7EBEF;
+  --body-bg:#F2F2F6; --card:#FFFFFF;
+  --heading:#475A6E; --text:#5F7083; --muted:#8E9BAA; --faint:#98A5B3;
+  --border:#D4D8DD; --line-soft:#E6E9EE;
+  --code-bg:#F2F2F6; --thead-bg:#F5F6F9; --row-hover:#F8FAFC;
+  --flow-bg:#F7F9FD;
+  --topbar-bg:rgba(242,242,246,.9);
+  --shadow:0 4px 24px 0 rgba(38,51,77,.08);
+  --shadow-sm:0 2px 8px 0 rgba(38,51,77,.05);
+  --radius:.5rem; --radius-lg:.857rem;
+  --mono:"SFMono-Regular",ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --primary:#7BA4F2; --primary-2:#9DBBF5; --primary-soft:rgba(90,141,238,.18);
+    --success:#4FD99A; --success-soft:rgba(57,218,138,.15);
+    --info:#35D8E4; --info-soft:rgba(0,207,221,.14);
+    --secondary:#A3B3C6; --secondary-soft:rgba(105,128,154,.24);
+    --body-bg:#171E31; --card:#222A42;
+    --heading:#E1E7F0; --text:#B3BED0; --muted:#8190A8; --faint:#7D8BA2;
+    --border:#34405F; --line-soft:#2C3653;
+    --code-bg:#1B2238; --thead-bg:#1D2540; --row-hover:#27304C;
+    --flow-bg:#1C2339;
+    --topbar-bg:rgba(23,30,49,.9);
+    --shadow:0 4px 24px 0 rgba(0,0,0,.28);
+    --shadow-sm:0 2px 8px 0 rgba(0,0,0,.2);
+  }
+}
+:root[data-theme="dark"]{
+  --primary:#7BA4F2; --primary-2:#9DBBF5; --primary-soft:rgba(90,141,238,.18);
+  --success:#4FD99A; --success-soft:rgba(57,218,138,.15);
+  --info:#35D8E4; --info-soft:rgba(0,207,221,.14);
+  --secondary:#A3B3C6; --secondary-soft:rgba(105,128,154,.24);
+  --body-bg:#171E31; --card:#222A42;
+  --heading:#E1E7F0; --text:#B3BED0; --muted:#8190A8; --faint:#7D8BA2;
+  --border:#34405F; --line-soft:#2C3653;
+  --code-bg:#1B2238; --thead-bg:#1D2540; --row-hover:#27304C;
+  --flow-bg:#1C2339;
+  --topbar-bg:rgba(23,30,49,.9);
+  --shadow:0 4px 24px 0 rgba(0,0,0,.28);
+  --shadow-sm:0 2px 8px 0 rgba(0,0,0,.2);
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{margin:0; background:var(--body-bg); color:var(--text);
+  font-family:"Public Sans",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Noto Sans TC","Microsoft JhengHei",sans-serif;
+  font-size:14px; line-height:1.6; -webkit-font-smoothing:antialiased}
+::selection{background:var(--primary-soft); color:var(--primary)}
+a{color:inherit; text-decoration:none}
+:focus-visible{outline:2px solid var(--primary); outline-offset:2px; border-radius:4px}
+svg.ni{width:15px; height:15px; fill:none; stroke:currentColor; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; vertical-align:-2px; flex:0 0 auto}
+code{font-family:var(--mono); font-size:12.5px; background:var(--code-bg); color:var(--primary); padding:1px 6px; border-radius:4px}
+
+/* ===== 頂欄 ===== */
+.topbar{position:sticky; top:env(safe-area-inset-top,0px); z-index:20; background:var(--topbar-bg);
+  backdrop-filter:saturate(160%) blur(8px); -webkit-backdrop-filter:saturate(160%) blur(8px); border-bottom:1px solid var(--border)}
+.topbar-in{max-width:1040px; margin:0 auto; padding:12px 24px; display:flex; align-items:center; justify-content:space-between; gap:12px 20px; flex-wrap:wrap}
+.brand{display:flex; align-items:center; gap:11px}
+.brand .logo{width:34px; height:34px; border-radius:9px; flex:0 0 34px; background:linear-gradient(118deg,#5A8DEE,#87ACF3);
+  display:flex; align-items:center; justify-content:center; box-shadow:0 4px 12px rgba(90,141,238,.4)}
+.brand .logo svg{width:18px; height:18px; color:#fff}
+.brand h1{font-size:18px; margin:0; color:var(--heading); font-weight:800; line-height:1.25}
+.brand .sub{font-size:12px; color:var(--faint)}
+.search{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.search label{position:relative; display:block}
+.search label svg{position:absolute; left:11px; top:50%; transform:translateY(-50%); color:var(--muted)}
+.search input{width:300px; max-width:100%; padding:9px 12px 9px 34px; border-radius:8px; border:1px solid var(--border);
+  background:var(--card); color:var(--heading); font:inherit; font-size:13.5px; box-shadow:var(--shadow-sm)}
+.search input::placeholder{color:var(--muted)}
+.search input:focus{outline:none; border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-soft)}
+.search .hits{font-size:12.5px; color:var(--faint); white-space:nowrap}
+.wrap{max-width:1040px; margin:0 auto; padding-inline:24px; padding-block:8px 44px}
+
+/* ===== 卡片 ===== */
+.card{background:var(--card); border:1px solid var(--border); border-radius:var(--radius-lg); box-shadow:var(--shadow); margin:18px 0; scroll-margin-top:84px}
+.card-head{padding:16px 20px 2px; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap}
+.card-head h2{display:flex; align-items:center; gap:10px; font-size:16.5px; margin:0; color:var(--heading); font-weight:700}
+.card-head .idx{display:inline-flex; align-items:center; justify-content:center; width:28px; height:28px; flex:0 0 28px;
+  background:var(--primary-soft); color:var(--primary); border-radius:8px}
+.card-head .idx svg{width:15px; height:15px}
+.card-head .stn{font-family:var(--mono); font-size:12px; font-weight:800; color:#fff; background:var(--primary); border-radius:11px;
+  min-width:22px; height:22px; padding:0 7px; display:inline-flex; align-items:center; justify-content:center}
+.card-head .note{font-size:12.5px; color:var(--faint)}
+.card-body{padding:12px 20px 18px}
+
+/* ===== 開頭說明 ===== */
+.lead{font-size:14.5px; color:var(--heading); margin:0 0 14px; max-width:68ch}
+.rules{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px; margin:0 0 16px}
+.rule{background:var(--primary-soft); border-radius:var(--radius); padding:12px 14px; display:flex; gap:10px; align-items:flex-start}
+.rule svg{color:var(--primary); margin-top:3px}
+.rule b{display:block; color:var(--primary); font-size:13.5px; margin-bottom:2px}
+.rule span{font-size:12.5px; color:var(--text)}
+.legend{display:flex; flex-wrap:wrap; gap:8px 16px; font-size:12.5px; color:var(--text); margin:0 0 14px}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.jump{display:flex; flex-wrap:wrap; gap:8px}
+.jump a{border:1px solid var(--border); background:var(--card); border-radius:7px; padding:5px 11px; font-size:12.5px; font-weight:600;
+  color:var(--heading); display:inline-flex; align-items:center; gap:6px; transition:border-color .15s,color .15s}
+.jump a:hover{border-color:var(--primary); color:var(--primary)}
+.jump a svg{width:13px; height:13px; color:var(--primary)}
+.jump a .jn{font-family:var(--mono); font-size:11px; font-weight:800; color:var(--primary)}
+
+/* ===== label／badge：淺底＋原色文字 ===== */
+.badge{display:inline-block; font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; white-space:nowrap; letter-spacing:.02em}
+.b-secondary{background:var(--secondary-soft); color:var(--secondary)}
+
+
+/* ===== 審查官介紹 ===== */
+.crew{display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:12px}
+.mate{border:1px solid var(--border); border-radius:var(--radius); padding:14px 16px; background:var(--card); display:flex; flex-direction:column}
+.mate-h{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+.mono{width:34px; height:34px; flex:0 0 34px; border-radius:50%; background:var(--primary); color:#fff; font-weight:800; font-size:12.5px;
+  display:inline-flex; align-items:center; justify-content:center}
+.mate h3{margin:0; font-size:14.5px; color:var(--heading); line-height:1.25}
+.mate .role{font-size:12px; color:var(--faint)}
+.mate ul{margin:0 0 10px; padding-left:18px; font-size:12.5px; color:var(--text); flex:1}
+.mate li{margin:2px 0}
+.mate .say{align-self:flex-start}
+.sub-h{font-size:13.5px; font-weight:700; color:var(--heading); margin:20px 0 10px}
+.steps{display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:12px}
+.steps .rule{margin:0}
+.steps .sn{width:22px; height:22px; flex:0 0 22px; border-radius:50%; background:var(--primary); color:#fff; font-size:12px; font-weight:800;
+  display:inline-flex; align-items:center; justify-content:center; margin-top:1px}
+/* ===== 流程圖（沿用 report.css 的 .fchart 節點流程圖；每條路徑一欄） ===== */
+figure.flowfig{margin:0}
+.fchart{display:flex; flex-direction:column; align-items:center; background:var(--flow-bg); border:1px solid var(--border);
+  border-radius:var(--radius-lg); padding:26px 14px 18px; overflow-x:auto}
+.fcap{font-size:13px; color:var(--heading); font-weight:700; margin-bottom:20px; text-align:center}
+.frow{display:flex; justify-content:center; align-items:stretch; gap:16px; flex-wrap:wrap; max-width:100%}
+.fnode{position:relative; width:280px; max-width:100%; padding:20px 16px 12px; border-radius:12px; border:1.5px solid var(--border);
+  background:var(--card); box-shadow:var(--shadow-sm); display:flex; flex-direction:column; gap:4px; text-align:center}
+.fnode.wide{width:380px}
+a.fnode{transition:transform .16s, box-shadow .16s}
+a.fnode:hover{transform:translateY(-2px); box-shadow:var(--shadow)}
+.fnode .fn-n{position:absolute; top:-12px; left:50%; transform:translateX(-50%); min-width:26px; height:24px; padding:0 8px;
+  border-radius:12px; font-size:12px; font-weight:800; display:flex; align-items:center; justify-content:center;
+  font-family:var(--mono); color:#fff; background:var(--primary); box-shadow:var(--shadow-sm)}
+.fnode .fn-n svg{width:13px; height:13px}
+.fnode .fn-t{font-weight:700; font-size:13.5px; color:var(--heading)}
+.fnode .fn-d{font-size:12.5px; color:var(--text); line-height:1.7}
+.fnode .fn-d code{font-size:11.5px; padding:0 5px}
+.fnode .fn-s{font-size:12.5px; color:var(--primary); font-weight:600}
+.fnode .fn-s code{font-size:12px}
+.fnode.n-primary{border-color:var(--primary)} .fnode.n-primary .fn-n{background:var(--primary)}
+.fnode.n-info{border-color:var(--info)} .fnode.n-info .fn-n{background:var(--info)}
+.fnode.n-grey{border-color:var(--secondary); border-style:dashed} .fnode.n-grey .fn-n{background:var(--secondary)}
+.fnode.n-success{border-color:var(--success); box-shadow:var(--shadow-sm),0 0 0 3px var(--success-soft)} .fnode.n-success .fn-n{background:var(--success)}
+.fconn{display:flex; flex-direction:column; align-items:center; gap:3px; padding:8px 0 14px}
+.fc-l{font-size:12.5px; color:var(--primary); background:var(--primary-soft); padding:2px 10px; border-radius:5px; font-weight:400; text-align:center}
+.fc-a{width:2px; height:16px; background:var(--primary); position:relative}
+.fc-a::after{content:""; position:absolute; bottom:-2px; left:50%; transform:translateX(-50%); border:5px solid transparent; border-top-color:var(--primary)}
+.fsplit{display:flex; justify-content:center; align-items:flex-start; gap:22px; flex-wrap:wrap; align-self:stretch; padding-top:2px}
+.fpath{display:flex; flex-direction:column; align-items:center; flex:0 1 280px; min-width:0}
+.fp-l{display:block; text-align:center; font-size:12.5px; font-weight:700; color:var(--heading); min-height:38px}
+.fpath .fconn{padding:6px 0 14px}
+.fnotes{align-self:stretch; margin-top:18px; display:flex; flex-direction:column; gap:8px}
+.fnote{font-size:13px; color:var(--text); background:var(--card); border:1px solid var(--border); border-left:3px solid var(--primary);
+  border-radius:7px; padding:9px 13px; display:flex; gap:8px; align-items:flex-start}
+.fnote svg{color:var(--primary); margin-top:3px}
+.fnote b{color:var(--primary)}
+.flegend{display:flex; flex-wrap:wrap; justify-content:center; gap:8px 18px; font-size:12px; color:var(--text); margin-top:16px}
+.flegend span{display:inline-flex; align-items:center; gap:6px}
+.flegend i{display:inline-block; width:16px; height:11px; border-radius:3px; border:1.5px solid}
+.lg-p{border-color:var(--primary)} .lg-i{border-color:var(--info)} .lg-g{border-color:var(--secondary); border-style:dashed!important} .lg-s{border-color:var(--success)}
+
+/* ===== 速查表 ===== */
+.tbl{border:1px solid var(--border); border-radius:var(--radius); overflow:hidden}
+table{border-collapse:collapse; width:100%; font-size:13px; background:var(--card)}
+thead th{background:var(--thead-bg); color:var(--heading); text-align:left; font-weight:700; font-size:12px; letter-spacing:.04em;
+  padding:10px 14px; border-bottom:1px solid var(--border); white-space:nowrap}
+tbody td{padding:11px 14px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--text)}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--row-hover)}
+col.c-task{width:23%} col.c-say{width:33%} col.c-skill{width:24%} col.c-note{width:20%}
+.task{color:var(--heading); font-weight:600}
+.says{display:flex; flex-wrap:wrap; gap:6px}
+.say{background:var(--primary-soft); color:var(--primary); font-weight:600; font-size:12.5px; padding:3px 9px; border-radius:6px; line-height:1.5; overflow-wrap:anywhere}
+.say::before{content:"「"; opacity:.6} .say::after{content:"」"; opacity:.6}
+.say.cmd::before,.say.cmd::after{content:none}
+.say.cmd{font-family:var(--mono)}
+.sk{display:flex; flex-direction:column; align-items:flex-start; gap:4px}
+.sk code{font-size:12.5px; font-weight:700}
+.note-t{font-size:12.5px}
+.muted{color:var(--muted)}
+.empty{text-align:center; color:var(--muted); padding:36px 16px; font-size:13.5px}
+footer{color:var(--faint); font-size:12px; text-align:center; padding:6px 0 0}
+
+/* ===== 窄螢幕：表格改成直排卡片 ===== */
+@media (max-width:720px){
+  .topbar-in{padding:10px 16px}
+  .wrap{padding-inline:16px}
+  .search, .search label{flex:1 1 100%}
+  .search input{width:100%}
+  .card-head,.card-body{padding-left:14px; padding-right:14px}
+  .tbl{border:none; overflow:visible}
+  table, tbody, tr, td{display:block; width:100%}
+  thead, colgroup{display:none}
+  tbody tr{border:1px solid var(--border); border-radius:var(--radius); margin-bottom:10px; padding:4px 0}
+  tbody td{border-bottom:none; padding:6px 12px}
+  tbody td::before{content:attr(data-label); display:block; font-size:11px; font-weight:700; color:var(--faint); letter-spacing:.04em; margin-bottom:3px}
+  .fpath{flex:1 1 100%}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important}
+}
+
+/* ===== 角色切換 ===== */
+.roles{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 14px}
+.roles button{font:inherit; font-size:13.5px; font-weight:700; color:var(--heading); background:var(--card); border:1px solid var(--border);
+  border-radius:9px; padding:8px 14px; cursor:pointer; display:inline-flex; align-items:center; gap:8px; transition:border-color .15s,color .15s,background .15s}
+.roles button small{font-weight:500; font-size:12px; color:var(--faint)}
+.roles button:hover{border-color:var(--primary)}
+.roles button[aria-selected="true"]{background:var(--primary); border-color:var(--primary); color:#fff}
+.roles button[aria-selected="true"] small{color:rgba(255,255,255,.85)}
+.draft{font-size:13px; color:var(--text); background:var(--secondary-soft); border-radius:var(--radius); padding:10px 14px; margin:18px 0 0; display:flex; gap:9px; align-items:flex-start}
+.draft svg{color:var(--secondary); margin-top:3px}
+.draft b{color:var(--heading)}
+.rtag{font-size:11px; font-weight:700; padding:2px 8px; border-radius:6px; background:var(--info-soft); color:var(--info)}
+body:not(.searching) .rtag{display:none}
+.fnode .fn-d code{white-space:nowrap}
+</style>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+    <symbol id="i-target" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+    <symbol id="i-inbox" viewBox="0 0 24 24"><polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></symbol>
+    <symbol id="i-branch" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+    <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+    <symbol id="i-commit" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="1.05" y1="12" x2="7" y2="12"/><line x1="17.01" y1="12" x2="22.96" y2="12"/></symbol>
+    <symbol id="i-pr" viewBox="0 0 24 24"><circle cx="18" cy="18" r="3"/><circle cx="6" cy="6" r="3"/><path d="M13 6h3a2 2 0 0 1 2 2v7"/><line x1="6" y1="9" x2="6" y2="21"/></symbol>
+    <symbol id="i-upload" viewBox="0 0 24 24"><polyline points="16 16 12 12 8 16"/><line x1="12" y1="12" x2="12" y2="21"/><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></symbol>
+    <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+  </defs>
+</svg>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand">
+      <span class="logo"><svg class="ni"><use href="#i-book"/></svg></span>
+      <div><h1>GFF Skill 速查表</h1><div class="sub">選角色 → 看流程 → 這樣說 → 叫起哪支 skill</div></div>
+    </div>
+    <div class="search" role="search">
+      <label for="q"><svg class="ni"><use href="#i-search"/></svg>
+        <input id="q" type="search" placeholder="搜尋要做的事或一句話，例如：補帳" autocomplete="off" aria-label="搜尋要做的事、講法或 skill（跨所有角色）">
+      </label>
+      <span class="hits" id="hits" aria-live="polite"></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="card" id="intro" data-static>
+    <div class="card-body">
+      <p class="lead">在 Claude Code 講出下面這些話，就會自動載入 GFF 市集對應的 skill。不用記 skill 名稱，先選你的角色，照流程找到對的講法就好。</p>
+      <div class="roles" id="roles" role="tablist" aria-label="選擇角色"></div>
+      <div class="rules">
+        <div class="rule"><svg class="ni"><use href="#i-target"/></svg><div><b>講出動作＋對象</b><span>例如「同步分支」「收斂 commit」。對象是你目前所在的專案時可以省略：人在 API_Agent 目錄裡說「上版」就夠了。</span></div></div>
+        <div class="rule"><svg class="ni"><use href="#i-sliders"/></svg><div><b>帶上範圍</b><span>白標、遊戲商、日期講清楚，例如「查 &lt;白標&gt; &lt;日期&gt; 的提款訂單」。</span></div></div>
+        <div class="rule"><svg class="ni"><use href="#i-check"/></svg><div><b>寫入前都會先問</b><span>補帳、上版、發版、寫進 GitLab 這類動作，都會先給你確認才動手。</span></div></div>
+      </div>
+      <div class="legend">
+        <span><span class="badge b-secondary">dev-toolkit</span><span class="badge b-secondary">op-toolkit</span>各專案通用</span>
+        <span><span class="badge b-secondary">apis-toolkit</span>APIs 專案</span>
+        <span><span class="badge b-secondary">legend-toolkit</span>API_Agent、舊代理後台 WEB_AgentBackend、客服 socket、RD-Studio</span>
+        <span><span class="badge b-secondary">memory-mcp</span><span class="badge b-secondary">qa-toolkit</span><span class="badge b-secondary">wiki-toolkit</span>團隊記憶、QA 工具、知識庫 wiki</span>
+      </div>
+      <nav class="jump" id="jump" aria-label="跳到段落"></nav>
+    </div>
+  </section>
+
+  <div class="pane" data-role="rd">
+  <section class="card" id="rd-flow" data-static>
+    <div class="card-head"><h2><span class="idx"><svg class="ni"><use href="#i-route"/></svg></span>開發工作流程</h2><span class="note">從收到工單到收工關單的十個步驟；點節點可跳到該步驟的講法</span></div>
+    <div class="card-body"><figure class="flowfig" role="group" aria-label="開發工作流程十個步驟：收單分析、開工、測試驗證、審查、提交、發布、dev 環境驗收、上線、上線後確認、收工關單。發布到上線依專案分三條路。"><div class="fchart"><div class="fcap">每個節點寫著這一步會叫起的 skill，和一句可以直接照講的話</div><div class="frow"><a class="fnode wide n-info" href="#rd-1"><span class="fn-n">1</span><span class="fn-t">收單分析</span><span class="fn-d"><code>op-ticket-read</code> 讀單並自動評分，再用 <code>whitelabel-db-query</code>、<code>gcp-log-troubleshoot</code> 查資料與 log；通用 bug 用 <code>bug-diagnosis</code> 先建重現</span><span class="fn-s">「排查這張單 &lt;工單連結&gt;」</span></a></div><div class="fconn"><span class="fc-l">找到原因，確定要改程式</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#rd-2"><span class="fn-n">2</span><span class="fn-t">開工</span><span class="fn-d">需求沒講清楚先用 <code>design-grilling</code> 問到有共識；<code>release-workflow</code> 開分支，<code>payment-integration</code> 這類領域 skill 帶著規則一起改</span><span class="fn-s">「規劃 &lt;工單連結&gt;」「開始處理 &lt;工單&gt;」</span></a></div><div class="fconn"><span class="fc-l">改完先自己驗</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#rd-3"><span class="fn-n">3</span><span class="fn-t">測試驗證</span><span class="fn-d"><code>tdd</code> 帶你先寫測試再改程式；跑測試、dry-run、實測照各專案的測試規則</span><span class="fn-s">「/dev-toolkit:tdd」</span></a></div><div class="fconn"><span class="fc-l">測試通過，給審查官看</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-info" href="#rd-4"><span class="fn-n">4</span><span class="fn-t">審查</span><span class="fn-d">圓桌會審：AI 依改動內容建議要派哪幾位審查官，分頭看金流、舊系統、安全、可讀性、文件一致性</span><span class="fn-s">「進行圓桌會審」，或「請 Timo 看一下」</span></a></div><div class="fconn"><span class="fc-l">審查意見修完</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#rd-5"><span class="fn-n">5</span><span class="fn-t">提交</span><span class="fn-d"><code>git-commit</code></span><span class="fn-s">「commit 吧」</span></a></div><div class="fconn"><span class="fc-l">依專案分三條路，每條都是：發布 → dev 環境驗收 → 上線</span><span class="fc-a"></span></div><div class="fsplit"><div class="fpath"><span class="fp-l">APIs、新代理後台 agent-backend</span><a class="fnode n-primary" href="#rd-6"><span class="fn-n">6</span><span class="fn-t">發布：push 並開 MR</span><span class="fn-d"><code>release-workflow</code>；先問你要不要在 dev 驗收，再合 develop 更新 dev 環境；dev 部署成功後回需求主單留言「已部署測試環境」</span><span class="fn-s">「push 開 MR」</span></a><div class="fconn"><span class="fc-l">dev 環境更新完成</span><span class="fc-a"></span></div><a class="fnode n-grey" href="#rd-7"><span class="fn-n">7</span><span class="fn-t">dev 環境驗收</span><span class="fn-d">要驗收就交給 QA。工單有測試子任務時，MR 先開成草稿，QA 關掉測試子任務才改回可合併。也可以自己用 <code>web-browser</code> 先點一輪</span><span class="fn-s">「Dev 已部署，可以驗了」</span></a><div class="fconn"><span class="fc-l">驗收通過（或選了不用驗收），MR 的 pipeline 也過了</span><span class="fc-a"></span></div><div class="fnode n-grey"><span class="fn-n"><svg class="ni"><use href="#i-user"/></svg></span><span class="fn-t">你按合併</span><span class="fn-d">合併鈕由你本人按</span></div><div class="fconn"><span class="fc-l">合併完成</span><span class="fc-a"></span></div><a class="fnode n-success" href="#rd-8"><span class="fn-n">8</span><span class="fn-t">上線：發版</span><span class="fn-d"><code>gitlab-release</code>；啟動正式環境部署，各站由人手動按；都成功後回需求主單留言「已部署正式環境」，再把這批功能整理成 wiki 功能開發說明文件</span><span class="fn-s">「發版」</span></a></div><div class="fpath"><span class="fp-l">舊代理後台 WEB_AgentBackend、API_Agent、客服 socket</span><a class="fnode n-primary" href="#rd-6"><span class="fn-n">6</span><span class="fn-t">發布：上 dev</span><span class="fn-d"><code>deploy-agent-stack</code></span><span class="fn-s">「上版，先上 dev」</span></a><div class="fconn"><span class="fc-l">dev 站可以測了</span><span class="fc-a"></span></div><a class="fnode n-grey" href="#rd-7"><span class="fn-n">7</span><span class="fn-t">dev 環境驗收</span><span class="fn-d">交給 QA 驗收；有問題改同一支分支再上一次 dev</span></a><div class="fconn"><span class="fc-l">驗收通過</span><span class="fc-a"></span></div><a class="fnode n-success" href="#rd-8"><span class="fn-n">8</span><span class="fn-t">上線：上正式</span><span class="fn-d"><code>deploy-agent-stack</code>；上正式前會再跟你確認</span><span class="fn-s">「部署上正式」</span></a></div><div class="fpath"><span class="fp-l">RD-Studio</span><a class="fnode n-primary" href="#rd-6"><span class="fn-n">6</span><span class="fn-t">發布：上 dev</span><span class="fn-d"><code>deploy-rd-studio</code></span><span class="fn-s">「上版，先上 dev」</span></a><div class="fconn"><span class="fc-l">dev 站更新完成</span><span class="fc-a"></span></div><a class="fnode n-grey" href="#rd-7"><span class="fn-n">7</span><span class="fn-t">dev 環境驗收</span><span class="fn-d">你自己驗，並確認要上正式的版本</span></a><div class="fconn"><span class="fc-l">版本確認</span><span class="fc-a"></span></div><a class="fnode n-success" href="#rd-8"><span class="fn-n">8</span><span class="fn-t">上線：上正式</span><span class="fn-d"><code>deploy-rd-studio</code>；部署後會驗證版本</span><span class="fn-s">「部署上正式」</span></a></div></div><div class="fconn"><span class="fc-l">正式環境部署完成</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-info" href="#rd-9"><span class="fn-n">9</span><span class="fn-t">上線後確認</span><span class="fn-d"><code>gcp-log-troubleshoot</code> 看有沒有新的錯誤，<code>whitelabel-db-query</code> 看資料有沒有正常寫入</span><span class="fn-s">「部署完了，幫我驗告警」</span></a></div><div class="fconn"><span class="fc-l">正式環境確認沒問題</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#rd-10"><span class="fn-n">10</span><span class="fn-t">收工關單</span><span class="fn-d"><code>release-workflow</code> 清理分支，<code>op-ticket-read</code> 整理結案說明；回覆與關單由你本人在 GitLab 操作</span><span class="fn-s">「MR 已合併」</span></a></div><div class="flegend" aria-hidden="true"><span><i class="lg-p"></i>有 skill 幫忙</span><span><i class="lg-i"></i>只讀，AI 只看不改</span><span><i class="lg-g"></i>由人處理（把關，或目前沒有 skill）</span><span><i class="lg-s"></i>上正式環境</span></div><div class="fnotes"><div class="fnote"><svg class="ni"><use href="#i-shield"/></svg><span><b>會寫入的步驟都會先問你</b>：上版、發版、補帳、寫進 GitLab，AI 都會先給你看要做什麼，你確認才動手。</span></div><div class="fnote"><svg class="ni"><use href="#i-target"/></svg><span><b>上版、部署不用講專案</b>：AI 看得到你目前在哪個專案目錄。人在別的目錄時再點名，例如「上版 WEB_AgentBackend」「上版 RD-Studio」。人在新代理後台 agent-backend 裡說「上版」，會跟 APIs 一樣走 MR 和發版。</span></div></div></div></figure></div>
+  </section>
+  <section class="card" id="rd-crew" data-static>
+    <div class="card-head">
+      <h2><span class="idx"><svg class="ni"><use href="#i-eye"/></svg></span>五位審查官</h2>
+      <span class="note">APIs 專案的 AI 審查小組（apis-toolkit）；全部只讀，只列問題不改檔</span>
+    </div>
+    <div class="card-body">
+      <div class="crew"><div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">Ti</span><div><h3>Timo</h3><span class="role">金流正確性與併發</span></div></div><ul><li>事務、鎖、快取擊穿、queue 與 job</li><li>金流商、遊戲商整合有沒有照專案規矩</li><li>專案禁止事項有沒有踩到</li></ul><span class="say">請 Timo 看一下</span></div><div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">Ma</span><div><h3>Marz</h3><span class="role">舊系統老手，兼看查詢效率</span></div></div><ul><li>熟舊專案的業務邏輯，抓遷移時漏掉的隱藏規則</li><li>N+1、低效查詢、整表載入</li><li>定調該用 raw SQL 還是 Eloquent</li></ul><span class="say">這段是從舊專案搬來的，幫我對照</span></div><div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">Ro</span><div><h3>Rorin</h3><span class="role">安全與事故應變</span></div></div><ul><li>SQL injection、越權、憑證與個資洩漏、回調重放</li><li>回答三件事：多嚴重、多快能止血、怎麼根治</li><li>API 改動會不會弄壞下游</li></ul><span class="say">從安全角度看</span></div><div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">Rh</span><div><h3>Rhyse</h3><span class="role">整潔代碼與現代化</span></div></div><ul><li>SOLID、命名、可讀性、分層</li><li>測試夠不夠、PHPDoc 與 README 有沒有跟上</li><li>現代 PHP、Laravel 寫法與套件取捨</li></ul><span class="say">這代碼好不好維護</span></div><div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">Bo</span><div><h3>Bonn</h3><span class="role">說的跟做的對不對得上</span></div></div><ul><li>實作有沒有照設計文件與已拍板的決議</li><li>規則文件裡的命令、路徑還成不成立</li><li>commit、MR 說的跟實際改的一不一樣</li></ul><span class="say">改完幫我核對文件</span></div></div>
+      <div class="sub-h">召開圓桌會審：不用自己決定找誰</div>
+      <div class="steps">
+        <div class="rule"><span class="sn">1</span><div><b>你說一句</b><span>「針對今天的異動進行圓桌會審」。也可以打 <code>/panel-review</code>，後面可帶檔案、目錄或 MR 編號。</span></div></div>
+        <div class="rule"><span class="sn">2</span><div><b>AI 建議陣容，你來選</b><span>Timo、Rorin、Rhyse 是固定班底；動到查詢或舊系統搬遷才加 Marz，有對照的設計文件才加 Bonn。AI 會給三個選項：建議陣容、全部五位、精簡兩位。你已經點名要誰，就照你說的派。</span></div></div>
+        <div class="rule"><span class="sn">3</span><div><b>同時審，合成一份結論</b><span>同一個問題多人提到會合併，依嚴重度排序，保留每個人的裁決。意見分歧時各一票多數決，平手由你決定。</span></div></div>
+      </div>
+    </div>
+  </section>
+  <section class="card" id="rd-wt" data-static>
+    <div class="card-head">
+      <h2><span class="idx"><svg class="ni"><use href="#i-branch"/></svg></span>同時做多件事：worktree</h2>
+      <span class="note">同一個 repo 開出多個獨立的工作目錄，每個目錄配一個 Claude 對話，互不干擾</span>
+    </div>
+    <div class="card-body">
+      <p class="lead">一個專案目錄只有一條「目前分支」。兩個 Claude 對話同時在裡面切分支、commit，會互相把對方的分支切走。要並行，就替每件事各開一個 worktree（獨立的工作目錄）。</p>
+      <div class="steps" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+        <div class="rule"><span class="sn">1</span><div><b>開</b><span>說「開一個 worktree 做 X」。AI 會從最新主線開分支，在專案旁邊建一個新目錄。APIs 專案會一併備好 <code>vendor</code>、<code>.env</code>。</span></div></div>
+        <div class="rule"><span class="sn">2</span><div><b>做</b><span>在新目錄開一個 Claude 對話，照平常的方式工作。原本的目錄和對話原樣留著，插單時不用先收拾。</span></div></div>
+        <div class="rule"><span class="sn">3</span><div><b>發布</b><span>說「push 開 MR」，流程跟一般分支完全一樣。</span></div></div>
+        <div class="rule"><span class="sn">4</span><div><b>收</b><span>說「MR 已合併」。AI 確認內容進了主線，才刪分支、移除那個目錄。</span></div></div>
+      </div>
+      <div class="sub-h">哪些各自獨立，哪些還是共用</div>
+      <div class="crew">
+        <div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">分</span><div><h3>各自獨立</h3><span class="role">所以可以同時寫</span></div></div><ul><li>目錄裡的檔案</li><li>目前分支、還沒 commit 的改動</li><li>Claude 對話的內容：每個對話只知道自己聊過什麼</li></ul></div>
+        <div class="mate"><div class="mate-h"><span class="mono" aria-hidden="true">共</span><div><h3>還是共用</h3><span class="role">所以要留意</span></div></div><ul><li>git 的分支與 commit：這邊一 commit，另一邊不用 push 就看得到</li><li>容器、開發資料庫、測試資料庫</li><li><code>.env</code> 這類設定檔</li></ul></div>
+      </div>
+      <div class="sub-h">對話之間怎麼交接</div>
+      <div class="tbl"><table><colgroup><col style="width:20%"><col style="width:34%"><col style="width:46%"></colgroup>
+        <thead><tr><th>管道</th><th>適合傳什麼</th><th>怎麼用</th></tr></thead><tbody><tr><td data-label="管道" class="task">git</td><td data-label="適合傳什麼">程式做到哪了</td><td data-label="怎麼用" class="note-t">在另一個對話說「看一下 &lt;分支&gt; 現在做到哪」。同一個 repo 的 commit 即時看得到</td></tr><tr><td data-label="管道" class="task">記憶檔</td><td data-label="適合傳什麼">進度、決策、還沒做完的事</td><td data-label="怎麼用" class="note-t">收工前說「把進度寫進記憶檔，留交接」；另一個對話開工時說「接手 X，讀記憶檔的交接」</td></tr><tr><td data-label="管道" class="task">魔鏡（團隊共享記憶）</td><td data-label="適合傳什麼">大家都該知道的坑點與規則</td><td data-label="怎麼用" class="note-t">「存到魔鏡」「問魔鏡 X」。跨同事、跨專案都查得到</td></tr><tr><td data-label="管道" class="task">GitLab 工單與 MR 留言</td><td data-label="適合傳什麼">要留紀錄、要給人看的結論</td><td data-label="怎麼用" class="note-t">請 AI 整理成留言草稿，由你本人貼上去</td></tr><tr><td data-label="管道" class="task">對話直接傳訊</td><td data-label="適合傳什麼">臨時提醒，例如「我剛合了 X」</td><td data-label="怎麼用" class="note-t">Claude Code 看得到同一台電腦上的其他對話，可以請它傳話。只當提醒用，重要的事還是要寫進記憶檔或工單</td></tr></tbody></table></div>
+      <div class="fnotes">
+        <div class="fnote"><svg class="ni"><use href="#i-shield"/></svg><span><b>資料庫沒有跟著分開</b>：migration，或會寫測試資料庫的測試，兩個對話不要同時跑。</span></div>
+        <div class="fnote"><svg class="ni"><use href="#i-target"/></svg><span><b>一個 worktree 同時只放一個會改檔案的對話</b>。只查資料、只審查的工作可以多個一起跑。兩件事要改同一段程式時，排順序做：先合一條，另一條再從最新主線接著改。</span></div>
+      </div>
+    </div>
+  </section>
+    <div class="groups" data-groups="rd"></div>
+  </div>
+  <div class="pane" data-role="op" hidden>
+  <p class="draft" data-static><svg class="ni"><use href="#i-file"/></svg><span><b>草稿</b>：這份流程是開發同事依經驗整理的，還沒經過 OP 同事確認。步驟不對或有漏的地方，請告訴市集維護者。</span></p>
+  <section class="card" id="op-flow" data-static>
+    <div class="card-head"><h2><span class="idx"><svg class="ni"><use href="#i-route"/></svg></span>維運、客服工作流程</h2><span class="note">從收到客訴到關單</span></div>
+    <div class="card-body"><figure class="flowfig" role="group" aria-label="維運與客服工作流程六個步驟：整理成工單、檢查單子、補資料、追進度、回覆客戶、確認修好並關單。前兩步有 skill。"><div class="fchart"><div class="fcap">實線框是有 skill 幫忙的步驟，灰色虛線框照原本方式做</div><div class="frow"><a class="fnode wide n-primary" href="#op-1"><span class="fn-n">1</span><span class="fn-t">整理成工單</span><span class="fn-d"><code>op-ticket-create</code> 讀 TG 截圖、整理內容，你確認後建單</span><span class="fn-s">「幫我開 OP 單」</span></a></div><div class="fconn"><span class="fc-l">單子開好了</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-info" href="#op-2"><span class="fn-n">2</span><span class="fn-t">檢查單子夠不夠清楚</span><span class="fn-d"><code>sure-score</code> 給分數，列出補什麼能加分</span><span class="fn-s">「評這張單」</span></a></div><div class="fconn"><span class="fc-l">還缺資料</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">3</span><span class="fn-t">補資料：查訂單、查會員狀態</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">資料補齊，交給 RD</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">4</span><span class="fn-t">追進度：我開的單到哪了</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">RD 回報已修好</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">5</span><span class="fn-t">回覆客戶或 TG 群</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">客戶確認沒問題</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">6</span><span class="fn-t">確認修好、關單</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="flegend" aria-hidden="true"><span><i class="lg-p"></i>有 skill 幫忙</span><span><i class="lg-i"></i>只讀，AI 只看不改</span><span><i class="lg-g"></i>由人處理（把關，或目前沒有 skill）</span></div></div></figure></div>
+  </section>
+    <div class="groups" data-groups="op"></div>
+  </div>
+  <div class="pane" data-role="pm" hidden>
+  <p class="draft" data-static><svg class="ni"><use href="#i-file"/></svg><span><b>草稿</b>：第 1 步「開需求單」依 PM 同事實際的開單流程整理；其他步驟是開發同事依經驗整理的，還沒經過 PM 同事確認。步驟不對或有漏的地方，請告訴市集維護者。</span></p>
+  <section class="card" id="pm-flow" data-static>
+    <div class="card-head"><h2><span class="idx"><svg class="ni"><use href="#i-route"/></svg></span>PM 工作流程</h2><span class="note">從需求成形到結案</span></div>
+    <div class="card-body"><figure class="flowfig" role="group" aria-label="PM 工作流程六個步驟：開需求單、檢查需求單、追進度、dev 站驗收、對外說明、結案。開需求單與 dev 站驗收有 skill。"><div class="fchart"><div class="fcap">實線框是有 skill 幫忙的步驟，灰色虛線框照原本方式做</div><div class="frow"><a class="fnode wide n-primary" href="#pm-decide"><span class="fn-n">1</span><span class="fn-t">開需求單、拆子任務、指派</span><span class="fn-d"><code>pm-ticket-create</code> 照順序問你 6 題，再照範本填內文；點這裡看每題要決定什麼</span><span class="fn-s">「開工單」「拆子任務」</span></a></div><div class="fconn"><span class="fc-l">需求單開好了</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">2</span><span class="fn-t">檢查需求單 RD 看不看得懂</span><span class="fn-d">開單時 AI 會針對寫得模糊的地方先問一輪（見第 1 步）；單開好之後的檢查目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">RD 開始開發</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">3</span><span class="fn-t">追進度、看哪些單卡住</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">RD 說已上 dev</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#pm-2"><span class="fn-n">4</span><span class="fn-t">在 dev 站驗收功能</span><span class="fn-d"><code>web-browser</code> 幫你登入 dev 站操作（要另外安裝 qa-toolkit）</span><span class="fn-s">「登入 dev 後台做 X」</span></a></div><div class="fconn"><span class="fc-l">驗收通過，RD 上線</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">5</span><span class="fn-t">對外說明這次上了什麼</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">說明發出去了</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">6</span><span class="fn-t">結案</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="flegend" aria-hidden="true"><span><i class="lg-p"></i>有 skill 幫忙</span><span><i class="lg-i"></i>只讀，AI 只看不改</span><span><i class="lg-g"></i>由人處理（把關，或目前沒有 skill）</span></div></div></figure></div>
+  </section>
+  <section class="card" id="pm-decide" data-static>
+    <div class="card-head">
+      <h2><span class="idx"><svg class="ni"><use href="#i-sliders"/></svg></span>開需求單：AI 會照順序問你 6 題</h2>
+      <span class="note">依 PM 同事實際的開單流程整理；你回答題目，日期與標籤由 AI 照規則算好</span>
+    </div>
+    <div class="card-body">
+      <div class="tbl"><table><colgroup><col style="width:14%"><col style="width:43%"><col style="width:43%"></colgroup>
+        <thead><tr><th>題目</th><th>你要決定的</th><th>AI 接著做的</th></tr></thead><tbody><tr><td data-label="題目" class="task">1 站台</td><td data-label="你要決定的">單一站台、多站姐妹單（每站各開一張）、跨站的基礎建設，或新版後台回報表單</td><td data-label="AI 接著做的" class="note-t">決定標題帶哪個站名；跨站與回報表單不帶站名，回報表單會再問表單上的實際項次</td></tr><tr><td data-label="題目" class="task">2 分類</td><td data-label="你要決定的">金流商、遊戲商、簡訊與驗證碼服務（含 OTP、WhatsApp）、功能優化與修復、系統維護與協作</td><td data-label="AI 接著做的" class="note-t">決定內文用哪一份範本；遊戲商會再問錢包類型</td></tr><tr><td data-label="題目" class="task">3 優先級</td><td data-label="你要決定的">一般、優先、不可延期、插單</td><td data-label="AI 接著做的" class="note-t">掛對應的「0.2」開頭標籤，選一般就不掛</td></tr><tr><td data-label="題目" class="task">4 子任務</td><td data-label="你要決定的">要不要拆、拆成哪幾張（選項依分類而不同）；開發負責人從名單點，測試有預設負責人，可以改派</td><td data-label="AI 接著做的" class="note-t">子任務都有負責人，主單才掛派工標籤（「0. 分配開發」「0. 分配QA」）；不拆或有人待認領，主單掛「0. 未分配」</td></tr><tr><td data-label="題目" class="task">5 排期</td><td data-label="你要決定的">開發起訖日，以及測試結束日抓當天、隔日或自己指定；也可以先不排</td><td data-label="AI 接著做的" class="note-t">測試從開發結束那天開始；主單結束日是測試結束再加 1 天，落在週四到週日就延到下週一。想改日期就改這一題的答案，AI 會重算</td></tr><tr><td data-label="題目" class="task">6 里程碑</td><td data-label="你要決定的">TTN項目、新代理後台，或不掛</td><td data-label="AI 接著做的" class="note-t">依名稱查出里程碑，只掛在主單，子任務不掛</td></tr></tbody></table></div>
+      <div class="fnotes">
+        <div class="fnote"><svg class="ni"><use href="#i-target"/></svg><span><b>計費標籤預設掛「0.0不收費」</b>：要收費或已報價的單，在預覽之前跟 AI 說就會改掛；之後才發現的話，由你在 GitLab 手動改。</span></div>
+        <div class="fnote"><svg class="ni"><use href="#i-target"/></svg><span><b>來自新版後台回報表單的單</b>：開單前要先照七步查證，例如一定要看截圖、實機重現過才開單、設對照組比較。</span></div>
+      </div>
+      <div class="sub-h">問完之後，AI 會停下來問你的四關</div>
+      <div class="steps">
+        <div class="rule"><span class="sn">1</span><div><b>示意圖</b><span>需求單內文最上面要放示意圖連結。還沒做的話 AI 會提醒你先做；你選先開單，內文先放「?? 待補示意圖」。純修問題、畫面沒變的單不用放。</span></div></div>
+        <div class="rule"><span class="sn">2</span><div><b>字數上限</b><span>需求單 3,000 字、問題單 1,500 字。超過就擋下，給你一份刪減版，你同意才套用。</span></div></div>
+        <div class="rule"><span class="sn">3</span><div><b>需求有沒有想清楚</b><span>只在內文看起來模糊時才問：待補有 3 處以上、需求只寫一兩句、缺預期結果、選了「其他」沒說明，或寫「優化」「加快」卻沒有數字。AI 針對這幾處問一輪、附上建議答案；答不出來就標成待補，你說先這樣開就照開。</span></div></div>
+        <div class="rule"><span class="sn">4</span><div><b>預覽</b><span>標題、內文、子任務、負責人、日期、標籤、里程碑一次列出來，你確認才寫進 GitLab。預覽之後又改了內容，AI 會重印一份再問你。</span></div></div>
+      </div>
+      <div class="sub-h">替已經開好的需求單補拆子任務時，多這幾個決策點</div>
+      <div class="steps">
+        <div class="rule"><span class="sn">1</span><div><b>同一種子任務還開著</b><span>標題後綴一樣（例如都是「- 開發」）而且還沒關，就不重開，告訴你已經有哪一張。</span></div></div>
+        <div class="rule"><span class="sn">2</span><div><b>同一種子任務已經關了</b><span>問你要當成已完成不建、重新打開原本那張，還是另開一張新的。</span></div></div>
+        <div class="rule"><span class="sn">3</span><div><b>主單已經關了</b><span>先停下來問你要不要繼續。</span></div></div>
+        <div class="rule"><span class="sn">4</span><div><b>主單的負責人要不要改</b><span>預設不改；你要改派，AI 會列名單讓你點。訊息裡已經講了要給誰，就不再問。</span></div></div>
+        <div class="rule"><span class="sn">5</span><div><b>主單的標籤、負責人或起訖日要跟著改</b><span>預覽列出改前改後，你同意才改。</span></div></div>
+      </div>
+      <div class="fnotes">
+        <div class="fnote"><svg class="ni"><use href="#i-target"/></svg><span><b>說「母單、子單」也可以</b>：意思跟主單、子任務一樣，AI 會跟著你的叫法回話。</span></div>
+      </div>
+    </div>
+  </section>
+    <div class="groups" data-groups="pm"></div>
+  </div>
+  <div class="pane" data-role="qa" hidden>
+  <p class="draft" data-static><svg class="ni"><use href="#i-file"/></svg><span><b>草稿</b>：這份流程是開發同事依經驗整理的，還沒經過 QA 同事確認。步驟不對或有漏的地方，請告訴市集維護者。</span></p>
+  <section class="card" id="qa-flow" data-static>
+    <div class="card-head"><h2><span class="idx"><svg class="ni"><use href="#i-route"/></svg></span>QA 工作流程</h2><span class="note">從收到驗收請求到上線後巡檢</span></div>
+    <div class="card-body"><figure class="flowfig" role="group" aria-label="QA 工作流程六個步驟：知道要驗什麼、dev 站操作驗證、錄成腳本、回報問題、回報驗收通過、上線後巡檢。操作驗證與錄腳本有 skill。"><div class="fchart"><div class="fcap">實線框是有 skill 幫忙的步驟，灰色虛線框照原本方式做</div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">1</span><span class="fn-t">知道有東西上 dev 了、要驗什麼</span><span class="fn-d">目前沒有 skill，照原本方式做；RD 會在 MR 說明裡寫驗收清單</span></div></div><div class="fconn"><span class="fc-l">拿到驗收清單</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#qa-1"><span class="fn-n">2</span><span class="fn-t">在 dev 前台、後台操作驗證</span><span class="fn-d"><code>web-browser</code></span><span class="fn-s">「登入 dev 後台做 X」「巡檢 dev 站點」</span></a></div><div class="fconn"><span class="fc-l">這段操作以後還會再驗</span><span class="fc-a"></span></div><div class="frow"><a class="fnode wide n-primary" href="#qa-2"><span class="fn-n">3</span><span class="fn-t">錄成可重播腳本，回歸測試用</span><span class="fn-d"><code>script-recorder</code></span><span class="fn-s">「把剛才的操作錄成腳本」</span></a></div><div class="fconn"><span class="fc-l">驗完了</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">4</span><span class="fn-t">回報 dev 上發現的問題</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">問題都修完</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">5</span><span class="fn-t">回報驗收通過</span><span class="fn-d">關閉工單的測試子任務；關掉之前，RD 的 MR 會維持草稿、不能合併。目前沒有 skill，照原本方式做</span></div></div><div class="fconn"><span class="fc-l">RD 上線</span><span class="fc-a"></span></div><div class="frow"><div class="fnode wide n-grey"><span class="fn-n">6</span><span class="fn-t">上線後巡檢正式站</span><span class="fn-d">目前沒有 skill，照原本方式做</span></div></div><div class="flegend" aria-hidden="true"><span><i class="lg-p"></i>有 skill 幫忙</span><span><i class="lg-i"></i>只讀，AI 只看不改</span><span><i class="lg-g"></i>由人處理（把關，或目前沒有 skill）</span></div></div></figure></div>
+  </section>
+    <div class="groups" data-groups="qa"></div>
+  </div>
+
+  <p class="empty" id="empty" hidden>找不到符合的講法。換個關鍵字試試，或清空搜尋框。</p>
+
+  <footer>依各 skill 的設定整理（2026-10-23），觸發詞以最新版為準。<code>&lt;白標&gt;</code> 這類括號請換成實際名稱。</footer>
+</main>
+
+<!-- 刻意不收錄的 skill 寫在下一行冒號後面，空白分隔；scripts/validate.sh 第 9 項會讀這行。cheatsheet-skip: -->
+<script>
+(function(){
+  // 每列：[想做什麼, [這樣說], skill, plugin, 備註]；講法以 / 開頭者視為命令
+  var ROLES = [
+    {id:'rd', label:'RD', sub:'開發', groups:[
+    {id:'rd-1', n:'1', icon:'i-inbox', title:'收單分析', note:'讀懂工單、查資料、找出原因；這一段 AI 只讀不寫', rows:[
+      ['讀懂一張 OP 單，知道下一步用哪支 skill', ['排查這張單 <工單連結>','處理工單 <工單連結>'], 'op-ticket-read', 'op-toolkit', '會依問題類型推薦下一支 skill，並自動跑 SURE 評分'],
+      ['看 OP 單寫得夠不夠清楚', ['評這張單','這張單缺什麼'], 'sure-score', 'op-toolkit', '給分數，和「補什麼能加分」的清單；讀單時也會自動評分'],
+      ['查某個白標的資料', ['查 <白標> 的提款訂單','撈一下 X 表','跑個 SQL 看看'], 'whitelabel-db-query', 'apis-toolkit', '唯讀連線'],
+      ['查線上 log', ['查 <白標> <時間> 前後的 log','用 ErrorCode <代碼> 查'], 'gcp-log-troubleshoot', 'apis-toolkit', '講出白標名稱；查完可追問「篩出 X」「看第 N 筆」'],
+      ['在某個白標跑 artisan 命令', ['在 <白標> 跑 <命令>','切到 <白標>'], 'whitelabel-container-exec', 'apis-toolkit', '寫入類命令會先問你確認'],
+      ['要寫入正式站前，查主庫 port 和寫入權限', ['查 <白標> 主庫 port','我有沒有 <白標> 的寫入權限','幫我申請 <白標> 提權'], 'whitelabel-write-access', 'apis-toolkit', '只做唯讀檢查；沒權限會擬提權申請，你回「發」才發到 Slack'],
+      ['注單金額對不上，先診斷', ['<白標> <遊戲商> <日期> 對帳','三表對齊，先不要動'], 'reconcile-bet-records', 'apis-toolkit', '最後告訴你該走哪條補帳路徑'],
+      ['查補帳紀錄', ['查 <遊戲商> <日期> 的補帳紀錄'], 'list-sbr-corrections', 'apis-toolkit', '唯讀'],
+      ['前端看不到某家銀行', ['為何前端看不到 <銀行>','提款銀行不見了'], 'bank-why-missing', 'apis-toolkit', ''],
+      ['大額通知沒發', ['為什麼這筆沒觸發大額通知'], 'large-amount-notify-debug', 'apis-toolkit', ''],
+      ['找一個通用 bug 的原因', ['幫我 debug','這支 API 偶爾回 500，重跑又正常','修了又復發'], 'bug-diagnosis', 'dev-toolkit', '先建一個會重現的檢查命令再推原因，這一段只讀；要加觀測點或動手修時會接到開工那一步。查 log、銀行、對帳、查資料有專用 skill 時走那支']
+    ]},
+    {id:'rd-2', n:'2', icon:'i-branch', title:'開工', note:'同步分支、開工作分支，帶著領域規則動手改', rows:[
+      ['把本地分支同步到遠端最新', ['同步分支','同步 git','對齊分支','把 develop 拉到最新'], 'branch-sync', 'dev-toolkit', '只做快轉：本地落後時，直接移到遠端最新位置'],
+      ['動手前先把需求問清楚', ['規劃 <工單連結>','幫我規劃 X','挑戰這個設計'], 'design-grilling', 'dev-toolkit', '一輪一輪問、每題附建議答案，有共識才寫計劃；接著會叫起 tdd'],
+      ['開始修 bug 或做新功能', ['開始處理 <工單>','我要開始做 X','接一個新需求'], 'release-workflow', 'dev-toolkit', '會先問要不要另開分支、用一般分支還是 worktree'],
+      ['在 APIs 開獨立工作區', ['開一個 worktree 分支做 X','/new-worktree <主題>'], '/new-worktree', 'apis-toolkit 命令', '會補好 vendor、.env 等執行環境'],
+      ['接金流商，或改代收、代付、回調', ['接入新的金流商 <名稱>','代付回調的驗簽怎麼做'], 'payment-integration', 'apis-toolkit', '也涵蓋加密貨幣金流（USDT）'],
+      ['替某個站台配已經接好的金流商戶', ['幫 <站台> 配 <金流商> 商戶'], 'payment-integration', 'apis-toolkit', '照該金流商的 runbook 逐步做'],
+      ['接遊戲商，或改錢包、派彩', ['接入新的遊戲商 <名稱>','單一錢包扣款怎麼做'], 'game-integration', 'apis-toolkit', ''],
+      ['新增或寫入的接口，防止參數竄改', ['新增接口','防止參數竄改','這個下拉只能選自己線的代理'], 'parameter-tampering-guard', 'apis-toolkit', '只擋範圍外的新值，原本就存著的值照樣放行；附擋得住與不誤擋兩種測試'],
+      ['補銀行代碼對照', ['補銀行資料','補 alias','銀行匹配信心度低'], 'bank-config-supplement', 'apis-toolkit', ''],
+      ['清理重複或不一致的銀行', ['合併重複銀行','banks 表 mismatch'], 'bank-mismatch-fix', 'apis-toolkit', ''],
+      ['把代收渠道拆成多筆設定', ['/apis-toolkit:split-cash-flow-channels <金流商>'], 'split-cash-flow-channels', 'apis-toolkit', '只能打命令叫用']
+    ]},
+    {id:'rd-3', n:'3', icon:'i-check', title:'測試驗證', note:'先寫測試再改程式；跑測試、實測照各專案的測試規則', rows:[
+      ['照測試先行的步驟寫測試', ['/dev-toolkit:tdd'], 'tdd', 'dev-toolkit', '用「規劃」問完需求後會自動叫起，排查 bug 要寫回歸測試時也會；範例是 PHP、PHPUnit']
+    ]},
+    {id:'rd-4', n:'4', icon:'i-eye', title:'審查', note:'改完先給審查官看；審查官只列問題，怎麼改由你決定', rows:[
+      ['圓桌會審：多個角度一次審完', ['針對今天的異動進行圓桌會審','/panel-review','/panel-review <MR 編號>'], '/panel-review', 'apis-toolkit 命令', '用講的或打命令都一樣：AI 先建議派哪幾位，你選了才派；純文件變更只派 Bonn，不用選。結果依嚴重度合成一份結論'],
+      ['只看金流正確性與併發', ['請 Timo 看一下','commit 前幫我檢查'], 'timo', 'apis-toolkit 審查官', ''],
+      ['只看安全：漏洞、越權、憑證', ['從安全角度看','請 Rorin 看一下'], 'rorin', 'apis-toolkit 審查官', ''],
+      ['對照舊系統行為、看查詢效率', ['這段是從舊專案搬來的，幫我對照','有沒有 N+1','請 Marz 看一下'], 'marz', 'apis-toolkit 審查官', ''],
+      ['看可讀性、架構、測試夠不夠', ['這代碼好不好維護','請 Rhyse 看一下'], 'rhyse', 'apis-toolkit 審查官', ''],
+      ['核對實作跟設計文件對不對得上', ['請 Bonn 校閱','改完幫我核對文件','有沒有漏改'], 'bonn', 'apis-toolkit 審查官', ''],
+      ['審單一檔案或目錄，順手重構', ['/code-quality <路徑>'], '/code-quality', 'apis-toolkit 命令', '後面加上任務描述，會先列計畫再重構']
+    ]},
+    {id:'rd-5', n:'5', icon:'i-commit', title:'提交', note:'寫 commit、整理 commit', rows:[
+      ['寫 commit，或整理 commit', ['commit 吧','收斂 commit','amend'], 'git-commit', 'dev-toolkit', 'push 前會先檢查要不要合併 commit'],
+      ['把文字寫成第一次讀就懂', ['幫我寫文件','寫需求單','寫報告','潤稿','改白話','寫得簡單一點'], 'plain-writing', 'dev-toolkit', '先問誰會讀，再照固定規則寫；tech-doc-writing 與 mr-report-writing 都會叫起它'],
+      ['寫技術文件', ['寫 README','寫接入流程','寫機制說明','寫設計文件','寫交接','補 docs','補 PHPDoc'], 'tech-doc-writing', 'dev-toolkit', '先判讀者與文件類型再套結構；repo 自己的 docs 規則優先'],
+      ['寫 MR 描述', ['寫 MR 描述','MR 說明怎麼寫','更新 MR 描述'], 'mr-report-writing', 'dev-toolkit', '固定九節；寫完先跑驗證器，綠了才開 MR']
+    ]},
+    {id:'rd-6', n:'6', icon:'i-pr', title:'發布', note:'APIs、新代理後台開 MR；其他專案先上 dev', rows:[
+      ['APIs、新代理後台 agent-backend：push 並開 MR', ['push 開 MR','推上去開 MR'], 'release-workflow', 'dev-toolkit', '先問要不要在 dev 驗收，再合 develop 觸發 dev 部署；dev 部署成功才能合併；工單有測試子任務時 MR 先開成草稿。合併鈕由你自己按'],
+      ['APIs、新代理後台 agent-backend：hotfix', ['這是 hotfix','hotfix，push 開 MR'], 'release-workflow', 'dev-toolkit', '要明說 hotfix 才算；照樣合 develop，但不等 dev 部署，MR pipeline 過了就能合併'],
+      ['APIs：檢查有沒有重造輪子', ['跑重工掃描','這張表是不是已經有人做過'], 'scan-duplicate-work', 'apis-toolkit', '分支新增資料表、Enum、金流商或遊戲商時，第一次 push 前會自動跑'],
+      ['舊代理後台 WEB_AgentBackend、API_Agent、客服 socket：上 dev', ['上版，先上 dev','上版 WEB_AgentBackend，先上 dev'], 'deploy-agent-stack', 'legend-toolkit', '人在該專案目錄裡直接說「上版」，在別的目錄再點名專案；上完交給 QA 驗收'],
+      ['RD-Studio：上 dev', ['上版，先上 dev','上版 RD-Studio 到 dev'], 'deploy-rd-studio', 'legend-toolkit', '人在 RD-Studio 目錄裡直接說「上版」，在別的目錄再點名']
+    ]},
+    {id:'rd-7', n:'7', icon:'i-check', title:'dev 環境驗收', note:'上 dev 之後、上正式之前，自己先驗一輪', rows:[
+      ['在 dev 前台或後台實際操作一遍', ['登入 dev 後台做 X','巡檢 dev 站點'], 'web-browser', 'qa-toolkit', '要另外安裝 qa-toolkit'],
+      ['把這段操作錄下來，下次直接重播', ['把剛才的操作錄成腳本'], 'script-recorder', 'qa-toolkit', '']
+    ]},
+    {id:'rd-8', n:'8', icon:'i-upload', title:'上線', note:'部署上正式環境', rows:[
+      ['APIs、新代理後台 agent-backend：發版', ['發版','發 release'], 'gitlab-release', 'dev-toolkit', '建立 Release 並啟動正式環境部署，各站要有人手動按'],
+      ['APIs、新代理後台 agent-backend：上線後回主單留言', ['部署完了，回主單留言','盯著部署跑完再回報'], 'gitlab-release', 'dev-toolkit', '查到各站部署都成功，才在需求主單留言「已部署正式環境」；再列出這批主單讓你勾，把勾選的功能整理成 wiki 功能開發說明文件'],
+      ['舊代理後台 WEB_AgentBackend、API_Agent、客服 socket：上正式', ['部署上正式','上版 WEB_AgentBackend 到正式'], 'deploy-agent-stack', 'legend-toolkit', 'QA 驗收通過後才做；上正式前會再跟你確認'],
+      ['RD-Studio：上正式', ['部署上正式','上版 RD-Studio 到正式','更新 <站台> 的代碼'], 'deploy-rd-studio', 'legend-toolkit', '會先確認要上的版本，部署後再驗證']
+    ]},
+    {id:'rd-9', n:'9', icon:'i-shield', title:'上線後確認', note:'正式環境部署完，確認沒有新的錯誤；這一段 AI 只讀不寫', rows:[
+      ['看上線後有沒有新的錯誤', ['部署完了，幫我驗告警','查 <白標> 上線後的錯誤 log'], 'gcp-log-troubleshoot', 'apis-toolkit', '講出白標名稱和大概的上線時間'],
+      ['看資料有沒有正常寫入', ['查 <白標> 今天的 <資料> 有沒有正常寫入'], 'whitelabel-db-query', 'apis-toolkit', '唯讀連線']
+    ]},
+    {id:'rd-10', n:'10', icon:'i-flag', title:'收工關單', note:'清掉分支，回覆工單', rows:[
+      ['MR 合併後清理分支與 worktree', ['MR 已合併','清理分支','清理 worktree'], 'release-workflow', 'dev-toolkit', '刪分支前會確認內容已經進了主線'],
+      ['整理結案說明', ['整理 <工單連結> 的結案說明'], 'op-ticket-read', 'op-toolkit', '產出留言草稿；回覆與關單由你本人在 GitLab 操作']
+    ]},
+    {id:'rd-ops', n:'', icon:'i-file', title:'開單與補帳', note:'不在上面十個步驟裡，遇到時直接說', rows:[
+      ['把客服截圖整理成 OP 單', ['幫我開 OP 單','整理截圖開單'], 'op-ticket-create', 'op-toolkit', '寫進 GitLab 前會先給你確認'],
+      ['開修復單或 RD 提的新功能單', ['開修復單','開 bug 單','RD 開單'], 'rd-ticket-create', 'op-toolkit', '主單用 PM 的角度寫，開發與測試的細節寫進子單；說「開工單」也會依你的身分轉過來'],
+      ['替 PM 開好的需求單寫開發子單、測試子單', ['補開發子單','補測試子單','幫 #<單號> 寫測試步驟'], 'rd-ticket-create', 'op-toolkit', '只寫子單、不改範圍；主單裡屬於 RD 的細節會列成建議，你同意才搬'],
+      ['替既有需求單補拆子任務', ['拆子任務','拆子單','幫這張單補拆子任務'], 'pm-ticket-create', 'op-toolkit', ''],
+      ['確定要補帳', ['進行 <遊戲商> <日期> 補帳作業','把差額補進 SBR'], 'repair-bet-records', 'apis-toolkit', '要先有對帳診斷結果；每個寫入都會先確認']
+    ]},
+    {id:'rd-other', n:'', icon:'i-box', title:'其他工具', note:'團隊記憶、wiki、QA、報告與 Claude 設定', rows:[
+      ['查團隊共享記憶（魔鏡）', ['問魔鏡 X','魔鏡有哪些 XX'], 'memory-search', 'memory-mcp', ''],
+      ['把經驗分享給團隊', ['存到魔鏡','分享給團隊','分享坑點'], 'memory-store', 'memory-mcp', ''],
+      ['寫知識庫 wiki：功能說明頁、操作手冊', ['寫 wiki','補功能頁','寫操作手冊','這張工單的驗收條件寫回 wiki'], 'wiki-authoring', 'wiki-toolkit', '要另外安裝 wiki-toolkit、在公司網路內；發頁後會在魔鏡建一筆指向這頁的記憶'],
+      ['把專案用詞定下來、記架構決策', ['更新詞彙表','這兩個名詞差在哪','要不要記個 ADR'], 'domain-modeling', 'dev-toolkit', '定名後寫進專案的 GLOSSARY.md；直接改 GLOSSARY.md 或 ADR 時也會叫起'],
+      ['照團隊版型產報告或簡報', ['產一份報告','做一份簡報'], 'report-design-conventions', 'apis-toolkit', ''],
+      ['操作 dev 前台或後台', ['登入 dev 後台做 X','巡檢 dev 站點'], 'web-browser', 'qa-toolkit', ''],
+      ['把瀏覽操作錄成可重播的腳本', ['把剛才的操作錄成腳本'], 'script-recorder', 'qa-toolkit', ''],
+      ['同步代理後台的選單記憶', ['同步後台選單記憶'], 'agent-backend-ui-sync', 'qa-toolkit', ''],
+      ['稽核金流商實作、更新風險處理狀態、產風險報告', ['稽核金流商','這幾筆拍板不修','產風險發現報告'], 'report-payment-audit', 'apis-toolkit', '只審不改程式'],
+      ['產代收、代付的狀態流轉報告', ['/apis-toolkit:report-order-status-lifecycle'], 'report-order-status-lifecycle', 'apis-toolkit', '只能打命令叫用'],
+      ['整理 Claude 的本地記憶', ['整理記憶','記憶太長了'], 'memory-tidy', 'dev-toolkit', ''],
+      ['盤點 Claude 設定有沒有重複或衝突', ['/dev-toolkit:harness-audit'], 'harness-audit', 'dev-toolkit', '只能打命令叫用']
+    ]}
+    ]},
+    {id:'op', label:'OP', sub:'維運、客服', groups:[
+      {id:'op-1', n:'1', icon:'i-file', title:'整理成工單', note:'寫進 GitLab 前會先給你確認', rows:[
+        ['把客服截圖整理成 OP 單', ['幫我開 OP 單','整理截圖開單'], 'op-ticket-create', 'op-toolkit', '第一行要填 TG 群名稱，方便 RD 回頭找原始提問的人']
+      ]},
+      {id:'op-2', n:'2', icon:'i-check', title:'檢查單子夠不夠清楚', note:'只評分，不改單、不留言', rows:[
+        ['看這張單 RD 看不看得懂、還缺什麼', ['評這張單','這張單 RD 看得懂嗎','這張單缺什麼'], 'sure-score', 'op-toolkit', '給分數，和「補什麼能加幾分」的清單']
+      ]},
+      {id:'op-any', n:'', icon:'i-box', title:'隨時可用', note:'不在流程裡，需要時直接說', rows:[
+        ['查團隊共享記憶（魔鏡）：功能在哪、以前怎麼處理', ['問魔鏡 X','魔鏡有哪些 XX'], 'memory-search', 'memory-mcp', ''],
+        ['把經驗分享給團隊', ['存到魔鏡','分享給團隊','分享坑點'], 'memory-store', 'memory-mcp', '']
+      ]}
+    ]},
+    {id:'pm', label:'PM', sub:'產品、專案', groups:[
+      {id:'pm-1', n:'1', icon:'i-file', title:'開需求單', note:'AI 照順序問你 6 題，再照範本填內文', rows:[
+        ['開需求單', ['開工單','建工單','幫 <站台> 開單'], 'pm-ticket-create', 'op-toolkit', '寫進 GitLab 前會先給你確認'],
+        ['把需求單拆成子任務並指派', ['拆子任務','拆子單','拆 ticket task'], 'pm-ticket-create', 'op-toolkit', ''],
+        ['替已經開好的需求單補拆子任務', ['幫這張單補拆子任務','幫 #<單號> 補開開發跟測試子單','這張母單開 RD 跟 QA 的子單'], 'pm-ticket-create', 'op-toolkit', '會先查主單現有的子任務：同一種還開著就不重開，已關閉的會先問你；主單負責人預設不改'],
+        ['改既有需求單的描述', ['改這張單的描述','幫 #<單號> 改工單描述','工單描述幫我濃縮','工單內文加一段'], 'pm-ticket-edit', 'op-toolkit', '會先給你看改了哪裡，你確認才寫進 GitLab'],
+        ['幫需求單做示意圖', ['幫這張單做示意圖','做需求單示意圖','更新這張單的示意圖'], 'ticket-artifact', 'op-toolkit', '發布後設成 target 全員可看，連結放進工單描述最上面；Claude 要登入 target 組織的帳號']
+      ]},
+      {id:'pm-2', n:'4', icon:'i-eye', title:'在 dev 站驗收', note:'要另外安裝 qa-toolkit', rows:[
+        ['請 AI 登入 dev 站操作給你看', ['登入 dev 後台做 X','巡檢 dev 站點'], 'web-browser', 'qa-toolkit', '只能操作 dev 站']
+      ]},
+      {id:'pm-any', n:'', icon:'i-box', title:'隨時可用', note:'不在流程裡，需要時直接說', rows:[
+        ['查團隊共享記憶（魔鏡）：功能在哪、以前怎麼處理', ['問魔鏡 X','魔鏡有哪些 XX'], 'memory-search', 'memory-mcp', ''],
+        ['把經驗分享給團隊', ['存到魔鏡','分享給團隊','分享坑點'], 'memory-store', 'memory-mcp', ''],
+        ['寫知識庫 wiki：功能說明頁、操作手冊', ['寫 wiki','補功能頁','這張工單的驗收條件寫回 wiki'], 'wiki-authoring', 'wiki-toolkit', '要另外安裝 wiki-toolkit、在公司網路內']
+      ]}
+    ]},
+    {id:'qa', label:'QA', sub:'測試', groups:[
+      {id:'qa-1', n:'2', icon:'i-eye', title:'在 dev 站操作驗證', note:'AI 用瀏覽器實際操作 dev 前台、後台', rows:[
+        ['登入 dev 站做一段操作', ['登入 dev 後台做 X','在 dev 後台查 X'], 'web-browser', 'qa-toolkit', '只能操作 dev 站；網址與帳密放在你本機的環境變數'],
+        ['把 dev 站整個巡一遍', ['巡檢 dev 站點'], 'web-browser', 'qa-toolkit', '']
+      ]},
+      {id:'qa-2', n:'3', icon:'i-commit', title:'錄成可重播腳本', note:'下次回歸測試直接重播', rows:[
+        ['把剛才的操作存成腳本', ['把剛才的操作錄成腳本','側錄這段'], 'script-recorder', 'qa-toolkit', '腳本存在你本機，不會寫進帳號密碼']
+      ]},
+      {id:'qa-any', n:'', icon:'i-box', title:'隨時可用', note:'不在流程裡，需要時直接說', rows:[
+        ['查後台某個功能在哪一頁', ['問魔鏡 <功能> 在後台哪裡'], 'memory-search', 'memory-mcp', ''],
+        ['後台選單改了，更新團隊記憶', ['同步後台選單記憶'], 'agent-backend-ui-sync', 'qa-toolkit', '以後台實際的側邊欄為準'],
+        ['把經驗分享給團隊', ['存到魔鏡','分享給團隊','分享坑點'], 'memory-store', 'memory-mcp', ''],
+        ['把操作步驟寫成 wiki 操作手冊', ['寫操作手冊','整理成 SOP 放 wiki'], 'wiki-authoring', 'wiki-toolkit', '要另外安裝 wiki-toolkit、在公司網路內']
+      ]}
+    ]}
+  ];
+
+  function esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function ico(id){ return '<svg class="ni"><use href="#'+id+'"/></svg>'; }
+  function says(list){ return '<div class="says">'+list.map(function(t){ return '<span class="say'+(t.charAt(0)==='/'?' cmd':'')+'">'+esc(t)+'</span>'; }).join('')+'</div>'; }
+
+  var jumps = {}, tabs = '';
+  ROLES.forEach(function(role){
+    var html = '', jump = '<a href="#'+role.id+'-flow">'+ico('i-route')+'流程圖</a>' + (role.id==='rd' ? '<a href="#rd-crew">'+ico('i-eye')+'審查官</a><a href="#rd-wt">'+ico('i-branch')+'worktree</a>' : role.id==='pm' ? '<a href="#pm-decide">'+ico('i-sliders')+'開單決策點</a>' : '');
+    role.groups.forEach(function(g){
+      html += '<section class="card" id="'+g.id+'" data-group><div class="card-head"><h2><span class="idx">'+ico(g.icon)+'</span>'
+        + (g.n ? '<span class="stn">'+esc(g.n)+'</span>' : '') + esc(g.title)+'</h2><span class="rtag">'+esc(role.label)+'</span><span class="note">'+esc(g.note)+'</span></div>'
+        + '<div class="card-body"><div class="tbl"><table><colgroup><col class="c-task"><col class="c-say"><col class="c-skill"><col class="c-note"></colgroup>'
+        + '<thead><tr><th>想做什麼</th><th>這樣說</th><th>會叫起</th><th>備註</th></tr></thead><tbody>'
+        + g.rows.map(function(r){
+            var text = [role.label, role.sub, g.title, r[0], r[2], r[3], r[4]].concat(r[1]).join(' ').toLowerCase();
+            return '<tr data-text="'+esc(text)+'"><td data-label="想做什麼" class="task">'+esc(r[0])+'</td><td data-label="這樣說">'+says(r[1])+'</td>'
+              + '<td data-label="會叫起"><div class="sk"><code>'+esc(r[2])+'</code><span class="badge b-secondary">'+esc(r[3])+'</span></div></td>'
+              + '<td data-label="備註" class="note-t">'+(r[4] ? esc(r[4]) : '<span class="muted">無</span>')+'</td></tr>';
+          }).join('')
+        + '</tbody></table></div></div></section>';
+      jump += '<a href="#'+g.id+'">'+(g.n ? '<span class="jn">'+esc(g.n)+'</span>' : ico(g.icon))+esc(g.title)+'</a>';
+    });
+    document.querySelector('[data-groups="'+role.id+'"]').innerHTML = html;
+    jumps[role.id] = jump;
+    tabs += '<button type="button" role="tab" data-role="'+role.id+'" aria-selected="false">'+esc(role.label)+'<small>'+esc(role.sub)+'</small></button>';
+  });
+  var tabBox = document.getElementById('roles'); tabBox.innerHTML = tabs;
+
+  var current = 'rd', panes = Array.prototype.slice.call(document.querySelectorAll('.pane'));
+  var q = document.getElementById('q'), hits = document.getElementById('hits'), empty = document.getElementById('empty');
+  var rows = Array.prototype.slice.call(document.querySelectorAll('tr[data-text]'));
+  function roleOf(hash){ var m = /^#?(rd|op|pm|qa)(?:-|$)/.exec(hash || ''); return m ? m[1] : null; }
+  function show(role){
+    current = role;
+    Array.prototype.forEach.call(tabBox.children, function(b){ b.setAttribute('aria-selected', b.getAttribute('data-role')===role ? 'true' : 'false'); });
+    document.getElementById('jump').innerHTML = jumps[role];
+    apply();
+  }
+  function apply(){
+    var v = q.value.trim().toLowerCase(), n = 0;
+    document.body.classList.toggle('searching', !!v);
+    panes.forEach(function(p){ p.hidden = !v && p.getAttribute('data-role') !== current; });
+    rows.forEach(function(r){ var ok = !v || r.getAttribute('data-text').indexOf(v) > -1; r.hidden = !ok; if (ok) n++; });
+    document.querySelectorAll('[data-group]').forEach(function(s){ s.hidden = !!v && !s.querySelector('tr[data-text]:not([hidden])'); });
+    document.querySelectorAll('[data-static]').forEach(function(s){ s.hidden = !!v; });
+    var mine = document.querySelectorAll('.pane[data-role="'+current+'"] tr[data-text]').length;
+    hits.textContent = v ? ('符合 ' + n + ' 項（所有角色）') : ('這個角色 ' + mine + ' 項');
+    empty.hidden = !(v && n === 0);
+  }
+  tabBox.addEventListener('click', function(e){
+    var b = e.target.closest('button[data-role]'); if (!b) return;
+    var role = b.getAttribute('data-role');
+    try { history.replaceState(null, '', '#'+role); } catch(err) {}
+    show(role);
+  });
+  window.addEventListener('hashchange', function(){ var r = roleOf(location.hash); if (r && r !== current){ show(r); var t = document.getElementById(location.hash.slice(1)); if (t) t.scrollIntoView(); } });
+  q.addEventListener('input', apply);
+  q.addEventListener('keydown', function(e){ if (e.key === 'Escape'){ q.value = ''; apply(); } });
+  show(roleOf(location.hash) || 'rd');
+  if (location.hash.length > 3){ var t0 = document.getElementById(location.hash.slice(1)); if (t0) t0.scrollIntoView(); }
+})();
+</script>
+

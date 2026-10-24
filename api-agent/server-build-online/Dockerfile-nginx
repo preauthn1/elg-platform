@@ -1,0 +1,8 @@
+from centos:centos7.6.1810
+
+RUN rpm -Uvh https://example.invalid/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install nginx
+
+COPY server-build-online/nginx.conf /etc/nginx/nginx.conf
+
+CMD ["nginx"]

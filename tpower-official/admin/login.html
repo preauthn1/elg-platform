@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-Hant" class="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>登入 - 官網內容管理</title>
+<!-- 站方在「全站共用」上传的网站图示；没上传就是后台那张「%SITE_LETTER%」（见 server/index.js 的 /admin/favicon） -->
+<link rel="icon" href="/admin/favicon">
+<link rel="stylesheet" href="./admin.css">
+<style>
+  body { overflow: auto; display: grid; place-items: center; }
+  .loginwrap { width: 340px; }
+  .loginwrap .brandline {
+    display: flex; align-items: center; gap: 10px; margin-bottom: 18px; justify-content: center;
+  }
+  .loginwrap .logo {
+    width: 30px; height: 30px; border-radius: 8px;
+    background: var(--el-color-primary); color: #fff;
+    display: grid; place-items: center; font-weight: 700;
+  }
+  .loginwrap .ttl { font-size: 15px; font-weight: 600; }
+  .loginwrap .card-b { display: flex; flex-direction: column; gap: 12px; }
+  .loginwrap .inp { width: 100%; }
+  .loginwrap .btn { width: 100%; justify-content: center; height: 34px; }
+  .loginwrap .err { color: var(--el-color-danger); font-size: 12.5px; min-height: 18px; }
+</style>
+</head>
+<body>
+  <div class="loginwrap">
+    <div class="brandline"><div class="logo">%SITE_LETTER%</div><div class="ttl">官網內容管理</div></div>
+    <div class="card">
+      <div class="card-h">登入</div>
+      <div class="card-b">
+        <form id="f" autocomplete="on">
+          <div class="fitem" style="margin-bottom:10px"><label>帳號</label>
+            <input class="inp" id="u" name="username" autocomplete="username" required autofocus></div>
+          <div class="fitem" style="margin-bottom:12px"><label>密碼</label>
+            <input class="inp" id="p" name="password" type="password" autocomplete="current-password" required></div>
+          <div class="err" id="err"></div>
+          <button class="btn primary" id="go" type="submit">登入</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<script>
+document.getElementById('f').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const err = document.getElementById('err');
+  const go = document.getElementById('go');
+  err.textContent = '';
+  go.disabled = true;
+  go.textContent = '登入中…';
+  try {
+    const resp = await fetch('/api/admin/login', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', 'x-requested-with': 'fetch' },
+      credentials: 'same-origin',
+      body: JSON.stringify({
+        username: document.getElementById('u').value,
+        password: [REDACTED]'p').value,
+      }),
+    });
+    const data = await resp.json().catch(() => ({}));
+    if (!resp.ok || !data.ok) throw new Error(data.error || ('HTTP ' + resp.status));
+    location.href = '/admin/';
+  } catch (ex) {
+    err.textContent = ex.message;
+    go.disabled = false;
+    go.textContent = '登入';
+  }
+});
+</script>
+</body>
+</html>

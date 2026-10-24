@@ -1,0 +1,125 @@
+# 團隊名單
+#
+# 用途（三支以上的 skill 共用這一份，搬移或改格式前先搜尋 team-roster.yaml 的引用處）：
+#   - 開單時從這份名單點選子任務的負責人，不讓 PM 打字（op-toolkit 的 pm-ticket-create、rd-ticket-create）。
+#   - 判斷開單的人是 RD 還是 PM（role_by_group）。
+#   - 判斷母單的「0. PM確認」標籤是不是 PM 加的（dev-toolkit 的 release-workflow「PM 確認檢查」）：
+#     比對 user_id，groups 含 PM 才算。
+#
+# 怎麼讀：檔案放在 repo 根目錄，安裝 plugin 時不會跟著裝進本機，一律用 GitLab MCP 讀 main 上的版本：
+#   get_file_contents(project_id="target/gffv3/gff-marketplace", file_path="team-roster.yaml", ref="main")
+# 讀不到時停下來回報，不用記憶或舊的副本代替。
+#
+# GitLab 帳號的大小寫必須完全一致：錯一個字，create_work_item 整張建單會失敗
+# （例如實際帳號是 Frank，寫成 frank 會回 User 'frank' not found，描述要重打一次）。
+#
+# 規則：
+#   1. 只放稱呼、GitLab 帳號、GitLab 使用者 ID、組別，不放真實全名。
+#      user_id 是 GitLab 給帳號的固定編號，帳號改名也不會變；判斷身分一律比對 user_id，username 用來顯示與指派。
+#   2. 建單前一律用 list_project_members（帶 include_inheritance=true）向 target/ticket_tasks 驗證帳號存在；
+#      不帶這個參數時，權限從群組繼承的成員會查回空清單。找不到就回報，不猜相近的帳號。
+#   3. 開發類子任務（開發、前端、APIs開發、Agent開發等）不設預設負責人，每次都從對應組別點選。
+#   4. 測試子任務預設指派 default_for 含「測試」的那一位；PM 要改派時從測試組點選。
+#   5. 同一組的成員依下方順序呈現；AskUserQuestion 一次最多 4 個選項，超過時分兩段問。
+#   6. PM 組的帳號是主單負責人（主單建在 target/tickets），驗證帳號存在時對 target/tickets 查，不是 target/ticket_tasks。
+#   7. 開單身分用 role_by_group 判斷：拿 whoami 的帳號找到這個人的組別，再對回 RD 或 PM。
+#      測試組、或名單裡沒有這個帳號時，開單當下問一次「你這次是以 RD 還是 PM 的身分開單？」。
+#
+#   8. 改這份檔案要經審核人核准（.gitlab/approval-rules.json）：PM 組決定誰的標籤能放行上線。
+#
+# 新增成員：照同樣格式加一筆，groups 從「後端」「前端」「測試」「PM」選，可以多選。
+#   user_id 用 list_project_members(project_id="target/tickets", include_inheritance=true) 查回的 id。
+
+version: 1
+
+members:
+  - username: rb
+    user_id: 77
+    call_names: [rb, RB]
+    groups: [後端]
+  - username: Tim
+    user_id: 78
+    call_names: [tim]
+    groups: [後端]
+  - username: Max
+    user_id: 138
+    call_names: [max]
+    groups: [後端]
+  - username: mars
+    user_id: 35
+    call_names: [mars]
+    groups: [後端]
+  - username: daniel
+    user_id: 75
+    call_names: [daniel]
+    groups: [後端]
+  - username: neil
+    user_id: 42
+    call_names: [neil]
+    groups: [後端]
+  - username: Rhys
+    user_id: 126
+    call_names: [rhys]
+    groups: [後端]
+  - username: toro
+    user_id: 142
+    call_names: [toro]
+    groups: [後端]
+  - username: ryan
+    user_id: 72
+    call_names: [ryan]
+    groups: [前端]
+  - username: hongze
+    user_id: 24
+    call_names: [honzer, hongzer, hongze]
+    groups: [前端, 後端]
+  - username: Benwu
+    user_id: 87
+    call_names: [ben]
+    groups: [測試]
+    default_for: [測試]
+  - username: zoe
+    user_id: 79
+    call_names: [zoe]
+    groups: [測試]
+  - username: Frank
+    user_id: 7
+    call_names: [frank]
+    groups: [PM]
+  - username: leah
+    user_id: 66
+    call_names: [leah]
+    groups: [PM]
+  - username: leo
+    user_id: 59
+    call_names: [leo]
+    groups: [PM]
+
+# 組別 → 開單身分（測試組不列：測試人員開單時要問一次身分）
+role_by_group:
+  後端: RD
+  前端: RD
+  PM: PM
+
+# 子任務後綴 → 從哪一組點選
+suffix_to_group:
+  開發: 後端
+  前端: 前端
+  APIs開發: 後端
+  Agent開發: 後端
+  開發(APIs): 後端
+  開發(Agent): 後端
+  開發(CS): 後端
+  開發(批號): 後端
+  開發(repo名稱): 後端
+  前端(repo名稱): 前端
+  測試: 測試
+  APIs測試: 測試
+  Agent測試: 測試
+  測試(APIs): 測試
+  測試(Agent): 測試
+  測試(CS): 測試
+  測試(後端): 測試
+  測試(前端): 測試
+  測試(批號): 測試
+  測試(repo名稱): 測試

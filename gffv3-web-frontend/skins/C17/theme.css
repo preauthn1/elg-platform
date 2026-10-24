@@ -1,0 +1,312 @@
+/**
+ * C17 設計 token。
+ *
+ * 只取顏色、字體、字級這類設計決定；間距是從相鄰元素差值收斂成的尺標。
+ * 版面用 flex/grid + gap，不出現絕對定位，換皮只換這份 token。
+ * 標了 TODO 的是目視推的，設計稿上沒有對應元件。
+ */
+
+:root {
+  /* ---- 色彩 ---- */
+  --c17-primary: #1565ff;
+  --c17-primary-hover: #1343bb;  /* Dark Blue，按鈕 hover。勿寫成 #13438b */
+  --c17-primary-ink: #f1f4f8;    /* 按鈕上的字，不是純白 */
+  --c17-ink: #1a1f36;
+  --c17-muted: #7a8599;
+  --c17-faint: #b4b4b4;
+
+  --c17-bg: #f2f2f2;
+  --c17-surface: #ffffff;
+  --c17-line: #ebebeb;  /* 唯一的淺灰分隔線；其餘的線是 --c17-faint */
+
+  /* 螢光色。-deep 是暗端，只在漸層裡出現（VIP 等級膠囊、輪盤格） */
+  --c17-accent: #d8ff1a;
+  --c17-accent-deep: #decf00;
+  --c17-accent-ink: #1a1f36;
+
+  --c17-link: #1343bb;        /* 與 --c17-primary-hover 同色，角色不同故分開 */
+  --c17-fill-muted: #ebebeb;  /* 未勾選核取方塊的底 */
+
+  /* 頂部 nav 漸層。**藍在右、深色在左**，角度換算自 game-page 的 bg44 向量 */
+  --c17-header-from: #1565ff;
+  --c17-header-to: #1a1f36;
+  --c17-header-bg: linear-gradient(260.3deg, var(--c17-header-from) 0%, var(--c17-header-to) 78%);
+
+  /* 狀態色。設計師只用一種紅，LIVE 膠囊與錯誤態共用 */
+  --c17-success: #1bc964;
+  --c17-error: #ff4d4f;
+  --c17-live: var(--c17-error);
+  --c17-badge: var(--c17-error);
+  --c17-badge-ink: var(--c17-primary-ink);
+
+  /* 每日活動的獎項數字。紅包用紅、敲蛋用金，兩者都只出現在活動彈窗裡 */
+  --c17-prize-red: #ec0d18;
+  --c17-prize-gold: #face55;
+  --c17-shadow-prize: 4px 4px 6px rgb(216 255 26 / 60%);
+  --c17-shadow-prize-label: 3px 3px 4px rgb(236 13 24 / 60%);
+
+  /* ---- 動態：進場動畫的時間、緩動與位移 ----
+     數值照 bc.game：彈窗進場 220ms、位移 10px，緩動是他們的 .ease-out
+     cubic-bezier(.36,.66,.04,1)——起步快、尾巴長，短距離的位移才不會看起來像在飄。
+     只有進場沒有退場，理由見 app/utils/motion.ts */
+  --c17-motion-enter: 220ms;
+  --c17-motion-ease-enter: cubic-bezier(0.36, 0.66, 0.04, 1);
+  --c17-motion-shift: 10px;
+  --c17-motion-scale: 0.96;
+  --c17-motion-skeleton: 2.5s;  /* 骨架呼吸一輪的長度 */
+  --c17-motion-spin: 1s;        /* 轉圈一輪 */
+  --c17-motion-dim: 0.42;       /* 換頁時舊內容壓到多暗 */
+
+  /* ---- 語意色階：頁面與共用元件只看 --wf-*，換皮只換這一段的對應 ----
+     app/assets/css/main.css 的 @theme 把每個 --wf-* 變成 Tailwind 類別 */
+  --wf-page: var(--c17-bg);
+  --wf-surface: var(--c17-surface);
+  --wf-surface-2: var(--c17-primary-ink);  /* 分段切換底槽、次要按鈕；不要自己編近似灰白 */
+  --wf-ink: var(--c17-ink);
+  --wf-muted: var(--c17-muted);
+  --wf-faint: var(--c17-faint);
+  --wf-inverse: var(--c17-primary-ink);
+  --wf-accent-hover: var(--c17-primary-hover);
+  --wf-line: var(--c17-line);
+  --wf-line-strong: #cdd4e0;          /* TODO 待設計師確認 */
+  --wf-accent: var(--c17-primary);
+  --wf-highlight: var(--c17-accent);  /* 勾選態填色。**不要拿 --wf-accent 代替**，那是藍色 */
+  --wf-accent-hover-ink: var(--c17-accent);
+  --wf-link: var(--c17-link);
+  --wf-accent-soft: #ebf3ff;
+
+  --wf-success: var(--c17-success);
+  --wf-success-soft: #e8fbf0;   /* TODO：設計稿沒有 soft 底色，由 success 調淡 */
+  --wf-danger: var(--c17-error);
+  --wf-danger-soft: #ffeded;    /* TODO：同上 */
+  --wf-warning: #9a6200;        /* TODO：設計稿沒有警告色 */
+  --wf-warning-soft: #fff5e0;   /* TODO */
+  --wf-info: #0a6fb8;           /* TODO：設計稿沒有提示色 */
+  --wf-info-soft: #e8f3fb;      /* TODO */
+
+  /* 輸入框：白底 + 1px 邊框 + 圓角 8，四種狀態換邊框色 */
+  --wf-field: var(--c17-surface);
+  --wf-field-muted: var(--c17-fill-muted);
+  --wf-field-line: var(--c17-faint);          /* 未啟用 */
+  --wf-field-line-focus: var(--c17-primary);  /* 聚焦 */
+  --wf-field-line-done: var(--c17-success);   /* 已填妥 */
+  --wf-field-line-error: var(--c17-error);    /* 錯誤 */
+  --wf-placeholder: var(--c17-faint);
+  --wf-disabled: var(--c17-muted);
+  --wf-disabled-ink: var(--c17-primary-ink);
+
+  --wf-scrim: rgb(26 31 54 / 70%);  /* 彈窗遮罩是深藍 70%，不是黑色 */
+
+  /* 載入骨架：元件只看 --wf-skeleton-*，換皮換這兩顆 */
+  --wf-skeleton-base: var(--c17-skeleton-base);
+  --wf-skeleton-top: var(--c17-skeleton-top);
+
+  /* 進場動畫：元件只看 --wf-motion-*，換皮換這一段 */
+  --wf-motion-enter: var(--c17-motion-enter);
+  --wf-motion-ease-enter: var(--c17-motion-ease-enter);
+  --wf-motion-shift: var(--c17-motion-shift);
+  --wf-motion-scale: var(--c17-motion-scale);
+  --wf-motion-skeleton: var(--c17-motion-skeleton);
+  --wf-motion-spin: var(--c17-motion-spin);
+  --wf-motion-dim: var(--c17-motion-dim);
+
+  /* ---- 漸層：8 組，全部照設計檔。元件不要自己拼，從這裡拿 ---- */
+  --c17-card-bg: linear-gradient(to bottom, var(--c17-surface), color-mix(in srgb, var(--c17-primary) 50%, transparent));
+  --c17-wallet-bg: linear-gradient(171.6deg, var(--c17-surface) 0%, var(--c17-accent) 86%);
+  /* 錢包入口磚的底**不是純白**。設計稿那三顆磚是 fill IMAGE，色值不在向量資料裡，
+     是從算圖取樣出來的，所以 palette.json 上查不到。 */
+  --c17-tile-bg: linear-gradient(180deg, #f2f5fc 0%, #e1e9fc 100%);
+  /* 個人資料頁（Profile-page）的同一組磚是向量圖層，色值查得到：#FFFFFF→#E1E9FC 133°、
+     整層不透明度 80%（透明度直接寫進色標，用 opacity 會連圖示與文字一起變淡）。 */
+  --c17-profile-tile-bg: linear-gradient(133deg, rgb(255 255 255 / 80%) 0%, rgb(225 233 252 / 80%) 100%);
+  --c17-profile-card-bg: color-mix(in srgb, var(--c17-primary) 10%, transparent);
+  --c17-profile-pill-bg: rgb(255 255 255 / 80%);
+
+  /* VIP 等級說明的左右翻頁鈕。設計稿是 39×40 的金色圓鈕（上淺下深）＋**白色**箭頭，
+     不是螢光綠圓鈕配深色箭頭。色值取自設計稿算圖。 */
+  --c17-vip-nav-bg: linear-gradient(180deg, #d7ab13 0%, #bd9301 55%, #a98201 100%);
+  --c17-vip-nav-ink: #ffffff;
+  --c17-vip-nav-shadow: 0 2px 3px rgb(26 31 54 / 28%);
+  /* 徽章下面那行「VIP N」的紅棕色，只有這裡用到 */
+  --c17-vip-level-ink: #a85336;
+
+  /* 載入骨架的兩層灰（設計稿沒有畫載入狀態，所以取既有的面色階，不另外發明顏色）。
+     bc.game 是深色底，兩層取相鄰的兩階；C17 是白底，所以反過來——
+     底用最淺的那層灰，上面壓一層由 --c17-faint 調出來的深灰，
+     呼吸時在 #d2d2d2 ↔ #dcdcdc 之間來回，白卡上看得出來又不吵。 */
+  --c17-skeleton-base: var(--c17-fill-muted);
+  --c17-skeleton-top: color-mix(in srgb, var(--c17-faint) 45%, var(--c17-fill-muted));
+
+  /* 首頁下載列。設計稿裡整條是一張烤好的圖（home-top-banner-780x140-2，390×52），
+     但圖裡的「点击下载」是寫死的中文、圖示是灰色佔位方塊，直接拿圖用會同時破掉
+     14 語系與站台自己的 icon，所以照量到的值用 CSS 重建：
+       背板   橫向 #161a2d（左側約 12% 是平的）→ #1b5ce0，投影 #1A1F3642 X2 Y2 模糊2
+       膠囊   底 #3378f3（比背板亮的藍，不是透明）、外框 1px 淺綠 #b7f0b7、白色粗體字
+       關閉   24×24 的 X，#B4B4B4（不是白色半透明） */
+  --c17-downloadbar-bg: linear-gradient(90deg, #161a2d 0%, #161a2d 12%, #1b5ce0 100%);
+  --c17-downloadbar-shadow: 2px 2px 2px rgb(26 31 54 / 26%);
+  --c17-downloadbar-pill-bg: linear-gradient(180deg, #70c2fb 0%, #2962f0 100%);
+  --c17-downloadbar-pill-line: #b7f0b7;
+  --c17-downloadbar-close: var(--c17-faint);
+
+  /* 每日簽到的 CHECK-IN 鈕。設計稿那顆是一張烤好的圖（`3333` 120×40），但「CHECK-IN」
+     四個字燒在圖裡，直接拿圖用會破掉 14 語系，所以照取樣值用 CSS 重建：
+       底   由上而下 #b8fb05 → #d2fb09 → #f6f503（比 --c17-accent 更黃綠）
+       下緣 #ac8203 的金色厚邊，約 2pt
+       字   #1e055a 深靛，不是 --c17-ink */
+  --c17-checkin-btn-bg: linear-gradient(180deg, #b8fb05 0%, #d2fb09 62%, #f6f503 92%);
+  --c17-checkin-btn-lip: #ac8203;
+  --c17-checkin-btn-ink: #1e055a;
+
+  /* VIP 等級卡。設計稿那塊是一張攝影棚底圖（clear-empty-photographer-studio-background…），
+     在 XD 裡沒有被標記成可匯出資源，所以用取樣值近似：四角 #d9d9d9～#e8e8e8、
+     中上最亮 #f6f6f6、中央 #e3e3e3——是由中上往外散開的冷灰，不是藍的。 */
+  --c17-vip-card-bg: radial-gradient(130% 110% at 50% 8%, #f7f7f7 0%, #e6e6e6 55%, #d8d8d8 100%);
+  /* VIP 權益列的狀態指示，兩組都是設計檔裡的真漸層 */
+  --c17-check-bg: linear-gradient(180deg, #63d27f 0%, #409254 100%);
+  --c17-off-bg: linear-gradient(330deg, #8f9194 14.6%, #76787b 36.6%, #616265 58.6%, #5a5b5d 73.2%);
+
+  /* 輪盤盤面。金框、燈泡、指針與 SPIN 鈕是設計稿的圖（wheel-frame.webp），
+     扇形則是前端畫的——格數要跟著獎項數走，給圖就把六格寫死了。
+     四個色由 lucky-spin 的算圖取樣，米白格配藍字、彩色格配螢光黃字。 */
+  --c17-wheel-cream: #edebdd;
+  --c17-wheel-cyan: #10b6c4;
+  --c17-wheel-red: #e42c4e;
+  --c17-wheel-green: #00b36c;
+  --c17-wheel-ink-cream: var(--c17-link);
+  --c17-wheel-ink-tint: var(--c17-accent);
+  --c17-shadow-wheel-label: 1px 1px 2px rgb(26 31 54 / 60%);
+  /* 敲蛋獎項文字的投影（設計稿 #1A1F3699 X2 Y2 模糊 3） */
+  --c17-shadow-prize-gold: 2px 2px 3px rgb(26 31 54 / 60%);
+
+  --wf-font: var(--c17-font);
+  --wf-font-display: var(--c17-font-display);
+
+  /* ---- 字體：**內文預設 PJS，Inter 當 display 用**，不要反過來 ----
+     Inter 只用在三種角色：區塊與彈窗標題、底部分頁標籤、數字與統計。
+     字檔見 app/assets/css/fonts.css；泰／緬／坦米爾／孟加拉／中文走後備字體。 */
+  --c17-font: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans TC", sans-serif;
+  --c17-font-display: "Inter", var(--c17-font);
+  --c17-font-label: var(--c17-font);
+
+  /* ---- 字級（XD 的 pt 視同 px）---- */
+  --c17-text-hero: 1.5rem;     /* 24 金額大數字 */
+  --c17-text-lg: 1.125rem;     /* 18 */
+  --c17-text-title: 1rem;      /* 16 區塊標題 */
+  --c17-text-body: 0.875rem;   /* 14 */
+  --c17-text-link: 0.75rem;    /* 12 View All */
+  --c17-text-note: 0.6875rem;  /* 11 底部分頁標籤與多處小字 */
+  --c17-text-label: 0.625rem;  /* 10 小標 */
+  --c17-text-badge: 0.5rem;    /* 7 徽章 */
+  --c17-text-prize: 2.625rem;        /* 42 活動彈窗的獎項金額 */
+  --c17-text-prize-label: 1.375rem;  /* 22 獎項金額下面的單位 */
+
+  /* ---- 間距尺標：4 的倍數 ---- */
+  --c17-gap-1: 0.25rem;
+  --c17-gap-2: 0.5rem;
+  --c17-gap-3: 0.75rem;
+  --c17-gap-4: 1rem;
+  --c17-gap-5: 1.25rem;
+  --c17-gap-6: 1.5rem;
+  --c17-gap-8: 2rem;
+  --c17-pad-x: 1rem;  /* 內容區左右內距 */
+
+  /* 以下的值不在 4 的倍數尺標上，所以具名，不要硬塞進 --c17-gap-* */
+  --c17-wallet-pad: 0.625rem 1.25rem;  /* 錢包面板：上下 10、左右 20 */
+  --c17-tile-gap: 0.625rem;            /* 磚格列距 10 */
+  --c17-tile-gap-x: 0.875rem;          /* 磚格欄距 14 */
+  --c17-drawer-pad: 1.5rem;            /* 抽屜左右 24 */
+  --c17-modal-pad: 1.125rem;           /* 彈窗內框到內容 18 */
+
+  /* 這兩個底色不是實心白，透明度在向量資料的 style.opacity 而不是 fill */
+  --c17-header-pill: rgb(255 255 255 / 80%);  /* 頂部列的餘額白底 */
+  --c17-drawer-bg: rgb(255 255 255 / 92%);    /* 側邊抽屜的底 */
+
+  /* ---- 圓角與陰影 ---- */
+  --c17-radius-xs: 0.25rem;
+  --c17-radius-sm: 0.5rem;
+  --c17-radius: 0.75rem;
+  --c17-radius-lg: 1rem;
+  --c17-radius-pill: 999px;
+  --c17-shadow-card: 3px 3px 6px rgb(122 133 153 / 20%);   /* 卡片（錢包列 bg44：#7A859933 X3 Y3 模糊6） */
+  --c17-shadow-category: 2px 3px 3px rgb(26 31 54 / 40%);  /* 首頁分類磚（live／slots／poker：#1A1F3666 X2 Y3 模糊3） */
+  --c17-shadow-tile: 2px 2px 1px rgb(26 31 54 / 26%);      /* 卡片裡的小方塊 */
+  --c17-shadow-panel: 2px 2px 2px rgb(26 31 54 / 26%);     /* 個人資料頁的餘額列與方磚（#1A1F3642 X2 Y2 模糊2） */
+  --c17-shadow-tile-left: -2px 2px 1px rgb(26 31 54 / 26%); /* 同上但往左投（存款鈕） */
+  --c17-shadow-raised: 3px 3px 2px rgb(122 133 153 / 26%); /* 浮起的卡片 */
+  --c17-shadow-banner: 3px 3px 4px rgb(122 133 153 / 26%); /* 邀請頁 banner 與活動彈窗的白卡（#7A859942 X3 Y3 模糊4） */
+  --c17-shadow: 0 2px 8px rgb(26 31 54 / 8%);
+  --c17-shadow-up: -1px -1px 1.5px rgb(26 31 54 / 20%);    /* 底部分頁列，只有一層 */
+
+  /* ---- 固定尺寸：只有真的與容器寬度無關的才寫死 ---- */
+  --c17-nav-h: 3.5rem;          /* 白色分頁列 56 */
+  --c17-nav-fab: 4.375rem;      /* 中間錢包圓鈕 70，素材已含 WALLET 字樣 */
+  --c17-nav-fab-rise: 0.875rem; /* 圓鈕凸出白色列 14 */
+  --c17-nav-icon: 1.75rem;
+  --c17-icon: 1.5rem;
+
+  --c17-field-h: 2rem;
+  --c17-btn-h: 2rem;          /* 與輸入框同高 */
+  --c17-field-radius: 0.5rem;
+  /* 壓在輸入框右端的動作鈕（SEND）。鈕在欄位**裡面**貼齊右緣，
+     排在旁邊的話長字串會把輸入框擠掉一半。 */
+  --c17-field-action-w: 8.75rem;
+}
+
+/**
+ * ---- 款式與外觀：兩個獨立的軸 ----
+ *
+ *   款式 = 配色，後端 agent/template 的代碼決定 → [data-variant="12"]
+ *   外觀 = 使用者偏好，存瀏覽器                 → [data-appearance="1"]
+ *
+ * 兩者可以疊。**一個款式／外觀只覆寫跟預設不一樣的變數**，其餘自動沿用。
+ * 元件完全不用改——它們只認 bg-surface 這類語意類別。
+ * 圖片同理：useSkinAsset() 先找 /skins/c17/<款式>/<檔名>，找不到才退回上層。
+ *
+ * **[data-appearance="1"] 不等於深色**，它就是「追加的第二套」；是深是淺看基底。
+ * 覆寫時要改**底層**的 --c17-xxx，只改 --wf-xxx 的話，直接用 --c17-xxx 的元件
+ * （標題列、底部導覽）不會跟著變，畫面會一半深一半淺。
+ * 只有語意層沒有 --c17-xxx 來源的（soft 底色、scrim）才直接寫 --wf-xxx。
+ */
+:root {
+  /* 有沒有第二套外觀。0 = 外觀設定頁不顯示切換入口。C17 只有一套。 */
+  --wf-has-alt-appearance: 0;
+}
+
+/*
+ * 第二套外觀的寫法範本（尚未啟用）。啟用時把上面改成 1 並解除下面的註解。
+ * 色值只是格式示意，不是設計師給的，真的要做必須重新取色。
+ *
+ * [data-appearance="1"] {
+ *   --c17-bg: #11151f;
+ *   --c17-surface: #1c2231;
+ *   --c17-ink: #f1f4f8;
+ *   --c17-muted: #98a2b3;
+ *   --c17-faint: #6b7484;
+ *   --c17-line: #2c3446;
+ *   --c17-primary: #3d81ff;
+ *   --c17-primary-hover: #1565ff;
+ *   --c17-primary-ink: #0b1020;
+ *   --c17-header-from: #060d21;
+ *   --c17-header-to: #12306e;
+ *   --c17-success: #3ad884;
+ *   --c17-error: #ff6b6d;
+ *   --c17-shadow: 0 2px 8px rgb(0 0 0 / 45%);
+ *   --c17-shadow-up: 0 -1px 3px rgb(0 0 0 / 40%);
+ *
+ *   語意層沒有 --c17-xxx 來源的，直接寫：
+ *   --wf-surface-2: #252c3d;
+ *   --wf-line-strong: #3d4659;
+ *   --wf-accent-soft: #1b2947;
+ *   --wf-success-soft: #16301f;
+ *   --wf-danger-soft: #3a1c1e;
+ *   --wf-warning: #e0a33a;
+ *   --wf-warning-soft: #332713;
+ *   --wf-info: #4aa3e0;
+ *   --wf-info-soft: #14283a;
+ *   --wf-field: #252c3d;
+ *   --wf-field-line: #3d4659;
+ *   --wf-disabled: #3d4659;
+ *   --wf-scrim: rgb(0 0 0 / 65%);
+ * }
+ */

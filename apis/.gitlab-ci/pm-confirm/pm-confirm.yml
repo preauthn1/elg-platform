@@ -1,0 +1,77 @@
+# PM 確認檢查：合進預設分支（master）的 MR，需求主單要有 PM 貼的「0. PM確認」標籤。
+# 兩道 job：MR pipeline 的「PM 確認檢查」看主單目前的標籤；合併後的「合併後檢查 PM 確認」
+# 回頭確認合併當下主單有沒有這個標籤，沒通過就發 Slack 到「待審 MR」頻道。
+# 判定規則：最後一次加標籤的人、PM 組見 .gitlab-ci/pm-confirm/lib/pm-confirm.php 開頭；
+# 豁免條件、收集工單、團隊名單格式和其他合併關卡共用，見 .gitlab-ci/lib/merge-gate.php 開頭；
+# 規則本體是 dev-toolkit release-workflow 的參考文件「PM 確認檢查」。
+#
+# 生效開關：專案 CI 變數 PM_CONFIRM_ENFORCE。"true" 是正式模式（沒通過不能合併）；
+# 其他值或沒設是試行模式（只顯示警告）。切換只改變數，不必發 MR。
+# 模式在建立 pipeline 時就決定：切換前建好的 pipeline 重試仍是原本的模式，要推新 commit 或按「Run pipeline」另開新 pipeline 才會換。
+# 合併後檢查直接讀 PM_CONFIRM_ENFORCE：正式模式才發 Slack，試行模式只印在 job log。
+# 權杖：專案 CI 變數 PM_CONFIRM_TOKEN（唯讀 read_api），CI_JOB_TOKEN 讀不到 target/tickets。
+# Slack：機器人權杖 SLACK_BOT_TOKEN（與合併後檢查核准共用），頻道 SLACK_REVIEW_CHANNEL_ID（「待審 MR」頻道）。
+#
+# job 名稱刻意用中文白話：MR 頁面只顯示 job 名稱與成敗、不顯示 log。
+
+.pm_confirm_base:
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  tags:
+    - php8
+  variables:
+    # 安裝 git 時不要嘗試開互動介面，否則 log 會多一串 debconf 警告
+    DEBIAN_FRONTEND: noninteractive
+    # 完整歷史：淺層 clone 走不到與目標分支的共同祖先時，origin/master..HEAD 會把 master 的舊 commit 也算進來；
+    # 合併後檢查也要從合併 commit 往回列出這張 MR 帶進來的 commit
+    GIT_DEPTH: "0"
+  before_script:
+    # 檢查要用 git 列出 commit；映像檔沒有 git 時才安裝
+    - command -v git > /dev/null || (apt-get update -qq && apt-get install -y -qq git > /dev/null)
+
+# 檢查程式或共用程式（.gitlab-ci/lib/）有改動時，跑判定測試：這道檢查是合併關卡，改壞了會誤擋或誤放行。
+PM 確認檢查測試:
+  extends: .pm_confirm_base
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - .gitlab-ci/pm-confirm/**/*
+        - .gitlab-ci/lib/**/*
+  script:
+    - php .gitlab-ci/pm-confirm/pm-confirm-check-test.php
+
+# 每次 MR pipeline 都自動跑，不用 rules: changes：標籤貼在工單上、不在 repo 裡，
+# PM 補上標籤後在 MR 頁面按「Run pipeline」開新的 pipeline 就會重新查，不必重開 MR 或再推 commit。
+# needs: [] — 不等測試跑完，PM 確認的結果越早看到越好。
+PM 確認檢查:
+  extends: .pm_confirm_base
+  stage: approval
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $PM_CONFIRM_ENFORCE == "true"
+      allow_failure: false
+      # 讓腳本的提示跟這條 pipeline 實際的模式一致，不在執行時重讀 PM_CONFIRM_ENFORCE
+      variables:
+        PM_CONFIRM_BLOCKING: "true"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+      allow_failure: true
+      variables:
+        PM_CONFIRM_BLOCKING: "false"
+  script:
+    # 列出 MR 的 commit 要用 origin/<目標分支>，先抓下來（與 lint:commit-message 同做法）
+    - git fetch --quiet origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - php .gitlab-ci/pm-confirm/pm-confirm-check.php
+
+# 合併後檢查：只改 MR 描述不會重跑 MR pipeline，PM 確認檢查通過後又被移除的標籤也擋不住，
+# 所以合併進預設分支後回頭確認。用標籤異動紀錄重建合併當下的狀態：合併後才補貼不算，合併後才移除不影響。
+# 沒通過、查不到 MR 或合併時間、或檢查本身失敗，都發 Slack；試行模式只印在 job log。
+# allow_failure: true — 只能事後發現問題、擋不了合併，Slack 不通也不能擋預設分支的 pipeline。
+合併後檢查 PM 確認:
+  extends: .pm_confirm_base
+  stage: lint
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "push"
+  script:
+    - php .gitlab-ci/pm-confirm/pm-confirm-check.php audit
+  allow_failure: true

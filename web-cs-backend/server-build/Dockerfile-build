@@ -1,0 +1,8 @@
+FROM node:12 as node-build
+COPY ./_source/package*.json /src/
+WORKDIR /src
+RUN npm install&&npm update
+RUN npm audit fix
+ENV NODE_ENV=development
+COPY ./_source /src
+RUN npm run build

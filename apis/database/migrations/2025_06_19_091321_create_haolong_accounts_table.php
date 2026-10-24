@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+use App\Facades\SchemaMonitor;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        SchemaMonitor::create('haolong_accounts', function (Blueprint $table) {
+            $table->increments('id')->comment('流水號');
+            $table->integer('vendor_info_id')->default(0)->index()->comment('遊戲商資訊編號');
+            $table->string('username', 191)->unique()->comment('28win帳號');
+            $table->decimal('balance', 10)->default(0)->comment('28win餘額');
+            $table->integer('vendor_id')->default(0)->comment('營運商編號');
+            $table->integer('member_id')->default(0)->index()->comment('會員帳號');
+            $table->timestamp('created_at')->useCurrent()->comment('建立日期');
+            $table->timestamp('updated_at')->useCurrentOnUpdate()->useCurrent()->comment('更新日期');
+            $table->integer('admin')->comment('更新者ID');
+            $table->string('is_vworld', 191)->nullable()->default('0')->comment('是否為vworld舊帳號，舊帳號密碼統一');
+            $table->string('username_modified', 30)->nullable()->index();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        SchemaMonitor::dropIfExists('haolong_accounts');
+    }
+};

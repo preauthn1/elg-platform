@@ -1,0 +1,2684 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>API Reference</title>
+
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/all.js"></script>
+
+
+          <script>
+        $(function() {
+            setupLanguages(["bash","javascript"]);
+        });
+      </script>
+      </head>
+
+  <body class="">
+    <a href="#" id="nav-button">
+      <span>
+        NAV
+        <img src="images/navbar.png" />
+      </span>
+    </a>
+    <div class="tocify-wrapper">
+        <img src="images/logo.png" />
+                    <div class="lang-selector">
+                                  <a href="#" data-language-name="bash">bash</a>
+                                  <a href="#" data-language-name="javascript">javascript</a>
+                            </div>
+                            <div class="search">
+              <input type="text" class="search" id="input-search" placeholder="Search">
+            </div>
+            <ul class="search-results"></ul>
+              <div id="toc">
+      </div>
+                    <ul class="toc-footer">
+                                  <li><a href='http://example.invalid/mpociot/documentarian'>Documentation Powered by Documentarian</a></li>
+                            </ul>
+            </div>
+    <div class="page-wrapper">
+      <div class="dark-box"></div>
+      <div class="content">
+          <!-- START_INFO -->
+<h1>Info</h1>
+<p>Welcome to the generated API reference.
+<a href="http://localhost/docs/collection.json">Get Postman Collection</a></p>
+<!-- END_INFO -->
+<p>params加密方式</p>
+<p>1.將所有要傳送的參數串成JSON格式，ex:{&quot;username&quot;:&quot;test&quot;,&quot;password&quot;:&quot;123456&quot;}　　</p>
+<p>2.使用KEY及VI做AES加密，ex:EQs6YJl8pkjOkxioovtJ+6Z4nozFbhNzfmUh7TRqzhJkVGW39oImW+aSG828/aHg</p>
+<p>key加密方式</p>
+<p>1.將params串上MD5_KEY,ex:EQs6YJl8pkjOkxioovtJ+6Z4nozFbhNzfmUh7TRqzhJkVGW39oImW+aSG828/aHg&amp;zSMvVTK4gbDvCcU</p>
+<p>2.使用md5加密，ex:md5(EQs6YJl8pkjOkxioovtJ+6Z4nozFbhNzfmUh7TRqzhJkVGW39oImW+aSG828/aHg&amp;zSMvVTK4gbDvCcU)</p>
+<p>　　</p>
+<p>使用API</p>
+<p>POST <a href="http://domain/api/login">http://domain/api/login</a></p>
+<p>　　</p>
+<p>Example :</p>
+<p>　　</p>
+<p>Request</p>
+<p><a href="http://xxxx/api/login">http://xxxx/api/login</a></p>
+<p>　　</p>
+<p>Header</p>
+<p>Authorization: Bearer {token} [login不需要]</p>
+<p>Accept-Language:en</p>
+<p>　　</p>
+<p>Body</p>
+<p>params=EQs6YJl8pkjOkxioovtJ+6Z4nozFbhNzfmUh7TRqzhJkVGW39oImW+aSG828/aHg </p>
+<p>key=f9926329f1fc9b22ad12991fc359e091</p>
+<p>　　</p>
+<p>Response</p>
+<p>{
+&quot;code&quot;: 1000,
+&quot;message&quot;: &quot;QEYQj1CE5k0rDfRfKnzZOnJort08cESM&quot;
+}
+　　</p>
+<p>聊天室不需登入，所以沒有TOKEN，直接用簽名驗證使用者是否正確</p>
+<p>sign使用md5加密：API_USER+API_MD5_KEY+API_KEY+API_IV+時間戳記+API_AES_KEY+第三方的玩家編號</p>
+<p>Header</p>
+<p>Authorization: Signature {sign}</p>
+<ul>
+<li>
+<p>@bodyParam API_USER string required 串接API的帳號 Example: nExJ2bb0R0</p>
+</li>
+<li>
+<p>@bodyParam API_KEY string required 串接API的KEY Example:  Eb8zCL7eTAszY7d</p>
+</li>
+<li>
+<p>@bodyParam TIMESTAMP integer required 時間戳記 Example: 1566479627</p>
+</li>
+<li>
+<p>@bodyParam THIRD_PARTY_ID string required 第三方的玩家編號(不可重覆) Example:1</p>
+<p>------以下資訊為第一次進入聊天室時建立會員資訊使用，未帶入可使用member/edit修改------</p>
+</li>
+<li>
+<p>@bodyParam USERNAME string optional 好友ID Example:ABC</p>
+</li>
+<li>
+<p>@bodyParam NICKNAME string optional 暱稱 Example:ABC</p>
+</li>
+<li>
+<p>@bodyParam THUMBNAIL url optional 大頭照 Example:<a href="http://xxx.xxx.xx/xx.jpg">http://xxx.xxx.xx/xx.jpg</a></p>
+</li>
+</ul>
+<h1>general</h1>
+<!-- START_b8a26549776bc13ed0fd6a49df203ae6 -->
+<h2>Authenticate the request for channel access.</h2>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/broadcasting/auth" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/broadcasting/auth");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST broadcasting/auth</code></p>
+<!-- END_b8a26549776bc13ed0fd6a49df203ae6 -->
+<!-- START_c3fa189a6c95ca36ad6ac4791a873d23 -->
+<h2>login</h2>
+<p>-會員登入(Header不需要token)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/login" \
+    -H "Content-Type: application/json" \
+    -d '{"username":"username","password":"abc123456"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/login");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": "username",
+    "password": "abc123456"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "SUCCESS",
+    "data": {
+        "id": 1,
+        "username": "test",
+        "nickname": "Test",
+        "thumbnail": "頭像，ex:http:\/\/xxxx.xxxx.xxx",
+        "last_login": "2019-01-01 00:00:00",
+        "token": "roOAsDmfT9nP1Y9uKD8aMylk6HcYPlfz"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/login</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>required</td>
+<td>會員帳號</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>required</td>
+<td>會員密碼</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c3fa189a6c95ca36ad6ac4791a873d23 -->
+<!-- START_251ae2f999ed24b033dc7019479bc321 -->
+<h2>languages</h2>
+<p>-語系列表(不需要token)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/languages" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/languages");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "code": "代碼,ex:en",
+            "name": "名稱,ex:English"
+        },
+        {
+            "id": 2,
+            "code": "zh-tw",
+            "name": "繁體中文"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/languages</code></p>
+<!-- END_251ae2f999ed24b033dc7019479bc321 -->
+<!-- START_0816bb2ed6c760dfe9f246da4844a9e9 -->
+<h2>user/list</h2>
+<p>-營運商/客服列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/list" \
+    -H "Content-Type: application/json" \
+    -d '{"username":"nisi","nickname":"rerum","status":true,"page":"1","per_page":"30"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/list");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": "nisi",
+    "nickname": "rerum",
+    "status": true,
+    "page": "1",
+    "per_page": "30"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "username": "營運商\/客服帳號,ex:Admin",
+            "nickname": "營運商\/客服暱稱,ex:XXX",
+            "thumbnail": "縮圖,ex:http:\/\/xxx.xx.xxx",
+            "limit_of_credit": "開洗分額度(0為無上限),ex:0",
+            "used_credit": "已使用額度,ex:1",
+            "status": "狀態-0凍結1正常,ex:1",
+            "last_login": "最後登入時間,ex:2019-04-01 09:36:46"
+        }
+    ],
+    "pagination": {
+        "per_page": "單頁筆數,ex:20",
+        "total": "總筆數,ex:10",
+        "pages": "總頁數,ex:1",
+        "previous": "上一頁,ex:",
+        "next": "下一頁,ex:1",
+        "current": "目前頁面,ex:"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/list</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>optional</td>
+<td>option 營運商/客服帳號</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>option 營運商/客服名稱</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>option 營運商/客服狀態</td>
+</tr>
+<tr>
+<td>page</td>
+<td>numeric</td>
+<td>required</td>
+<td>第幾頁</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>numeric</td>
+<td>required</td>
+<td>每頁筆數</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0816bb2ed6c760dfe9f246da4844a9e9 -->
+<!-- START_738381316e92326985aea7068c8c5b09 -->
+<h2>user/view</h2>
+<p>-管理者/營運商/客服詳細資料(只能查看自己下層的帳號)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/view" \
+    -H "Content-Type: application/json" \
+    -d '{"id":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/view");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "id": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": {
+        "username": "管理者\/營運商\/客服帳號,ex:Admin",
+        "API_USER": "使用API的帳號,ex:Admin",
+        "nickname": "管理者\/營運商\/客服暱稱,ex:XXX",
+        "thumbnail": "縮圖,ex:http:\/\/xxx.xx.xxx",
+        "limit_of_credit": "開洗分額度(0為無上限),ex:0",
+        "used_credit": "已使用額度,ex:1",
+        "status": "狀態-0凍結1正常,ex:1",
+        "last_login": "最後登入時間,ex:2019-04-01 09:36:46"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/view</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>numeric</td>
+<td>required</td>
+<td>管理員系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_738381316e92326985aea7068c8c5b09 -->
+<!-- START_10b7085b525a35c366ef92c43c14dae0 -->
+<h2>user/add</h2>
+<p>-建立營運商/客服</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/add" \
+    -H "Content-Type: application/json" \
+    -d '{"username":"xxx","nickname":"xxx","password":"illo","password_confirmation":"at","thumbnail":"dolor","limit_of_credit":13}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/add");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": "xxx",
+    "nickname": "xxx",
+    "password": "illo",
+    "password_confirmation": "at",
+    "thumbnail": "dolor",
+    "limit_of_credit": 13
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": "營運商\/客服編號,ex:1"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/add</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>required</td>
+<td>帳號(只可輸入英數，不可重覆，字數長度為4-10)</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>暱稱</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>required</td>
+<td>管理員密碼(字數長度為4-15)</td>
+</tr>
+<tr>
+<td>password_confirmation</td>
+<td>string</td>
+<td>required</td>
+<td>確認密碼</td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td>string</td>
+<td>optional</td>
+<td>base64 file 個人頭像</td>
+</tr>
+<tr>
+<td>limit_of_credit</td>
+<td>integer</td>
+<td>optional</td>
+<td>開/洗分上限金額(預設為0無上限)</td>
+</tr>
+</tbody>
+</table>
+<!-- END_10b7085b525a35c366ef92c43c14dae0 -->
+<!-- START_72b90abec8b2584f33ab57648a653280 -->
+<h2>user/edit</h2>
+<p>-編輯營運商/客服(只能編輯自己下層的帳號)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"id":"1","nickname":"xxx","password":"totam","password_confirmation":"cum","thumbnail":"tempora","limit_of_credit":2,"status":true}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "id": "1",
+    "nickname": "xxx",
+    "password": "totam",
+    "password_confirmation": "cum",
+    "thumbnail": "tempora",
+    "limit_of_credit": 2,
+    "status": true
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>string</td>
+<td>required</td>
+<td>營運商/客服系統編號</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>暱稱</td>
+</tr>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>optional</td>
+<td>管理員密碼(字數長度為4-15)</td>
+</tr>
+<tr>
+<td>password_confirmation</td>
+<td>string</td>
+<td>optional</td>
+<td>如需修改密碼，需傳確認密碼</td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td>string</td>
+<td>optional</td>
+<td>base64 file 個人頭像</td>
+</tr>
+<tr>
+<td>limit_of_credit</td>
+<td>integer</td>
+<td>optional</td>
+<td>開/洗分上限金額(預設為0無上限)</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>狀態-0凍結1正常</td>
+</tr>
+</tbody>
+</table>
+<!-- END_72b90abec8b2584f33ab57648a653280 -->
+<!-- START_258d1d8ce18c41d12abd5aafc12ff68a -->
+<h2>user/delete</h2>
+<p>-凍結管理者</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/delete" \
+    -H "Content-Type: application/json" \
+    -d '{"id":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/delete");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "id": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/delete</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>numeric</td>
+<td>required</td>
+<td>管理員系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_258d1d8ce18c41d12abd5aafc12ff68a -->
+<!-- START_1a6b5db92a9389be06a6a690e5e1e724 -->
+<h2>user/changePasswordBySelf</h2>
+<p>-修改自己的密碼</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/changePasswordBySelf" \
+    -H "Content-Type: application/json" \
+    -d '{"password":"aaa123456","new_password":"abc123456","new_password_confirmation":"abc123456"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/changePasswordBySelf");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "password": "aaa123456",
+    "new_password": "abc123456",
+    "new_password_confirmation": "abc123456"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/changePasswordBySelf</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>password</td>
+<td>string</td>
+<td>required</td>
+<td>舊密碼</td>
+</tr>
+<tr>
+<td>new_password</td>
+<td>string</td>
+<td>required</td>
+<td>新密碼(字數長度為4-15)</td>
+</tr>
+<tr>
+<td>new_password_confirmation</td>
+<td>string</td>
+<td>required</td>
+<td>確認新密碼</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1a6b5db92a9389be06a6a690e5e1e724 -->
+<!-- START_407404878bf31488b51bf1c86a71d7b3 -->
+<h2>user/changePassword</h2>
+<p>-修改其他管理者密碼(只能修改自己下層的帳號)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/user/changePassword" \
+    -H "Content-Type: application/json" \
+    -d '{"id":1,"new_password":"abc123456","new_password_confirmation":"abc123456"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/user/changePassword");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "id": 1,
+    "new_password": "abc123456",
+    "new_password_confirmation": "abc123456"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/user/changePassword</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>integer</td>
+<td>required</td>
+<td>管理員系統編號</td>
+</tr>
+<tr>
+<td>new_password</td>
+<td>string</td>
+<td>required</td>
+<td>新密碼(字數長度為4-15)</td>
+</tr>
+<tr>
+<td>new_password_confirmation</td>
+<td>string</td>
+<td>required</td>
+<td>確認新密碼</td>
+</tr>
+</tbody>
+</table>
+<!-- END_407404878bf31488b51bf1c86a71d7b3 -->
+<!-- START_5349e8dd6baba9d4d2d4636577b5b8cf -->
+<h2>userMenu/list</h2>
+<p>-管理者選單列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/userMenu/list" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/userMenu/list");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": 1,
+            "parent": 0,
+            "code": "user",
+            "name": "帳號管理",
+            "url": "user",
+            "symbol": "user",
+            "action": "create,update",
+            "target": "_blank",
+            "submenu": {
+                "id": 2,
+                "parent": 1,
+                "code": "user_list",
+                "name": "帳號列表",
+                "url": "user\/list",
+                "symbol": "",
+                "action": "list",
+                "submenu": {
+                    "id": 3,
+                    "parent": 2,
+                    "code": "user_create",
+                    "name": "新增帳號",
+                    "url": "user\/create",
+                    "symbol": "",
+                    "action": "create"
+                }
+            }
+        },
+        {
+            "id": 4,
+            "parent": 0,
+            "code": "report",
+            "name": "報表管理",
+            "url": "report",
+            "symbol": "report",
+            "action": "list"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/userMenu/list</code></p>
+<!-- END_5349e8dd6baba9d4d2d4636577b5b8cf -->
+<!-- START_a6059f1a266cc4ba0e24aa23e88bf049 -->
+<h2>setting/view</h2>
+<p>-查看系統設定詳情</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/setting/view" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/setting/view");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": {
+        "name": "聊天室名稱",
+        "background_image": "聊天室背景圖",
+        "background_color": "聊天室背景色",
+        "header_background_color": "Header背景色",
+        "header_font_color": "Header文字色"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/setting/view</code></p>
+<!-- END_a6059f1a266cc4ba0e24aa23e88bf049 -->
+<!-- START_2df8b92c152bf70ea24385072ad3f303 -->
+<h2>setting/save</h2>
+<p>-儲存系統設定</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/setting/save" \
+    -H "Content-Type: application/json" \
+    -d '{"name":"xxx","background_image":"id","background_color":"sunt","header_background_color":"ut","header_font_color":"explicabo"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/setting/save");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "name": "xxx",
+    "background_image": "id",
+    "background_color": "sunt",
+    "header_background_color": "ut",
+    "header_font_color": "explicabo"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/setting/save</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>name</td>
+<td>string</td>
+<td>optional</td>
+<td>聊天室名稱</td>
+</tr>
+<tr>
+<td>background_image</td>
+<td>string</td>
+<td>optional</td>
+<td>聊天室背景圖(base64 encode)</td>
+</tr>
+<tr>
+<td>background_color</td>
+<td>string</td>
+<td>optional</td>
+<td>聊天室背景色</td>
+</tr>
+<tr>
+<td>header_background_color</td>
+<td>string</td>
+<td>optional</td>
+<td>Header背景色</td>
+</tr>
+<tr>
+<td>header_font_color</td>
+<td>string</td>
+<td>optional</td>
+<td>Header文字色</td>
+</tr>
+</tbody>
+</table>
+<!-- END_2df8b92c152bf70ea24385072ad3f303 -->
+<!-- START_51b0b93b3211c7b041b3257373a6e6fd -->
+<h2>transaction/list</h2>
+<ul>
+<li>開分/洗分記錄列表</li>
+</ul>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/transaction/list" \
+    -H "Content-Type: application/json" \
+    -d '{"username":1,"status":true,"start_time":"2019-01-01 00:00:00","end_time":"2019-01-01 00:00:00","page":"1","per_page":"30"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/transaction/list");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": 1,
+    "status": true,
+    "start_time": "2019-01-01 00:00:00",
+    "end_time": "2019-01-01 00:00:00",
+    "page": "1",
+    "per_page": "30"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "user_id": "管理員系統編號,ex:1",
+            "user_username": "管理員帳號,ex:cs2",
+            "member_id": "會員系統編號,ex:1",
+            "member_username": "會員帳號,ex:abc",
+            "type": "類型1:轉入，2:轉出,ex:1",
+            "amount": "金額,ex:100",
+            "remark": "備註",
+            "status": "開洗分狀態0:失敗,1:成功",
+            "created_at": "建立時間,ex:2019-01-01 00:00:00",
+            "updated_at": "更新時間,ex:2019-01-01 00:00:00"
+        }
+    ],
+    "pagination": {
+        "per_page": "單頁筆數,ex:20",
+        "total": "總筆數,ex:10",
+        "pages": "總頁數,ex:1",
+        "previous": "上一頁,ex:",
+        "next": "下一頁,ex:1",
+        "current": "目前頁面,ex:"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/transaction/list</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>integer</td>
+<td>optional</td>
+<td>會員帳號</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>開洗分狀態0:失敗,1:成功</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>開始時間</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>結束時間</td>
+</tr>
+<tr>
+<td>page</td>
+<td>numeric</td>
+<td>required</td>
+<td>第幾頁</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>numeric</td>
+<td>required</td>
+<td>每頁筆數</td>
+</tr>
+</tbody>
+</table>
+<!-- END_51b0b93b3211c7b041b3257373a6e6fd -->
+<!-- START_5e159444c86511798b8c30ee40b6e73f -->
+<h2>transaction/add</h2>
+<ul>
+<li>新增開分/洗分記錄</li>
+</ul>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/transaction/add" \
+    -H "Content-Type: application/json" \
+    -d '{"member_id":1,"type":1,"amount":100,"remark":"perferendis"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/transaction/add");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "member_id": 1,
+    "type": 1,
+    "amount": 100,
+    "remark": "perferendis"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": "開分\/洗分記錄系統編號,ex:1"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/transaction/add</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>member_id</td>
+<td>integer</td>
+<td>required</td>
+<td>好友系統編號</td>
+</tr>
+<tr>
+<td>type</td>
+<td>integer</td>
+<td>required</td>
+<td>類型1:轉入，2:轉出</td>
+</tr>
+<tr>
+<td>amount</td>
+<td>integer</td>
+<td>required</td>
+<td>金額</td>
+</tr>
+<tr>
+<td>remark</td>
+<td>string</td>
+<td>optional</td>
+<td>備註</td>
+</tr>
+</tbody>
+</table>
+<!-- END_5e159444c86511798b8c30ee40b6e73f -->
+<!-- START_07b6aa8649f3b25babdfd7de16f8101d -->
+<h2>transaction/edit</h2>
+<ul>
+<li>編輯開分/洗分記錄</li>
+</ul>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/transaction/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"transaction_id":1,"remark":"earum"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/transaction/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "transaction_id": 1,
+    "remark": "earum"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/transaction/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>transaction_id</td>
+<td>integer</td>
+<td>required</td>
+<td>開分/洗分記錄系統編號</td>
+</tr>
+<tr>
+<td>remark</td>
+<td>string</td>
+<td>required</td>
+<td>備註</td>
+</tr>
+</tbody>
+</table>
+<!-- END_07b6aa8649f3b25babdfd7de16f8101d -->
+<!-- START_61739f3220a224b34228600649230ad1 -->
+<h2>logout</h2>
+<p>-會員登出</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/logout" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/logout");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "SUCCESS"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/logout</code></p>
+<!-- END_61739f3220a224b34228600649230ad1 -->
+<!-- START_2d683cc1c7ede959c7275e5115a7ce4e -->
+<h2>member/search</h2>
+<p>-帳號查詢</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/member/search" \
+    -H "Content-Type: application/json" \
+    -d '{"username":"hello"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/member/search");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": "hello"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "會員系統編號,ex:1",
+            "third_party_id": "第三方使用者帳號,ex:Admin",
+            "username": "使用者帳號,ex:Admin",
+            "nickname": "使用者暱稱(如果有設定別稱會顯示別稱),ex:XXX",
+            "thumbnail": "縮圖,ex:http:\/\/xxx.xx.xxx",
+            "friend_id": "好友編號",
+            "status": "好友狀態0:不是好友，1:好友，2:黑名單,ex:1"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/member/search</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>required</td>
+<td>好友ID</td>
+</tr>
+</tbody>
+</table>
+<!-- END_2d683cc1c7ede959c7275e5115a7ce4e -->
+<!-- START_b4acd3a40a9205347d8efc6a5d6f9b4a -->
+<h2>member/edit</h2>
+<p>-編輯自己的帳號資訊</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/member/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"username":"xxx","nickname":"xxx","thumbnail":"rerum","status":true}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/member/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "username": "xxx",
+    "nickname": "xxx",
+    "thumbnail": "rerum",
+    "status": true
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/member/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>username</td>
+<td>string</td>
+<td>optional</td>
+<td>好友ID</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>暱稱</td>
+</tr>
+<tr>
+<td>thumbnail</td>
+<td>string</td>
+<td>optional</td>
+<td>base64 file 個人頭像</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>狀態-0凍結1正常</td>
+</tr>
+</tbody>
+</table>
+<!-- END_b4acd3a40a9205347d8efc6a5d6f9b4a -->
+<!-- START_36ae2341fc127f4b105b604e67a3e22c -->
+<h2>friend/list</h2>
+<p>-好友列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/friend/list" \
+    -H "Content-Type: application/json" \
+    -d '{"status":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/friend/list");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "status": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "friend_id": "好友系統編號,ex:1",
+            "member_id": "會員系統編號,ex:1",
+            "room_id": "聊天室系統編號(沒聊過天會是空值),ex:1",
+            "type": "類型0:客服聊天，1:個人聊天，2:群組聊天室,ex:1",
+            "third_party_id": "第三方使用者帳號,ex:Admin",
+            "username": "使用者帳號,ex:Admin",
+            "nickname": "使用者暱稱(如果有設定別稱會顯示別稱),ex:XXX",
+            "thumbnail": "縮圖,ex:http:\/\/xxx.xx.xxx"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/friend/list</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>status</td>
+<td>integer</td>
+<td>required</td>
+<td>1:好友,2:黑名單</td>
+</tr>
+</tbody>
+</table>
+<!-- END_36ae2341fc127f4b105b604e67a3e22c -->
+<!-- START_dd8dfc730015c32e45087a09c24f2d5e -->
+<h2>friend/show</h2>
+<p>-好友詳情</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/friend/view" \
+    -H "Content-Type: application/json" \
+    -d '{"member_id":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/friend/view");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "member_id": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": {
+        "friend_id": "好友系統編號,ex:1",
+        "member_id": "會員系統編號,ex:1",
+        "type": "類型0:客服聊天，1:個人聊天，2:群組聊天室,ex:1",
+        "third_party_id": "第三方使用者帳號,ex:Admin",
+        "username": "使用者帳號,ex:Admin",
+        "nickname": "使用者暱稱(如果有設定別稱會顯示別稱),ex:XXX",
+        "thumbnail": "縮圖,ex:http:\/\/xxx.xx.xxx",
+        "status": "狀態1:好友,2:黑名單,ex:1"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/friend/view</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>member_id</td>
+<td>numeric</td>
+<td>required</td>
+<td>會員系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_dd8dfc730015c32e45087a09c24f2d5e -->
+<!-- START_3730ce451c628ffd94a5898529b2db48 -->
+<h2>friend/add</h2>
+<p>-新增好友</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/friend/add" \
+    -H "Content-Type: application/json" \
+    -d '{"member_id":"1","nickname":"xxx"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/friend/add");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "member_id": "1",
+    "nickname": "xxx"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/friend/add</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>member_id</td>
+<td>numeric</td>
+<td>required</td>
+<td>會員系統編號</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>暱稱</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3730ce451c628ffd94a5898529b2db48 -->
+<!-- START_1352d4bcbad89437453de1b0df5679d0 -->
+<h2>friend/edit</h2>
+<p>-編輯好友資訊</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/friend/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"friend_id":"1","nickname":"xxx","status":true}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/friend/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "friend_id": "1",
+    "nickname": "xxx",
+    "status": true
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/friend/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friend_id</td>
+<td>numeric</td>
+<td>required</td>
+<td>好友系統編號</td>
+</tr>
+<tr>
+<td>nickname</td>
+<td>string</td>
+<td>optional</td>
+<td>暱稱</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>狀態-1:好友2黑名單</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1352d4bcbad89437453de1b0df5679d0 -->
+<!-- START_011c7f81411089446c8abaf5886260db -->
+<h2>friend/delete</h2>
+<p>-刪除好友</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/friend/delete" \
+    -H "Content-Type: application/json" \
+    -d '{"friend_id":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/friend/delete");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "friend_id": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/friend/delete</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>friend_id</td>
+<td>numeric</td>
+<td>required</td>
+<td>好友系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_011c7f81411089446c8abaf5886260db -->
+<!-- START_104c4e3575f229720e398baf333e39db -->
+<h2>room/list</h2>
+<p>-聊天室列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/room/list" </code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/room/list");
+
+let headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json",
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "type": "聊天室類型0:客服聊天，1:個人聊天，2:群組聊天室,ex:1",
+            "code": "聊天室編號,ex:abcd",
+            "name": "聊天室名稱,ex:XXX",
+            "thumbnail": "聊天室縮圖,ex:http:\/\/xxx.xx.xxx",
+            "members": "1,2,3",
+            "message_id": "最後一則訊息編號",
+            "message_member_id": "傳送最後一則訊息的會員編號",
+            "message_username": "傳送最後一則訊息的會員帳號",
+            "message_nickname": "傳送最後一則訊息的會員暱稱",
+            "message_type": "傳送最後一則訊息的類型1:文字，2:圖片，3:紅包，4:聲音，5:影片",
+            "message_content": "傳送最後一則訊息的內容",
+            "message_time": "傳送最後一則訊息的時間，EX:2019-08-23 11:37:25"
+        }
+    ]
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/room/list</code></p>
+<!-- END_104c4e3575f229720e398baf333e39db -->
+<!-- START_1ed65972b90ef71533ede84315a6bc6e -->
+<h2>room/enter</h2>
+<p>-進入聊天室(聊天室編號及好友系統編號擇一傳送即可，如皆傳送，以聊天室編號為主)</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/room/enter" \
+    -H "Content-Type: application/json" \
+    -d '{"code":"abcd","friend_id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/room/enter");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "code": "abcd",
+    "friend_id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": {
+        "room": {
+            "id": "房間編號，EX:8",
+            "type": "類型0:客服聊天，1:個人聊天，2:群組聊天室",
+            "code": "聊天室編號，EHxX2SyGTvfoGXuXNewWRIms",
+            "name": "聊天室名稱",
+            "thumbnail": "聊天室頭像"
+        },
+        "message預設為最後三十筆(時間順序)": [
+            {
+                "id": "會員編號，EX:8",
+                "username": "好友ID",
+                "nickname": "暱稱",
+                "thumbnail": "頭像",
+                "type": "類型1:文字，2:圖片，3:紅包，4:聲音，5:影片",
+                "content": "聊天內容",
+                "is_self": "屬於誰的對話0:自己，1:別人",
+                "created_at": "2019-08-23 08:58:43"
+            }
+        ]
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/room/enter</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>optional</td>
+<td>聊天室編號</td>
+</tr>
+<tr>
+<td>friend_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>好友系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_1ed65972b90ef71533ede84315a6bc6e -->
+<!-- START_e9ea8604230d5cf3b8d1a195dda1bee8 -->
+<h2>room/history</h2>
+<p>-聊天室歷史訊息</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/room/history" \
+    -H "Content-Type: application/json" \
+    -d '{"code":"abcd","page":"1","per_page":"30"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/room/history");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "code": "abcd",
+    "page": "1",
+    "per_page": "30"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data(時間倒序)": [
+        {
+            "id": "會員編號，EX:8",
+            "username": "好友ID",
+            "nickname": "暱稱",
+            "thumbnail": "頭像",
+            "type": "類型1:文字，2:圖片，3:紅包，4:聲音，5:影片",
+            "content": "聊天內容",
+            "is_self": "屬於誰的對話0:自己，1:別人",
+            "created_at": "2019-08-23 08:58:43"
+        }
+    ],
+    "pagination": {
+        "per_page": "單頁筆數,ex:20",
+        "total": "總筆數,ex:10",
+        "pages": "總頁數,ex:1",
+        "previous": "上一頁,ex:",
+        "next": "下一頁,ex:1",
+        "current": "目前頁面,ex:"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/room/history</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>required</td>
+<td>聊天室編號</td>
+</tr>
+<tr>
+<td>page</td>
+<td>numeric</td>
+<td>required</td>
+<td>第幾頁</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>numeric</td>
+<td>required</td>
+<td>每頁筆數</td>
+</tr>
+</tbody>
+</table>
+<!-- END_e9ea8604230d5cf3b8d1a195dda1bee8 -->
+<!-- START_a1ee86f56523a349a36541d62058eee2 -->
+<h2>readMessage</h2>
+<p>-標記為已讀的最後編號</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/readMessage" \
+    -H "Content-Type: application/json" \
+    -d '{"code":"abcd","message_id":1}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/readMessage");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "code": "abcd",
+    "message_id": 1
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/readMessage</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>required</td>
+<td>聊天室編號</td>
+</tr>
+<tr>
+<td>message_id</td>
+<td>integer</td>
+<td>required</td>
+<td>訊息編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_a1ee86f56523a349a36541d62058eee2 -->
+<!-- START_3c160c8f9e008739f31c0a493c28397b -->
+<h2>note/list</h2>
+<p>-記事列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note/list" \
+    -H "Content-Type: application/json" \
+    -d '{"room_id":1,"username":0,"status":true,"start_time":"2019-01-01 00:00:00","end_time":"2019-01-01 00:00:00","page":"1","per_page":"30"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note/list");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "room_id": 1,
+    "username": 0,
+    "status": true,
+    "start_time": "2019-01-01 00:00:00",
+    "end_time": "2019-01-01 00:00:00",
+    "page": "1",
+    "per_page": "30"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "room_id": "聊天室系統編號,ex:1",
+            "member_id": "會員系統編號,ex:1",
+            "member_username": "會員帳號,ex:abc",
+            "title": "標題,ex:test",
+            "created_at": "建立時間,ex:2019-01-01 00:00:00",
+            "create_user": "建立者,ex:b",
+            "update_user": "最後修改者,ex:a",
+            "status": "狀態0:未結案，1:已結案"
+        }
+    ],
+    "pagination": {
+        "per_page": "單頁筆數,ex:20",
+        "total": "總筆數,ex:10",
+        "pages": "總頁數,ex:1",
+        "previous": "上一頁,ex:",
+        "next": "下一頁,ex:1",
+        "current": "目前頁面,ex:"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note/list</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>room_id</td>
+<td>integer</td>
+<td>optional</td>
+<td>聊天室系統編號</td>
+</tr>
+<tr>
+<td>username</td>
+<td>integer</td>
+<td>optional</td>
+<td>會員帳號</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>optional</td>
+<td>記事狀態0:未結案,1:已結案</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>開始時間</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>結束時間</td>
+</tr>
+<tr>
+<td>page</td>
+<td>numeric</td>
+<td>required</td>
+<td>第幾頁</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>numeric</td>
+<td>required</td>
+<td>每頁筆數</td>
+</tr>
+</tbody>
+</table>
+<!-- END_3c160c8f9e008739f31c0a493c28397b -->
+<!-- START_cfa839d3be5644d936f272261cb30d66 -->
+<h2>note/add</h2>
+<p>-新增記事</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note/add" \
+    -H "Content-Type: application/json" \
+    -d '{"room_id":1,"title":"xxx","status":false}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note/add");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "room_id": 1,
+    "title": "xxx",
+    "status": false
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": "記事編號,ex:1"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note/add</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>room_id</td>
+<td>integer</td>
+<td>required</td>
+<td>聊天室系統編號</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>required</td>
+<td>內容</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>required</td>
+<td>狀態0:未結案,1:已結案</td>
+</tr>
+</tbody>
+</table>
+<!-- END_cfa839d3be5644d936f272261cb30d66 -->
+<!-- START_cbf8f7296d4ef7b7d716dcd97b36d34c -->
+<h2>note/edit</h2>
+<p>-編輯記事</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"note_id":1,"title":"xxx","status":false}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "note_id": 1,
+    "title": "xxx",
+    "status": false
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>note_id</td>
+<td>integer</td>
+<td>required</td>
+<td>記事系統編號</td>
+</tr>
+<tr>
+<td>title</td>
+<td>string</td>
+<td>required</td>
+<td>內容</td>
+</tr>
+<tr>
+<td>status</td>
+<td>boolean</td>
+<td>required</td>
+<td>狀態0:未結案,1:已結案</td>
+</tr>
+</tbody>
+</table>
+<!-- END_cbf8f7296d4ef7b7d716dcd97b36d34c -->
+<!-- START_c8ac44adbb89aedf73810151335966e3 -->
+<h2>note_content/list</h2>
+<p>-記事內容列表</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note_content/list" \
+    -H "Content-Type: application/json" \
+    -d '{"note_id":"1","start_time":"2019-01-01 00:00:00","end_time":"2019-01-01 00:00:00","page":1,"per_page":30}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note_content/list");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "note_id": "1",
+    "start_time": "2019-01-01 00:00:00",
+    "end_time": "2019-01-01 00:00:00",
+    "page": 1,
+    "per_page": 30
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": [
+        {
+            "id": "系統編號,ex:1",
+            "content": "內容,ex:hello world",
+            "create_user": "建立者，ex:abc",
+            "created_at": "建立時間，ex:2019-01-01 00:00:00"
+        }
+    ],
+    "pagination": {
+        "per_page": "單頁筆數,ex:20",
+        "total": "總筆數,ex:10",
+        "pages": "總頁數,ex:1",
+        "previous": "上一頁,ex:",
+        "next": "下一頁,ex:1",
+        "current": "目前頁面,ex:"
+    }
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note_content/list</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>note_id</td>
+<td>required</td>
+<td>optional</td>
+<td>integer 記事編號</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>開始時間</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>dateTime</td>
+<td>optional</td>
+<td>結束時間</td>
+</tr>
+<tr>
+<td>page</td>
+<td>integer</td>
+<td>required</td>
+<td>第幾頁</td>
+</tr>
+<tr>
+<td>per_page</td>
+<td>integer</td>
+<td>required</td>
+<td>每頁筆數</td>
+</tr>
+</tbody>
+</table>
+<!-- END_c8ac44adbb89aedf73810151335966e3 -->
+<!-- START_89f3995cdf05c2880c5aeab3c71280e4 -->
+<h2>note_content/add</h2>
+<p>-新增記事內容</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note_content/add" \
+    -H "Content-Type: application/json" \
+    -d '{"note_id":1,"content":"xxx"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note_content/add");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "note_id": 1,
+    "content": "xxx"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success",
+    "data": "記事編號,ex:1"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note_content/add</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>note_id</td>
+<td>integer</td>
+<td>required</td>
+<td>記事系統編號</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>required</td>
+<td>內容</td>
+</tr>
+</tbody>
+</table>
+<!-- END_89f3995cdf05c2880c5aeab3c71280e4 -->
+<!-- START_83b5e0c12ff8f0769c7da98187d283a9 -->
+<h2>note_content/edit</h2>
+<p>-編輯記事內容</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note_content/edit" \
+    -H "Content-Type: application/json" \
+    -d '{"content_id":1,"content":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note_content/edit");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "content_id": 1,
+    "content": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note_content/edit</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>content_id</td>
+<td>integer</td>
+<td>required</td>
+<td>記事內容系統編號</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>required</td>
+<td>記事內容系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_83b5e0c12ff8f0769c7da98187d283a9 -->
+<!-- START_6335b2fcf94215b301134b87ec0009b0 -->
+<h2>note_content/delete</h2>
+<p>-刪除記事</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/note_content/delete" \
+    -H "Content-Type: application/json" \
+    -d '{"content_id":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/note_content/delete");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "content_id": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/note_content/delete</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>content_id</td>
+<td>numeric</td>
+<td>required</td>
+<td>記事內容系統編號</td>
+</tr>
+</tbody>
+</table>
+<!-- END_6335b2fcf94215b301134b87ec0009b0 -->
+<!-- START_0b7f6240bbdcc1d229cf476d88a26cdf -->
+<h2>sendMessage</h2>
+<p>-傳送訊息</p>
+<blockquote>
+<p>Example request:</p>
+</blockquote>
+<pre><code class="language-bash">curl -X POST "http://localhost/api/sendMessage" \
+    -H "Content-Type: application/json" \
+    -d '{"code":"abcd","type":1,"content":"1"}'
+</code></pre>
+<pre><code class="language-javascript">const url = new URL("http://localhost/api/sendMessage");
+
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+}
+
+let body = {
+    "code": "abcd",
+    "type": 1,
+    "content": "1"
+}
+
+fetch(url, {
+    method: "POST",
+    headers: headers,
+    body: body
+})
+    .then(response =&gt; response.json())
+    .then(json =&gt; console.log(json));</code></pre>
+<blockquote>
+<p>Example response (200):</p>
+</blockquote>
+<pre><code class="language-json">{
+    "code": 1000,
+    "message": "Success"
+}</code></pre>
+<h3>HTTP Request</h3>
+<p><code>POST api/sendMessage</code></p>
+<h4>Body Parameters</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Status</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>code</td>
+<td>string</td>
+<td>required</td>
+<td>聊天室編號</td>
+</tr>
+<tr>
+<td>type</td>
+<td>integer</td>
+<td>required</td>
+<td>訊息類型1:文字，2:圖片，3:紅包，4:聲音，5:影片</td>
+</tr>
+<tr>
+<td>content</td>
+<td>string</td>
+<td>required</td>
+<td>訊息內容</td>
+</tr>
+</tbody>
+</table>
+<!-- END_0b7f6240bbdcc1d229cf476d88a26cdf -->
+      </div>
+      <div class="dark-box">
+                        <div class="lang-selector">
+                                    <a href="#" data-language-name="bash">bash</a>
+                                    <a href="#" data-language-name="javascript">javascript</a>
+                              </div>
+                </div>
+    </div>
+  </body>
+</html>

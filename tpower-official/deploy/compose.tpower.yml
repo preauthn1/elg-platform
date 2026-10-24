@@ -1,0 +1,20 @@
+# 合併到 VM 的 /data/official-sites/docker-compose.yaml。
+# 所有相對路徑都以 /data/official-sites 為基準；程式碼位於 ./tpower.game。
+services:
+  tpower-official:
+    build:
+      context: ./tpower.game
+      dockerfile: Dockerfile
+    image: tpower-official:${TPOWER_TAG:-latest}
+    restart: unless-stopped
+    init: true
+    env_file:
+      - ./env/tpower.env
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+    expose:
+      - "3000"
+    volumes:
+      - ./data/tpower/content:/app/content
+      - ./data/tpower/uploads:/app/uploads

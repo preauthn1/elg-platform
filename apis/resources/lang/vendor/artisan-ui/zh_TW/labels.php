@@ -1,0 +1,38 @@
+<?php
+
+declare(strict_types=1);
+
+return [
+    'artisan_ui' => 'Artisan UI',
+    'ready' => '就緒',
+    'commands' => '指令',
+    'browse_and_run_commands' => '瀏覽並執行 artisan 指令。',
+    'namespaces' => '命名空間',
+    'global_namespace' => '(全域)',
+    'all_commands' => '所有指令',
+    'search_commands_placeholder' => '搜尋指令...',
+    'no_commands_match' => '找不到符合的指令',
+    'arguments' => '參數',
+    'options' => '選項',
+    'command_execution' => '執行指令',
+    'run_command' => '執行指令',
+    'running' => '執行中...',
+    'completed_successfully' => '執行成功',
+    'command_failed' => '指令執行失敗',
+    'output' => '輸出',
+    'clear' => '清除',
+    'no_output' => '(無輸出)',
+    'something_went_wrong' => '發生錯誤',
+    'required' => '必填',
+    'array' => '陣列',
+    'enter_value' => '請輸入值...',
+    'remove' => '移除',
+    'enabled' => '已啟用',
+    'disabled' => '未啟用',
+    'toggle_option' => '切換 :name',
+    'activates_option' => '啟用 ":name" 選項。',
+    'confirm_before_run' => '確認參數後，點擊下方按鈕執行指令。',
+    'confirm_execute_prompt' => '確定要執行這個指令嗎？',
+    'confirm' => '確認執行',
+    'cancel' => '取消',
+];

@@ -1,0 +1,26 @@
+admin backend-
+切換正式/測試 mian.js
+
+-Login.vue
+-Index.vue
+-Home.vue 1.左側主要menu 2.右側功能header
+ --後端管理 
+	--user 帳號
+
+ --營運商管理 
+	--agent 營運商
+
+ --系統管理 
+	--advertisementPath 版位
+	--advertisement 廣告
+	--country 國家
+	--currency 貨幣
+	--template 版型
+
+ --遊戲商管理
+	--gameType 遊戲類別
+	--vendor 遊戲商
+	--game 遊戲
+
+ --專屬優惠管理
+	--event 活動

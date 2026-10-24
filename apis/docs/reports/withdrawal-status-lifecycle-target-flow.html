@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>代付事務邊界改造 — 會議紀錄備查（op#2831 / #4137）</title>
+<link rel="preconnect" href="https://example.invalid">
+<link rel="preconnect" href="https://example.invalid" crossorigin>
+<link href="https://example.invalid/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/report.css">
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></symbol>
+  <symbol id="i-drop" viewBox="0 0 24 24"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="4.93" y1="4.93" x2="19.07" y2="19.07"/></symbol>
+  <symbol id="i-tool" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></symbol>
+  <symbol id="i-compass" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"/></symbol>
+  <symbol id="i-crash" viewBox="0 0 24 24"><polygon points="7.86 2 16.14 2 22 7.86 22 16.14 16.14 22 7.86 22 2 16.14 2 7.86 7.86 2"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+  <symbol id="i-gift" viewBox="0 0 24 24"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-mouse" viewBox="0 0 24 24"><path d="M3 3l7.07 16.97 2.51-7.39 7.39-2.51L3 3z"/><path d="M13 13l6 6"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></symbol>
+  <symbol id="i-send" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+</svg>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 16.5v-6"/><path d="m9 13.5 3-3 3 3"/></svg></div><div class="name">Meeting&nbsp;Record</div></div>
+    <div class="menu-label">章節</div>
+    <ul class="menu">
+      <li><a href="#summary"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span> 一分鐘摘要</a></li>
+      <li><a href="#glossary"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></span> 名詞與狀態對照</a></li>
+      <li><a href="#why"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></span> 事故原因與現況</a></li>
+      <li><a href="#flow"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10"/><path d="M20.49 15a9 9 0 0 1-14.85 3.36L1 14"/></svg></span> 改造後的目標流程</a></li>
+      <li><a href="#crash"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></span> 中斷點對照</a></li>
+      <li><a href="#diff"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"/><rect x="8" y="2" width="8" height="4" rx="1" ry="1"/></svg></span> 與當時現況的差異</a></li>
+      <li><a href="#todo"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></span> 實作與待確認</a></li>
+    </ul>
+    <div class="foot">op#2831 / tickets#4137<br>· 歷史會議紀錄 ·</div>
+  </aside>
+
+  <div class="content">
+
+    <div class="topbar">
+      <div>
+        <div class="crumb">Reports <b>/</b> Payment <b>/</b> 會議紀錄備查</div>
+        <h1>代付事務邊界改造 — 會議紀錄（歷史備查）</h1>
+      </div>
+      <div class="chips">
+        <span class="chip"><svg class="ni"><use href="#i-cal"/></svg> 2026-08-14 建立 · 08-17 依需求更新修訂</span>
+        <span class="chip">op#2831</span>
+        <span class="chip">tickets#4137</span>
+        <span class="chip">歷史備查</span>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <div class="callout" style="margin-bottom:18px">
+        <svg class="ni"><use href="#i-alert"/></svg> <b>這份是歷史文件，保留供備查，不再維護。</b>
+        本頁是 2026-08-14 建立、08-17 依 PM 需求修訂的<b>改造提案簡報</b>，記錄 op#2831 事故的根因、當時的方案取捨與目標流程；<b>它描述的是當時尚未實作的設計</b>。
+        該設計已由 <code>target/tickets#4137</code> 實作完成，MR !1962 合併進 master（merge <code>c99180897</code>）後隨 tag <code>release_202608201117</code> <b>於 2026-08-20 UTC 03:30 六站上線</b>，現已成為線上行為。
+        <b>要看目前線上的狀態流轉與 file:line 追蹤，請改看正式版</b>：<a href="/docs/reports/withdrawal-status-lifecycle-report">代付訂單 status 生命週期</a>。
+        本頁內文（含「目前線上」「待確認」等字樣）一律以<b>當時時點</b>理解，未回頭改寫。
+      </div>
+
+      <section id="summary" class="card">
+        <div class="card-head">
+          <h2><span class="idx"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>一分鐘摘要</h2>
+          <p class="desc">只想快速掌握這次改造的讀者看這一節就夠；細節與依據在後續章節。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th style="width:120px">面向</th><th>重點</th></tr></thead>
+              <tbody>
+                <tr><td><b>發生了什麼</b></td><td>發版終止舊的應用程式實例（pod）時，進行中的代付請求連同資料庫紀錄一起消失——支付商已出款，我方後台卻查無代付單，訂單還退回「可再次發起代付」的狀態（op#2831，兩筆實例）。</td></tr>
+                <tr><td><b>核心改法</b></td><td>把「發起代付」拆成兩段各自提交的短資料庫步驟，送出支付商請求的動作放在兩段之間。效果：第一階段提交後，訂單即以「代付提交中(21)」擋住重複發起；在那之前被中斷，可安全重新發起；請求紀錄建立之後被中斷，一定留有可查證的資料——不會再出現「支付商已出款、我方毫無痕跡」。</td></tr>
+                <tr><td><b>訂單狀態調整</b></td><td>廢除「三方查證中(23)」；允許接收支付商回調通知的狀態改為「代付提交中(<b>21</b>)」與「代付處理中(<b>22</b>)」；支付商明確拒絕時一律轉「三方失敗(29)」，不再退回「通過(3)」。</td></tr>
+                <tr><td><b>營運影響</b></td><td>後台在 21／22 移除「調整為等代付款(3)」按鈕，新增「填寫三方單號（支付商訂單編號）」（→22）與「修改為代付失敗」（→29）兩顆按鈕；<b>標記失敗前必須先向支付商確認查無此單</b>，否則重新發起會造成重複出款。</td></tr>
+                <tr><td><b>尚待確認</b></td><td>「三方失敗(29)」不再接收回調的風險知悉、工程端人工補救命令的去留、如何主動發現停留在 21 的訂單（詳見第 5 節）。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="glossary" class="card">
+        <div class="card-head">
+          <h2><span class="idx">0</span>名詞與狀態對照</h2>
+          <p class="desc">本頁描述的是<b>改造後的目標流程</b>，不是目前線上的行為。目前線上的完整生命週期請見 <a href="withdrawal-status-lifecycle-report.html"><code>withdrawal-status-lifecycle-report</code></a>。為避免誤讀，先統一以下名詞。</p>
+        </div>
+        <div class="card-body">
+
+          <h3>本報告對應的兩份工單</h3>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>編號</th><th>內容</th></tr></thead>
+              <tbody>
+                <tr><td><code>op#2831</code></td><td>營運回報的事故單：兩筆代付「支付商後台有單且已出款，我方系統卻查不到代付單」。</td></tr>
+                <tr><td><code>tickets#4137</code></td><td>由該事故衍生的需求單：程式面把建立紀錄與狀態變更提前，後台面新增人工處理停滯訂單的按鈕。</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>角色與動作</h3>
+          <div class="tbl-scroll">
+            <table class="terms">
+              <thead><tr><th>名詞</th><th>本文的定義</th></tr></thead>
+              <tbody>
+                <tr><td><b>代付</b></td><td>會員申請提款、後台審核通過後，由我方系統向外部支付商送出出款請求，由支付商把款項匯給會員。</td></tr>
+                <tr><td><b>我方</b></td><td>APIs 系統與其資料庫。</td></tr>
+                <tr><td><b>三方／支付商</b></td><td>外部代付服務商（本次事故為 EpicPay）。兩者在本文同義。</td></tr>
+                <tr><td><b>代付渠道</b></td><td>「特定支付商 ＋ 特定幣別 ＋ 特定銀行支援範圍 ＋ 金額上下限」的一組設定。同一個支付商可能有多個渠道。</td></tr>
+                <tr><td><b>覆核代付渠道</b></td><td>送出請求前再次確認：本次選用的渠道確實屬於該代理群組、仍為啟用狀態、幣別相符、支援該銀行、且金額在上下限內。</td></tr>
+                <tr><td><b>同步回應</b></td><td>我方送出 HTTP 請求後，在<b>同一次連線</b>中立刻收到的回應。用來判斷支付商是否受理。</td></tr>
+                <tr><td><b>回調</b></td><td>支付商在稍後（數秒到數十分鐘不等）<b>另外</b>對我方回調網址送出的結果通知，用來確認實際出款成功或失敗。</td></tr>
+                <tr><td><b>明確拒絕</b></td><td>支付商的同步回應帶回一個「已被我方明確歸類為請求未受理、可安全重送」的錯誤碼。這份錯誤碼清單逐家維護（下稱白名單）。不在清單內的一律視為結果未明。</td></tr>
+                <tr><td><b>pod</b></td><td>Kubernetes 上執行 APIs 的一個應用程式實例。發版時會啟動新的 pod、終止舊的 pod。</td></tr>
+                <tr><td><b>資料庫事務</b></td><td>一組「要嘛全部寫入、要嘛全部取消」的資料庫操作。<b>提交</b>＝讓事務內的寫入正式生效，之後再被中斷也不會消失；<b>回滾</b>＝取消事務內的全部寫入，像從未發生過。</td></tr>
+                <tr><td><b>回調放行清單</b></td><td>允許處理三方回調的訂單狀態集合。訂單狀態不在清單內時，我方直接拒絕該回調（回覆 HTTP 400，一種「拒絕處理」的標準回應碼）且不改動訂單。</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>兩套不同的狀態，不要混淆</h3>
+          <div class="callout">
+            本文同時出現兩組狀態，分屬不同的資料表：<br>
+            <span class="cn">①</span> <b>代付訂單狀態</b>（<code>withdrawal_orders.status</code>）——就是下表的 3／21／22／23／24／29 等數字。<br>
+            <span class="cn">②</span> <b>代付請求紀錄狀態</b>（<code>withdrawal_payout_records.is_success_payout</code>）——文中稱「待處理」「成功」「請求失敗」等，是<b>另一個欄位</b>，與訂單狀態無關。一筆訂單可以有多筆代付請求紀錄（每次發起代付各產生一筆）。<br>
+            其中<b>「待處理」的意思是「尚未取得支付商回調確認的最終出款結果」</b>，並不是「尚未處理」：即使支付商的同步回應已經收到並回填，只要回調還沒確認出款成功，這筆紀錄仍維持待處理。
+          </div>
+
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>訂單狀態</th><th>名稱</th><th>意義</th><th>可否再次發起代付</th></tr></thead>
+              <tbody>
+                <tr><td><span class="st s3"><span class="n">3</span></span></td><td>通過</td><td>提款申請已通過後台審核，等待發起代付。</td><td>可以</td></tr>
+                <tr><td><span class="st s21"><span class="n">21</span></span></td><td>代付提交中</td><td>已準備送出代付請求。<b>改造後</b>此狀態會實際寫入資料庫，代表請求進行中，或流程在此被中斷。</td><td>不可</td></tr>
+                <tr><td><span class="st s22"><span class="n">22</span></span></td><td>代付處理中</td><td>支付商已受理請求，等待回調確認出款結果。</td><td>不可</td></tr>
+                <tr><td><span class="st s23"><span class="n">23</span></span></td><td>三方查證中</td><td><b>本次改造廢除</b>（2026-08-17 需求定案）：原「請求逾時或連線失敗、結果未明」的情境改為停留在 21。現有停在 23 的訂單於過渡期處理完畢後，此狀態走入歷史。</td><td>不可</td></tr>
+                <tr><td><span class="st s24"><span class="n">24</span></span></td><td>三方成功</td><td>回調確認出款成功。<b>生命週期終態</b>（終態＝不會再變動的最終狀態）。</td><td>不可</td></tr>
+                <tr><td><span class="st s29"><span class="n">29</span></span></td><td>三方失敗</td><td>確認未出款。非終態，可重新發起。<b>依最新決議不再接受三方回調</b>（自現行放行清單移出，取捨說明見第 2 節末與第 5 節）。</td><td>可以</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fnotes">
+            <div class="fnote"><svg class="ni"><use href="#i-pin"/></svg> <b>可發起代付的狀態只有 3 與 29</b>（程式中的 <code>allowedStatuses</code>）。這是防止重複出款的關鍵：只要訂單處於 21／22／24（過渡期含現有的 23），後台就無法再送出一次代付。</div>
+          </div>
+        </div>
+      </section>
+
+      <section id="why" class="card">
+        <div class="card-head">
+          <h2><span class="idx">1</span>事故原因：資料庫事務把三方請求包在裡面</h2>
+        </div>
+        <div class="card-body">
+          <div class="callout">
+            目前發起代付的整段處理，從鎖定訂單到送出三方請求，全部包在同一個資料庫事務（<code>DB::transaction()</code>，<code>Agent/WithdrawalController.php:91</code>）裡面，一路包到第 147 行才呼叫支付商送出 HTTP 請求。代付請求紀錄（<code>withdrawal_payout_records</code>）雖然刻意設計成「送出請求之前先建立一筆待處理紀錄，以便留下痕跡」，但它同樣在這個事務裡面。<br><br>
+            發版時 Kubernetes 會逐步以新的 pod 取代舊的 pod。舊 pod 上的 PHP 程序被強制終止後，資料庫連線中斷，這個<b>尚未提交</b>的事務就會被資料庫回滾（rollback）——<b>連原本要留下的痕跡也一起消失</b>。結果就是支付商已經出款，我方卻查不到任何紀錄。
+          </div>
+
+          <div class="fchart">
+            <div class="fcap">目前線上行為 · op#2831 兩筆事故的實際狀態變化</div>
+            <div class="frow">
+              <div class="fnode s3"><span class="fn-n">3</span><span class="fn-t">通過</span><span class="fn-d">後台按下發起代付</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l">開始單一資料庫事務 <code>DB::transaction()</code>（<code>WithdrawalController.php:91</code>）</span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s21"><span class="fn-n">21</span><span class="fn-t">代付提交中</span><span class="fn-d"><svg class="ni"><use href="#i-alert"/></svg> 已在事務內執行更新，但尚未提交</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l">仍在同一個事務內：新增代付請求紀錄（已取得自動編號）→ 送出三方 HTTP 請求（<code>:147</code>）</span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s0"><span class="fn-n"><svg class="ni"><use href="#i-send"/></svg></span><span class="fn-t">支付商已受理</span><span class="fn-d">EpicPay 後台有單，且已出款</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l"><svg class="ni"><use href="#i-crash"/></svg> pod 被終止（2026-08-06 09:35:16 UTC <code>fb786ff5c-tmplh</code>／2026-08-11 05:58:14 UTC <code>847b9f8f49-dv4vg</code>）→ PHP 程序消失 → 資料庫連線中斷 → 事務回滾</span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s3"><span class="fn-n">3</span><span class="fn-t">退回原本狀態</span><span class="fn-d">狀態更新全部回滾，<b>訂單仍可再次發起代付</b></span></div>
+              <div class="fnode s2"><span class="fn-n"><svg class="ni"><use href="#i-x"/></svg></span><span class="fn-t">代付請求紀錄不存在</span><span class="fn-d">只留下自動編號的跳號 301553／307918</span></div>
+            </div>
+            <div class="fnotes">
+              <div class="fnote"><svg class="ni"><use href="#i-drop"/></svg> <b>造成的結果</b>：支付商已出款，我方完全沒有紀錄（後台查無代付單），而且訂單退回到<b>還可以再次發起代付</b>的狀態。除了對帳查不到之外，也存在第二次出款的風險。客服端看到的現象，就是工單描述的「支付商有代付單但系統查不到」。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-search"/></svg> <b>事務被回滾的直接證據</b>：資料庫的流水編號取用後即使回滾也不會歸還，「編號已被取用、資料列卻不存在」就是回滾的鐵證。兩次事故各留下一個永久缺號：<br>• <code>301553</code>（2026-08-06，位於 09:35:11 與 09:35:30 兩筆之間）<br>• <code>307918</code>（2026-08-11，位於 05:56:05 與 05:58:23 兩筆之間，時間均為 UTC）<br>兩個缺號的時間區間，正好包住 pod 被終止的秒數，也包住支付商後台那兩筆查無單的單號時間。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-ban"/></svg> <b>無法靠程式偵測來解決</b>：程序被作業系統強制終止時，任何程式都無法攔截，也沒有任何收尾程式會被執行；事務回滾是資料庫端偵測到連線中斷後被動進行的，那個時間點我方已經沒有程式在運作。就算偵測得到，請求已經送出去收不回來、事務也還沒提交，沒有任何安全的補救動作可做。正確的方向是讓流程<b>在任何一個時間點被中斷都是安全的</b>，而不是設法在被中斷前搶救。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-tool"/></svg> <b>另一條防線已於 2026-08-14 落地（合併 master，待部署）</b>：調整 PHP 服務的關閉行為，發版時先等進行中的請求跑完（上限 130 秒）再關閉——原本的設定是「收到關閉訊號就直接終止」，本次事故正是這個情境。但這只<b>縮小</b>風險窗口，無法消滅：超過等待上限、或機器層級的異常終止仍會強制中斷，因此本頁描述的事務邊界改造仍有必要（部署設定細節見 op#2831）。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="flow" class="card">
+        <div class="card-head">
+          <h2><span class="idx">2</span>改造後的目標流程</h2>
+          <p class="desc"><b>把現在的單一長事務，拆分成兩個階段的短事務，並把送出三方請求的動作移到這兩個事務之外。</b>第一階段事務負責鎖定訂單，並把「準備送出代付」這件事寫進資料庫並提交；接著在不被同一個事務包覆的情況下，建立代付請求紀錄、送出三方請求、依同步回應回填紀錄；最後由第二階段事務寫入本次處理後的訂單狀態。防止重複送出的責任，從「長事務持續鎖住訂單」改為「已經寫進資料庫的狀態 21」。</p>
+        </div>
+        <div class="card-body">
+          <div class="fchart">
+            <div class="fcap">後台發起代付 · 來源狀態為 3（通過）或 29（三方失敗）</div>
+            <div class="frow">
+              <div class="fnode s3"><span class="fn-n">3</span><span class="fn-t">通過</span><span class="fn-d">可發起代付</span></div>
+              <div class="fnode s29"><span class="fn-n">29</span><span class="fn-t">三方失敗</span><span class="fn-d">可再次發起代付</span></div>
+            </div>
+
+            <div class="fconn"><span class="fc-l"><b>第一階段事務（短）</b>：鎖定訂單 → 檢查狀態是否為 3 或 29 → 覆核代付渠道 → 寫入狀態 21 → <b>提交事務</b></span><span class="fc-a"></span></div>
+            <div class="frow">
+              <div class="fnode s21"><span class="fn-n">21</span><span class="fn-t">代付提交中</span><span class="fn-d">已寫入資料庫並提交，此狀態不允許再次發起代付</span></div>
+            </div>
+
+            <div class="fconn"><span class="fc-l"><b>不被這兩個階段的事務包覆</b>：建立代付請求紀錄（狀態為待處理）→ 送出三方 HTTP 請求 → 依同步回應回填紀錄</span><span class="fc-a"></span></div>
+            <div class="fconn"><span class="fc-l"><b>第二階段事務（短）</b>：僅在訂單狀態仍為 21 時，才寫入本次處理後的狀態<br>（<span class="cn">Ⓐ</span> <span class="cn">Ⓑ</span> <span class="cn">Ⓒ</span> 三種同步回應結果走這一步；<span class="cn">Ⓓ</span> pod 已被終止，<b>不經第二階段</b>，以虛線路徑表示）</span><span class="fc-a"></span></div>
+            <div class="fsplit">
+              <div class="fpath"><span class="fp-l"><span class="cn">Ⓐ</span> 支付商受理</span><span class="fp-a"></span>
+                <div class="fnode s22"><span class="fn-n">22</span><span class="fn-t"><span class="cn">Ⓐ</span> 代付處理中</span><span class="fn-d">等待支付商回調</span></div>
+              </div>
+              <div class="fpath"><span class="fp-l"><span class="cn">Ⓑ</span> 結果未明<br>（逾時或連線失敗）</span><span class="fp-a"></span>
+                <div class="fnode s21"><span class="fn-n">21</span><span class="fn-t"><span class="cn">Ⓑ</span> 停留在提交中</span><span class="fn-d">結果未明 · 發告警 · 不可重送</span></div>
+              </div>
+              <div class="fpath"><span class="fp-l"><span class="cn">Ⓒ</span> 明確拒絕<br>（白名單內錯誤碼）</span><span class="fp-a"></span>
+                <div class="fnode s29"><span class="fn-n">29</span><span class="fn-t"><span class="cn">Ⓒ</span> 三方失敗</span><span class="fn-d">明確拒絕，一律轉 29，可重新發起</span></div>
+              </div>
+              <div class="fpath bypass"><span class="fp-l"><span class="cn">Ⓓ</span> <svg class="ni"><use href="#i-crash"/></svg> pod 被終止<br>（不經第二階段）</span><span class="fp-a"></span>
+                <div class="fnode s21 bypass"><span class="fn-n">21</span><span class="fn-t"><span class="cn">Ⓓ</span> 停留在提交中</span><span class="fn-d"><svg class="ni"><use href="#i-crash"/></svg> 未經第二階段 · 不可重送 · 紀錄視中斷時點而定（見第 3 節）</span></div>
+              </div>
+            </div>
+
+            <div class="fnotes">
+              <div class="fnote"><svg class="ni"><use href="#i-compass"/></svg> <b>四條分支的對應</b>：<b><span class="cn">Ⓐ</span></b> 受理 → <b>22</b> 等回調；<b><span class="cn">Ⓑ</span></b> 結果未明 → <b>停留 21</b> 並發告警（廢除 23 後不再轉換狀態）；<b><span class="cn">Ⓒ</span></b> 明確拒絕（可確認未建單）→ <b>一律轉 29</b> 可重新發起（最新決議：不再還原成發起前的 3）；<b><span class="cn">Ⓓ</span></b> pod 在第二階段前被終止 → 維持 <b>21</b>（前提是回調尚未搶先定案）。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-crash"/></svg> <b><span class="cn">Ⓑ</span>／<span class="cn">Ⓓ</span> 停留在 21 之後怎麼收尾</b>：兩個分支的訂單都停在已提交的 21（<span class="cn">Ⓑ</span> 的紀錄一定存在，內含我方交易號、完整請求內容與同步回應；<span class="cn">Ⓓ</span> 依中斷時間點而定——最早可能連紀錄都尚未建立，已建立者也可能缺同步回應，見第 3 節逐時點對照）。之後的三條出口——三方回調自動定案、後台「填寫三方單號」轉 22、後台「修改為代付失敗」轉 29——見下方「<b>落點之後的定案</b>」流程圖。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-lock"/></svg> <b>第二階段事務必須加上條件才寫入</b>：事務拆分後會出現一個新的競爭狀況——支付商的回調有可能比第二階段事務更早送達，並且已經把訂單定案為 24。這時候比較晚回來的第二階段事務如果無條件覆寫，就會把已經定案的結果推翻。因此第二階段事務必須加上「訂單狀態仍為 21 時才寫入」這個條件。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-pin"/></svg> <b>防止重複送出的責任轉移</b>：目前是靠「長事務加上鎖定訂單，而且這個鎖一直持有到三方請求結束」；改造後改為靠<b>已經寫入資料庫的狀態 21</b>（21 不在可發起代付的狀態清單 3／29 之內）。訂單鎖在第一階段事務提交後就釋放，不會再因為等待三方回應而長時間佔用資料庫資源。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-gift"/></svg> <b>順帶消滅的既有缺陷</b>：目前「請求逾時就把訂單轉為 23 鎖住」這道保護本身寫在事務裡面，只要後續任何一個步驟拋出例外，這道保護就會跟著被回滾。過去曾實際發生一次（事件編號 <code>op#2784</code>）：轉為 23 之後，程式接著寫入代付請求紀錄的 <code>info_1</code> 欄位，因內容長度超過該欄位上限而拋出例外，導致同一事務內先前寫入的 23 也一併回滾，訂單退回可重送狀態。改造後 23 連同這條轉換一併廢除：結果未明時訂單本來就停留在<b>已提交</b>的 21，「保護被同一事務回滾」的問題不復存在。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-trash"/></svg> <b>廢除 23 之後的狀態語意</b>：21 一個狀態承接「請求進行中」「流程被中斷」「結果未明」三種情況——三者的人工處理流程本來就相同（帶我方交易號到支付商後台查證：查無此單標記 29、查到此單補填三方單號轉 22），維持兩個狀態沒有額外資訊量。現有 23 訂單的過渡處理見第 5 節。</div>
+            </div>
+          </div>
+
+          <h3>落點之後的定案：狀態 21 的三條出口、狀態 22 的兩條出口</h3>
+          <div class="fchart">
+            <div class="fcap">停留在 21 的訂單（<span class="cn">Ⓑ</span> 結果未明／<span class="cn">Ⓓ</span> 流程被中斷）如何定案 · 節點上方數字＝定案後的訂單狀態</div>
+            <div class="frow">
+              <div class="fnode s21"><span class="fn-n">21</span><span class="fn-t">代付提交中</span><span class="fn-d">結果未明（當下有即時告警）或被中斷（無告警，發現機制見第 5 節第 7 項）· 不可重送</span></div>
+            </div>
+            <div class="fconn"><span class="fc-l">三條出口 · 一條自動（三方回調）＋兩顆後台按鈕（#4137 新增）</span><span class="fc-a"></span></div>
+            <div class="fsplit">
+              <div class="fpath"><span class="fp-l"><span class="cn">①</span> 三方回調送達<br>（自動定案）</span><span class="fp-a"></span>
+                <div class="fnode s24"><span class="fn-n">24 / 29</span><span class="fn-t"><span class="cn">①</span> 回調自動定案</span><span class="fn-d">成功 → 24（終態）／失敗 → 29</span></div>
+              </div>
+              <div class="fpath"><span class="fp-l"><span class="cn">②</span> 按鈕「填寫三方單號」<br>（人工查到支付商<b>有</b>單）</span><span class="fp-a"></span>
+                <div class="fnode s22"><span class="fn-n">22</span><span class="fn-t"><span class="cn">②</span> 轉代付處理中</span><span class="fn-d">同步回填紀錄三方單號，回到等回調軌道</span></div>
+              </div>
+              <div class="fpath"><span class="fp-l"><span class="cn">③</span> 按鈕「修改為代付失敗」<br>（人工確認支付商<b>查無</b>此單）</span><span class="fp-a"></span>
+                <div class="fnode s29"><span class="fn-n">29</span><span class="fn-t"><span class="cn">③</span> 轉三方失敗</span><span class="fn-d">可重新發起代付</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fchart">
+            <div class="fcap">狀態 22 的訂單（支付商已受理，等待回調）如何定案 · 出口只有兩條</div>
+            <div class="frow">
+              <div class="fnode s22"><span class="fn-n">22</span><span class="fn-t">代付處理中</span><span class="fn-d"><span class="cn">Ⓐ</span> 受理，或 21 經按鈕補填三方單號後，都停在這裡</span></div>
+            </div>
+            <div class="fsplit">
+              <div class="fpath"><span class="fp-l">三方回調送達<br>（自動定案）</span><span class="fp-a"></span>
+                <div class="fnode s24 term"><span class="fn-n">24 / 29</span><span class="fn-t">回調自動定案</span><span class="fn-d">成功 → 24（終態）／失敗 → 29</span></div>
+              </div>
+              <div class="fpath"><span class="fp-l">按鈕「修改為代付失敗」<br>（人工確認支付商<b>查無</b>此單）</span><span class="fp-a"></span>
+                <div class="fnode s29"><span class="fn-n">29</span><span class="fn-t">轉三方失敗</span><span class="fn-d">可重新發起代付</span></div>
+              </div>
+            </div>
+            <div class="fnotes">
+              <div class="fnote"><svg class="ni"><use href="#i-phone"/></svg> <b>允許處理三方回調的狀態＝21 與 22</b>（現行為 22／23／29：<b>21 為本次新增、23 廢除、29 依最新決議移出</b>；過渡期仍受理現有 23 訂單的回調，直到全部處理完畢）。21 當初被排除是有原因的——原設計裡 21 只在事務內更新、從不提交，「21 收到回調」必然代表程式缺陷；事務拆分後 21 會實際寫入資料庫，此前提不再成立。若不放行，停在 21 的訂單即使支付商補送回調也會被拒（HTTP 400），無法自動定案。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-alert"/></svg> <b>29 移出回調放行的取捨</b>：現行 29 接受補送回調是一道防線——訂單被標記失敗後，若支付商事後補送成功回調，會定案 24 並擋住重新發起。移出後這道防線消失，「人工誤標 29 → 重新發起 → 兩筆都出款」只能靠按鈕的二次確認與人工查證把關（見第 5 節）。</div>
+              <div class="fnote"><svg class="ni"><use href="#i-mouse"/></svg> <b>兩顆按鈕的分工</b>：「填寫三方單號」用在人工到支付商後台<b>查到有單</b>（已受理，等最終結果）——轉 22 後回到正常等回調的軌道；「修改為代付失敗」用在<b>查無此單</b>（確認未受理）——轉 29 開放重新發起。按鈕細節與風險見第 4、5 節。</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="crash" class="card">
+        <div class="card-head">
+          <h2><span class="idx">3</span>pod 在各個時間點被終止的結果</h2>
+          <p class="desc">改造的目的不是避免 pod 被終止（那無法避免），而是讓<b>每一個可能被中斷的時間點，都留下可以查證的狀態</b>。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>被終止的時間點</th><th>訂單狀態</th><th>代付請求紀錄</th><th>支付商端</th><th>後續出口</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><span class="cn">①</span> 第一階段事務提交之前</td>
+                  <td>維持 <span class="st s3"><span class="n">3</span></span> 或 <span class="st s29"><span class="n">29</span></span>（事務回滾）</td>
+                  <td>沒有建立</td>
+                  <td>尚未送出請求</td>
+                  <td>正常重新發起，沒有影響</td>
+                </tr>
+                <tr>
+                  <td><span class="cn">②</span> 第一階段已提交、三方請求尚未送出</td>
+                  <td><span class="st s21"><span class="n">21</span></span></td>
+                  <td>可能尚未建立，或已建立（待處理，回應欄位為空）</td>
+                  <td>沒有收到請求</td>
+                  <td>人工到支付商後台確認查無此單，以後台按鈕標記為 29 後重新發起</td>
+                </tr>
+                <tr>
+                  <td><b><span class="cn">③</span> 三方請求已送出、同步回應尚未回填</b><br><span class="badge b-danger">本次事故的落點</span></td>
+                  <td><span class="st s21"><span class="n">21</span></span></td>
+                  <td>待處理，回應欄位為空</td>
+                  <td><b>無法從我方資料判斷</b>：可能已受理並出款，也可能根本沒收到請求</td>
+                  <td>回調送達即自動定案；未送達則人工至支付商後台查證，查到則補填三方單號（轉 22），查無則標記 29</td>
+                </tr>
+                <tr>
+                  <td><span class="cn">④</span> 同步回應已回填、第二階段事務尚未提交</td>
+                  <td><span class="st s21"><span class="n">21</span></span></td>
+                  <td>待處理，<b>同步回應內容已保留</b>（含三方單號，若該支付商有回傳）</td>
+                  <td><b>可由紀錄中的同步回應判斷</b>：受理／明確拒絕／結果未明</td>
+                  <td>依同步回應內容處理：已受理則等回調或人工定案；明確拒絕則可直接標記 29 重新發起，不必再到支付商後台查證</td>
+                </tr>
+                <tr>
+                  <td><span class="cn">⑤</span> 第二階段事務提交之後</td>
+                  <td>依第二階段寫入的結果而定：<br>• 支付商受理 → <span class="st s22"><span class="n">22</span></span><br>• 結果未明 → 停留 <span class="st s21"><span class="n">21</span></span><br>• 明確拒絕 → <span class="st s29"><span class="n">29</span></span><br>• 回調已搶先定案 → <span class="st s24"><span class="n">24</span></span>（第二階段讓路，不覆寫）</td>
+                  <td>已回填結果</td>
+                  <td>—</td>
+                  <td>• 22 等待回調<br>• 21 待回調或人工處理<br>• 29 可重新發起<br>• 24 已完成</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <b>前提說明</b>：上表 <span class="cn">②</span><span class="cn">③</span><span class="cn">④</span> 三列的訂單狀態，都以「支付商回調尚未送達」為前提。若回調在 pod 被終止之前就已經送達並完成定案，訂單會是 24（成功）或 29（失敗），第二階段事務因狀態已非 21 而不會覆寫。<br><br>
+            <b>與目前線上行為的對照</b>：上表第 <span class="cn">③</span> 列就是本次 op#2831 兩筆事故的落點。目前因為整段都包在同一個事務裡，這個落點的結果是「訂單退回 3、代付請求紀錄完全不存在」——支付商已經出款而我方沒有任何痕跡，而且訂單回到<b>還可以再次發起代付</b>的狀態，存在第二次出款的風險。改造之後，同一個落點會停留在 21，既留下紀錄，也擋住重複送出。
+          </div>
+        </div>
+      </section>
+
+      <section id="diff" class="card">
+        <div class="card-head">
+          <h2><span class="idx">4</span>與當時線上行為的差異<span class="dis" style="margin-left:8px">2026-08-17 時點</span></h2>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>項目</th><th>目前線上</th><th>改造後</th></tr></thead>
+              <tbody>
+                <tr><td>事務範圍</td><td>單一事務包含三方 HTTP 請求</td><td>拆成兩個階段的短事務，三方請求不被這兩個階段的事務包覆</td></tr>
+                <tr><td>狀態 21 是否提交到資料庫</td><td>只在事務內更新，從未提交</td><td><b>會實際提交</b>，代表請求進行中或被中斷</td></tr>
+                <tr><td>允許處理回調的狀態</td><td>22／23／29<br><span style="font-size:12px">（現況讓 29 收回調是刻意設計：29 代表「我方認定失敗」而非「支付商保證未出款」，若標記有誤而支付商實際已出款，補送的成功回調會把訂單糾正為 24、擋住重新發起）</span></td><td><b>21／22</b>（21 新增；23 廢除；29 依最新決議移出，上述自動糾正防線隨之取消，改靠人工查證把關。過渡期現有 23 訂單仍受理回調，直到全部處理完畢）</td></tr>
+                <tr><td>結果未明（逾時／連線失敗）的落點</td><td>轉 23（三方查證中）鎖住</td><td><b>停留在 21</b>（23 廢除），發告警通知人工查證</td></tr>
+                <tr><td>明確拒絕（白名單內錯誤碼）的落點</td><td>還原為發起前的狀態（3 或 29）</td><td><b>一律轉 29</b>，可重新發起（不再退回 3）</td></tr>
+                <tr><td>防止重複送出的機制</td><td>長事務持續鎖住訂單，直到三方回應</td><td>已提交的狀態 21（不在可發起代付的 3／29 之內）</td></tr>
+                <tr><td>寫入本次處理後狀態的方式</td><td>無條件更新</td><td>僅在訂單狀態仍為 21 時才更新</td></tr>
+                <tr><td>被中斷時留下的資訊</td><td>沒有（紀錄一併回滾）</td><td>代付請求紀錄、我方交易號、完整請求內容</td></tr>
+                <tr><td>後台對狀態 21 的操作</td><td>可退回狀態 3（存在誤操作導致重送的風險）</td><td>依 #4137：移除退回 3 的按鈕、支持三方回調、新增補填三方單號（轉 22）、新增標記為 29</td></tr>
+                <tr><td>後台對狀態 22 的操作</td><td>可「強制解除代付狀態」退回 3 並清除三方單號（存在誤操作導致重複出款的風險）</td><td>依 #4137：移除退回 3 的按鈕、新增標記為 29</td></tr>
+                <tr><td>人工操作接口的落點</td><td>API_Agent（23 版的「補三方單號」「標記失敗」接口）</td><td><b>新建於 APIs</b>（21／22 版），後台按鈕改打 APIs；API_Agent 原則不動，唯一例外＝比照 23 為 reviewOrder 加一行 21 禁改守衛</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="fnotes">
+            <div class="fnote"><svg class="ni"><use href="#i-box"/></svg> <b>改動範圍集中</b>：狀態 21 在 APIs 專案內只有一個寫入位置（<code>Agent/WithdrawalController.php:135</code>），「訂單狀態必須是 21」的檢查也集中在 30 家支付商共用的同一段程式裡，因此 <b>30 家全部涵蓋，不需要逐家修改支付商的程式</b>。</div>
+            <div class="fnote"><svg class="ni"><use href="#i-search"/></svg> <b>回調如何找到對應的代付請求紀錄</b>：這決定「補填三方單號」是不是接收回調的必要前提，30 家支付商依對單方式分成兩類，整理如下表。</div>
+          </div>
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>回調對單方式</th><th class="center">家數</th><th>說明</th><th>被中斷的訂單是否需要人工補填三方單號</th></tr></thead>
+              <tbody>
+                <tr><td>只用我方交易號</td><td class="center"><b>27</b></td><td>含本次事故的 EpicPay——它連正常成功的紀錄，三方單號欄位本來也是空的（支付商的同步回應不帶三方單號）</td><td>不需要。三方單號欄位為空不影響對單，回調可直接自動定案</td></tr>
+                <tr><td>三方單號＋我方交易號</td><td class="center"><b>3</b></td><td>GMPay、GffPay、MajesticPay</td><td><b>需要</b>。不補填就對不上回調；補填時須同步回填代付請求紀錄的三方單號欄位</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section id="todo" class="card">
+        <div class="card-head">
+          <h2><span class="idx">5</span>實作要點與待確認事項<span class="dis" style="margin-left:8px">當時</span></h2>
+          <p class="desc">依 2026-08-17 更新後的工單需求整理；原「需補進工單」的項目已被採納。<b>本表所列項目至 2026-08-20 全數實作完成並上線</b>，此處保留當時的待辦狀態供備查。</p>
+        </div>
+        <div class="card-body">
+          <div class="tbl-scroll">
+            <table>
+              <thead><tr><th>#</th><th>項目</th><th>負責</th><th>狀態</th></tr></thead>
+              <tbody>
+                <tr><td>1</td><td><b>把狀態 21 納入允許處理回調的清單</b>——已由 2026-08-17 更新後的需求採納（後台 21 需求 2：回調成功轉 24、失敗轉 29）</td><td>PM</td><td><span class="badge b-success">已補進工單</span></td></tr>
+                <tr><td>2</td><td>第二階段事務改為「訂單狀態仍為 21 才寫入」的條件更新，防止遲到的原程序覆寫回調已定案的結果</td><td>APIs</td><td><span class="badge b-warning">實作要點</span></td></tr>
+                <tr><td>3</td><td><b>現有 23 訂單的過渡</b>：上線時暫時保留 23 的回調放行與人工兜底讀取；待線上現有停在 23 的訂單全部處理完畢後，另行移除 APIs 內 23 的殘留程式（API_Agent 不動——23 禁改守衛與 23 版舊接口留置無害，僅 WEB_AgentBackend 不再呼叫）</td><td>APIs＋後台</td><td><span class="badge b-warning">實作要點</span></td></tr>
+                <tr><td>4</td><td><b><code>withdrawal:resolve-payout</code> 人工兜底命令的處置</b>：建議改造為以 21／22 為對象並保留——後台按鈕沒有「直接定案為 24」的出口，遇到「支付商確認已出款、回調卻始終未送達」時仍需要它鏡射成功側效（回填付款時間與交易紀錄）</td><td>PM</td><td><span class="badge b-danger">需確認</span></td></tr>
+                <tr><td>5</td><td>「填寫三方單號」按鈕除了訂單欄位，<b>必須同步回填代付請求紀錄的三方單號</b>（<code>withdrawal_payout_records.third_party_transaction_no</code>，取該單最新一筆）——GMPay／GffPay／MajesticPay 3 家的回調以「三方單號＋我方交易號」對單，只回填訂單欄位仍對不上回調</td><td>後台</td><td><span class="badge b-warning">實作要點</span></td></tr>
+                <tr><td>6</td><td>21／22 標記為 29 後訂單可重新發起代付；若人工誤判（支付商實際已出款）就是重複出款。且 <b>29 依決議移出回調放行後，現行「誤標 29 → 支付商補送成功回調 → 定案 24 擋住重發」的防線不再存在</b>，只能靠人工查證把關——按鈕必須有二次確認文案「須先於支付商後台確認查無此單」</td><td>PM</td><td><span class="badge b-danger">風險確認</span></td></tr>
+                <tr><td>7</td><td>停留在 21 的訂單如何被<b>主動發現</b>：結果未明（<span class="cn">Ⓑ</span>）當下程式會發即時告警（實作內容之一），但 pod 被終止（<span class="cn">Ⓓ</span>）時程式已消失、發不出任何通知，即時告警也可能被漏看——建議加上「停留超過一定時間」的排程掃描告警，或讓後台可依停留時間篩選。工單解決了「怎麼處理」，尚未解決「怎麼發現」</td><td>PM</td><td><span class="badge b-warning">建議追加</span></td></tr>
+                <tr><td>8</td><td>pod 終止前先停止接收新請求，並等待進行中的 PHP 請求執行完畢再關閉。<b>已於 2026-08-14 落地並合併 master</b>：<code>.gitlab-ci/build/Dockerfile</code> 為 php-fpm 補上 <code>process_control_timeout = 130s</code>（原本預設 0，代表 master 收到關閉訊號後不等 worker 收工即終止）；另與 chart 端的 <code>terminationGracePeriodSeconds</code>(170s) 與 <code>preStop</code>(20s) 構成跨 repo 契約，三個數值調整其一必須同步另一方。<b>尚待部署生效</b></td><td>部署</td><td><span class="badge b-success">已合併，待部署</span></td></tr>
+                <tr><td>9</td><td>本次兩筆已經出款訂單的人工補帳</td><td>營運</td><td><span class="badge b-info">營運團隊處理中</span></td></tr>
+                <tr><td>10</td><td><b>跨專案落點（2026-08-17 定案）</b>：「填寫三方單號」「修改為代付失敗」兩支人工操作接口<b>直接新建於 APIs</b>（API_Agent 的 23 版舊接口不遷改、隨 23 廢除自然退役）；WEB_AgentBackend 按鈕改打 APIs。API_Agent 原則不動，<b>唯一例外＝比照 23 為 reviewOrder 加一行 21 禁改守衛</b>——否則 21 訂單仍可經舊接口退款(2/9)或退回 3，三方實際已出款時就是重複出款；守衛生效不得晚於事務拆分上線</td><td>APIs＋後台</td><td><span class="badge b-success">已定案</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="callout">
+            <b>上線順序</b>：<span class="cn">①</span> APIs（事務拆分＋回調放行改為 21／22＋停止寫入 23＋新建兩支人工操作接口）與 API_Agent 的一行 21 禁改守衛（守衛不得晚於事務拆分生效）→ <span class="cn">②</span> WEB_AgentBackend（按鈕改打 APIs、移除退回 3）→ <span class="cn">③</span> 現有 23 訂單全部處理完畢後的收尾（僅移除 APIs 內 23 殘留；API_Agent 不動）。<b>21 的回調放行必須先於後台按鈕生效</b>，否則補填三方單號前的訂單收不了回調；29 移出放行前需先盤點線上是否有仍在等補送回調的 29 訂單。
+          </div>
+          <div class="callout">
+            <b>方案取捨紀錄</b>：本設計歷經三個版本——<span class="cn">①</span> 第一階段直接寫入 23、不再使用 21，因狀態語意混淆撤回；<span class="cn">②</span> 保留 21 並納入回調放行、23 續用於「結果未明」（本報告 2026-08-14 版）；<span class="cn">③</span> <b>2026-08-17 需求定案：廢除 23，由 21 一元化承接</b>——21 與 23 的人工處理流程本來就相同（帶我方交易號到支付商後台查證），維持兩個狀態沒有額外資訊量，且後台按鈕（標記 29／補填三方單號轉 22）已涵蓋全部出口。三個版本不變的核心要求是：<b>第一階段事務寫入的狀態，必須在允許處理回調的清單裡面</b>。<br><br>另兩項同批決議：<b>明確拒絕一律轉 29</b>（不再還原成發起前的 3）；<b>回調放行收斂為 21／22</b>（29 移出，取捨見第 2 節末）。
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>

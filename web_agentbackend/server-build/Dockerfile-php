@@ -1,0 +1,11 @@
+FROM example.invalid/base_images/phpbase:latest
+RUN mkdir -p /root/.ssh && \
+    chmod 0700 /root/.ssh && \
+    ssh-keyscan -t rsa -p 1022 example.invalid > /root/.ssh/known_hosts
+COPY gitlab-ci/id_rsa /root/.ssh/id_rsa
+RUN chmod 600 /root/.ssh/id_rsa
+RUN mkdir -p /code
+COPY . /code
+WORKDIR /code/_release
+RUN composer install
+CMD [ "php-fpm", "-F", "--pid", "/opt/bitnami/php/tmp/php-fpm.pid", "-y", "/opt/bitnami/php/etc/php-fpm.conf" ]

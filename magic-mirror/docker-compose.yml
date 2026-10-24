@@ -1,0 +1,26 @@
+services:
+  magic-mirror:
+    build: .
+    image: magic-mirror:latest
+    container_name: magic-mirror
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      # 容器內 localhost ≠ host；MCP Memory Service 跑在 host:8000，
+      # 一律經 host.docker.internal 出去（覆蓋 .env 的 MCP_SERVER_URL）
+      MCP_SERVER_URL: "http://host.docker.internal:8000/mcp"
+      # LLM 開關與模型改由 .env 控制；claude CLI 已裝進 image，
+      # 憑證走 .env 的 CLAUDE_CODE_OAUTH_TOKEN（host 跑 `claude setup-token` 產生）
+      # agent 模式的 skill SOP 由下方 volume 掛進容器（覆蓋 .env 的 host 路徑）
+      SKILL_PATH: "/app/skills/memory-search.md"
+      STORE_SKILL_PATH: "/app/skills/memory-store.md"
+    extra_hosts:
+      # Docker Desktop (mac) 原生支援 host.docker.internal；此行讓 Linux host 也通用
+      - "host.docker.internal:host-gateway"
+    volumes:
+      - ./logs:/app/logs
+      # users.json 名字快取持久化（不掛的話容器內 /app/data 不存在，寫入必失敗、快取重啟即失）
+      - ./data:/app/data
+      # memory skill SOP（SSOT 在 GFF-Marketplace，唯讀掛入；改 skill 檔即時生效免 rebuild）
+      - ../GFF-Marketplace/plugins/memory-mcp/skills/memory-search/SKILL.md:/app/skills/memory-search.md:ro
+      - ../GFF-Marketplace/plugins/memory-mcp/skills/memory-store/SKILL.md:/app/skills/memory-store.md:ro

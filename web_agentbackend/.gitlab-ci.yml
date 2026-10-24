@@ -1,0 +1,54 @@
+variables:
+  APP_NAME: web-agentbackend
+  DOCKER_FILE: server-build/Dockerfile-php
+  DOCKER_REGISTRY_DOMAIN: example.invalid
+  DOCKER_REGISTRY_USERNAME: admin
+  DOCKER_REGISTRY_PASSWORD: [REDACTED]
+
+stages:
+  - build-docker
+  - deploy-dev
+
+Build Docker:
+  stage: build-docker
+  tags:
+    - php
+  image: docker:latest
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - docker:18.09.7-dind
+  only:
+    - master
+    - develop
+  before_script:
+    - docker info
+    - docker login -u "${DOCKER_REGISTRY_USERNAME}" -p "${DOCKER_REGISTRY_PASSWORD}" https://${DOCKER_REGISTRY_DOMAIN}
+    - docker pull example.invalid/gffv2/${APP_NAME}:latest || true
+  script:
+    - echo ${CI_COMMIT_SHA:0:8}
+    - echo ${DOCKER_FILE}
+    - docker build -f ${DOCKER_FILE} --build-arg SHA1=${CI_COMMIT_SHA:0:8} --build-arg PIPE_ID=${CI_PIPELINE_ID} -t example.invalid/gffv2/${APP_NAME} --cache-from example.invalid/gffv2/${APP_NAME}:latest .
+    - docker tag example.invalid/gffv2/${APP_NAME} example.invalid/gffv2/${APP_NAME}:${CI_PIPELINE_ID}
+    - docker push example.invalid/gffv2/${APP_NAME}
+    - docker push example.invalid/gffv2/${APP_NAME}:${CI_PIPELINE_ID}
+  when: manual
+  allow_failure: false
+
+Deploy Dev:
+  needs:
+    - Build Docker
+  dependencies:
+    - Build Docker
+  stage: deploy-dev
+  image: alpine/helm
+  tags:
+    - php
+  only:
+    - master
+    - develop
+  script:
+    - echo "Deploy dev start ..."
+    - helm upgrade ${APP_NAME} ./helm --install --namespace gffv2-dev
+      --set image.tag=${CI_PIPELINE_ID}
+    - echo "Deploy dev completed!"

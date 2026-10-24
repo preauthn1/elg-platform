@@ -1,0 +1,50 @@
+variables:
+  GITLAB_HOST: example.invalid
+  GITLAB_PORT: 1022
+  REGISTRY: example.invalid
+  NGINX_IMAGE: $REGISTRY/$CI_PROJECT_PATH/nginx
+  PHP_IMAGE: $REGISTRY/$CI_PROJECT_PATH/php
+  SWAGGER_IMAGE: $REGISTRY/$CI_PROJECT_PATH/swagger
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: 0.0.0.0:2375
+
+stages:
+  - prepare
+  - testing
+
+composer-install:
+  stage: prepare
+  image: composer:2.7.4
+  tags:
+    - php
+  before_script:
+    - eval $(ssh-agent -s)
+    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+    - ssh-keyscan $GITLAB_HOST >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
+  script:
+    - composer install --ignore-platform-reqs
+  artifacts:
+    paths:
+      - vendor/
+      - composer.lock
+psr2-checking:
+  stage: testing
+  image: php:7.3-alpine
+  tags:
+    - php
+  script:
+    - ./vendor/bin/phpcs --standard=psr2 ./src
+  dependencies:
+    - composer-install
+
+phpmd-checking:
+  stage: testing
+  image: php:7.3-alpine
+  tags:
+    - php
+  script:
+    - ./vendor/bin/phpmd ./src text codesize,design,naming,unusedcode
+  allow_failure: true
+  dependencies:
+    - composer-install

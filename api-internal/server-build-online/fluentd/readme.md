@@ -1,0 +1,1 @@
+docker run --name google-fluentd google-fluentd

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://example.invalid/tsconfig",
+  "extends": "@vben/tsconfig/node.json",
+  "include": ["src", "env.d.ts"],
+  "exclude": ["node_modules"]
+}

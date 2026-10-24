@@ -1,0 +1,85 @@
+<template>
+  <div id="C711Mobile  CwidthHeight" style="background:#2d0d02;">
+    <div class="pageBg widthHeightvh fontFamily">
+      <EventsHeader></EventsHeader>
+      <div class="pageCon">
+        <div class="yellow_borderInput marginTop20">
+          <div class="black_EventDiv purple_Divbg fontsizelogin">
+            <div class="ticketTitle">{{$t('lotteryTicketNumber')}}</div>
+            <div class="ticketNumAll">
+              <div class="ticketNum" v-for="(num, i) in get_MyLotteryNumbers" :key="i">
+                <span>
+                  {{num.lottery_number}}
+                  <span v-if="num.status ==1">({{$t('win')}})</span>
+
+                  <span v-else>({{$t('missed')}})</span>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 彈窗 -->
+      <maskModal></maskModal>
+    </div>
+  </div>
+</template>
+<script>
+import EventsHeader from '@/components/C711_Mobile/Events_header'
+import maskModal from './Modal'
+import { mapGetters } from 'vuex'
+export default {
+  components: {
+    EventsHeader,
+    maskModal
+  },
+  computed: {
+    ...mapGetters(['get_EventDESC', 'get_MyLotteryNumbers'])
+  },
+  data() {
+    return {
+      remaining_number: sessionStorage.getItem('remaining_number'),
+      NowDate: '',
+      eventOpenGame: 1
+    }
+  },
+  mounted() {
+    //   取今日日期
+    var Today = new Date()
+    this.NowDate =
+      Today.getFullYear() +
+      '-' +
+      (Today.getMonth() + 1) +
+      '-' +
+      Today.getDate() +
+      ' ' +
+      Today.getHours() +
+      ':' +
+      Today.getMinutes()
+
+    //手機方向
+    $('.directionMask').css('display', 'none')
+    if (window.orientation == 0 || window.orientation == 180) {
+      $('.directionMask').css('display', 'none')
+    }
+    window.onorientationchange = function() {
+      if (window.orientation == 90 || window.orientation == -90) {
+        $('.directionMask').css('display', 'block')
+      } else {
+        $('.directionMask').css('display', 'none')
+      }
+    }
+  },
+  methods: {
+    //   取中獎號碼
+    getMyLotteryNumber() {
+      let id = this.$route.query.id
+      this.$store.dispatch('action_MyLotteryNumbers', id)
+    }
+  },
+  created() {
+    this.getMyLotteryNumber()
+  }
+}
+</script>
+

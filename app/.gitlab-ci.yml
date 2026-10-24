@@ -1,0 +1,26 @@
+stages:
+  - test
+#  - package
+#  - test_deployment
+#  - productive_deployment
+#  - notification
+
+variables:
+  LC_ALL: "en_US.UTF-8"
+  LANG: "en_US.UTF-8"
+
+.android_docker_image:
+  image: xetics/flutter:1.5.4-stable
+  tags:
+    - flutter-android
+
+test:
+  extends: .android_docker_image
+  stage: test
+  script:
+    - flutter test --coverage
+    - genhtml coverage/example.invalid --output=coverage
+  artifacts:
+    paths:
+      - coverage/
+    expire_in: 5 days

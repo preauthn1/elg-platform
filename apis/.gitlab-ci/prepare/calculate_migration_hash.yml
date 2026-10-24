@@ -1,0 +1,50 @@
+stages:
+  - prepare
+
+# 獨立成一個 job 是因為緩存 key 必須是靜態的，要提早計算出來
+calculate_migration_hash:
+  stage: prepare
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8-minimal:ae4fd248
+  tags:
+    - php8
+  # GIT_DEPTH=0 取完整 history。GitLab 預設 50 在 master 合併圖密度高時走不到 merge-base，
+  # 導致 MR local merge 步驟報 "refusing to merge unrelated histories"（feature/bank-pairing-toolkit-v2 撞過）。
+  # 本 job 沒 extends .default_variables，需自行宣告。
+  variables:
+    GIT_DEPTH: 0
+  rules:
+    # master 的 push pipeline 只是把 MR pipeline 測過的內容再測一次（MR-to-master 已在
+    # before_script 以 git merge --no-ff 模擬合併結果），且 master 不觸發 build/deploy，
+    # 純重複。合併後的把關改由 release tag pipeline 負責（該處 test 已 gate release-prod）。
+    # tag pipeline 的 CI_PIPELINE_SOURCE 同樣是 push，靠 CI_COMMIT_BRANCH 只在 branch
+    # pipeline 有值來區分，故本規則不會擋掉 release_xxx 的 tag pipeline。
+    - if: $CI_COMMIT_BRANCH == "master" && $CI_PIPELINE_SOURCE == "push"
+      when: never
+    - when: always
+  before_script:
+    # merge request 時執行 local merge
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ] && [ "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" = "master" ]; then
+        apt-get update && apt-get install -y git
+        git config --global user.email "user@example.invalid"
+        git config --global user.name "runner"
+
+        echo "MR from $CI_COMMIT_REF_NAME → $CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+        git fetch origin $CI_COMMIT_REF_NAME $CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+        git checkout -b merge-target origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME
+        git merge --no-ff origin/$CI_COMMIT_REF_NAME -m "Temp merge for MR test"
+      fi
+  script:
+    - |
+      # 計算 database/migrations 與 database/procedures 的 hash
+      MIGRATION_HASH=$(find database/migrations database/procedures -type f -exec md5sum {} \; 2>/dev/null | sort | md5sum | awk '{print $1}')
+      if [ -z "$MIGRATION_HASH" ]; then
+        echo "警告: 無法計算 MIGRATION_HASH，使用預設值"
+        MIGRATION_HASH="default"
+      fi
+      echo "MIGRATION_HASH=$MIGRATION_HASH" >> migration_hash.env
+      echo "計算的 MIGRATION_HASH: $MIGRATION_HASH"
+  artifacts:
+    reports:
+      dotenv: migration_hash.env
+

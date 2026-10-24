@@ -1,0 +1,46 @@
+# ──────────────────────────────────────────────────────────────────────────
+# lint stage：commit message + pnpm check（lint / typecheck / test）
+# commit message 規則直接跑 repo 的 commitlint（.commitlintrc.js，與 lefthook commit-msg 同一份），
+# 不另寫一套 shell 規則。
+# ──────────────────────────────────────────────────────────────────────────
+
+.node_job:
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/nodebase/24:latest
+  tags:
+    - php8
+  extends:
+    - .pnpm_cache
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@11.5.2 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+
+lint:commit-message:
+  extends: .node_job
+  stage: lint
+  variables:
+    GIT_DEPTH: 0
+  script:
+    # MR → 比對 target branch；push → 比對前一個 commit；新分支首推 → 只檢查 HEAD
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ]; then
+        git fetch origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+        pnpm exec commitlint --from "origin/$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" --to HEAD --verbose
+      elif [ -n "$CI_COMMIT_BEFORE_SHA" ] && [ "$CI_COMMIT_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+        pnpm exec commitlint --from "$CI_COMMIT_BEFORE_SHA" --to HEAD --verbose
+      else
+        pnpm exec commitlint --last --verbose
+      fi
+  allow_failure: false
+
+# 完成的定義：lint + typecheck + test 三個都綠（見 CLAUDE.md）
+lint:check:
+  extends: .node_job
+  stage: lint
+  script:
+    - pnpm check
+  allow_failure: false

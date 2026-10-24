@@ -1,0 +1,233 @@
+{
+  "title": "환경 설정",
+  "subtitle": "환경 설정 사용자 지정 & 실시간 미리보기",
+  "enableStickyPreferencesNavigationBar": "환경 설정 내비게이션 바 고정 켜기",
+  "disableStickyPreferencesNavigationBar": "환경 설정 내비게이션 바 고정 끄기",
+  "resetTip": "설정이 변경되었습니다. 클릭하면 초기화됩니다",
+  "resetTitle": "환경 설정 초기화",
+  "resetSuccess": "환경 설정을 초기화했습니다",
+  "appearance": "외관",
+  "layout": "레이아웃",
+  "content": "콘텐츠",
+  "other": "기타",
+  "wide": "가변 너비",
+  "compact": "고정 너비",
+  "followSystem": "시스템 설정 따르기",
+  "vertical": "수직",
+  "verticalTip": "사이드 수직 메뉴 모드",
+  "horizontal": "수평",
+  "horizontalTip": "수평 메뉴 모드, 모든 메뉴가 상단에 표시됩니다",
+  "twoColumn": "2단 메뉴",
+  "twoColumnTip": "수직 2단 메뉴 모드",
+  "headerSidebarNav": "사이드 내비게이션",
+  "headerSidebarNavTip": "상단 전체 너비, 사이드 내비게이션 모드",
+  "headerTwoColumn": "혼합 2단",
+  "headerTwoColumnTip": "상단 내비게이션과 사이드 2단 메뉴 공존",
+  "mixedMenu": "혼합 수직",
+  "mixedMenuTip": "수직·수평 메뉴 공존",
+  "fullContent": "콘텐츠 전체 화면",
+  "fullContentTip": "메뉴를 모두 숨기고 콘텐츠 본문만 표시합니다",
+  "normal": "일반",
+  "plain": "심플",
+  "rounded": "둥글게",
+  "copyPreferences": "환경 설정 복사",
+  "enableCopyPreferences": "환경 설정 복사 버튼 표시",
+  "copyPreferencesSuccessTitle": "복사 성공",
+  "copyPreferencesSuccess": "복사되었습니다. app 하위의 `src/preferences.ts`에서 덮어써 주세요",
+  "clearAndLogout": "캐시 삭제 & 로그아웃",
+  "mode": "모드",
+  "general": "일반",
+  "language": "언어",
+  "timezone": "시간대",
+  "dynamicTitle": "동적 타이틀",
+  "watermark": "워터마크",
+  "watermarkContent": "워터마크 내용을 입력해 주세요",
+  "checkUpdates": "주기적 업데이트 확인",
+  "position": {
+    "title": "환경 설정 위치",
+    "header": "상단 바",
+    "auto": "자동",
+    "fixed": "고정",
+    "userDropdown": "사용자 드롭다운"
+  },
+  "sidebar": {
+    "buttons": "버튼 표시",
+    "buttonFixed": "고정 버튼",
+    "buttonCollapsed": "접기 버튼",
+    "title": "사이드바",
+    "width": "너비",
+    "visible": "사이드바 표시",
+    "draggable": "사이드바 메뉴 드래그",
+    "collapsed": "메뉴 접기",
+    "collapsedShowTitle": "메뉴 이름 표시",
+    "autoActivateChild": "하위 메뉴 자동 활성화",
+    "autoActivateChildTip": "`활성화` 시 메뉴를 클릭하면 하위 메뉴가 자동으로 활성화됩니다.",
+    "expandOnHover": "마우스 오버 시 펼치기",
+    "expandOnHoverTip": "메뉴에 마우스를 올렸을 때 \n `활성화`하면 하위 메뉴를 펼치고 \n `비활성화`하면 사이드바 전체를 펼칩니다."
+  },
+  "tabbar": {
+    "title": "탭 바",
+    "enable": "탭 바 사용",
+    "icon": "탭 바 아이콘 표시",
+    "showMore": "더보기 버튼 표시",
+    "showMaximize": "최대화 버튼 표시",
+    "persist": "탭 유지",
+    "visitHistory": "방문 기록",
+    "visitHistoryTip": "활성화하면 탭 바가 탭 방문 기록을 저장합니다. \n현재 탭을 닫으면 마지막으로 열었던 탭이 자동으로 선택됩니다.",
+    "maxCount": "최대 탭 개수",
+    "maxCountTip": "탭 개수가 최대치를 초과하면\n가장 먼저 열린 탭이 닫힙니다.\n 0으로 설정하면 개수 제한을 사용하지 않습니다.",
+    "draggable": "드래그 정렬 사용",
+    "wheelable": "마우스 휠 지원",
+    "middleClickClose": "마우스 가운데 버튼 클릭으로 탭 닫기",
+    "wheelableTip": "활성화하면 탭 바 영역에서 마우스 휠의 수직 스크롤 이벤트에 반응합니다.",
+    "styleType": {
+      "title": "탭 스타일",
+      "chrome": "Chrome",
+      "card": "카드",
+      "plain": "심플",
+      "brisk": "경쾌"
+    },
+    "contextMenu": {
+      "reload": "새로 고침",
+      "close": "닫기",
+      "pin": "고정",
+      "unpin": "고정 해제",
+      "closeLeft": "왼쪽 탭 닫기",
+      "closeRight": "오른쪽 탭 닫기",
+      "closeOther": "다른 탭 닫기",
+      "closeAll": "모든 탭 닫기",
+      "openInNewWindow": "새 창에서 열기",
+      "maximize": "최대화",
+      "restoreMaximize": "복원"
+    }
+  },
+  "navigationMenu": {
+    "title": "내비게이션 메뉴",
+    "style": "내비게이션 메뉴 스타일",
+    "accordion": "사이드바 아코디언 메뉴",
+    "split": "내비게이션 메뉴 분리",
+    "splitTip": "활성화하면 사이드바에 상단 바의 하위 메뉴가 표시됩니다"
+  },
+  "breadcrumb": {
+    "title": "브레드크럼",
+    "home": "홈 버튼 표시",
+    "enable": "브레드크럼 사용",
+    "icon": "브레드크럼 아이콘 표시",
+    "background": "배경",
+    "style": "브레드크럼 스타일",
+    "hideOnlyOne": "하나만 있을 때 숨기기"
+  },
+  "animation": {
+    "title": "애니메이션",
+    "loading": "페이지 로딩",
+    "transition": "페이지 전환 효과",
+    "progress": "페이지 진행 표시줄"
+  },
+  "theme": {
+    "title": "테마",
+    "radius": "둥근 모서리",
+    "fontSize": "글자 크기",
+    "fontSizeTip": "전역 글자 크기를 조정하고 실시간으로 미리 봅니다",
+    "light": "라이트",
+    "dark": "다크",
+    "darkSidebar": "세미 다크 사이드바",
+    "darkSidebarTip": "테마가 라이트이고 레이아웃이 '수평' 또는 '콘텐츠 전체 화면'이 아닐 때 사용할 수 있습니다.",
+    "darkSidebarSub": "세미 다크 사이드바 하위 영역",
+    "darkSidebarSubTip": "테마가 라이트이고 세미 다크 사이드바가 켜져 있으며 레이아웃이 '2단 메뉴' 모드일 때 사용할 수 있습니다.",
+    "darkHeader": "세미 다크 상단 바",
+    "weakMode": "색약 모드",
+    "grayMode": "회색 모드",
+    "builtin": {
+      "title": "기본 제공",
+      "default": "기본",
+      "violet": "바이올렛",
+      "pink": "핑크",
+      "rose": "로즈",
+      "skyBlue": "스카이 블루",
+      "deepBlue": "딥 블루",
+      "green": "그린",
+      "deepGreen": "딥 그린",
+      "orange": "오렌지",
+      "yellow": "옐로",
+      "zinc": "징크",
+      "neutral": "뉴트럴",
+      "slate": "슬레이트",
+      "gray": "그레이",
+      "custom": "사용자 지정"
+    }
+  },
+  "header": {
+    "title": "상단 바",
+    "visible": "상단 바 표시",
+    "modeStatic": "정적",
+    "modeFixed": "고정",
+    "modeAuto": "자동 숨기기 및 표시",
+    "modeAutoScroll": "스크롤 시 숨기기 및 표시",
+    "menuAlign": "메뉴 정렬",
+    "menuAlignStart": "왼쪽",
+    "menuAlignEnd": "오른쪽",
+    "menuAlignCenter": "가운데"
+  },
+  "footer": {
+    "title": "하단 바",
+    "visible": "하단 바 표시",
+    "fixed": "하단에 고정"
+  },
+  "copyright": {
+    "title": "저작권",
+    "enable": "저작권 표시 사용",
+    "companyName": "회사명",
+    "companySiteLink": "회사 사이트 링크",
+    "date": "날짜",
+    "icp": "ICP 등록 번호",
+    "icpLink": "ICP 사이트 링크"
+  },
+  "shortcutKeys": {
+    "title": "바로 가기 키",
+    "global": "전역",
+    "search": "전역 검색",
+    "logout": "로그아웃",
+    "escape": "현재 창 닫기",
+    "preferences": "환경 설정"
+  },
+  "widget": {
+    "title": "위젯",
+    "globalSearch": "전역 검색 사용",
+    "fullscreen": "전체 화면 사용",
+    "themeToggle": "테마 전환 사용",
+    "languageToggle": "언어 전환 사용",
+    "notification": "알림 사용",
+    "sidebarToggle": "사이드바 전환 사용",
+    "lockScreen": "화면 잠금 사용",
+    "refresh": "새로 고침 사용",
+    "timezone": "시간대 사용"
+  },
+  "antd": {
+    "tabLabel": "Antd 확장",
+    "title": "업무 환경 설정",
+    "fields": {
+      "enableFormFullscreen": {
+        "label": "폼 전체 화면 모드 사용",
+        "tip": "하위 프로젝트에서 각자의 업무 시나리오에 맞게 이 확장 설정을 읽을 수 있습니다."
+      },
+      "tenantMode": {
+        "label": "테넌트 모드",
+        "options": {
+          "single": {
+            "label": "단일 테넌트"
+          },
+          "multi": {
+            "label": "멀티 테넌트"
+          }
+        }
+      },
+      "defaultTableSize": {
+        "label": "기본 페이지 크기"
+      },
+      "reportTitle": {
+        "label": "리포트 기본 제목",
+        "placeholder": "리포트 기본 제목을 입력해 주세요"
+      }
+    }
+  }
+}

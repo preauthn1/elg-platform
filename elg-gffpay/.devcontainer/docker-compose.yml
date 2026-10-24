@@ -1,0 +1,44 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ..:/workspace:cached
+      - ${HOME}/.ssh:/root/.ssh:ro
+    working_dir: /workspace
+    networks:
+      - laravel
+
+  mysql:
+    image: mysql:8.0
+    command: ["mysqld", "--port=3307"]
+    environment:
+      MYSQL_ROOT_PASSWORD: [REDACTED]
+      MYSQL_DATABASE: xsgcasino_testing
+    ports:
+      - "3307:3307"
+    networks:
+      - laravel
+
+  redis:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+    networks:
+      - laravel
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+    networks:
+      - laravel
+
+networks:
+  laravel: 

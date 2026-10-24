@@ -1,0 +1,15 @@
+Swift Mailer
+------------
+
+Swift Mailer is a component based mailing solution for PHP 7.
+It is released under the MIT license.
+
+Homepage:      https://example.invalid/
+Documentation: https://example.invalid/docs/introduction.html
+Bugs:          https://example.invalid/swiftmailer/swiftmailer/issues
+Repository:    https://example.invalid/swiftmailer/swiftmailer
+
+Swift Mailer is highly object-oriented by design and lends itself
+to use in complex web application with a great deal of flexibility.
+
+For full details on usage, see the documentation.

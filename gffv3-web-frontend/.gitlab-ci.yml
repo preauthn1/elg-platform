@@ -1,0 +1,24 @@
+# 一般分支只跑 MR pipeline（比照 apis）；develop（觸發 dev 部署）/ cicd/stage-build 保留；
+# tag / 排程 / trigger 照常
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "main" || $CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "cicd/stage-build")
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+      when: never
+    - when: always
+
+variables:
+  # Artifact Registry 路徑（與 apis / agent-backend 一致）；image 全名 = ${AR_PATH}/${CI_PROJECT_PATH}
+  AR_PATH: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+
+stages:
+  - lint
+  - build
+  - deploy
+
+include:
+  - local: .gitlab-ci/templates/_cache.yml
+  - local: .gitlab-ci/lint/quality.yml
+  - local: .gitlab-ci/build/build.yml
+  - local: .gitlab-ci/deploy/release.yml

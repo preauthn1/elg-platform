@@ -1,0 +1,61 @@
+variables:
+  DEV_GCR_PATH: example.invalid/tp-wz3-rd
+  ONLINE_GCR_PATH: example.invalid/tp-wz3-rd
+  GITLAB_HOST: example.invalid
+stages:
+  - build-docker
+  - deploy-dev
+
+Build Docker:
+  stage: build-docker
+  tags:
+    - php
+  image: google/cloud-sdk:latest
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+    CI_DEBUG_TRACE: "true"
+  services:
+    - docker:18.09.7-dind
+  only:
+    - master
+    - develop
+  before_script:
+#    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )'
+#    - eval $(ssh-agent -s)
+#    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' | ssh-add - > /dev/null
+#    - mkdir -p ~/.ssh && chmod 700 ~/.ssh
+#    - ssh-keyscan $GITLAB_HOST -p 1022 >> ~/.ssh/known_hosts && chmod 644 ~/.ssh/known_hosts
+    - echo "$SSH_PRIVATE_KEY"
+    - docker info
+    - gcloud --version && docker --version && kubectl version --client
+    - gcloud auth activate-service-account --key-file ./tp-wz3-rd-gcr-rw.json
+    - docker login -u _json_key --password-stdin https://example.invalid < ./tp-wz3-rd-gcr-rw.json
+    - docker pull ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest || true
+    - docker pull ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:composer || true
+  script:
+    - docker build -f dockerfiles/Dockerfile-php -t ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:composer --target composer
+      --build-arg SSH_PRIVATE_KEY="${SSH_PRIVATE_KEY}"
+      --build-arg GITLAB_HOST="${GITLAB_HOST}"
+      --cache-from ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:composer .
+    - docker build -f dockerfiles/Dockerfile-php -t ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest --target runtime
+      --build-arg SSH_PRIVATE_KEY="${SSH_PRIVATE_KEY}"
+      --build-arg GITLAB_HOST="${GITLAB_HOST}"
+      --cache-from ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest
+      --cache-from ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:composer .
+    - docker tag ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:${CI_PIPELINE_ID}
+    - docker push ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:latest
+    - docker push ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:${CI_PIPELINE_ID}
+    - docker push ${DEV_GCR_PATH}/${CI_PROJECT_PATH}:composer
+Deploy Dev:
+  stage: deploy-dev
+  image: alpine/helm
+  tags:
+    - php
+  only:
+    - develop
+    - master
+  script:
+    - echo "Deploy dev start ..."
+    - helm upgrade api-internal ./helm --install --namespace target-dev
+      --set image.tag=${CI_PIPELINE_ID}
+    - echo "Deploy dev completed!"

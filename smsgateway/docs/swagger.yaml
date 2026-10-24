@@ -1,0 +1,68 @@
+definitions:
+  controller.Message:
+    properties:
+      code:
+        example: 0
+        type: integer
+    type: object
+  httputil.HTTPError:
+    properties:
+      code:
+        example: 400
+        type: integer
+      message:
+        example: status bad request
+        type: string
+    type: object
+  model.SendVerificationCode:
+    properties:
+      code:
+        example: "123456"
+        type: string
+      name:
+        example: user name
+        type: string
+      phone:
+        example: 886932xxxxxx
+        type: string
+    required:
+    - code
+    - name
+    - phone
+    type: object
+info:
+  contact:
+    email: user@example.invalid
+    name: API Support
+  license: {}
+paths:
+  /verification_code/send:
+    post:
+      consumes:
+      - application/json
+      description: SMS 發送驗證碼
+      parameters:
+      - description: 發送驗證碼
+        in: body
+        name: sendCode
+        required: true
+        schema:
+          $ref: '#/definitions/model.SendVerificationCode'
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controller.Message'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/httputil.HTTPError'
+      summary: send verification code
+      tags:
+      - SMSGateway
+swagger: "2.0"
+x-extension-openapi:
+  SMSGateway: value on a json format

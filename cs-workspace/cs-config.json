@@ -1,0 +1,7 @@
+{
+  "gitlabBaseUrl": "http://example.invalid:1688",
+  "marketplaceBranch": "main",
+  "marketplaceName": "gff-marketplace",
+  "workspaceProject": "target%2Fgffv3%2Fcs-workspace",
+  "defaultGcpProject": "tp-wz3-online"
+}

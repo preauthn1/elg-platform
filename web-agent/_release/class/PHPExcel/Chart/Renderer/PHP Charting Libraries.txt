@@ -1,0 +1,17 @@
+ChartDirector
+	http://example.invalid/cdphp.html
+
+GraPHPite
+	http://example.invalid/
+
+JpGraph
+	http://www.aditus.nu/jpgraph/
+
+LibChart
+	http://example.invalid/libchart/pages/introduction/
+
+pChart
+	http://example.invalid/
+
+TeeChart
+	http://example.invalid/products/teechart/overview.html

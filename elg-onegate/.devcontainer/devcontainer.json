@@ -1,0 +1,188 @@
+{
+	"name": "OneGate Payment Gateway (PHP 8.4 + Laravel 12)",
+	"build": {
+		"dockerfile": "Dockerfile",
+		"context": ".."
+	},
+	// 掛載主機目錄
+	"mounts": [
+		// SSH 密鑰 - 用於 Git SSH 認證
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.ssh,target=/home/devuser/.ssh,type=bind,consistency=cached",
+		// Claude Code MCP 服務器配置 - 用於 context7 等 MCP 服務器
+		"source=${localEnv:HOME}${localEnv:USERPROFILE}/.config/claude,target=/home/devuser/.config/claude,type=bind,consistency=cached"
+	],
+	// ============================================================
+	// 環境變數配置
+	// ============================================================
+	// containerEnv: 容器級環境變數，對所有進程可見（包括互動式 shell）
+	// remoteEnv: VS Code 遠端環境變數，對 IDE 和子進程可見
+	// ============================================================
+	"containerEnv": {
+		// Laravel 環境變數（開發環境預設值）
+		"APP_ENV": "local",
+		"APP_DEBUG": "true",
+		"LOG_CHANNEL": "stack",
+		// Composer 優化（不在開發環境檢查平台需求）
+		"COMPOSER_ALLOW_SUPERUSER": "1"
+	},
+	"remoteEnv": {
+		"APP_ENV": "local",
+		"APP_DEBUG": "true"
+	},
+	// ============================================================
+	// 生命週期命令
+	// ============================================================
+	// postCreateCommand: 容器建立後執行一次
+	// 注意：Laravel 專案尚未初始化，不執行 composer install
+	// 容器啟動後請手動執行以下命令之一來初始化專案：
+	//   1. composer create-project laravel/laravel . --prefer-dist
+	//   2. git clone <your-repo> .
+	// "postCreateCommand": "echo 'Container ready. Run: composer create-project laravel/laravel . --prefer-dist'",
+
+	// postStartCommand: 容器每次啟動時執行
+	// 1. 啟動 MariaDB 服務
+	// 2. 配置 context7 MCP 服務器（用於查詢最新的程式庫文檔）
+	"postStartCommand": "sudo service mariadb start && claude mcp add --transport stdio context7 -- npx -y @upstash/context7-mcp 2>/dev/null || true",
+
+	// VS Code 自訂設定
+	"customizations": {
+		"vscode": {
+			// 推薦的擴展
+			"extensions": [
+				// PHP 開發
+				"bmewburn.vscode-intelephense-client",
+				"xdebug.php-debug",
+				"zobo.php-intellisense",
+
+				// Laravel 開發
+				"onecentlin.laravel-blade",
+				"onecentlin.laravel5-snippets",
+				"amiralizadeh9480.laravel-extra-intellisense",
+
+				// 程式碼品質
+				"editorconfig.editorconfig",
+				"esbenp.prettier-vscode",
+
+				// 通用工具
+				"mikestead.dotenv",
+				"eamodio.gitlens",
+				"ms-azuretools.vscode-docker",
+
+				// 前端開發（Vite/Vue/React）
+				"dbaeumer.vscode-eslint",
+				"bradlc.vscode-tailwindcss"
+			],
+			// VS Code 設定
+			"settings": {
+				// PHP 設定
+				"php.validate.executablePath": "/usr/local/bin/php",
+				"php.suggest.basic": false,
+
+				// Intelephense 設定（PHP 智能提示）
+				"intelephense.files.maxSize": 5000000,
+				"intelephense.environment.phpVersion": "8.4.0",
+
+				// 編輯器設定
+				"editor.formatOnSave": true,
+				"editor.codeActionsOnSave": {
+					"source.fixAll": "explicit",
+					"source.organizeImports": "explicit"
+				},
+
+				// 檔案設定
+				"files.eol": "\n",
+				"files.associations": {
+					"*.blade.php": "blade"
+				},
+
+				// 終端設定
+				"terminal.integrated.defaultProfile.linux": "bash",
+
+				// PHP 格式化設定
+				"[php]": {
+					"editor.defaultFormatter": "bmewburn.vscode-intelephense-client",
+					"editor.formatOnSave": true
+				},
+
+				// Blade 範本設定
+				"[blade]": {
+					"editor.defaultFormatter": "onecentlin.laravel-blade",
+					"editor.formatOnSave": true
+				},
+
+				// JavaScript/TypeScript 設定
+				"[javascript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+				"[typescript]": {
+					"editor.defaultFormatter": "esbenp.prettier-vscode"
+				},
+
+				// 排除檔案（避免 IDE 掃描過多檔案）
+				"files.exclude": {
+					"**/.git": true,
+					"**/.DS_Store": true,
+					"**/vendor": true,
+					"**/node_modules": true,
+					"**/storage/framework/cache": true,
+					"**/storage/framework/sessions": true,
+					"**/storage/framework/views": true,
+					"**/storage/logs": true
+				},
+
+				// 搜索排除
+				"search.exclude": {
+					"**/vendor": true,
+					"**/node_modules": true,
+					"**/storage": true,
+					"**/public/build": true,
+					"**/public/hot": true
+				}
+			}
+		}
+	},
+	// 使用與主機 UID/GID 匹配的用戶（由 common-utils feature 創建）
+	// 該用戶已被加入 sudo 群組，可執行需要權限的命令
+	"remoteUser": "devuser",
+
+	// 容器關閉時的行為
+	"shutdownAction": "stopContainer",
+
+	// 轉發端口（Laravel 開發服務器預設端口）
+	"forwardPorts": [
+		8000,  // Laravel Artisan serve
+		5173,  // Vite 開發服務器
+		3306,  // MySQL（如果使用 Docker Compose）
+		6379   // Redis（如果使用 Docker Compose）
+	],
+
+	// 端口屬性（自動打開瀏覽器）
+	"portsAttributes": {
+		"8000": {
+			"label": "Laravel App",
+			"onAutoForward": "notify"
+		},
+		"5173": {
+			"label": "Vite Dev Server",
+			"onAutoForward": "silent"
+		}
+	},
+
+	// 啟動容器的功能特性
+	"features": {
+		// Git 配置
+		"example.invalid/devcontainers/features/git:1": {
+			"version": "latest"
+		},
+		// 自動創建與主機 UID/GID 匹配的用戶（解決文件權限問題）
+		"example.invalid/devcontainers/features/common-utils:2": {
+			"installZsh": true,
+			"installOhMyZsh": false,
+			"upgradePackages": false,
+			"username": "devuser",
+			"uid": "1000",
+			"gid": "1000",
+			"configureZshAsDefaultShell": false
+		}
+	}
+}

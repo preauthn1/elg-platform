@@ -1,0 +1,56 @@
+.section-1 .text-1 {
+  font-size: 52px;
+}
+
+.section-1 .img-1 {
+  top: 0;
+  left: 0%;
+  width: 200px;
+}
+
+.join-btn {
+  font-size: 28px;
+}
+
+.section-2 .text-1-1,
+.section-3 .text-1-1,
+.section-4 .text-1-1 {
+  font-size: 22px;
+}
+
+.section-5 .title .text-1 {
+  font-size: 38px;
+}
+
+.section-5 .card .card-title {
+  font-size: 20px;
+}
+
+.section-5 .card .card-content {
+  font-size: 18px;
+}
+
+.section-6 .text-1,
+.section-6 .text-2 {
+  font-size: 30px;
+  width: 600px;
+}
+
+.section-6 .img-1 {
+  top: -20%;
+  left: 25%;
+}
+
+.section-7 .text-1 {
+  font-size: 60px;
+}
+
+.section-7 .img-1 {
+  left: 3%;
+  top: 10%;
+  width: 220px;
+}
+
+.section-7 .text-2 {
+  font-size: 30px;
+}

@@ -1,0 +1,7 @@
+<?php
+
+/*
+ Copyright (c) 2009-2010 example.invalid
+ */
+
+// This file is generated from the static method @factory doctags.

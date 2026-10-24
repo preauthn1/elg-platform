@@ -1,0 +1,336 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #010101;
+  color: #fff;
+  font-family: "Inter", sans-serif;
+}
+
+nav {
+  height: 70px;
+  background: linear-gradient(180deg, #170e09 0%, #292116 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+
+nav .logo {
+  height: 60px;
+}
+
+nav a {
+  margin-left: auto;
+  color: #b28f57;
+  text-decoration: none;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.gradient-text {
+  background: -webkit-linear-gradient(#eedb9a 0%, #eedb9a 50%, #ab7232 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-line {
+  background: linear-gradient(#eedb9a 0%, #eedb9a 50%, #ab7232 100%);
+}
+
+.section-1 {
+  margin-top: 70px;
+  text-align: center;
+  background: url("../img/section_1_2.png") no-repeat center center/cover;
+  padding: 60px 20px;
+}
+
+.section-1 .text-1 {
+  font-size: 72px;
+  font-weight: 700;
+  white-space: nowrap;
+  margin-bottom: 32px;
+  position: relative;
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-1 .img-1 {
+  position: absolute;
+  left: 40%;
+  top: -20%;
+  width: 350px;
+}
+
+.section-1 .text-2 {
+  font-size: 24px;
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 40px;
+}
+
+.section-1 .img-2 {
+  max-width: 100%;
+  margin-bottom: 50px;
+}
+
+.section-1 .text-3 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.join-btn {
+  background: linear-gradient(180deg, #eedb9a 0%, #eedb9a 50%, #ab7232 100%);
+  color: #292116;
+  font-size: 40px;
+  font-weight: 700;
+  border: none;
+  border-radius: 10px;
+  border-radius: 50px;
+  padding: 16px 48px;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.section-2,
+.section-3,
+.section-4 {
+  position: relative;
+  display: flex;
+  align-items: center;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 60px 20px;
+}
+
+.section-2 .text-1-1,
+.section-3 .text-1-1,
+.section-4 .text-1-1 {
+  flex: 1;
+  font-size: 42px;
+  font-weight: 700;
+  position: relative;
+  white-space: nowrap;
+  margin-left: 38px;
+}
+
+.section-2 .text-1-1 .gradient-line,
+.section-3 .text-1-1 .gradient-line,
+.section-4 .text-1-1 .gradient-line {
+  position: absolute;
+  left: -30px;
+  top: 0;
+  bottom: 0;
+  width: 8px;
+}
+
+.section-2 .text-1-2,
+.section-3 .text-1-2,
+.section-4 .text-1-2 {
+  font-size: 24px;
+  font-weight: 700;
+  position: relative;
+  white-space: nowrap;
+  margin-left: 19px;
+}
+
+.section-2 .text-1-2 .gradient-line,
+.section-3 .text-1-2 .gradient-line,
+.section-4 .text-1-2 .gradient-line {
+  position: absolute;
+  left: -15px;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.section-3 .bg_1 {
+  position: absolute;
+  right: -45%;
+  top: -15%;
+  width: 800px;
+  z-index: -1;
+  rotate: 90deg;
+}
+
+.section-5 {
+  padding: 60px 20px;
+  position: relative;
+  max-width: 1220px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-5 .bg_1 {
+  position: absolute;
+  right: -35%;
+  top: 0%;
+  width: 800px;
+  z-index: -1;
+  rotate: 90deg;
+}
+
+.section-5 .bg_2 {
+  position: absolute;
+  left: -30%;
+  bottom: -35%;
+  width: 800px;
+  z-index: -1;
+  rotate: 180deg;
+}
+
+.section-5 .title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  margin-bottom: 80px;
+}
+
+.section-5 .title .text-1 {
+  font-size: 64px;
+  font-weight: 700;
+  white-space: nowrap;
+  margin: 0 20px;
+}
+
+.section-5 .title .img-1,
+.section-5 .title .img-2 {
+  width: 188px;
+}
+
+.section-5 .title .img-2 {
+  transform: rotateY(180deg);
+}
+
+.section-5 .title .img-3 {
+  position: absolute;
+  left: 50%;
+  bottom: -45%;
+  transform: translateX(-50%);
+  width: 160px;
+}
+
+.section-5 .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-5 .card {
+  background-color: #100c07;
+  border: 2px solid #392e1e;
+  padding: 40px 60px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.section-5 .card img {
+  margin-right: 60px;
+  width: 70px;
+}
+
+.section-5 .card .card-title {
+  font-size: 40px;
+  font-weight: 700;
+  color: #e8bd70;
+  margin-bottom: 16px;
+}
+
+.section-5 .card .card-content {
+  font-size: 28px;
+  line-height: 42px;
+}
+
+.section-6 {
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.section-6 .text-1,
+.section-6 .text-2 {
+  font-size: 64px;
+  font-weight: 700;
+  position: relative;
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.section-6 .img-1 {
+  position: absolute;
+  left: 52%;
+  top: 3%;
+  width: 260px;
+}
+
+.section-6 .img-2 {
+  position: absolute;
+  left: 52%;
+  top: -3%;
+  width: 266px;
+}
+
+.section-6 .img-3 {
+  position: absolute;
+  left: 40%;
+  bottom: -60%;
+  width: 316px;
+}
+
+.section-6 .img-4 {
+  margin-top: 40px;
+  max-width: 100%;
+}
+
+.section-7 {
+  text-align: center;
+  padding: 150px 0;
+  background: url("../img/section_7_1.png") no-repeat center center/cover;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: darken;
+}
+
+.section-7 .text-1 {
+  font-size: 84px;
+  font-weight: 700;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+}
+
+.section-7 .img-1 {
+  position: absolute;
+  left: 11%;
+  top: -5%;
+  width: 350px;
+}
+
+.section-7 .text-2 {
+  font-size: 45px;
+  font-weight: 700;
+}

@@ -1,0 +1,2044 @@
+body::-webkit-scrollbar {
+    display: none;
+    background-color: #400908;
+}
+
+#C711PC {
+    .disGray {
+        -webkit-filter: grayscale(1);
+    }
+
+    .up225 {
+        width: 450px;
+        height: 400px;
+        margin: auto;
+        position: fixed;
+        top: 200px;
+        right: 0;
+        left: 0;
+        z-index: 9998;
+        background-color: rgba(27, 28, 37, 0.651);
+
+        .upfont {
+            width: 80%;
+            border: 1px dashed #ffd378;
+            padding: 15px;
+            border-radius: 10px;
+            position: absolute;
+            margin: auto;
+            left: 0;
+            right: 0;
+            top: 20%;
+            font-weight: bold;
+            font-size: 14px;
+            background-color: black;
+
+            .title {
+                font-weight: bold;
+                font-size: 16px;
+                margin: 10px auto;
+            }
+
+            .con {
+                border-bottom: 1px solid#ffd378;
+            }
+        }
+    }
+
+    .vendor-name {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 85px;
+        display: inline-block;
+    }
+
+
+    // 鎖分跑馬燈
+    .marquee_Pos {
+        // position: absolute;
+        // bottom: -5px;
+        // left: 0;
+        // right: 0;
+        color: red;
+        // border: 2px solid blue;
+        margin: auto;
+        width: 50%;
+        font-size: 10px;
+    }
+
+    .marqueeRun {
+        width: 100%;
+        margin: auto;
+        margin-top: 1px;
+
+        // border: $border;
+        .marquee {
+            width: 100%;
+            // border: 2px solid yellow;
+            font-size: 10px;
+            font-weight: bolder;
+            color: #ff9614;
+            height: 25px;
+            line-height: 25px;
+            overflow: hidden;
+        }
+    }
+
+
+
+    html body {
+        font-family: "Helvetica", "Arial", "LiHei Pro", "黑體-繁", "微軟正黑體",
+            sans-serif;
+        background-color: #4d0b07 !important;
+    }
+
+    //背景共用
+    .pageBg {
+        background-image: url(../../../../static/img/C711_PC/BG.png);
+        background-size: 100%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-color: #2e0d02;
+    }
+
+    .pageBackground {
+        background-color: #2e0d02;
+        background-repeat: repeat;
+    }
+
+    //全部頁面的寬高
+    .CwidthHeight {
+        width: 100%;
+        height: 100%;
+    }
+
+    .widthHeightvh {
+        width: 100%;
+        height: 100vh;
+    }
+
+    // banner進入的event頁面
+    .bannerEvent {
+        width: 1280px;
+        margin: auto;
+    }
+
+    .noBannerEvent {
+        width: 100%;
+        margin: auto;
+    }
+
+    //Login_header
+    .page {
+        .pageTitle {
+            height: 55px;
+            line-height: 55px;
+            z-index: 100;
+            font-weight: bolder;
+            position: relative;
+
+            img {
+                width: 100%;
+                height: 100%;
+            }
+        }
+
+        .pageTitleAll {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            right: 0;
+        }
+
+        .loginbarBack {
+            width: 15%;
+            padding: 1px;
+            padding-top: 5px;
+
+            img {
+                width: 40px;
+                margin-left: 20px;
+            }
+        }
+
+        .loginbarTitle {
+            width: 50%;
+            padding: 1px;
+            text-align: center;
+            color: #ffd36d;
+
+            span {
+                font-size: 18px;
+                color: #ffd36d;
+                font-weight: bold;
+            }
+        }
+
+        .gamePointTransfer {
+            width: 10%;
+            padding: 1px;
+
+            img {
+                // margin-right: 10px;
+                width: 28px;
+            }
+        }
+
+        .loginbarright {
+            width: 15%;
+            padding: 1px;
+
+            .searchPic {
+                margin-right: 10px;
+                width: 20px;
+            }
+
+            img {
+                margin-right: 10px;
+                width: 35px;
+            }
+
+            span {
+                color: #fff;
+                font-size: 18px;
+                margin-right: 10px;
+            }
+
+            .dropdown-item {
+                height: 50px;
+            }
+        }
+
+        .iconImg {
+            width: 22px;
+        }
+    }
+
+    .pageCon {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+        color: #fff;
+    }
+
+    .eventsConFont {
+        color: #fff;
+        text-align: left;
+        font-size: 13px;
+        font-weight: bolder;
+        // border: $border;
+        margin-top: 5px;
+        margin-bottom: 10px;
+
+        .eventPr {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+            margin: 10px auto;
+        }
+
+        .eventPrR {
+            // border:2px solid blue;
+            width: 100%;
+            text-align: left;
+
+            img {
+                // margin-left:20px;
+                width: 25px;
+            }
+        }
+    }
+
+    //EventDiv
+    .black_EventDiv {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .black_Divbg {
+        background: #4a3934;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    // 摸彩活動背景漸層
+    .purple_Divbg {
+        background: #561d2d;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #561d2d 0%,
+                #501b2a 30%,
+                #15070b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .eventsTitle {
+        width: 100%;
+        margin: auto;
+        line-height: 30px;
+        text-align: left;
+
+        .eventsLogo {
+            width: 12%;
+
+            img {
+                margin-top: -10px;
+                width: 25px;
+            }
+        }
+
+        .eventsFont {
+            color: #ffd36d;
+            font-size: 15px;
+            width: 75%;
+
+            span {
+                color: rgb(126, 124, 124);
+                font-size: 13px;
+            }
+        }
+
+        .eventTicket {
+            width: 13%;
+
+            img {
+                margin-top: -5px;
+                margin-right: 10px;
+                width: 28px;
+            }
+        }
+    }
+
+    .eventTime {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+        font-weight: normal;
+    }
+
+    .reddeemTime {
+        width: 100%;
+        margin: auto;
+        color: #fe5f42;
+        font-size: 14px;
+        text-align: left;
+        font-weight: normal;
+    }
+
+    .remarks {
+        width: 100%;
+        margin: auto;
+        font-size: 14px;
+        text-align: left;
+        font-weight: bolder;
+    }
+
+    .eventsProgress {
+        width: 100%;
+        margin: 15px auto 8px auto;
+    }
+
+    .gamer_Btn {
+        width: 100%;
+        margin: auto;
+        // border: $border;
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    .slotGameFont {
+        color: rgb(109, 216, 255);
+        text-align: left;
+        font-weight: bolder;
+    }
+
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+            font-weight: bold;
+        }
+    }
+
+    .bar_Btn {
+        cursor: pointer;
+    }
+
+    .eventsPointFont {
+        width: 100%;
+        margin: auto;
+        color: #fff;
+        font-size: 13px;
+        text-align: left;
+
+        // font-weight: bold;
+        span {
+            color: #fe5f42;
+        }
+    }
+
+    .eventsBtn {
+        width: 100%;
+        margin: 15px auto;
+    }
+
+    .abreastBtn {
+        width: 46%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .abreastBtnTwo {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+        // border: $border;
+    }
+
+    // event用
+    .yellowcolor {
+        color: #fff;
+        font-weight: bolder;
+        font-size: 15px;
+        border: 1px solid #111217;
+        background: #e6dc97;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #e6dc97 1%,
+                #d9b23d 39%,
+                #a86100 94%,
+                #a86100 94%,
+                #c5984a 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .graycolor {
+        color: gray;
+        font-size: 15px;
+        font-weight: bolder;
+        border: 1px solid #111217;
+        background: #79655f;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #79655f 1%,
+                #675d6c 39%,
+                #313140 93%,
+                #1a1615 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .brown_BtnBg {
+        border: 1px solid #111217;
+        background: #6f411e;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #6f411e 1%,
+                #844c24 39%,
+                #271407 93%,
+                #0e0804 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //藍色漸層按鈕共用
+    .blue_BtnBg {
+        border: 1px solid #111217;
+        background: #1e83d8;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //按鈕字體大小顏色
+    .fontsizeBtn {
+        font-size: 15px;
+        color: #fff;
+        font-weight: bolder;
+    }
+
+    .marginBottom20 {
+        margin-bottom: 10px;
+    }
+
+    .EventDescriptTitle {
+        color: #ffd36d;
+        font-size: 15px;
+        text-align: left;
+
+        line-height: 30px;
+
+        .eventPr {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: left;
+        }
+
+        .eventPrR {
+            // border:2px solid blue;
+            width: 50%;
+            text-align: right;
+
+            img {
+                margin-top: -5px;
+                margin-left: 20px;
+                width: 25px;
+            }
+        }
+    }
+
+    .eventDesGame {
+        transform: translate3d(1px, 42px, 0px) !important;
+    }
+
+    .EventDescriptTime {
+        margin: 5px auto;
+        text-align: left;
+    }
+
+    .EventDescriptFont {
+        white-space: pre-wrap;
+        text-align: left;
+        margin: 3px auto;
+        padding-left: 2px;
+    }
+
+    .EventDescriptProgress {
+        width: 100%;
+        margin: 18px auto 8px auto;
+    }
+
+    .EventDescriptDate {
+        margin: 2px auto;
+        text-align: left;
+
+        // padding-left: 5px;
+        span {
+            color: #f8806a;
+        }
+    }
+
+    .dateFont {
+        // width: 100%;
+        color: #fff;
+        font-size: 13px;
+        line-height: 20px;
+        text-align: left;
+    }
+
+    .buttonClick {
+        margin-top: 40px;
+    }
+
+    // eventTicket.vue
+    .ticketTitle {
+        color: #ffd36d;
+        font-size: 15px;
+        text-align: left;
+        margin: 10px;
+    }
+
+    .ticketNumAll {
+        width: 100%;
+        // border: $border;
+        margin: auto;
+
+        .ticketNum {
+            text-align: left;
+            margin: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #ae6a07;
+
+            img {
+                margin-top: -5px;
+                margin-left: 5px;
+                width: 18px;
+            }
+
+            span {
+                margin-left: 8px;
+            }
+
+            .ticketUser {
+                margin-top: 5px;
+                text-align: right;
+                margin-right: 5px;
+                color: gray;
+            }
+        }
+    }
+
+    //輸入框字體大小顏色
+    .fontsizelogin {
+        font-size: 14px;
+        color: #fff;
+    }
+
+    //eventsIframe
+    .iframeHeight {
+        height: 100%;
+        // border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 2px;
+        background: #e6dc97;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #e6dc97 0%,
+                #e6dc97 50%,
+                #c5984a 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #e6dc97 0%,
+                #e6dc97 50%,
+                #c5984a 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #e6dc97 0%,
+                #e6dc97 50%,
+                #c5984a 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .modal {
+        top: 11%;
+    }
+
+    .modal.right .modal-dialog {
+        position: fixed;
+        margin: auto;
+        width: 400px;
+        height: 600px;
+        -webkit-transform: translate3d(-20%, 0, 0);
+        -ms-transform: translate3d(-20%, 0, 0);
+        -o-transform: translate3d(-20%, 0, 0);
+        transform: translate3d(-20%, 0, 0);
+    }
+
+    .closeBtn {
+        position: absolute;
+        top: 31px;
+        right: 15px;
+        z-index: 200;
+
+        img {
+            width: 51%;
+        }
+    }
+
+    .modal.right .modal-content {
+        height: 600px;
+        overflow-y: auto;
+        background: none;
+    }
+
+    .modal.right .modal-body {
+        padding: 15px 15px 15px;
+    }
+
+    /*Right*/
+    .modal.right.fade .modal-dialog {
+        right: 0px;
+        -webkit-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -moz-transition: opacity 0.3s linear, right 0.3s ease-out;
+        -o-transition: opacity 0.3s linear, right 0.3s ease-out;
+        transition: opacity 0.3s linear, right 0.3s ease-out;
+    }
+
+    .modal.right.fade.in .modal-dialog {
+        right: 0;
+    }
+
+    /* ----- MODAL STYLE ----- */
+    .modal-content {
+        border-radius: 0;
+        border: none;
+    }
+
+    .modal-header {
+        border-bottom-color: #eeeeee;
+        background-color: #fafafa;
+    }
+
+    // .talkModal {
+    //     // border: 2px solid red;
+    //     width: 400px;
+    //     height: 600px;
+    //     position: fixed;
+    //     top: 22%;
+    //     right: 4%;
+    //     z-index: 100;
+    // }
+    .iframeChat {
+        height: 100%;
+        // border: 2px solid yellow;
+        border-radius: 5px;
+        padding: 2px;
+        background: #e6dc97;
+        /* Old browsers */
+    }
+
+    .ScratchCardAll {
+        padding-top: 3px;
+        width: 100%;
+        height: 100vh;
+        margin: auto;
+        position: relative;
+
+        .scratchCardMask {
+            position: absolute;
+            top: 0px;
+            left: 0;
+            width: 100%;
+            margin: auto;
+            border: 2px solid #fff;
+            z-index: 500;
+            height: 100%;
+
+            img {
+                margin-top: 35%;
+                width: 340px;
+                height: 340px;
+                // border: 2px solid #fff;
+            }
+        }
+
+        img {
+            height: 92vh;
+        }
+    }
+
+    .Popups_Modal {
+        // color: #fff;
+        width: 400px;
+        height: 800px;
+        border-radius: 8px;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .Lottery {
+        width: 100%;
+        height: 100%;
+    }
+
+    .Events_bar {
+        width: 100%;
+        height: 44px;
+    }
+
+    .LotteryAll {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        margin-top: 10px;
+        position: relative;
+
+        .LotteryBgPic {
+            width: 100%;
+            height: 100vh;
+        }
+
+        .LotteryTitle {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            color: #fff;
+            font-weight: bold;
+            margin: auto;
+            font-size: 18px;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+
+        .LotteryGo {
+            width: 100%;
+            position: absolute;
+            top: 15%;
+            left: 0;
+            right: 0;
+        }
+    }
+
+    .firework {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: 100vh;
+    }
+
+    .lottery_Modal {
+        color: #fff;
+        width: 300px;
+        border-radius: 8px;
+        margin: auto;
+        position: relative;
+        text-align: center;
+        top: 50%;
+        transform: translateY(-50%);
+
+        .PopupsTitle {
+            // position: relative;
+            height: 50px;
+            line-height: 50px;
+            font-weight: bolder;
+            border-radius: 8px 8px 0px 0px;
+            background: #ff6000;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #ff6000 0%,
+                    #e95104 50%,
+                    #a8250f 100%);
+
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            .modalClose {
+                position: absolute;
+                top: 12px;
+                right: 10px;
+                width: 25px;
+            }
+        }
+
+        //有按鈕
+        .PopupsConAll {
+            // background-color: #2b2c33;
+            background: #981817;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #981817 0%,
+                    #8d0002 35%,
+                    #141418 95%,
+                    #880000 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            height: 250px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //無按鈕
+        .PopupsConNoBtn {
+            background-color: #2b2c33;
+            height: 180px;
+            border-radius: 0px 0px 8px 8px;
+            position: relative;
+            box-shadow: 0px 2px 2px #2b2c33;
+        }
+
+        //有按鈕
+        .PopupsCon {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 60%;
+            // background-color: #151622;
+            // border-bottom: 1px solid #50515b;
+            background-color: #310f12;
+            border-bottom: 1px solid #955a2d;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        //無按鈕
+        .PopupsConNo {
+            position: absolute;
+            top: 10px;
+            right: 0;
+            left: 0;
+            margin: auto;
+            width: 90%;
+            height: 80%;
+            background-color: #151622;
+            border-bottom: 1px solid #50515b;
+            border-radius: 5px;
+            // box-shadow: 1px 1px 3px 2px #151622 inset;
+        }
+
+        .popupsConFont {
+            padding-top: 30px;
+            font-size: 15px;
+        }
+
+        .popupsBank {
+            padding-top: 20px;
+            font-size: 15px;
+        }
+
+        .PopupsBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 0;
+            left: 0;
+            width: 80%;
+            margin: auto;
+        }
+    }
+
+    // 2.無框按鈕
+    .btn-lottery {
+        width: 125px;
+        padding: 2px 0 1px;
+        border-radius: 10px;
+        background: linear-gradient(#fea068 0%, #c93b09 50%, #ff863d 100%);
+        box-shadow: 0 5px 8px -3px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        margin: auto;
+        display: inline-block;
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+
+            display: block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 15px;
+        }
+    }
+
+    // RecordList.vue
+    .RecordListCon {
+        margin: 2px auto;
+        width: 100%;
+
+        thead {
+            color: #fff;
+            font-size: 15px;
+            line-height: 15px;
+
+            th {
+                vertical-align: middle;
+                border: none;
+            }
+
+            .number {
+                width: 25%;
+            }
+
+            .cardnumber {
+                width: 30%;
+            }
+
+            .date {
+                width: 25%;
+            }
+
+            .gamer {
+                width: 25%;
+            }
+
+            .cardgamer {
+                width: 30%;
+            }
+
+            .point {
+                width: 30%;
+                margin: auto;
+            }
+
+            .cardpoint {
+                width: 30%;
+            }
+        }
+
+        tbody {
+            color: #fff;
+            font-size: 13px;
+
+            th {
+                border: none;
+                vertical-align: middle;
+            }
+
+            td {
+                border: none;
+                vertical-align: middle;
+            }
+        }
+
+        .colorR {
+            color: #fe5f00;
+        }
+
+        .colorG {
+            color: #00c3fe;
+        }
+    }
+
+    .cursorS {
+        cursor: pointer;
+    }
+
+    .fontOrange {
+        color: orange;
+    }
+
+    .marginTop20 {
+        margin-top: 20px;
+    }
+
+    .aboutEvent {
+        button[aria-expanded="true"] {
+            border: 1px solid #111217;
+            background: #d50f0c;
+            /* Old browsers */
+            background: -moz-linear-gradient(top,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* FF3.6-15 */
+            background: -webkit-linear-gradient(top,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom,
+                    #d50f0c 1%,
+                    #d50f0c 1%,
+                    #8d0002 44%,
+                    #141418 95%,
+                    #880000 100%);
+            /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        }
+
+        .termsAndConditions {
+            transform: translate3d(1px, 40px, 0px) !important;
+        }
+
+        .dropdown-menu {
+            top: -2px;
+        }
+
+        .dropdown-menu.show {
+            width: 100%;
+        }
+
+        .aboutCon {
+            padding: 10px;
+            font-size: 13px;
+        }
+
+        //輸入框
+        .black_InputAll {
+            margin: auto;
+            padding: 5px;
+            width: 100%;
+            height: 40px;
+            border: 2px solid #111217;
+            display: inline-block;
+            padding: 0.5em 0.75em;
+            border-radius: 10px;
+        }
+    }
+
+    .black_inputbg {
+        background: #4a3934;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #4a3934 1%,
+                #312836 49%,
+                #141418 90%,
+                #141418 94%,
+                #621919 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .orange_inputbg {
+        background: #f95c01;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #f95c01 1%,
+                #b42d0d 49%,
+                #8b1a13 90%,
+                #8b1a13 94%,
+                #922012 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    //黑底一左一右共用
+    .blackInput {
+        font-size: 14px;
+        color: #fff;
+        text-align: right;
+        position: relative;
+
+        .inputFontLeft {
+            position: absolute;
+            left: 7px;
+            top: 2;
+        }
+
+        .inputFontCenter {
+            position: absolute;
+            top: 2;
+            left: 0;
+            right: 0;
+        }
+
+        .inputFontRight {
+            position: absolute;
+            right: 7px;
+            top: 2;
+        }
+
+        .appFontLeft {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            margin-top: -10px;
+
+            img {
+                margin-top: -5px;
+                width: 20px;
+            }
+        }
+
+        .appFontRight {
+            position: absolute;
+            right: 7px;
+            top: 50%;
+            margin-top: -10px;
+
+            img {
+                width: 10px;
+            }
+        }
+    }
+
+    .yellow_borderDropdown {
+        // border: $border;
+        border-radius: 0px 0px 10px 10px;
+        padding: 1px;
+        background: #81500b;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .gray_dropdownBg {
+        background-color: #312836;
+        color: #fff;
+        border-radius: 0px 0px 10px 10px;
+        width: 100%;
+        margin-top: 0px;
+
+        // margin-left: 1%;
+        a {
+            color: #fff;
+            font-size: 15px;
+        }
+    }
+
+    .aboutCon {
+        padding: 10px;
+        font-size: 13px;
+    }
+
+    // EVENT 登入活動
+    .goldBorder {
+        width: 85%;
+        background: #093e6a;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #c3692f 0%,
+                #f6cb39 10%,
+                #fdf4b3 30%,
+                #f6cb39 50%,
+                #c3692f 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .pointbtnBorder_all {
+        margin: 24px auto;
+        border-radius: 9px;
+    }
+
+    .eventDiv {
+        margin: 1px;
+        width: 99.5%;
+        border: 1px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+        // background-color: #2b2b33f5;
+        color: #fff;
+        font-size: 14px;
+    }
+
+    .eventDivbg {
+        background: #211d23;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #211d23 0%,
+                #2b2c33 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #211d23 0%,
+                #2b2c33 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #211d23 1%,
+                #2b2c33 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .eventlottyDiv {
+        background: #383838;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #383838 0%,
+                #5c5c5c 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #383838 0%,
+                #5c5c5c 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #383838 0%,
+                #5c5c5c 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .pointLockBtn {
+        margin-top: 4px;
+        margin-right: 1px;
+
+        img {
+            height: 31px;
+        }
+    }
+
+    //黃色漸層border共用
+    .yellow_borderInput {
+        border-radius: 10px;
+        padding: 1px;
+        background: #81500b;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #81500b 1%,
+                #c58014 49%,
+                #ac6f11 70%,
+                #82520b 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .lockHeight {
+        margin: auto;
+        padding: 5px;
+        width: 100%;
+        // height: 40px;
+        border: 2px solid #111217;
+        display: inline-block;
+        padding: 0.5em 0.75em;
+        border-radius: 10px;
+    }
+
+    .fontsizeLock {
+        font-size: 9px;
+        color: #fff;
+        font-weight: bolder;
+    }
+
+    .blue_BtnBg {
+        border: 1px solid #111217;
+        background: #1e83d8;
+        /* Old browsers */
+        background: -moz-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* FF3.6-15 */
+        background: -webkit-linear-gradient(top,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* Chrome10-25,Safari5.1-6 */
+        background: linear-gradient(to bottom,
+                #1e83d8 1%,
+                #004f91 39%,
+                #141418 93%,
+                #004884 100%);
+        /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    }
+
+    .epidemicPic {
+        width: 95%;
+        margin: auto;
+        background-color: none;
+        padding-bottom: 100px;
+    }
+
+    .epid_pic {
+        width: 50%;
+        margin: 10px auto;
+        color: #fff;
+        text-align: left;
+        font-size: 15px;
+        font-weight: bold;
+
+        span {
+            margin: 5px auto;
+        }
+
+        img {
+            width: 100%;
+            cursor: pointer;
+        }
+    }
+
+
+
+    #agentPage {
+
+        width: 75%;
+        margin: auto;
+        font-size: 12px;
+
+        .bottom-img {
+            margin-top: 60px;
+
+            img {
+                margin-left: auto;
+                margin-right: auto;
+                width: 400px;
+                border: solid 3px #FFF;
+                border-radius: 5px;
+            }
+        }
+
+
+
+        .topTable {
+
+            color: #FFF;
+            width: 100%;
+            margin: auto;
+
+            tr {
+                text-align: center;
+            }
+
+            th {
+                line-height: 14px;
+                background: #222;
+                padding: 10px 5px;
+            }
+
+            td {
+                padding: 11px 5px;
+                background: rgba(54, 13, 14, 0.902);
+            }
+
+            td,
+            th {
+                font-size: 14px;
+                border: solid 1px #FDD04E;
+            }
+
+            .border-top-left {
+                border-top-left-radius: 7px;
+            }
+
+            .border-top-right {
+                border-top-right-radius: 7px;
+            }
+
+            .border-btm-left {
+                border-bottom-left-radius: 7px;
+            }
+
+            .border-btm-right {
+                border-bottom-right-radius: 7px;
+            }
+
+        }
+
+
+        table.topTable {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+
+
+        .flexDiv {
+            display: flex;
+        }
+
+        $fakeInputPaddingRight : 15px;
+
+        .flexDiv .fakeInput.noRightItem {
+            padding-right: $fakeInputPaddingRight;
+            text-align: right;
+        }
+
+        .closeImg {
+            cursor: pointer;
+        }
+
+        .half_popUp .fakeInput {
+            font-size: 15px;
+        }
+
+
+        .flexDiv .fakeInput.brown {
+            background: rgba(31, 14, 14, 0.902);
+        }
+
+        .flexDiv input,
+        .flexDiv .fakeInput {
+            width: 95%;
+            position: relative;
+            margin: 3px 0px;
+            border-radius: 10px;
+            height: 40px;
+            line-height: 40px;
+            color: #AAA;
+            background: linear-gradient(#433434, #27212c 50%, #171418 85%, #3d1618 97%, #3d1618);
+            border: solid 1px #c3b626;
+            padding-left: 7px;
+
+
+
+            .hideInput {
+                background: rgba(0, 0, 0, 0);
+                border: none;
+                margin: 0;
+                outline: none;
+                text-align: right;
+                padding-right: $fakeInputPaddingRight;
+            }
+
+
+            .innerText {
+                width: 85%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            .copyBtn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                height: 15px;
+                width: 15px;
+            }
+        }
+
+        .middle-box {
+            margin-top: 50px;
+            margin-left: auto;
+            margin-right: auto;
+            width: 85%;
+        }
+
+        .float-r {
+            float: right;
+        }
+
+        .f25 {
+            width: 25%;
+        }
+
+        .f30 {
+            width: 25%;
+        }
+
+        .f40 {
+            width: 40%;
+        }
+
+        .f50 {
+            width: 50%;
+        }
+
+        .f60 {
+            width: 60%;
+        }
+
+        .f70 {
+            width: 70%;
+        }
+
+        .f75 {
+            width: 75%;
+        }
+
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            width: 100%;
+            height: 38px;
+            display: block;
+            padding: 5px 10px;
+            border-radius: 10px;
+            border: 0;
+            color: #fff;
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+
+        button.fixRight {
+            position: absolute;
+            min-width: 75px;
+            width: auto;
+            right: 5px;
+            top: 5px;
+        }
+
+
+        button.popup {
+            min-width: 125px;
+            width: auto;
+            display: inline-block;
+        }
+
+
+
+        .inputFontLeft {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            width: 85px;
+            text-align: left;
+        }
+
+        .inputFontRight.agentInfo {
+            text-align: left;
+            line-height: 25px;
+            color: #CCC;
+        }
+
+
+
+
+        button.orange {
+            background: -webkit-gradient(linear, left top, left bottom, from(#f95c01), color-stop(50%, #c93b09), to(#991a11));
+            background: linear-gradient(#f95c01 0%, #c93b09 50%, #991a11 100%);
+
+        }
+
+        button.yellow {
+            background: #e6dc97;
+            background: -webkit-gradient(linear, left top, left bottom, color-stop(1%, #e6dc97), color-stop(39%, #d9b23d), color-stop(94%, #a86100), color-stop(94%, #a86100), to(#c5984a));
+            background: linear-gradient(to bottom, #e6dc97 1%, #d9b23d 39%, #a86100 94%, #a86100 94%, #c5984a 100%);
+        }
+
+
+        button.blue {
+            background: -webkit-gradient(linear, left top, left bottom, from(#0087fb), color-stop(50%, #0c63bc), to(#12468d));
+            background: linear-gradient(#0087fb 0%, #0c63bc 50%, #12468d 100%);
+        }
+
+        .qrWrapper {
+            margin-right: 30px;
+        }
+
+
+        #qrcode {
+            text-align: center;
+
+            img {
+                width: 100px;
+                display: inline-block !important;
+                border: solid 5px #FFF;
+                cursor: pointer;
+            }
+        }
+
+
+        #qrcodeBig {
+            padding: 35px;
+        }
+
+        #qrcodeBig img {
+            margin: auto;
+            width: 200px;
+            border: solid 10px #FFF;
+        }
+
+
+        .q-img-button {
+            height: 45px;
+            float: right;
+        }
+
+        .ad-small-img {
+
+            margin-right: 15px;
+        }
+
+        .imageRow img {
+            cursor: pointer;
+        }
+
+
+        .bottomRow {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .bottomRow button {
+
+            display: inline-block;
+            width: auto;
+            margin-right: 20px;
+            min-width: 200px;
+        }
+
+
+
+        .white-title {
+            font-size: 16px;
+            text-align: left;
+            padding: 15px;
+            margin-bottom: 10px;
+        }
+
+
+        .adImgBox {
+            position: relative;
+
+            .info-btn {
+                position: absolute;
+                right: 10px;
+                bottom: 10px;
+                z-index: 100;
+            }
+
+        }
+
+        .hintMemo {
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+
+
+        table.agent-dataTable {
+
+
+            width: 900px;
+            margin: auto;
+            font-size: 14px;
+
+            th {
+                color: #FFE992;
+                padding: 15px 10px;
+                background: linear-gradient(#370C12 0%, #370C12 2%, #561D2D 5%, #501B2A 28%, #15070B 90%, #370C12 100%);
+            }
+
+            td {
+                padding: 10px;
+                background: rgba(54, 13, 14, 0.902);
+            }
+
+        }
+
+
+
+
+        .select_block {
+
+            select {
+                height: auto;
+                color: rgb(255, 255, 255);
+                cursor: pointer;
+            }
+
+            button {
+                min-width: 200px;
+                width: auto;
+                margin: 12px 15px;
+            }
+
+        }
+
+
+        .box {
+            height: 40px;
+
+            .v-middle {
+                display: inline-block;
+                vertical-align: middle;
+            }
+        }
+
+        .box:before {
+            content: '';
+            display: inline-block;
+            vertical-align: middle;
+            width: 0;
+            height: 100%;
+        }
+
+        .formLabel {
+            line-height: 40px;
+            font-size: 15px;
+        }
+
+
+
+        #agentRules {
+
+            border: solid 1px #AA6D10;
+            border-radius: 5px;
+            background: #360D0E;
+            text-align: left;
+            color: #FFF;
+            padding: 25px;
+            font-size: 14px;
+            padding-bottom: 200px;
+
+            .coin-icon {
+                margin-top: 0px !important;
+                height: 18px;
+                width: 18px;
+            }
+
+
+            .bigTitleRow {
+                display: flex;
+                position: relative;
+
+            }
+
+            .bigTitle {
+                font-size: 16px;
+                color: #FFD36D;
+                margin: 0px 10px;
+            }
+
+            .image-sample {
+                text-align: center;
+            }
+
+            .image-sample img {
+                display: inline-block;
+            }
+
+
+            // .wrapper-d {
+            //     border-radius: 10px;
+            //     background: linear-gradient(#4A3934 0%, #312836 33%, #141418 66% #621919 100%);
+
+            //     border: solid 1px #C58014;
+            //     padding: 10px;
+            //     font-size: 12px;
+            // }
+
+
+
+            table.ruleLevels {
+
+                width: 80%;
+                margin-top: 35px;
+                margin-bottom: 35px;
+                margin-right: auto;
+                margin-left: auto;
+                font-size: 14px;
+
+
+                $border-yellow: #817348;
+
+                th,
+                td {
+                    text-align: right;
+                    border-bottom: solid 1px $border-yellow;
+                }
+
+
+                th {
+                    border-top: solid 1px $border-yellow;
+                    color: #F7C11A;
+                    font-weight: 700;
+                    height: 40px;
+                    padding: 2px;
+                    text-align: center;
+                }
+
+                td {
+                    font-weight: 100;
+                    color: #CCC;
+                    text-align: center;
+                }
+            }
+
+            .eachQ {
+                margin-bottom: 25px;
+
+
+                .Question {
+                    font-weight: 700;
+                }
+
+                .Answer {
+                    font-weight: 100;
+                    color: #CCC;
+
+                    ol {
+                        display: inline-block;
+                    }
+
+                    ol li {
+                        padding: 1px 20px;
+                        list-style-type: decimal;
+                    }
+
+
+
+                }
+
+                img {
+                    margin-top: 20px;
+                }
+
+            }
+
+
+        }
+
+
+
+
+
+
+    }
+
+
+
+    .closeBtn-pop {
+        top: 7px;
+        right: 10px;
+        width: 27px;
+        position: absolute;
+    }
+
+
+    .record {
+        margin: 30px auto;
+    }
+
+}
+
+.img-border10 {
+    border-radius: 10px;
+}
+
+.validateDiv {
+    color: #d80000;
+}
+
+.text-c {
+    text-align: center;
+}
+
+.text-r {
+    text-align: right;
+}

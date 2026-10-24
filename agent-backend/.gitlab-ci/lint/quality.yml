@@ -1,0 +1,173 @@
+# ──────────────────────────────────────────────────────────────────────────
+# lint stage：commit message 格式檢查 + 前端 lint / typecheck（只跑 MR 與 release tag pipeline）
+# 移植自 apis/.gitlab-ci/lint/commit_message.yml，改用 node image。
+# ──────────────────────────────────────────────────────────────────────────
+
+# commit message 格式（與 repo .commitlintrc.js / lefthook commit-msg 規則一致）
+lint:commit-message:
+  stage: lint
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/nodebase/24:latest
+  tags:
+    - php8
+  before_script:
+    - apt-get update && apt-get install -y --no-install-recommends git
+    # MR 時 fetch target branch 當比對基準（shallow clone 預設不含其他分支）。
+    # 不可 fetch 來源分支：快速合併會在 job 跑到這裡前刪掉它而 fatal；HEAD 由 MR ref 取出，不依賴它
+    - |
+      if [ "$CI_PIPELINE_SOURCE" = "merge_request_event" ]; then
+        git fetch origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+      fi
+  script:
+    - |
+      bash << 'EOF'
+      set -e
+      # 強制 UTF-8 locale：wc -m 在 C/POSIX locale 下會把 CJK 算成 3 bytes，改以「字元數」計長度
+      export LC_ALL=C.UTF-8
+
+      RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
+
+      VALID_TYPES="feat|fix|refactor|test|chore|docs|perf|revert|style|ci|ai|skill"
+      FORMAT_PATTERN="^($VALID_TYPES)(\([^)]+\))?: .+"
+      MAX_LEN=130
+      MIN_DESC_LEN=4
+      FAILED=0
+
+      echo -e "${YELLOW}🔍 檢查 Commit Message 格式...${NC}"
+      echo ""
+
+      # 決定比對基準：MR → target branch；Push → 前一個 commit；新分支首推 → 只檢查 HEAD
+      if [ -n "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME" ]; then
+        BASE_REF="origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME}"
+      elif [ -n "$CI_COMMIT_BEFORE_SHA" ] && \
+           [ "$CI_COMMIT_BEFORE_SHA" != "0000000000000000000000000000000000000000" ]; then
+        BASE_REF="$CI_COMMIT_BEFORE_SHA"
+      else
+        BASE_REF="HEAD~1"
+      fi
+
+      COMMITS=$(git log "${BASE_REF}..HEAD" --no-merges --pretty=format:"%H %s" 2>/dev/null || git log -1 --pretty=format:"%H %s")
+
+      if [ -z "$COMMITS" ]; then
+        echo -e "${YELLOW}⚠️  無可驗證的 commit${NC}"; exit 0
+      fi
+
+      while IFS= read -r line; do
+        HASH=$(echo "$line" | awk '{print $1}')
+        TITLE=$(echo "$line" | cut -d' ' -f2-)
+        SHORT_HASH="${HASH:0:8}"
+        COMMIT_VALID=true
+
+        # 略過 fixup! / squash! / revert / merge 自動訊息
+        if echo "$TITLE" | grep -qE "^(fixup! |squash! |Revert \"|Reapply \"|Merge branch |Merge remote-tracking branch |Merge tag )"; then
+          continue
+        fi
+
+        # 規則 1：格式
+        if ! echo "$TITLE" | grep -qE "$FORMAT_PATTERN"; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 格式錯誤${NC}"
+          echo -e "   期望格式：${YELLOW}<type>: <描述>${NC}"
+          echo -e "   有效類型：${YELLOW}${VALID_TYPES//|/、}${NC}"
+          echo -e "   實際標題：${RED}${TITLE}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 2：標題長度
+        TITLE_LEN=$(echo -n "$TITLE" | wc -m | tr -d ' ')
+        if [ "$TITLE_LEN" -gt "$MAX_LEN" ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 標題過長（${TITLE_LEN} 字元，上限 ${MAX_LEN}）${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 3：描述字數
+        DESCRIPTION=$(echo "$TITLE" | sed -E "s/^($VALID_TYPES)(\([^)]+\))?: //")
+        DESC_LEN=$(echo -n "$DESCRIPTION" | wc -m | tr -d ' ')
+        if [ "$DESC_LEN" -lt "$MIN_DESC_LEN" ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 描述過短（${DESC_LEN} 字，至少需 ${MIN_DESC_LEN} 字）${NC}"
+          COMMIT_VALID=false
+        fi
+
+        # 規則 4：描述不得全由泛用詞組成
+        GENERIC_WORDS="fix fixed fixes bug bugs hotfix patch update updates updated modify modified change changed changes add added remove removed delete deleted test tests testing wip tmp temp todo cleanup refactor refactoring adjust adjusted improve improved improvement enhancement minor 修 改 修改 修正 修復 調整 更新 新增 刪除 優化 測試 修bug"
+        LOWER_DESC=$(echo "$DESCRIPTION" | tr '[:upper:]' '[:lower:]')
+        ALL_GENERIC=true
+        for word in $LOWER_DESC; do
+          word=$(echo "$word" | sed 's/[[:punct:]]//g')
+          [ -z "$word" ] && continue
+          IS_GENERIC=false
+          for gw in $GENERIC_WORDS; do
+            if [ "$word" = "$gw" ]; then IS_GENERIC=true; break; fi
+          done
+          if [ "$IS_GENERIC" = false ]; then ALL_GENERIC=false; break; fi
+        done
+        if [ "$ALL_GENERIC" = true ]; then
+          echo -e "${RED}❌ [${SHORT_HASH}] 描述全由泛用詞組成，看不出實際變更為何${NC}"
+          echo -e "   OK：${GREEN}fix login bug${NC}、${GREEN}修正登入 token 過期問題${NC}"
+          echo -e "   實際描述：${RED}${DESCRIPTION}${NC}"
+          COMMIT_VALID=false
+        fi
+
+        if [ "$COMMIT_VALID" = true ]; then
+          echo -e "${GREEN}✅ [${SHORT_HASH}] ${TITLE}${NC}"
+        else
+          FAILED=$((FAILED + 1)); echo ""
+        fi
+      done <<< "$COMMITS"
+
+      echo ""
+      if [ "$FAILED" -gt 0 ]; then
+        echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        echo -e "${RED}  ${FAILED} 筆 Commit 格式不符，驗證失敗   ${NC}"
+        echo -e "${RED}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+        exit 1
+      fi
+      echo -e "${GREEN}✅ 所有 Commit Message 格式檢查通過${NC}"
+      EOF
+  # 只在 MR pipeline 跑：比對基準是 MR target branch；一般 branch push 不跑，tag pipeline 沒有基準（只剩 HEAD 的 merge commit）也不跑
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+  allow_failure: false
+
+# pnpm-lock.yaml 有變更時預先暖 .pnpm-store 快取（唯一會上傳快取的 job；其餘 job 只下載，見 _cache.yml）。
+# 新 MR 第一條 pipeline 時 GitLab 把 changes 視為全部變更，也會跑一次，順便把 unprotect 後的新 key 建起來。
+cache:warm:
+  stage: lint
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/nodebase/24:latest
+  tags:
+    - php8
+  extends:
+    - .pnpm_cache_push
+  script:
+    - corepack enable
+    - corepack prepare pnpm@11.5.2 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - pnpm-lock.yaml
+
+# 前端 lint + typecheck（跑 repo 既有 script）
+lint:code:
+  stage: lint
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/nodebase/24:latest
+  tags:
+    - php8
+  extends:
+    - .pnpm_cache
+  # lockfile 有變更的 pipeline 先等 cache:warm 暖好再拉；沒變更時 cache:warm 不存在，optional 讓本 job 照常起跑
+  needs:
+    - job: cache:warm
+      optional: true
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@11.5.2 --activate
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install --frozen-lockfile
+  script:
+    - pnpm lint
+    - pnpm check:type
+  # 只在 MR pipeline 與 release tag pipeline 跑；一般 branch push 不跑 lint（對齊 apis：合併前由 MR 把關、合併後由 tag 把關）
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_TAG =~ /^release_\d+$/
+  allow_failure: false

@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-web-deployment
+spec:
+  selector:
+    matchLabels:
+      app: frontend-web
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: frontend-web
+    spec:  
+      containers:
+        - name: frontend-nginx-container
+          image: "example.invalid/tp-wz3-rd/frontend-web-nginx-image:bb71b27"
+          ports:
+            - containerPort: 80
+        - name: frontend-nginx-container-master
+          image: "example.invalid/tp-wz3-rd/frontend-web-nginx-image-master:2b23153"
+          ports:
+            - containerPort: 8080

@@ -1,0 +1,53 @@
+default:
+  tags:
+    - newoci
+
+stages:
+  - verify
+  - deploy
+
+verify_production_dependencies:
+  stage: verify
+  image: node:22-bookworm-slim
+  script:
+    - npm ci --omit=dev
+    - node --check server/index.js
+    - npm audit --omit=dev --audit-level=high
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+
+deploy_production:
+  stage: deploy
+  image: alpine:3.22
+  resource_group: tpower-production
+  environment:
+    name: production
+    url: https://newofficial.tpower.game
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+  before_script:
+    - apk add --no-cache openssh-client rsync
+    - eval "$(ssh-agent -s)"
+    - chmod 400 "$DEPLOY_SSH_KEY"
+    - ssh-add "$DEPLOY_SSH_KEY"
+    - install -d -m 700 ~/.ssh
+    # DEPLOY_SSH_KEY 與 DEPLOY_KNOWN_HOSTS 都使用 GitLab File-type variable。
+    - cp "$DEPLOY_KNOWN_HOSTS" ~/.ssh/known_hosts
+    - chmod 600 ~/.ssh/known_hosts
+  script:
+    - >-
+      ssh "$DEPLOY_USER@$DEPLOY_HOST"
+      "sudo -n /usr/local/sbin/deploy-tpower prepare '$CI_COMMIT_SHA'"
+    - >-
+      rsync -az --delete
+      --exclude='.git/'
+      --exclude='node_modules/'
+      --exclude='.env*'
+      --exclude='content/'
+      --exclude='uploads/'
+      ./ "$DEPLOY_USER@$DEPLOY_HOST:/var/tmp/tpower-upload/$DEPLOY_USER/$CI_COMMIT_SHA/"
+    - >-
+      ssh "$DEPLOY_USER@$DEPLOY_HOST"
+      "sudo -n /usr/local/sbin/deploy-tpower deploy '$CI_COMMIT_SHA'"

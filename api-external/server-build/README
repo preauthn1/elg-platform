@@ -1,0 +1,19 @@
+openssl genrsa -out betmonsters-ingress.key 2048
+openssl req -new -key betmonsters-ingress.key -out betmonsters-ingress.csr     -subj "/CN=example.invalid"
+openssl x509 -req -days 365 -in betmonsters-ingress.csr -signkey betmonsters-ingress.key     -out betmonsters-ingress.crt
+
+gcloud compute ssl-certificates create agent-api-betmonsters-ingress --certificate betmonsters-ingress.crt --private-key betmonsters-ingress.key
+gcloud compute ssl-certificates create xsgcasino-ingress --certificate wildcard_xsgcasino_com.crt --private-key wildcard_xsgcasino_com.key
+gcloud compute ssl-certificates list
+
+kubectl apply -f webapi-configmap.yaml
+kubectl apply -f webapi-deployment.yaml
+kubectl apply -f webapi-service.yaml
+kubectl apply -f webapi-ingress.yaml
+
+kubectl describe ingress agent-webapi-ingress # wait for seconds
+# sudo vi /etc/hosts e.g., IP = 0.0.0.0
+
+# wait for minutes
+curl -k https://example.invalid
+curl    http://example.invalid

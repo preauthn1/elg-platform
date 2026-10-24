@@ -1,0 +1,38 @@
+{
+  "extraKnownMarketplaces": {
+    "gff-marketplace": {
+      "source": {
+        "source": "git",
+        "url": "http://example.invalid:1688/target/gffv3/GFF-Marketplace.git"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "qa-toolkit@gff-marketplace": true,
+    "legend-toolkit@gff-marketplace": false,
+    "slack@claude-plugins-official": false,
+    "telegram@claude-plugins-official": false
+  },
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(npm test:*)",
+      "Bash(npm install)",
+      "Bash(npx playwright:*)",
+      "Bash(node --version)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git checkout -b:*)",
+      "Bash(git branch:*)",
+      "Bash(git stash:*)"
+    ],
+    "deny": [
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(rm -rf:*)"
+    ]
+  }
+}

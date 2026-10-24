@@ -1,0 +1,147 @@
+stages:
+  - build
+  - test
+  - build-docker
+  - deploy-to-enviroment
+  - deploy-to-gke
+#  - send-slack-notify-k8s
+#  - send-slack-notify-when-fail
+
+#確定可以建置成功
+Test Build:
+  stage: build
+  tags:
+    - dotnet
+  only:
+    - master
+  image: example.invalid/dotnet/core/sdk:3.1
+  artifacts:
+    name: release
+    expire_in: 60 min
+    paths:
+      - release
+  script:
+    - date
+    - dotnet restore TG_Hook_API.sln
+    - date
+    - dotnet build TG_Hook_API.sln
+    - date
+    - mkdir -p ${CI_PROJECT_DIR}/release
+    - cd ${CI_PROJECT_DIR}/TG_Hook_API
+    - dotnet publish -c Release -o ${CI_PROJECT_DIR}/release/TG_Hook_API
+Run Test:
+  stage: test
+  tags:
+    - dotnet
+  only:
+    - master
+  image: example.invalid/dotnet/core/sdk:3.1
+  script:
+    - sed -i 's/MinProtocol = TLSv1.2/MinProtocol = TLSv1/' /etc/ssl/openssl.cnf && sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
+    - dotnet test TG_Hook_API/TG_Hook_API.csproj
+.build-docker:
+  stage: build-docker
+  dependencies:
+    - Test Build
+  tags:
+    - dotnet
+  #image: docker:latest
+  image: docker@sha256:c8bb6fa5388b56304dd770c4bc0478de81ce18540173b1a589178c0d31bfce90
+  variables:
+    DOCKER_HOST: tcp://localhost:2375
+  services:
+    - docker:18.09.7-dind
+  only:
+    - master
+  before_script:
+    - docker info
+    - docker login -u "admin" -p "admin123" https://example.invalid
+  script:
+    - IMG_NAME=$(echo "${APP_NAME}" | tr '[:upper:]' '[:lower:]')
+    #- docker pull example.invalid/target/tgbot/${IMG_NAME}
+    - echo ${CI_COMMIT_SHA:0:8}
+    - echo ${DOCKER_FILE}
+    - docker build -f DockerFiles/${DOCKER_FILE} --build-arg APP_NAME=${APP_NAME} --build-arg SHA1=${CI_COMMIT_SHA:0:8} --build-arg PIPE_ID=${CI_PIPELINE_ID} -t example.invalid/target/tgbot/${IMG_NAME} .
+    - docker tag example.invalid/target/tgbot/${IMG_NAME} example.invalid/target/tgbot/${IMG_NAME}:${CI_PIPELINE_ID}
+    - docker push example.invalid/target/tgbot/${IMG_NAME}
+    - docker push example.invalid/target/tgbot/${IMG_NAME}:${CI_PIPELINE_ID}
+#建置成docker_image
+TG_Hook_API Build:
+  extends: .build-docker
+  variables:
+    APP_NAME: TG_Hook_API
+    DOCKER_FILE: Dockerfile
+
+#觸發k8s部屬
+.deploy-to-enviroment:
+  stage: deploy-to-enviroment
+  image: alpine/helm
+  tags:
+    - dotnet
+  only:
+    - master
+  script:
+    - echo "Deploy test start ..."
+    - helm upgrade tgbot-${APP_NAME} ./helm-charts/tgbot -f ./helm-charts/tgbot/${DEPLOY_VALUES_FILE} --install --namespace ${DEPLOY_NS} 
+      --set image.repository=${APP_IMAGE}
+      --set image.tag=${CI_PIPELINE_ID}
+      --set service.port=${APP_PORT}
+      --set app.name=${APP_NAME}
+    - echo "Deploy test completed!"
+DEV TG_Hook_API Deploy:
+  needs:
+    - TG_Hook_API Build
+    - Test Build
+    - Run Test
+  dependencies:
+    - TG_Hook_API Build
+    - Test Build
+    - Run Test
+  extends: .deploy-to-enviroment
+  variables:
+    APP_NAME: tghookapi
+    APP_IMAGE: example.invalid/target/tgbot/tg_hook_api
+    APP_PORT: 80
+    DEPLOY_NS: target-dev
+    DEPLOY_VALUES_FILE: values.yaml
+Deploy to GKE:
+  when: manual
+  stage: deploy-to-gke
+  image: google/cloud-sdk:latest
+  tags:
+    - dotnet
+  # only:
+    # - master
+  before_script:
+    # No helm in google/cloud-sdk, need to install it
+    - apt-get update && apt-get install vim wget -y
+    - wget -q -O helm3.tar.gz https://get.helm.sh/helm-v3.2.3-linux-amd64.tar.gz
+    - tar -zxvf helm3.tar.gz && mv linux-amd64/helm /usr/local/bin/helm
+    # No kubectl in google/cloud-sdk, need to install it
+    - apt-get install kubectl
+    - echo $GCP_SERVICE_ACCOUNT_KEY
+    - gcloud auth activate-service-account --key-file=$GCP_SERVICE_ACCOUNT_KEY
+    - gcloud container clusters get-credentials $GKE_CLUSTER_NAME --zone $GKE_CLUSTER_ZONE --project $GCP_PROJECT
+    - kubectl get nodes
+  script:
+    - kubectl config get-contexts
+    - echo "Deploy to gke start ..."
+    - helm upgrade tgbot-${APP_NAME} ./helm-charts/tgbot -f ./helm-charts/tgbot/${DEPLOY_VALUES_FILE} --install --namespace ${DEPLOY_NS} 
+      --set image.repository=${APP_IMAGE}
+      --set image.tag=${CI_PIPELINE_ID}
+      --set service.port=${APP_PORT}
+      --set app.name=${APP_NAME}
+    - echo "Deploy to gke completed!"
+    # Pass the image name & tag name into yaml file
+    # - sed -i "s|<IMAGE_NAME>|$IMAGE_NAME|g" deploy/gke/deploy.yaml
+    # - sed -i "s|<IMAGE_TAG>|$IMAGE_TAG|g" deploy/gke/deploy.yaml
+    # - kubectl apply -f deploy/gke/deploy.yaml
+  variables:
+    GKE_CLUSTER_NAME: xsgcasino-cluster
+    GKE_CLUSTER_ZONE: asia-southeast1-a
+    GCP_PROJECT: tp-wz3-online
+    APP_NAME: tghookapi
+    APP_IMAGE: example.invalid/target/tgbot/tg_hook_api
+    APP_PORT: 80
+    DEPLOY_NS: tgbot
+    DEPLOY_VALUES_FILE: values-prod.yaml

@@ -1,0 +1,24 @@
+{
+  "name": "tars",
+  "version": "1.0.0",
+  "description": "前台/後台回歸測試（Playwright），供 QA clone 後以 UI 模式執行",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "playwright test",
+    "ui": "playwright test --ui",
+    "report": "playwright show-report",
+    "report:history": "node scripts/open-history.mjs",
+    "codegen": "playwright codegen",
+    "install:browsers": "playwright install",
+    "postinstall": "playwright install chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.62.1",
+    "@types/node": "^22.10.0",
+    "dotenv": "^16.4.7"
+  }
+}

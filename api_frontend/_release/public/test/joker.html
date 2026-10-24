@@ -1,0 +1,20 @@
+<form  method="post" action="http://example.invalid">
+
+</form>
+<script src="https://example.invalid/jquery-3.4.1.min.js"></script>
+<script>
+$.ajaxSetup({
+   headers:{
+      'Authorization': "Bearer [REDACTED]"
+   }
+});
+ $.post("https://example.invalid/api/getGameUrl",{"key":"5d7908b9d961bda4703826d877428a7b","params":"Uhtnbep4ZdsFfo+haCsIIfYk8AGPq1\/7oqtoJzZL9k8GOu6oEkGmGrbmRmgO1tAtch26XelJU\/ckkBySvhTswA=="}, function(data) { 
+ if(data.code == 1000){
+ $("form").attr("action",data.data);
+ $("form").submit();
+ }else{
+ alert(data.message+', Please reload page.');
+ }
+ console.log(data);
+ },'json');
+</script>

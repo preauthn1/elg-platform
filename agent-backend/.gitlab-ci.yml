@@ -1,0 +1,26 @@
+# 對齊 apis 的 CI 時機：只有 MR pipeline、develop / cicd/stage-build 的 push、tag（release_N）會起 pipeline。
+# feature 分支 push 不起（合併前由 MR 把關）；main 的 push 也不起——MR 合入 main 的內容 MR pipeline 已驗過，
+# 且 main 不觸發 build / deploy，再跑一次純重複；合併後的把關由 release tag pipeline 負責。
+# tag pipeline 的 CI_PIPELINE_SOURCE 同樣是 push，靠 CI_COMMIT_BRANCH 只在 branch pipeline 有值來區分。
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "push" && ($CI_COMMIT_BRANCH == "develop" || $CI_COMMIT_BRANCH == "cicd/stage-build")
+    - if: $CI_PIPELINE_SOURCE == "push" && $CI_COMMIT_BRANCH
+      when: never
+    - when: always
+
+variables:
+  # Artifact Registry 路徑（與 apis 一致）；image 全名 = ${AR_PATH}/${CI_PROJECT_PATH}
+  AR_PATH: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024
+
+stages:
+  - lint
+  - build
+  - deploy
+
+include:
+  - local: .gitlab-ci/templates/_cache.yml
+  - local: .gitlab-ci/lint/quality.yml
+  - local: .gitlab-ci/build/build.yml
+  - local: .gitlab-ci/deploy/release.yml

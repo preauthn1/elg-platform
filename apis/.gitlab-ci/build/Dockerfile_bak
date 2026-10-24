@@ -1,0 +1,31 @@
+FROM asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+
+# Update openssl config (same as your code)
+COPY .gitlab-ci/build/openssl.cnf /etc/ssl/openssl.cnf
+
+# Install intl for Filament
+RUN apt-get update -yqq \
+    && apt-get install -yqq libicu-dev \
+    && docker-php-ext-install intl
+
+WORKDIR /app
+
+# -----------------------------
+# Step 1: Cache Composer Install
+# -----------------------------
+# Copy only composer files (不帶程式碼 → cache 不會被破壞)
+COPY composer.json composer.lock ./
+
+RUN composer install --no-dev --no-scripts --prefer-dist --optimize-autoloader
+
+# -----------------------------
+# Step 2: Copy App Code
+# -----------------------------
+COPY . .
+
+# -----------------------------
+# Step 3: Re-run scripts / Filament Asset Build
+# -----------------------------
+RUN composer dump-autoload --optimize
+
+RUN php artisan filament:assets

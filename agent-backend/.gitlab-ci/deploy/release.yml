@@ -1,0 +1,72 @@
+# ──────────────────────────────────────────────────────────────────────────
+# deploy stage：觸發 project 526（gff-cicd/gffv3）執行 helm deploy 到 k8s
+# 移植自 apis/.gitlab-ci/build/build.yml release-dev job。
+# ──────────────────────────────────────────────────────────────────────────
+
+release-dev:
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "develop"
+      when: on_success
+  needs:
+    - build
+  tags:
+    - php8
+  variables:
+    PRIVATE_TOKEN: [REDACTED]
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - apk add --update --no-cache curl jq bash git
+  script:
+    - git checkout ${CI_COMMIT_BRANCH}
+    - git pull
+    - LATEST_COMMIT_SHA=$(git rev-parse HEAD)
+    - LATEST_COMMIT_SHORT_SHA=$(git rev-parse --short=8 HEAD)
+    - LATEST_COMMIT_TITLE=$(git log -1 --pretty=%B | head -n 1)
+    - echo "Triggering project 526 deploy for ${CI_PROJECT_PATH}@${LATEST_COMMIT_SHORT_SHA}"
+    - 'json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=main -F "variables[SRC_PROJECT]=${CI_PROJECT_PATH}" -F "variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH}" -F "variables[Message]=${LATEST_COMMIT_TITLE}" -F "variables[SRC_SHA]=${LATEST_COMMIT_SHA}" -F "variables[SRC_SHORT_SHA]=${LATEST_COMMIT_SHORT_SHA}" ${REPO_ENV_URL})'
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - 'echo "Pipeline URL: $web_url"'
+    - chmod +x .gitlab-ci/build/checkstatus.sh
+    - ./.gitlab-ci/build/checkstatus.sh $pipeline_id
+    - 'echo "Deploy completed. Pipeline URL: $web_url"'
+
+# ──────────────────────────────────────────────────────────────────────────
+# release-prod：release_N tag 觸發，trigger project 526 帶 SRC_COMMIT_TAG，
+# 由 gffv3 側 .gitlab-ci-jobs/deploy-to-prods/*.yaml 的
+# agent-backend job（rule：SRC_PROJECT == target/gffv3/agent-backend 且
+# SRC_COMMIT_TAG =~ ^release_\d+$）產生各品牌 manual 閘門。
+# 移植自 apis/.gitlab-ci/build/build.yml release-prod job：
+# - tag pipeline 直接用 CI_COMMIT_* 內建變數（不 git checkout/pull——tag 無 branch）
+# - 不輪詢下游 pipeline 狀態（下游 prod job 為 when: manual，會停在人工閘門，
+#   輪詢只會空等），僅印出下游 URL 供人工進入選擇目標環境
+# ──────────────────────────────────────────────────────────────────────────
+release-prod:
+  image: alpine:3.12.12
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^release_\d+$/
+      when: on_success
+  needs:
+    - build
+  tags:
+    - php8
+  variables:
+    PRIVATE_TOKEN: [REDACTED]
+    REPO_ENV_TOKEN: [REDACTED]
+    REPO_ENV_URL: http://example.invalid:1688/api/v4/projects/526/trigger/pipeline
+  before_script:
+    - echo ${REPO_ENV_URL}
+    - echo ${CI_COMMIT_REF_NAME}
+    - echo ${CI_COMMIT_TAG}
+    - apk add --update --no-cache curl jq bash
+  script:
+    - 'json=$(curl -s --fail -X POST -F token=[REDACTED] -F ref=main -F "variables[SRC_PROJECT]=${CI_PROJECT_PATH}" -F "variables[SRC_COMMIT_BRANCH]=${CI_COMMIT_BRANCH}" -F "variables[SRC_COMMIT_TAG]=${CI_COMMIT_TAG}" -F "variables[Message]=${CI_COMMIT_TITLE}" -F "variables[SRC_SHA]=${CI_COMMIT_SHA}" -F "variables[SRC_SHORT_SHA]=${CI_COMMIT_SHORT_SHA}" ${REPO_ENV_URL})'
+    - echo $json
+    - pipeline_id=$(echo $json | jq .id)
+    - web_url=$(echo $json | jq .web_url)
+    - 'echo "For production deployment, please visit $web_url to select your target environment"'

@@ -1,0 +1,127 @@
+# MR 審批制度：合進預設分支（master）的 MR，動到名單上的路徑就要由作者以外的審核人核准。
+# 判定規則與定位（防疏忽、不防刻意繞過）見 .gitlab-ci/approval/lib/approval.php 開頭，
+# 與其他合併關卡共用的部分（最後一次推 commit 的時間、執行 git）在 .gitlab-ci/lib/；
+# 審核人名單在 .gitlab/approval-rules.json。
+#
+# 生效開關：專案 CI 變數 APPROVAL_ENFORCE。"true" 是正式模式（沒通過不能合併）；
+# 其他值或沒設是試行模式（只顯示警告，合併後檢查也不發 Slack）。兩種模式都自動跑。切換只改變數，不必發 MR。
+#
+# job 名稱刻意用中文白話：MR 頁面只顯示 job 名稱與成敗、不顯示 log。
+
+.approval_base:
+  image: asia-east1-docker.pkg.dev/tp-wz3-rd/bucket2024/target/docker-base/phpbase/8:latest
+  tags:
+    - php8
+  variables:
+    # 安裝 git 時不要嘗試開互動介面，否則 log 會多一串 debconf 警告
+    DEBIAN_FRONTEND: noninteractive
+  before_script:
+    # 檢查要用 git 算出變更檔案；映像檔沒有 git 時才安裝
+    - command -v git > /dev/null || (apt-get update -qq && apt-get install -y -qq git > /dev/null)
+
+# 名單、檢查程式或共用程式（.gitlab-ci/lib/）有改動時，跑判定測試，並確認名單與下方 rules: changes 的路徑一致。
+核准名單檢查:
+  extends: .approval_base
+  stage: lint
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      changes:
+        - .gitlab/approval-rules.json
+        - .gitlab-ci/approval/**/*
+        - .gitlab-ci/lib/**/*
+  script:
+    - php .gitlab-ci/approval/approval-check-test.php
+    - php .gitlab-ci/lib/merge-gate-test.php
+    - php .gitlab-ci/approval/approval-check.php sync
+
+# 只有動到名單上路徑的 MR 才會出現這個 job；沒動到的 MR 照常合併。
+# job 在 pipeline 建立時自動跑；審核人核准後，在 MR 頁面按「Run pipeline」開新的 pipeline 就會重新查。
+# 沒有有效核准時，來源分支以 hotfix/ 開頭才緊急放行（MR 標籤不列入判斷），合併後發 Slack 提醒在 1 個工作天內補審。
+# CI 只看得到路徑、看不到內容：動到的審核路徑只改了註解或排版（PHP 檔）時 job 仍會出現，跑完直接通過。
+# 路徑清單要和 .gitlab/approval-rules.json 一致（「核准名單檢查」會比對），
+# 名單的「目錄/」在這裡寫成「目錄/」後面再接 ** 與 /*，因為這裡的 * 不跨目錄。
+# needs: [] — 不等測試跑完，核准的結果越早看到越好；自動合併仍會等整條 pipeline 通過。
+需要審核人核准:
+  extends: .approval_base
+  stage: approval
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH && $APPROVAL_ENFORCE == "true"
+      changes: &approval_paths
+        # approval-paths:begin
+        # 金流
+        - "app/Services/Payment/**/*"
+        - "app/Http/Controllers/External/CashFlow/**/*"
+        - "app/Services/WithdrawalPayoutService.php"
+        - "app/Services/WithdrawalPayoutManualService.php"
+        - "app/Services/WithdrawalPayoutQueryService.php"
+        - "app/Services/DepositService.php"
+        - "app/Http/Controllers/Frontend/DepositController.php"
+        - "app/Http/Controllers/Frontend/AutoDepositController.php"
+        # 遊戲對接
+        - "app/Vendors/**/*"
+        - "app/Http/Controllers/External/SingleWallets/**/*"
+        - "app/Http/Controllers/External/TransferWallets/**/*"
+        # 活動系統
+        - "app/Services/EventV2/**/*"
+        - "app/Enums/EventV2/**/*"
+        - "app/Enums/Event/**/*"
+        - "app/Models/EventV2*.php"
+        - "app/Http/Controllers/Agent/EventController.php"
+        - "app/Http/Controllers/Agent/EventV2Controller.php"
+        - "app/Http/Controllers/Frontend/Event*Controller.php"
+        - "app/Http/Requests/Agent/EventV2/**/*"
+        - "app/Http/Requests/Frontend/EventV2/**/*"
+        - "app/Http/Requests/Frontend/Event/**/*"
+        - "app/Http/Resources/Agent/EventV2/**/*"
+        - "app/Http/Resources/Frontend/EventV2/**/*"
+        - "app/Services/EventService.php"
+        - "app/Services/EventJackpotService.php"
+        - "app/Services/EventNewInviteService.php"
+        - "app/Services/EventTotalBetRecordService.php"
+        - "app/Services/Frontend/EventInvite/**/*"
+        - "app/Services/Frontend/EventProgressiveJackpot/**/*"
+        - "app/Services/Agent/EventListService.php"
+        # 會員提款與風控
+        - "app/Services/WithdrawalService.php"
+        - "app/Services/WithdrawalFee.php"
+        - "app/Services/WithdrawalFeeResolver.php"
+        - "app/Services/MemberRestrictionGuard.php"
+        - "app/Services/IpRestrictionGuard.php"
+        - "app/Http/Controllers/Frontend/WithdrawalController.php"
+        # Olympus 後台
+        - "app/Filament/**/*"
+        - "app/Providers/Filament/**/*"
+        - "resources/views/filament/**/*"
+        - "config/filament.php"
+        # 資料表結構
+        - "database/migrations/**/*"
+        # Stored procedure
+        - "database/procedures/**/*"
+        # CI 設定
+        - ".gitlab-ci.yml"
+        - ".gitlab-ci/**/*"
+        - ".gitlab/**/*"
+        # approval-paths:end
+      allow_failure: false
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event" && $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == $CI_DEFAULT_BRANCH
+      changes: *approval_paths
+      allow_failure: true
+  script:
+    # 淺層 clone 可能沒有 MR 的起點 commit，先抓 target branch（與 lint:commit-message 同做法）
+    - git fetch --quiet origin "$CI_MERGE_REQUEST_TARGET_BRANCH_NAME"
+    - php .gitlab-ci/approval/approval-check.php check
+
+# 合併後檢查：社群版不能在合併當下再檢查一次（例如核准檢查通過後審核人又取消核准），
+# 所以合併進預設分支後回頭確認。沒有有效核准就合併（含 hotfix 分支緊急放行的）、查不到合併時間、
+# 或檢查本身失敗，都發 Slack。試行模式只印在 job log，不發 Slack。
+# allow_failure: true — Slack 不通不能擋 pipeline。
+合併後檢查核准:
+  extends: .approval_base
+  stage: lint
+  needs: []
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH && $CI_PIPELINE_SOURCE == "push"
+  script:
+    - php .gitlab-ci/approval/approval-check.php audit
+  allow_failure: true

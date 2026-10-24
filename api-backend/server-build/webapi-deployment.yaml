@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-webapi-deployment
+spec:
+  selector:
+    matchLabels:
+      app: backend-webapi
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: backend-webapi
+    spec:
+      volumes:
+        - name: shared-files
+          emptyDir: {}
+      containers:
+        - name: backend-nginx-container
+          image: "example.invalid/tp-wz3-rd/backend-webapi-nginx-image:latest"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: backend-fluentd-container
+          image: "example.invalid/tp-wz3-rd/backend-webapi-fluentd-image:latest"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+        - name: backend-webapi-container
+          image: "example.invalid/tp-wz3-rd/backend-webapi-image:latest"
+          volumeMounts:
+            - name: shared-files
+              mountPath: /var/www/html
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cp -r /app/. /var/www/html; cd /var/www/html; php artisan migrate; chmod -R 777 storage"]

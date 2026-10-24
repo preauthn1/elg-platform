@@ -1,0 +1,30 @@
+.mysql_variable:
+  variables: &mysql_variable
+    MYSQL_DATABASE: xsgcasino_testing
+    MYSQL_ROOT_PASSWORD: [REDACTED]
+    DB_HOST_READ: mysql
+    DB_HOST_WRITE: mysql
+
+.mysql_log_variable:
+  variables: &mysql_log_variable
+    LOG_MYSQL_DATABASE: xsgcasino_testing_log
+
+.redis_variable:
+  variables: &redis_variable
+    REDIS_HOST: redis
+    REDIS_PORT: 6379
+
+# 避免合併錯誤
+.combine_variables: &combine_variables
+  <<: *mysql_variable
+  <<: *mysql_log_variable
+  <<: *redis_variable
+  GIT_DEPTH: 0
+
+.default_variables:
+  variables: *combine_variables
+
+# PHP 記憶體限制設定（用於 CI/CD 環境）
+.php_memory_variable:
+  variables:
+    PHP_MEMORY_LIMIT: "2G"  # CI/CD 環境使用 2GB，足夠處理大型遷移和 composer 操作

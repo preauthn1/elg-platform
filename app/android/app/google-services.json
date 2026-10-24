@@ -1,0 +1,659 @@
+{
+  "project_info": {
+    "project_number": "790734316752",
+    "firebase_url": "https://example.invalid",
+    "project_id": "everluckgames",
+    "storage_bucket": "example.invalid"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:d0ef723b67c6a36a3aead5",
+        "android_client_info": {
+          "package_name": "com.aceworld.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:dff387f0e09d079a3aead5",
+        "android_client_info": {
+          "package_name": "com.deluxeclub.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:355b644d93ff39ab3aead5",
+        "android_client_info": {
+          "package_name": "com.ewallet.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:d3a1de30ac2669dd3aead5",
+        "android_client_info": {
+          "package_name": "com.hm.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:15cb4443abbe1b863aead5",
+        "android_client_info": {
+          "package_name": "com.hmlogo.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:cd979cd99c9399573aead5",
+        "android_client_info": {
+          "package_name": "com.mmgames.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:e91eca17b4ac8e913aead5",
+        "android_client_info": {
+          "package_name": "com.redbull.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:219009bf170373f03aead5",
+        "android_client_info": {
+          "package_name": "com.super2000.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:999dea01203d0c4e3aead5",
+        "android_client_info": {
+          "package_name": "com.v6.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:3c38ee52b8905b9c3aead5",
+        "android_client_info": {
+          "package_name": "com.v7.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:45729f6fd859f9763aead5",
+        "android_client_info": {
+          "package_name": "com.v8.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:8ae654b04d1c3e593aead5",
+        "android_client_info": {
+          "package_name": "com.vclass.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:4317eda7bd95a05a3aead5",
+        "android_client_info": {
+          "package_name": "com.vworld.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:41331d96ed3181e73aead5",
+        "android_client_info": {
+          "package_name": "com.vworlddev.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:69d6bb428748650f3aead5",
+        "android_client_info": {
+          "package_name": "com.vworldsg.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:a4f61ac4aa7808e43aead5",
+        "android_client_info": {
+          "package_name": "com.vworldvn.android01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:f5a79ec9057016703aead5",
+        "android_client_info": {
+          "package_name": "com.xsg.vworld"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:790734316752:android:90fae441c6b14f613aead5",
+        "android_client_info": {
+          "package_name": "com.xsg.vworldAgent"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "example.invalid",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIza[REDACTED]"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "example.invalid",
+              "client_type": 3
+            },
+            {
+              "client_id": "example.invalid",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.v6.ios01"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,261 @@
+# Default values for api-frontend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+configs:
+  data:
+    _init.php: |
+      <?php
+      error_reporting(E_ERROR);
+      session_start();
+
+      define("BASE_URL", "/");
+      define("API_DOMAIN", "https://example.invalid/");
+      // define("BASE_URL", "/backend_web/");
+      // define("API_DOMAIN", "https://localhost/backend/public/");
+      define("MD5_KEY", "&zSMvVTK4gbDvCcU");
+      define("AES_KEY", "M53B?xKnTVtVnjM^");
+      define("AES_VI", "3579653693526433");
+      define("DEFAULT_LANGUAGE", "en");
+
+      //加IP訪問限制
+      if(getenv('HTTP_CLIENT_IP') && strcasecmp(getenv('HTTP_CLIENT_IP'), 'unknown')) {
+          $userip = getenv('HTTP_CLIENT_IP');
+          //  echo "1:".$userip."<br>";
+      } elseif(getenv('HTTP_X_FORWARDED_FOR') && strcasecmp(getenv('HTTP_X_FORWARDED_FOR'), 'unknown')) {
+          $userip = explode(",", getenv('HTTP_X_FORWARDED_FOR'))[0];
+          //  echo "2:".$userip."<br>";
+      } elseif(getenv('REMOTE_ADDR') && strcasecmp(getenv('REMOTE_ADDR'), 'unknown')) {
+          $userip = getenv('REMOTE_ADDR');
+          //  echo "3:".$userip."<br>";
+      } elseif(isset($_SERVER['REMOTE_ADDR']) && $_SERVER['REMOTE_ADDR'] && strcasecmp($_SERVER['REMOTE_ADDR'], 'unknown')) {
+          $userip = $_SERVER['REMOTE_ADDR'];
+          //  echo "4:".$userip."<br>";
+      }
+      $ips = ['0.0.0.0','0.0.0.0','0.0.0.0','0.0.0.0','0.0.0.0','0.0.0.0'];
+      if (!in_array($userip,$ips)){
+      	echo '您的IP不在允許存取範圍:'.$userip;
+      	exit;
+      }
+
+      // 記錄語系
+      if (isset($_COOKIE['language'])) {
+          $language = $_COOKIE['language'];
+      } else if (isset($_SESSION['language'])) {
+          $language = $_SESSION['language'];
+      } else {
+          $language = DEFAULT_LANGUAGE;
+      }
+      if (file_exists($_SERVER['DOCUMENT_ROOT'] . BASE_URL . 'lang/' . $language . '.php')) {
+          require_once ($_SERVER['DOCUMENT_ROOT'] . BASE_URL . 'lang/' . $language . '.php');
+      } else {
+          require_once ($_SERVER['DOCUMENT_ROOT'] . BASE_URL . 'lang/en.php');
+      }
+
+      require_once ($_SERVER['DOCUMENT_ROOT'] . BASE_URL . 'function.php');
+      if (! isLogin() && ! strpos($_SERVER['PHP_SELF'], 'login') !== false) {
+          header("location:" . BASE_URL . "login.php");
+          exit();
+      }
+
+      // 因為國家變動小，所以單次登入暫時只讀一次
+      if (! isset($_SESSION['country']) && isLogin()) {
+          $country = curlPost('api/country/list');
+          foreach ($country['data'] as $row) {
+              $_SESSION['country'][$row['id']] = $row['name'];
+          }
+      }
+      if (!isset($_SESSION['LANGUAGE']) && isLogin()) {
+          $language = curlPost('api/languages');
+          foreach ($language['data'] as $row) {
+              $_SESSION['LANGUAGE'][$row['code']] = ['id' => $row['id'], 'name' => $row['name'], 'description' => $row['name'], 'color' => 'bg-danger', 'icon' => strtoupper(substr($row['code'], 0, 1))];
+          }
+      }
+      $_LANGUAGES = $_SESSION['LANGUAGE'];
+      ?>
+    nginx.conf: |
+      # For more information on configuration, see:
+      #   * Official English Documentation: http://example.invalid/en/docs/
+      #   * Official Russian Documentation: http://example.invalid/ru/docs/
+
+      user nginx;
+      worker_processes auto;
+      error_log /var/log/nginx/error.log;
+      pid /run/nginx.pid;
+      # daemon off;
+
+      # Load dynamic modules. See /usr/share/nginx/README.dynamic.
+      include /usr/share/nginx/modules/*.conf;
+
+      events {
+          worker_connections 1024;
+      }
+
+      http {
+          log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                            '$status $body_bytes_sent "$http_referer" '
+                            '"$http_user_agent" "$http_x_forwarded_for"';
+
+          access_log  /var/log/nginx/access.log  main;
+
+          sendfile            on;
+          tcp_nopush          on;
+          tcp_nodelay         on;
+          keepalive_timeout   65;
+          types_hash_max_size 2048;
+
+          include             /etc/nginx/mime.types;
+          default_type        application/octet-stream;
+
+          # Load modular configuration files from the /etc/nginx/conf.d directory.
+          # See http://example.invalid/en/docs/ngx_core_module.html#include
+          # for more information.
+          include /etc/nginx/conf.d/*.conf;
+
+          server {
+              listen       80 default_server;
+              listen       [::]:80 default_server;
+              server_name  _;
+              root         /var/www/html;
+      	    index        login.php index.php login.html index.html;
+
+              if ($http_x_forwarded_proto = 'http') {
+                  rewrite ^ https://$host$request_uri? permanent;
+              }
+
+              add_header X-Frame-Options "SAMEORIGIN";
+              add_header X-XSS-Protection "1; mode=block";
+              add_header X-Content-Type-Options "nosniff";
+
+              # Load configuration files for the default server block.
+              include /etc/nginx/default.d/*.conf;
+
+              location /www {
+               #   root    /var/www/html;
+                  alias   /var/www/html;
+                  #index   index.php login.php
+              }
+
+              location / {
+              try_files $uri $uri/ /index.html;
+              }
+              location = /favicon.ico { access_log off; log_not_found off; }
+              location = /robots.txt  { access_log off; log_not_found off; }
+              error_page 404 /index.html;
+
+              location ~ \.php$ {
+                  fastcgi_pass   0.0.0.0:9000;
+                  fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+                  include        fastcgi_params;
+              }
+
+              error_page 404 /404.html;
+                  location = /40x.html {
+              }
+
+              error_page 500 502 503 504 /50x.html;
+                  location = /50x.html {
+              }
+          }
+
+      # Settings for a TLS enabled server.
+      #
+      #    server {
+      #        listen       443 ssl http2 default_server;
+      #        listen       [::]:443 ssl http2 default_server;
+      #        server_name  _;
+      #        root         /var/www/html;
+      #
+      #        ssl_certificate "/etc/pki/nginx/server.crt";
+      #        ssl_certificate_key "/etc/pki/nginx/private/server.key";
+      #        ssl_session_cache shared:SSL:1m;
+      #        ssl_session_timeout  10m;
+      #        ssl_ciphers HIGH:!aNULL:!MD5;
+      #        ssl_prefer_server_ciphers on;
+      #
+      #        # Load configuration files for the default server block.
+      #        include /etc/nginx/default.d/*.conf;
+      #
+      #        location / {
+      #        }
+      #
+      #        error_page 404 /404.html;
+      #            location = /40x.html {
+      #        }
+      #
+      #        error_page 500 502 503 504 /50x.html;
+      #            location = /50x.html {
+      #        }
+      #    }
+
+      }
+
+image:
+  repository: example.invalid/tp-wz3-rd/target/web-backend
+  tag: latest
+  pullPolicy: IfNotPresent
+
+imagePullSecrets:
+  - name: gcrcred
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name:
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    example.invalid/ingress.class: nginx
+    example.invalid/proxy-body-size: "0"
+    # example.invalid/ingress.class: nginx
+    # example.invalid/tls-acme: "true"
+  hosts:
+    - host: example.invalid
+      paths:
+        - /
+  tls: []
+  #  - secretName: chart-example-tls
+  #    hosts:
+  #      - chart-example.local
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+  # requests:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}

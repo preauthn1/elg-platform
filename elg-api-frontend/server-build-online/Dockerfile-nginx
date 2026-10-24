@@ -1,0 +1,23 @@
+from centos:centos7.6.1810
+
+RUN rpm -Uvh https://example.invalid/pub/epel/epel-release-latest-7.noarch.rpm
+RUN yum -y install nginx
+
+COPY server-build-online/nginx.conf /etc/nginx/nginx.conf
+COPY server-build-online/service.sh /tmp/service.sh
+COPY _release/laravel-echo-server.json.pro /tmp/laravel-echo-server.json
+
+RUN yum -y install telnet
+RUN yum -y install epel-release
+RUN yum -y install supervisor
+RUN yum -y install nodejs
+RUN npm -y install -g laravel-echo-server@1.5.8
+
+RUN npm install n -g
+RUN n 10.16.3
+
+RUN chmod 777 /tmp/service.sh
+CMD ["/bin/sh", "-c" ,"/tmp/service.sh"]
+ENTRYPOINT ["/bin/sh", "-c" ,"/tmp/service.sh"]
+
+#CMD ["nginx"]
