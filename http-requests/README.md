@@ -1,6 +1,8 @@
 # http-requests
 
-原始路径：`http-requests`　|　文件：**3**　|　主语言：PHP 1, JavaScript 1, HTML 1
+> 本目录原始 README 见文末，本节为快照补充信息。
+
+原始路径：`http-requests`　|　文件 **3**　|　主语言：PHP 1, JavaScript 1, HTML 1
 
 ## 目录构成
 
@@ -13,13 +15,56 @@ Requests/Vendor_APIs/  — 1
 
 - 前端入口：`EncryptServer/index.html`
 
-## 主要文件
+---
 
-- `EncryptServer/index.html`
-- `EncryptServer/server.js`
-- `Requests/Vendor_APIs/SingleWallets/scripts/BoracayFish.php`
+## 原始说明
 
-## 说明
+# 測試專用 Http 請求
+## 套件
+[vscode REST Client](https://example.invalid/items?itemName=humao.rest-client)
 
-该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
+## 使用
+`Send Request` 點下去就對了
+
+![Send Request](image.png)
+
+## 修改
+用 ### 分隔
+```http
+### local decrypt
+POST http://0.0.0.0:8000/api/sw/megawin/decrypt 
+method: AuthenticateToken
+mwCode: v6GrP1zZ
+
+{
+    "key": "BBBBB",
+    "data": "AAAAAA"
+}
+```
+
+# Encrypt Server
+各 project 的 API params 加密，算是 `/api/debug/AES/encrypt` 這隻 API 的替代方案
+
+因涉及資料複製與傳輸，為確保資料安全與防止中間人攻擊，必須使用 HTTPS 運行，請確保 SSL 憑證正確無誤。
+
+## 準備 SSL 憑證
+
+1. 請將 `server.crt` 和 `server.key` 檔案放置於目錄：
+   
+   ```
+   /EncryptServer/certs
+   ```
+
+2. 檔案結構如下：
+
+   ```
+   /EncryptServer
+   └── certs
+       ├── server.crt
+       └── server.key
+   ```
+## 運行專案
+   ```bash
+   node ./EncryptServer/server.js
+   ```
 

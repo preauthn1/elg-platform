@@ -1,6 +1,6 @@
 # elg-platform
 
-53 个工程，154963 个文本文件。每个目录内的 README.md 描述该工程。
+55 个工程，154963 个文本文件。每目录一份 README（结构信息 + 原始说明）。
 
 ## 索引
 
@@ -42,12 +42,14 @@
 | [`http-requests`](./http-requests) | EncryptServer · Requests/Vendor_APIs | 3 | PHP |
 | [`magic-mirror`](./magic-mirror) | src · docs/superpowers · test | 26 | JavaScript |
 | [`official-website`](./official-website) | pgs/zh-cn · pgs/en · GFF/zh-cn | 383 | HTML |
+| [`postman`](./postman) | — | 0 | — |
 | [`rd-studio`](./rd-studio) | _release/app · _release/public · _release | 520 | PHP |
 | [`resource`](./resource) | src/Clients · src/Exceptions · config | 6 | PHP |
 | [`sbs77official`](./sbs77official) | cn/css · hk/css · en/css | 38 | CSS |
 | [`seo-site`](./seo-site) | src/components · build-scripts · src/views | 34 | Vue |
 | [`smsgateway`](./smsgateway) | controller · gateway · docs | 26 | Go |
 | [`tars`](./tars) | pages/frontend · pages/backend · tests/dangerous | 41 | TypeScript |
+| [`ticket_tasks`](./ticket_tasks) | — | 0 | — |
 | [`toolkit`](./toolkit) | php73/svcs · php73 · php83 | 17 | Shell |
 | [`tpower-official`](./tpower-official) | admin/js · assets/yes2win · server/lib | 90 | JavaScript |
 | [`tpower.game`](./tpower.game) | cn/css · my/css · en/css | 39 | CSS |

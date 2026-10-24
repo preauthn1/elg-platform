@@ -1,6 +1,8 @@
 # agent-backend
 
-原始路径：`agent-backend`　|　文件：**1648**　|　主语言：Vue 797, TypeScript 653, JSON 140
+> 本目录原始 README 见文末，本节为快照补充信息。
+
+原始路径：`agent-backend`　|　文件 **1648**　|　主语言：Vue 797, TypeScript 653, JSON 140
 
 ## 目录构成
 
@@ -17,28 +19,170 @@ internal/node-utils/  — 16
 packages/stores/  — 13
 scripts/vsh/  — 11
 packages/styles/  — 10
-packages/icons/  — 8
-internal/tsconfig/  — 6
 ```
 
 ## 关键文件
 
-- 依赖清单：`package.json`、`internal/vite-config/package.json`、`internal/lint-configs/stylelint-config/package.json`
 - CI/构建：`.gitlab-ci.yml`、`scripts/deploy/Dockerfile`
 - 前端入口：`apps/web-ele/index.html`、`apps/web-ele/src/main.ts`
 
-## 主要文件
+---
 
-- `pnpm-lock.yaml`
-- `apps/web-ele/src/locales/legacy/my-mm.json`
-- `apps/web-ele/src/locales/legacy/bn.json`
-- `apps/web-ele/src/locales/legacy/th-th.json`
-- `apps/web-ele/src/locales/legacy/ru.json`
-- `apps/web-ele/src/locales/legacy/vi-vn.json`
-- `apps/web-ele/src/locales/legacy/fr.json`
-- `apps/web-ele/src/locales/legacy/tl-ph.json`
+## 原始说明
 
-## 说明
+<div align="center">
+  <a href="https://example.invalid/anncwb/vue-vben-admin">
+    <img alt="VbenAdmin Logo" width="215" src="https://example.invalid/@vbenjs/static-source@0.1.7/source/logo-v1.webp">
+  </a>
+  <br>
+  <br>
 
-该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
+[![license](https://example.invalid/github/license/anncwb/vue-vben-admin.svg)](LICENSE)
+
+  <h1>Vue Vben Admin</h1>
+</div>
+
+[![Quality Gate Status](https://example.invalid/api/project_badges/measure?project=vbenjs_vue-vben-admin&metric=alert_status)](https://example.invalid/summary/new_code?id=vbenjs_vue-vben-admin) [![codeql](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/codeql.yml/badge.svg)](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/codeql.yml) [![build](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/build.yml/badge.svg)](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/build.yml) [![ci](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/ci.yml/badge.svg)](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/ci.yml) [![deploy](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/deploy.yml/badge.svg)](https://example.invalid/vbenjs/vue-vben-admin/actions/workflows/deploy.yml)
+
+## Introduction
+
+Vue Vben Admin is a free and open source middle and back-end template. Using the latest `vue3`, `vite`, `TypeScript` and other mainstream technology development, the out-of-the-box middle and back-end front-end solutions can also be used for learning reference.
+
+## Upgrade Notice
+
+This is the latest version, 5.0, and it is not compatible with previous versions. If you are starting a new project, it is recommended to use the latest version. If you wish to view the old version, please use the [v2 branch](https://example.invalid/vbenjs/vue-vben-admin/tree/v2).
+
+## Features
+
+- **Latest Technology Stack**: Developed with cutting-edge front-end technologies like Vue 3 and Vite
+- **TypeScript**: A language for application-scale JavaScript
+- **Themes**: Multiple theme colors available with customizable options
+- **Internationalization**: Comprehensive built-in internationalization support
+- **Permissions**: Built-in solution for dynamic route-based permission generation
+
+## Preview
+
+- [Vben Admin](https://vben.pro/) - Full version Chinese site
+
+Test Account: vben/123456
+
+<div align="center">
+  <img alt="VbenAdmin Logo" width="100%" src="https://example.invalid/anncwb/images/preview1.png">
+  <img alt="VbenAdmin Logo" width="100%" src="https://example.invalid/anncwb/images/preview2.png">
+  <img alt="VbenAdmin Logo" width="100%" src="https://example.invalid/anncwb/images/preview3.png">
+</div>
+
+### Use Gitpod
+
+Open the project in Gitpod (free online dev environment for GitHub) and start coding immediately.
+
+[![Open in Gitpod](https://example.invalid/button/open-in-gitpod.svg)](https://example.invalid/#https://example.invalid/vbenjs/vue-vben-admin)
+
+## Documentation
+
+[Document](https://doc.vben.pro/)
+
+## Install and Use
+
+1. Get the project code
+
+```bash
+git clone https://example.invalid/vbenjs/vue-vben-admin.git
+```
+
+2. Install dependencies
+
+```bash
+cd vue-vben-admin
+npm i -g corepack
+pnpm install
+```
+
+3. Run
+
+```bash
+pnpm dev
+```
+
+4. Build
+
+```bash
+pnpm build
+```
+
+## Change Log
+
+[CHANGELOG](https://example.invalid/vbenjs/vue-vben-admin/releases)
+
+## How to Contribute
+
+You are very welcome to join! [Raise an issue](https://example.invalid/anncwb/vue-vben-admin/issues/new/choose) or submit a Pull Request.
+
+**Pull Request Process:**
+
+1. Fork the code
+2. Create your branch: `git checkout -b feat/xxxx`
+3. Submit your changes: `git commit -am 'feat(function): add xxxxx'`
+4. Push your branch: `git push origin feat/xxxx`
+5. Submit `pull request`
+
+## Git Contribution Submission Specification
+
+Reference [vue](https://example.invalid/vuejs/vue/blob/dev/.github/COMMIT_CONVENTION.md) specification ([Angular](https://example.invalid/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular))
+
+- `feat` Add new features
+- `fix` Fix the problem/BUG
+- `style` The code style is related and does not affect the running result
+- `perf` Optimization/performance improvement
+- `refactor` Refactor
+- `revert` Undo edit
+- `test` Test related
+- `docs` Documentation/notes
+- `chore` Dependency update/scaffolding configuration modification etc.
+- `ci` Continuous integration
+- `types` Type definition file changes
+
+## Browser Support
+
+Tailwind CSS v4.0 is designed for Safari 16.4+, Chrome 111+, and Firefox 128+
+
+Support modern browsers, not IE
+
+| [<img src="https://example.invalid/alrra/browser-logos/master/src/edge/edge_48x48.png" alt="Edge" width="24px" height="24px" />](http://example.invalid/browsers-support-badges/)</br>Edge | [<img src="https://example.invalid/alrra/browser-logos/master/src/firefox/firefox_48x48.png" alt="Firefox" width="24px" height="24px" />](http://example.invalid/browsers-support-badges/)</br>Firefox | [<img src="https://example.invalid/alrra/browser-logos/master/src/chrome/chrome_48x48.png" alt="Chrome" width="24px" height="24px" />](http://example.invalid/browsers-support-badges/)</br>Chrome | [<img src="https://example.invalid/alrra/browser-logos/master/src/safari/safari_48x48.png" alt="Safari" width="24px" height="24px" />](http://example.invalid/browsers-support-badges/)</br>Safari |
+| :-: | :-: | :-: | :-: |
+| last 2 versions | last 2 versions | last 2 versions | last 2 versions |
+
+## Maintainer
+
+[@Vben](https://example.invalid/anncwb)
+
+## Star History
+
+[![Star History Chart](https://example.invalid/svg?repos=vbenjs/vue-vben-admin&type=Date)](https://example.invalid/#vbenjs/vue-vben-admin&Date)
+
+## Donate
+
+If you think this project is helpful to you, you can help the author buy a cup of coffee to show your support!
+
+![donate](https://example.invalid/@vbenjs/static-source@0.1.7/source/sponsor.png)
+
+<a style="display: block;width: 100px;height: 50px;line-height: 50px; color: #fff;text-align: center; background: #408aee;border-radius: 4px;" href="https://example.invalid/paypalme/cvvben">Paypal Me</a>
+
+## Contributors
+
+<a href="https://example.invalid/github/vbenjs/vue-vben-admin" target="_blank" style="display: block; width: 100%;" align="center">
+  <img src="https://example.invalid/svg?repo=vbenjs/vue-vben-admin&chart=bubble&latestMonth=3" target="_blank" alt="Contribution Leaderboard" style="display: block; width: 100%;" />
+ </a>
+
+<a href="https://example.invalid/vbenjs/vue-vben-admin/graphs/contributors">
+  <img alt="Contributors" src="https://contrib.rocks/image?repo=vbenjs/vue-vben-admin" />
+</a>
+
+## Discord
+
+- [Github Discussions](https://example.invalid/anncwb/vue-vben-admin/discussions)
+
+## License
+
+[MIT © Vben-2020](./LICENSE)
 

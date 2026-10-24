@@ -1,6 +1,8 @@
 # smsgateway
 
-原始路径：`smsgateway`　|　文件：**26**　|　主语言：Go 20, YAML 4, JSON 1
+> 本目录原始 README 见文末，本节为快照补充信息。
+
+原始路径：`smsgateway`　|　文件 **26**　|　主语言：Go 20, YAML 4, JSON 1
 
 ## 目录构成
 
@@ -19,20 +21,36 @@ db/model/  — 1
 
 ## 关键文件
 
-- CI/构建：`docker-compose.yml`、`Dockerfile`
+- CI/构建：`Dockerfile`
 
-## 主要文件
+---
 
-- `db/mysql/crud.go`
-- `docs/docs.go`
-- `gateway/nexmo.go`
-- `gateway/tata.go`
-- `controller/verification_code.go`
-- `pkg/uid/uid.go`
-- `pkg/httputil/post_to_url.go`
-- `controller/controller.go`
+## 原始说明
 
-## 说明
+# SMSGateway 
 
-该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
+Gen doc
+
+```console
+$ go get -u example.invalid/swaggo/swag/cmd/swag
+$ swag init
+```
+
+release 設定檔
+
+```console
+config/config.yaml
+templates/verification_code.template
+```
+
+debug 設定檔
+
+```console
+config/config.yaml
+config/internal_config.yaml
+docs/
+templates/verification_code.template
+```
+
+[open swagger](http://localhost:8080/swagger/index.html)
 

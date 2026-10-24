@@ -1,6 +1,8 @@
 # alfawin77official
 
-原始路径：`alfawin77official`　|　文件：**39**　|　主语言：CSS 18, JavaScript 12, HTML 5
+> 本目录原始 README 见文末，本节为快照补充信息。
+
+原始路径：`alfawin77official`　|　文件 **39**　|　主语言：CSS 18, JavaScript 12, HTML 5
 
 ## 目录构成
 
@@ -22,18 +24,9 @@ en/  — 1
 - 前端入口：`index.html`、`cn/index.html`、`id/index.html`
 - CI/构建：`.gitlab-ci.yml`、`git-ftp/Dockerfile`
 
-## 主要文件
+---
 
-- `cn/js/jquery-3.5.1.min.js`
-- `id/js/jquery-3.5.1.min.js`
-- `en/js/jquery-3.5.1.min.js`
-- `cn/js/slick.min.js`
-- `id/js/slick.min.js`
-- `en/js/slick.min.js`
-- `cn/css/style.css`
-- `id/css/style.css`
+## 原始说明
 
-## 说明
-
-该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
+# www.alfawin77.club
 

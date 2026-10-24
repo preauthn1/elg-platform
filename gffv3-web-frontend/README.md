@@ -1,6 +1,8 @@
 # gffv3-web-frontend
 
-原始路径：`gffv3-web-frontend`　|　文件：**675**　|　主语言：Vue 332, TypeScript 289, JSON 42
+> 本目录原始 README 见文末，本节为快照补充信息。
+
+原始路径：`gffv3-web-frontend`　|　文件 **675**　|　主语言：Vue 332, TypeScript 289, JSON 42
 
 ## 目录构成
 
@@ -17,27 +19,41 @@ i18n/locales/  — 14
 server/api/  — 10
 app/utils/  — 10
 server/utils/  — 9
-app/plugins/  — 6
-shared/types/  — 4
 ```
 
 ## 关键文件
 
-- 依赖清单：`package.json`
 - CI/构建：`Dockerfile`、`.gitlab-ci.yml`
 
-## 主要文件
+---
 
-- `pnpm-lock.yaml`
-- `i18n/locales/my-mm.json`
-- `i18n/locales/bn.json`
-- `i18n/locales/en.json`
-- `i18n/locales/ms-my.json`
-- `i18n/locales/vi-vn.json`
-- `i18n/locales/zh-tw.json`
-- `i18n/locales/zh-cn.json`
+## 原始说明
 
-## 说明
+# web-frontend
 
-该工程为平台的一个组件。仅收录文本源码与配置，图片、音频等二进制资源未收录；凭据、密钥、内网地址与域名已按实际内容替换。
+新前台：Nuxt 4 SSR + TypeScript + pnpm。
+
+動手前先看 [`CLAUDE.md`](CLAUDE.md)。
+
+## 開發
+
+```bash
+pnpm install
+cp .env.example .env   # 填 NUXT_API_* 與 NUXT_SESSION_PASSWORD
+pnpm dev               # http://localhost:8080
+```
+
+本機沒有正式域名，用 `NUXT_DEV_HOST_OVERRIDE` 指定所有請求視為哪個 Host。
+`GET /api/_site`（僅開發環境）可看解析出來的站台。
+
+## 檢查
+
+```bash
+pnpm check       # lint + typecheck + test
+```
+
+## 部署
+
+`Dockerfile` 多階段建置，執行 `node .output/server/index.mjs`（port 3000）。
+所有品牌共用同一個 image，差異全在環境變數。
 
